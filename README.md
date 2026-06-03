@@ -1,16 +1,84 @@
-# 🎬 HyperFrames — Vídeos explicativos com Claude Code
+# 🎬 Skill `video-explicativo` — Vídeos explicativos com Claude Code
 
-Curso completo, no formato **INEMA.CLUB**, sobre a Skill **`video-explicativo`**: como criar vídeos
-explicativos narrados (HTML → MP4) com o Claude Code e o framework [HyperFrames](https://github.com/heygen-com/hyperframes) —
-animados, em PT-BR, renderizados **localmente, sem chave de API**, nos formatos 16:9 (YouTube) e 9:16 (Shorts/Reels).
+Repositório da Skill **`video-explicativo`** (Claude Code) + o **curso completo** no formato
+**INEMA.CLUB** que ensina a usá-la. A Skill cria vídeos explicativos narrados (**HTML → MP4**) com o
+framework [HyperFrames](https://github.com/heygen-com/hyperframes) — animados, em **PT-BR**, renderizados
+**localmente, sem chave de API**, nos formatos **16:9** (YouTube) e **9:16** (Shorts/Reels).
 
-> Este curso nasceu de um vídeo que foi, ele mesmo, **feito por uma Skill**.
+> Este projeto nasceu de um vídeo que foi, ele mesmo, **feito por uma Skill**.
 
-## 🌐 Acesse o curso
+---
 
-**https://inematds.github.io/skill-video-explicativo/**
+## 📦 A Skill
 
-## 📚 As 4 trilhas
+A Skill `video-explicativo` está incluída neste repositório:
+
+- **Pasta navegável:** [`skill/video-explicativo/`](skill/video-explicativo/)
+- **Download (.zip):** [`downloads/video-explicativo.zip`](downloads/video-explicativo.zip)
+
+### Instalação
+
+Copie a pasta da skill para um dos diretórios que o Claude Code lê:
+
+```bash
+# Global (vale para todos os projetos)
+cp -r skill/video-explicativo ~/.claude/skills/
+
+# OU por projeto
+cp -r skill/video-explicativo .claude/skills/
+```
+
+Ou baixe e descompacte o `.zip`:
+
+```bash
+unzip downloads/video-explicativo.zip -d ~/.claude/skills/
+```
+
+### Como usar
+
+Depois de instalada, basta pedir um vídeo ao Claude Code em linguagem natural:
+
+> *"faça um vídeo explicativo sobre X, em 16:9 e 9:16, terminando com a CTA do INEMA.CLUB."*
+
+A Skill dispara automaticamente em pedidos como *"fazer um vídeo"*, *"vídeo explicativo"*,
+*"vídeo sobre X"*, *"vídeo pra Shorts/Reels"*, *"mini tutorial em vídeo"* ou *"vídeo do INEMA"*.
+
+### Pré-requisitos
+
+Roda 100% local, sem chave de API. Você precisa de:
+
+- **Node 22+** e **FFmpeg** (no git-bash, use `ffmpeg -nostdin`).
+- **Chrome headless** do HyperFrames: `npx hyperframes browser ensure`.
+- **TTS local Kokoro:** `pip install kokoro-onnx soundfile` (voz PT-BR `pf_dora`, sem espeak-ng).
+- Diagnóstico: `npx hyperframes doctor`.
+
+### O que a Skill faz (pipeline HTML → MP4)
+
+1. **Roteiro** — `SCRIPT.md` com 6–9 cenas, do primeiro princípio ao avançado, narração curta por cena.
+2. **Projeto** — `npx hyperframes init` + house style dark premium.
+3. **Fontes** — baixa `.woff2` locais (Sora / Inter / JetBrains Mono).
+4. **Narração** — gera os WAVs por cena com Kokoro (voz `pf_dora`).
+5. **Composição** — monta as cenas em HTML + animação GSAP (timing único = áudio batido com a animação).
+6. **Validação** — `hyperframes lint` + `inspect` (0 erros de layout).
+7. **Render** — gera **16:9** e **9:16** em `--quality high`, sempre terminando com a **cena de CTA do INEMA.CLUB**.
+
+> Detalhes completos no [`skill/video-explicativo/SKILL.md`](skill/video-explicativo/SKILL.md) e nas
+> [`references/`](skill/video-explicativo/references/) (pipeline, house style, gotchas).
+
+### Stack
+- **HyperFrames** — HTML → MP4 via Chrome headless + FFmpeg
+- **Kokoro** — TTS local PT-BR (voz `pf_dora`, sem chave de API)
+- **GSAP** — animação das cenas
+
+---
+
+## 🎓 O curso
+
+Curso completo, no formato **INEMA.CLUB**, que ensina a Skill de ponta a ponta.
+
+**🌐 Acesse:** https://inematds.github.io/skill-video-explicativo/
+
+### As 4 trilhas
 
 | Trilha | Tema | O que cobre |
 |--------|------|-------------|
@@ -19,32 +87,19 @@ animados, em PT-BR, renderizados **localmente, sem chave de API**, nos formatos 
 | 🔧 **T3 — Por dentro do skill** | Avançado | Estrutura do skill, house style dark premium, o gerador `build-index.mjs`, gotchas de produção |
 | 💡 **T4 — Aplicações & Prompts** | Prático | YouTube, Shorts, onboarding, aulas, lançamentos + biblioteca de prompts prontos |
 
-## 📦 A Skill
-
-A Skill `video-explicativo` está incluída neste repositório:
-
-- Pasta navegável: [`skill/video-explicativo/`](skill/video-explicativo/)
-- Download: [`downloads/video-explicativo.zip`](downloads/video-explicativo.zip)
-
-Instale copiando a pasta para `~/.claude/skills/` (global) ou `.claude/skills/` (projeto) e peça um vídeo
-ao Claude Code: *"faça um vídeo explicativo sobre X, em 16:9 e 9:16, terminando com a CTA do INEMA.CLUB."*
-
-### Stack
-- **HyperFrames** (HTML → MP4 via Chrome headless + FFmpeg)
-- **Kokoro** (TTS local PT-BR, voz `pf_dora`, sem chave de API)
-- **GSAP** (animação das cenas)
+---
 
 ## 🗂️ Estrutura do repositório
 
 ```
-index.html                 # Landing
+index.html                 # Landing do curso
 curso/
   index.html               # Índice das trilhas
   trilha1..4/
     index.html             # Índice da trilha (mapa + módulos)
-    modulo-X-Y.html        # Páginas de módulo (16 no total)
-skill/video-explicativo/   # A Skill, navegável
-downloads/                 # .zip da Skill
+    modulo-X-Y.html        # Páginas de módulo (17 no total)
+skill/video-explicativo/   # A Skill, navegável (SKILL.md + scripts + references)
+downloads/                 # video-explicativo.zip (a Skill empacotada)
 ```
 
 ---

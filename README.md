@@ -72,6 +72,80 @@ Roda 100% local, sem chave de API. Você precisa de:
 
 ---
 
+## 🎨 Customização (o que está fixo na Skill)
+
+A Skill tem **padrões fixos** (CTA do INEMA.CLUB, paleta dark âmbar, voz, formatos). Há dois níveis pra mudar:
+
+- **Por vídeo** (recomendado): a Skill copia o template como `build-index.mjs` no seu projeto — edite lá, sem alterar a Skill.
+- **Mudar o padrão de todos os vídeos**: edite os arquivos da Skill em
+  [`skill/video-explicativo/scripts/`](skill/video-explicativo/scripts/) (e reinstale).
+
+> Arquivo principal: [`scripts/composition-template.mjs`](skill/video-explicativo/scripts/composition-template.mjs)
+> (no projeto, vira `build-index.mjs`).
+
+### 1. Mudar a CTA (INEMA.CLUB → outra marca/URL)
+
+A CTA é a **última cena** (`scene9()` / `case 9`) do `composition-template.mjs`. O texto fica em `scene9()`:
+
+```js
+function scene9() {
+  return `
+    <div class="cta-eyebrow" id="s9-eye">CONTINUA EM</div>
+    <div class="cta-brand" id="s9-brand"><span class="b1">SUA</span><span class="bdotsep">.</span><span class="b2">MARCA</span></div>
+    <div class="rule center" id="s9-rule"></div>
+    <div class="cta-url mono" id="s9-url"><span class="cta-globe">🌐</span>suamarca.com</div>
+    ...`;
+}
+```
+
+- `b1` = parte clara (creme), `b2` + `bdotsep` = parte âmbar (accent). Edite o texto dentro dos spans.
+- `cta-eyebrow` = "CONTINUA EM"; `cta-url` = a URL exibida.
+- **Narração da CTA**: está no áudio da última cena — edite `assets/txt/s9.txt` do projeto e gere o WAV de novo (expanda a URL pra fala, ex.: "sua marca ponto com"). Veja [`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh).
+- **Estilo da CTA**: regras CSS `.cta-eyebrow` / `.cta-brand` / `.cta-url` (tamanho da marca, glow etc.) no mesmo arquivo.
+- Para **remover** a CTA: tire `scene9` do array `BODIES`, o `case 9` e ajuste `AUDIO[]`/`CAPTIONS[]`. (O padrão da casa é **sempre manter** a CTA.)
+
+### 2. Cores / paleta (dark premium âmbar)
+
+Tokens CSS no topo do `composition-template.mjs` (bloco `:root`):
+
+```css
+--bg:#0D1321; --bg2:#1D2D44; --line:#3E5C76;
+--fg:#F0EBD8; --muted:#748CAB;
+--accent:#FFC300; --accent2:#FCA311; --code:#2EC4B6;
+```
+
+Troque `--accent`/`--accent2` para mudar a cor de destaque em todas as cenas. Referência completa em
+[`references/house-style.md`](skill/video-explicativo/references/house-style.md).
+
+### 3. Fontes
+
+Padrão: **Sora** (títulos), **Inter** (corpo), **JetBrains Mono** (código/URLs), baixadas localmente por
+[`scripts/fetch-fonts.mjs`](skill/video-explicativo/scripts/fetch-fonts.mjs). Edite a lista nesse script
+para trocar as famílias (use sempre fontes locais `@font-face` — Google Fonts CDN some no render).
+
+### 4. Voz da narração (TTS)
+
+Definida em [`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh):
+
+```bash
+npx -y hyperframes tts "txt/s$i.txt" --voice pf_dora --speed 0.98 --output "audio/s$i.wav"
+```
+
+Mude `--voice` (vozes Kokoro) e `--speed` para outra locução.
+
+### 5. Formato (16:9 / 9:16)
+
+Controlado pela flag `--vertical` ao rodar o gerador (`1920×1080` vs `1080×1920`):
+
+```bash
+node build-index.mjs            # 16:9
+node build-index.mjs --vertical # 9:16
+```
+
+Ajustes específicos do vertical ficam nas regras CSS `body.v ...`.
+
+---
+
 ## 🎓 O curso
 
 Curso completo, no formato **INEMA.CLUB**, que ensina a Skill de ponta a ponta.

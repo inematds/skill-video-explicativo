@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.2 — House style dark premium | HyperFrames · INEMA.CLUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <style>
+    /* === FONTES LOCAIS .woff2 (subset latin cobre PT-BR) — NUNCA CDN === */
+    @font-face{font-family:'Sora';font-style:normal;font-weight:700;font-display:block;src:url('../../assets/fonts/Sora-700.woff2') format('woff2');}
+    @font-face{font-family:'Sora';font-style:normal;font-weight:800;font-display:block;src:url('../../assets/fonts/Sora-800.woff2') format('woff2');}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:block;src:url('../../assets/fonts/Inter-400.woff2') format('woff2');}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:block;src:url('../../assets/fonts/Inter-500.woff2') format('woff2');}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:block;src:url('../../assets/fonts/Inter-600.woff2') format('woff2');}
+    @font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:block;src:url('../../assets/fonts/Inter-700.woff2') format('woff2');}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:block;src:url('../../assets/fonts/JetBrainsMono-400.woff2') format('woff2');}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:block;src:url('../../assets/fonts/JetBrainsMono-600.woff2') format('woff2');}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:block;src:url('../../assets/fonts/JetBrainsMono-700.woff2') format('woff2');}
+
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento purple */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .text-amber-300 { color: #b45309; }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .text-emerald-300 { color: #047857; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* mono code */
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .sora { font-family: 'Sora', sans-serif; }
+    pre, code { font-family: 'JetBrains Mono', monospace; }
+    /* SVG animations */
+    @keyframes m32-flow { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m32-pulse { 0%,100% { opacity:.3 } 50% { opacity:1 } }
+    @keyframes m32-breathe { 0%,100% { opacity:.6; transform: scale(1); } 50% { opacity:1; transform: scale(1.06); } }
+    @keyframes m32-drift { 0% { transform: translateX(0); } 50% { transform: translateX(8px); } 100% { transform: translateX(0); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m32-anim-flow { animation: m32-flow 3s linear infinite; }
+      .m32-anim-pulse { animation: m32-pulse 2.8s ease-in-out infinite; }
+      .m32-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m32-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m32-anim-breathe { animation: m32-breathe 4s ease-in-out infinite; }
+      .m32-anim-drift { animation: m32-drift 6s ease-in-out infinite; }
+    }
+    /* swatch */
+    .swatch { width: 100%; height: 56px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+          <a href="../trilha4/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicações</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <nav class="flex items-center space-x-2 text-sm text-neutral-500">
+      <a href="../../index.html" class="hover:text-purple-400 transition-colors">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400 transition-colors">Trilha 3 — Por dentro</a>
+      <span>/</span>
+      <span class="text-purple-400 font-medium">Módulo 3.2</span>
+    </nav>
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MÓDULO 3.2</span>
+        <h1 class="sora text-3xl sm:text-4xl font-extrabold text-neutral-100 mb-3">🎨 House style dark premium</h1>
+        <p class="text-neutral-400 text-lg mb-6">Paleta, tipografia, camada de fundo e escala de vídeo — o sistema visual que torna cada cena inconfundível.</p>
+        <div class="grid grid-cols-4 gap-4">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">6</div>
+            <div class="text-xs text-neutral-400">Tópicos</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">22</div>
+            <div class="text-xs text-neutral-400">Minutos</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">Avançado</div>
+            <div class="text-xs text-neutral-400">Nível</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-400">Referência</div>
+            <div class="text-xs text-neutral-400">Tipo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+
+    <!-- ═══════════════════════════════════════════════════
+         SVG FUTURISTA — Paleta dark premium como sistema visual
+    ═══════════════════════════════════════════════════ -->
+    <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4">
+      <svg viewBox="0 0 720 300" class="w-full h-auto" role="img" aria-label="Diagrama futurista da paleta dark premium do HyperFrames: camadas bg, texto, acento âmbar e código ciano" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="m32-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0D1321;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#1D2D44;stop-opacity:1"/>
+          </linearGradient>
+          <linearGradient id="m32-purple-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1"/>
+          </linearGradient>
+          <linearGradient id="m32-amber-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#FFC300;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#FCA311;stop-opacity:1"/>
+          </linearGradient>
+          <filter id="m32-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="m32-amber-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- fundo -->
+        <rect width="720" height="300" fill="url(#m32-bg-grad)" rx="14"/>
+        <!-- grid hairline -->
+        <g stroke="#3E5C76" stroke-width="0.4" opacity="0.3">
+          <line x1="0" y1="75" x2="720" y2="75"/>
+          <line x1="0" y1="150" x2="720" y2="150"/>
+          <line x1="0" y1="225" x2="720" y2="225"/>
+          <line x1="180" y1="0" x2="180" y2="300"/>
+          <line x1="360" y1="0" x2="360" y2="300"/>
+          <line x1="540" y1="0" x2="540" y2="300"/>
+        </g>
+        <!-- ghost text decorativo -->
+        <text x="560" y="260" font-family="Inter,sans-serif" font-size="72" font-weight="800" fill="#F0EBD8" opacity="0.04" class="m32-anim-drift">DARK</text>
+        <!-- glow radial âmbar -->
+        <ellipse cx="360" cy="150" rx="160" ry="80" fill="#FFC300" opacity="0.04" class="m32-anim-breathe"/>
+        <!-- camadas empilhadas: bg, bg2, fg, accent, code -->
+        <!-- bg layer -->
+        <rect x="30" y="40" width="120" height="50" rx="8" fill="#0D1321" stroke="#3E5C76" stroke-width="1.5"/>
+        <text x="90" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#748CAB">--bg</text>
+        <text x="90" y="77" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#F0EBD8">#0D1321</text>
+        <!-- bg2 layer -->
+        <rect x="30" y="110" width="120" height="50" rx="8" fill="#1D2D44" stroke="#3E5C76" stroke-width="1.5"/>
+        <text x="90" y="131" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#748CAB">--bg2</text>
+        <text x="90" y="147" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#F0EBD8">#1D2D44</text>
+        <!-- borda -->
+        <rect x="30" y="180" width="120" height="50" rx="8" fill="#3E5C76" stroke="#748CAB" stroke-width="1"/>
+        <text x="90" y="201" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#0D1321">--bg3</text>
+        <text x="90" y="217" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#0D1321">#3E5C76</text>
+        <!-- fg / texto -->
+        <rect x="190" y="40" width="140" height="50" rx="8" fill="#F0EBD8" stroke="#748CAB" stroke-width="1.5"/>
+        <text x="260" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#0D1321">--fg</text>
+        <text x="260" y="77" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#0D1321">#F0EBD8</text>
+        <!-- muted -->
+        <rect x="190" y="110" width="140" height="50" rx="8" fill="#1D2D44" stroke="#748CAB" stroke-width="1.5"/>
+        <text x="260" y="131" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#748CAB">--muted</text>
+        <text x="260" y="147" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#748CAB">#748CAB</text>
+        <!-- accent âmbar — destaque -->
+        <rect x="380" y="40" width="160" height="80" rx="10" fill="#FFC300" filter="url(#m32-amber-glow)" class="m32-anim-breathe"/>
+        <text x="460" y="76" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="800" fill="#0D1321">--accent ÚNICO</text>
+        <text x="460" y="95" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" font-weight="700" fill="#0D1321">#FFC300</text>
+        <!-- accent2 -->
+        <rect x="380" y="140" width="160" height="50" rx="8" fill="#FCA311" stroke="#FFC300" stroke-width="1.5"/>
+        <text x="460" y="161" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#0D1321">--accent2</text>
+        <text x="460" y="177" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#0D1321">#FCA311</text>
+        <!-- code ciano -->
+        <rect x="560" y="40" width="140" height="50" rx="8" fill="#0e1b26" stroke="#2EC4B6" stroke-width="1.5" filter="url(#m32-glow)"/>
+        <text x="630" y="61" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#2EC4B6">--code</text>
+        <text x="630" y="77" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#2EC4B6">#2EC4B6</text>
+        <!-- seta fluxo âmbar domina -->
+        <path d="M460 220 L460 260" stroke="#FFC300" stroke-width="2" stroke-dasharray="6,4" class="m32-anim-flow" fill="none"/>
+        <polygon points="455,258 460,268 465,258" fill="#FFC300"/>
+        <text x="460" y="284" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#FFC300">UM accent. Sempre.</text>
+        <!-- label sistema -->
+        <text x="190" y="195" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#748CAB" opacity="0.7" class="m32-anim-pulse">FUNDO</text>
+        <text x="260" y="195" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#748CAB" opacity="0.7" class="m32-anim-pulse">TEXTO</text>
+        <text x="90" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="#748CAB" opacity="0.7" class="m32-anim-pulse">BORDAS</text>
+      </svg>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 1 — A Paleta
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-1" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">1</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">🎨 A Paleta</h2>
+            <p class="text-neutral-400 mt-1">Oito variáveis CSS. Uma por papel. Zero improvisação.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-6">O house style não é uma lista de cores bonitas — é um <strong class="text-purple-400">sistema com papel definido</strong> para cada tom. Fundo de noite (<code class="mono text-xs bg-dark-700 px-1 rounded">#0D1321</code>), painéis ligeiramente mais claros, borda sutil, texto creme quente, muted para hierarquia, e <strong class="text-amber-400">âmbar como accent único dominante</strong>. O ciano (<code class="mono text-xs bg-dark-700 px-1 rounded">#2EC4B6</code>) é reservado exclusivamente para código e valores técnicos.</p>
+
+        <!-- Swatches visuais -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+          <div>
+            <div class="swatch" style="background:#0D1321;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--bg</div>
+            <div class="mono text-xs text-neutral-500">#0D1321</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#1D2D44;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--bg2</div>
+            <div class="mono text-xs text-neutral-500">#1D2D44</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#3E5C76;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--bg3 / borda</div>
+            <div class="mono text-xs text-neutral-500">#3E5C76</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#F0EBD8; border:2px solid #3E5C76;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--fg</div>
+            <div class="mono text-xs text-neutral-500">#F0EBD8</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#748CAB;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--muted</div>
+            <div class="mono text-xs text-neutral-500">#748CAB</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#FFC300;" class="m32-anim-breathe"></div>
+            <div class="mt-1 text-xs text-amber-400 font-semibold">--accent ★</div>
+            <div class="mono text-xs text-amber-400">#FFC300</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#FCA311;"></div>
+            <div class="mt-1 text-xs text-neutral-400">--accent2</div>
+            <div class="mono text-xs text-neutral-500">#FCA311</div>
+          </div>
+          <div>
+            <div class="swatch" style="background:#2EC4B6;"></div>
+            <div class="mt-1 text-xs text-cyan-400">--code</div>
+            <div class="mono text-xs text-cyan-400">#2EC4B6</div>
+          </div>
+        </div>
+
+        <!-- Box :root real do gerador -->
+        <div class="rounded-xl bg-dark-900 border border-purple-500/30 p-4 mb-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-semibold text-purple-400 mono">:root do composition-template.mjs</span>
+          </div>
+          <pre class="mono text-xs text-cyan-400 overflow-x-auto leading-relaxed"><code>:root {
+  --bg:      #0D1321;   /* azul-noite – NUNCA preto puro */
+  --bg2:     #1D2D44;   /* painéis e cards */
+  --bg3:     #3E5C76;   /* bordas e divisores */
+  --fg:      #F0EBD8;   /* texto creme quente */
+  --muted:   #748CAB;   /* secundário / hierarquia */
+  --accent:  #FFC300;   /* âmbar — destaque ÚNICO */
+  --accent2: #FCA311;   /* âmbar quente p/ gradientes */
+  --code:    #2EC4B6;   /* verde-água — só código/valores */
+}</code></pre>
+        </div>
+
+        <!-- grid ✓/✗ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          <div class="rounded-xl bg-emerald-900/10 border border-emerald-500/20 p-4">
+            <div class="text-emerald-400 font-semibold mb-3 text-sm">✓ FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Usar <code class="mono text-xs bg-dark-700 px-1 rounded">#0D1321</code> como fundo em todas as cenas</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Âmbar <strong>só para</strong> o accent dominante (CTAs, destaques)</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Ciano <strong>só para</strong> código, URLs e valores técnicos</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Fundo idêntico em todas as cenas do vídeo</li>
+            </ul>
+          </div>
+          <div class="rounded-xl bg-red-900/10 border border-red-500/20 p-4">
+            <div class="text-red-400 font-semibold mb-3 text-sm">✗ NÃO FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Usar <code class="mono text-xs bg-dark-700 px-1 rounded">#000000</code> como fundo (parece vídeo de YouTuber noob)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Misturar dois accents na mesma cena (verde + âmbar)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Usar ciano para texto decorativo</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Mudar a paleta de cena para cena</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🎨</div>
+            <div class="text-xs font-semibold text-neutral-200">8 variáveis</div>
+            <div class="text-xs text-neutral-500">papéis fixos</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg mb-1">★</div>
+            <div class="text-xs font-semibold text-neutral-200">1 accent</div>
+            <div class="text-xs text-neutral-500">âmbar dominante</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">⌨</div>
+            <div class="text-xs font-semibold text-neutral-200">ciano = código</div>
+            <div class="text-xs text-neutral-500">só técnico</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-neutral-400 text-lg mb-1">🌙</div>
+            <div class="text-xs font-semibold text-neutral-200">fundo fixo</div>
+            <div class="text-xs text-neutral-500">consistência total</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 2 — Tipografia
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-2" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">2</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">🔤 Tipografia</h2>
+            <p class="text-neutral-400 mt-1">Três fontes. Três papéis. Nenhuma ambiguidade.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-5">O sistema usa <strong class="text-purple-400">Sora</strong> para headlines (peso 700–800, escala vídeo 72–172px em 16:9), <strong class="text-neutral-100">Inter</strong> para corpo e interface (28–42px), e <strong class="text-cyan-400 mono">JetBrains Mono</strong> para código, URLs e labels técnicos. As três fontes têm <code class="mono text-xs bg-dark-700 px-1 rounded">.woff2</code> locais — o gerador nunca faz request para CDN em runtime.</p>
+
+        <!-- Visualização tipográfica -->
+        <div class="rounded-xl bg-dark-900 border border-purple-500/30 p-5 mb-5">
+          <div class="mb-3">
+            <div class="text-xs text-neutral-500 mb-1 mono">Sora 800 · headline 64–172px</div>
+            <div class="sora font-extrabold text-4xl text-neutral-100 leading-tight">House style<br><span class="text-amber-400">dark premium.</span></div>
+          </div>
+          <div class="border-t border-dark-600 my-4"></div>
+          <div class="mb-3">
+            <div class="text-xs text-neutral-500 mb-1 mono">Inter 400 · corpo 28–42px</div>
+            <div class="text-neutral-300 text-lg leading-relaxed">O corpo usa Inter em peso regular ou medium.<br>Legível em tela grande, sem distração.</div>
+          </div>
+          <div class="border-t border-dark-600 my-4"></div>
+          <div>
+            <div class="text-xs text-neutral-500 mb-1 mono">JetBrains Mono · código e URLs</div>
+            <div class="mono text-cyan-400 text-base">node build-index.mjs --vertical</div>
+            <div class="mono text-amber-400 text-sm mt-1">🌐 inema.club</div>
+          </div>
+        </div>
+
+        <!-- Box conceito principal -->
+        <div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5 mb-5">
+          <div class="text-purple-400 font-semibold mb-2">Conceito principal — Por que fontes locais?</div>
+          <p class="text-neutral-300 text-sm">Durante a renderização com Chrome headless, a página não pode fazer requests externos. Se a fonte vier de CDN, o Chrome renderiza com fallback — e o vídeo some no render. O script <code class="mono text-xs bg-dark-700 px-1 rounded">fetch-fonts.mjs</code> baixa as <code class="mono text-xs bg-dark-700 px-1 rounded">.woff2</code> (subset latin) e gera <code class="mono text-xs bg-dark-700 px-1 rounded">assets/fonts/fonts.css</code> com <code class="mono text-xs bg-dark-700 px-1 rounded">@font-face</code> local antes de qualquer renderização.</p>
+        </div>
+
+        <!-- Box de código @font-face real -->
+        <div class="rounded-xl bg-dark-900 border border-cyan-500/30 p-4 mb-5">
+          <div class="text-xs text-cyan-400 font-semibold mb-2 mono">@font-face gerado por fetch-fonts.mjs</div>
+          <pre class="mono text-xs text-cyan-400 overflow-x-auto leading-relaxed"><code>@font-face{font-family:'Sora';font-style:normal;font-weight:700;
+  font-display:block;src:url('./fonts/Sora-700.woff2') format('woff2');}
+@font-face{font-family:'Sora';font-style:normal;font-weight:800;
+  font-display:block;src:url('./fonts/Sora-800.woff2') format('woff2');}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;
+  font-display:block;src:url('./fonts/Inter-400.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;
+  font-display:block;src:url('./fonts/JetBrainsMono-400.woff2') format('woff2');}
+/* subset: latin — cobre PT-BR: á à â ã é ê í ó ô õ ú ç */</code></pre>
+        </div>
+
+        <!-- timeline -->
+        <div class="mb-5">
+          <div class="text-sm font-semibold text-neutral-300 mb-3">Fluxo: fontes locais no pipeline</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold flex-shrink-0">1</div>
+              <span class="text-sm text-neutral-300"><code class="mono text-xs bg-dark-700 px-1 rounded">node fetch-fonts.mjs</code> — baixa .woff2, gera <code class="mono text-xs bg-dark-700 px-1 rounded">fonts.css</code></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold flex-shrink-0">2</div>
+              <span class="text-sm text-neutral-300"><code class="mono text-xs bg-dark-700 px-1 rounded">build-index.mjs</code> — injeta <code class="mono text-xs bg-dark-700 px-1 rounded">readFileSync("fonts.css")</code> no HTML</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold flex-shrink-0">3</div>
+              <span class="text-sm text-neutral-300">Chrome headless carrega HTML — fontes já inline, zero CDN</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0">✓</div>
+              <span class="text-sm text-neutral-300">Frame renderizado com Sora perfeita — sem fallback</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="sora font-bold text-lg text-neutral-100 mb-1">Sora</div>
+            <div class="text-xs text-neutral-500">700–800 · títulos</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="font-medium text-lg text-neutral-300 mb-1">Inter</div>
+            <div class="text-xs text-neutral-500">400–700 · corpo</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="mono text-cyan-400 text-lg mb-1">Mono</div>
+            <div class="text-xs text-neutral-500">JetBrains · código</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg mb-1">📦</div>
+            <div class="text-xs font-semibold text-neutral-200">.woff2 local</div>
+            <div class="text-xs text-neutral-500">nunca CDN</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 3 — Camada de Fundo Persistente
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-3" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">3</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">🌌 Camada de Fundo Persistente</h2>
+            <p class="text-neutral-400 mt-1">O fundo que respira — sempre presente, nunca competindo.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-5">Cada cena tem uma <strong class="text-purple-400">camada de fundo persistente</strong> marcada com <code class="mono text-xs bg-dark-700 px-1 rounded">data-layout-ignore</code>. Ela nunca é reposicionada pelo layout engine. Contém quatro elementos: glow radial âmbar respirando, ghost text gigante driftando, grid hairline e grão (ruído SVG). Juntos criam profundidade sem distrair.</p>
+
+        <!-- Box alerta -->
+        <div class="rounded-xl bg-red-900/10 border border-red-500/30 p-4 mb-5">
+          <div class="text-red-400 font-semibold mb-1 text-sm">⚠ Atenção: data-layout-ignore</div>
+          <p class="text-sm text-neutral-300">O atributo <code class="mono text-xs bg-dark-700 px-1 rounded">data-layout-ignore</code> sinaliza ao gerador que esse elemento fica em <code class="mono text-xs bg-dark-700 px-1 rounded">position:absolute; z-index:-1</code> e não entra no flow do layout. Sem ele, o ghost text ou o glow deslocam o conteúdo real da cena.</p>
+        </div>
+
+        <!-- Code box do fundo persistente real -->
+        <div class="rounded-xl bg-dark-900 border border-purple-500/30 p-4 mb-5">
+          <div class="text-xs text-purple-400 font-semibold mb-2 mono">HTML — camada persistente (composition-template.mjs)</div>
+          <pre class="mono text-xs text-cyan-400 overflow-x-auto leading-relaxed"><code>&lt;!-- FUNDO PERSISTENTE — data-layout-ignore --&gt;
+&lt;div data-layout-ignore class="bg-layer"&gt;
+  &lt;!-- glow radial âmbar respirando --&gt;
+  &lt;div class="glow-amber"&gt;&lt;/div&gt;
+  &lt;!-- ghost text gigante driftando --&gt;
+  &lt;div class="ghost-text"&gt;DARK&lt;/div&gt;
+  &lt;!-- grid hairline --&gt;
+  &lt;svg class="grid-lines" ...&gt;&lt;/svg&gt;
+  &lt;!-- grão (SVG feTurbulence) --&gt;
+  &lt;canvas class="grain"&gt;&lt;/canvas&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <!-- CSS do fundo persistente -->
+        <div class="rounded-xl bg-dark-900 border border-cyan-500/30 p-4 mb-5">
+          <div class="text-xs text-cyan-400 font-semibold mb-2 mono">CSS — camada e animações ambiente</div>
+          <pre class="mono text-xs text-cyan-400 overflow-x-auto leading-relaxed"><code>.bg-layer {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden;
+}
+.glow-amber {
+  position: absolute; top: 40%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%; height: 40%;
+  background: radial-gradient(ellipse, #FFC300 0%, transparent 70%);
+  opacity: 0.06;
+  animation: breathe 4s ease-in-out infinite;
+}
+.ghost-text {
+  position: absolute; font-family: 'Sora', sans-serif;
+  font-size: 172px; font-weight: 800;
+  color: #F0EBD8; opacity: 0.035;
+  animation: drift 8s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity:.04; transform: translate(-50%,-50%) scale(1); }
+  50%     { opacity:.08; transform: translate(-50%,-50%) scale(1.08); }
+}
+@keyframes drift {
+  0%   { transform: translateX(0px) translateY(0px); }
+  33%  { transform: translateX(12px) translateY(-6px); }
+  66%  { transform: translateX(-8px) translateY(4px); }
+  100% { transform: translateX(0px) translateY(0px); }
+}</code></pre>
+        </div>
+
+        <!-- tip box -->
+        <div class="rounded-xl bg-primary/10 border border-primary/40 p-4 mb-5">
+          <div class="text-primary font-semibold mb-1 text-sm">💡 Tip — Opacidade dos decorativos</div>
+          <p class="text-sm text-neutral-300">Decorativos devem ficar entre <strong class="text-amber-400">12–25% de opacidade</strong>. Abaixo de 12% some na compressão H.264. Acima de 25% compete com o conteúdo e parece amador. O ghost text fica em ~3.5% (quase invisível, só sensação de profundidade).</p>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg mb-1">🌅</div>
+            <div class="text-xs font-semibold text-neutral-200">glow âmbar</div>
+            <div class="text-xs text-neutral-500">radial respirando</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-neutral-600 text-lg mb-1">DARK</div>
+            <div class="text-xs font-semibold text-neutral-200">ghost text</div>
+            <div class="text-xs text-neutral-500">3.5% · drifting</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">⊞</div>
+            <div class="text-xs font-semibold text-neutral-200">grid hairline</div>
+            <div class="text-xs text-neutral-500">profundidade</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-neutral-500 text-lg mb-1">░</div>
+            <div class="text-xs font-semibold text-neutral-200">grão</div>
+            <div class="text-xs text-neutral-500">textura premium</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 4 — Fontes Locais .woff2
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-4" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">4</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">💾 Fontes Locais .woff2</h2>
+            <p class="text-neutral-400 mt-1">Subset latin. @font-face local. Zero CDN em render.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-5">O script <code class="mono text-xs bg-dark-700 px-1 rounded">fetch-fonts.mjs</code> usa o User-Agent do Chrome 131 para simular browser, faz request à API do Google Fonts, filtra <strong class="text-purple-400">apenas o subset latin</strong> (unicode-range <code class="mono text-xs bg-dark-700 px-1 rounded">U+0000-00FF</code> cobre todo PT-BR: á à â ã é ê í ó ô õ ú ç), baixa os <code class="mono text-xs bg-dark-700 px-1 rounded">.woff2</code> e gera <code class="mono text-xs bg-dark-700 px-1 rounded">assets/fonts/fonts.css</code>.</p>
+
+        <!-- Box dados (blue) -->
+        <div class="rounded-xl bg-blue-900/10 border border-blue-500/30 p-4 mb-5">
+          <div class="text-blue-400 font-semibold mb-2 text-sm">📊 Arquivos gerados por fetch-fonts.mjs</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="mono text-cyan-400 text-xs mb-1">Sora</div>
+              <div class="text-neutral-300">Sora-700.woff2</div>
+              <div class="text-neutral-300">Sora-800.woff2</div>
+              <div class="text-neutral-500 text-xs mt-1">~18KB cada</div>
+            </div>
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="mono text-cyan-400 text-xs mb-1">Inter</div>
+              <div class="text-neutral-300">Inter-400.woff2</div>
+              <div class="text-neutral-300">Inter-500.woff2</div>
+              <div class="text-neutral-300">Inter-600.woff2</div>
+              <div class="text-neutral-300">Inter-700.woff2</div>
+              <div class="text-neutral-500 text-xs mt-1">~14KB cada</div>
+            </div>
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="mono text-cyan-400 text-xs mb-1">JetBrains Mono</div>
+              <div class="text-neutral-300">JetBrainsMono-400.woff2</div>
+              <div class="text-neutral-300">JetBrainsMono-600.woff2</div>
+              <div class="text-neutral-300">JetBrainsMono-700.woff2</div>
+              <div class="text-neutral-500 text-xs mt-1">~22KB cada</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- grid ✓/✗ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          <div class="rounded-xl bg-emerald-900/10 border border-emerald-500/20 p-4">
+            <div class="text-emerald-400 font-semibold mb-3 text-sm">✓ FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Rodar <code class="mono text-xs bg-dark-700 px-1 rounded">node fetch-fonts.mjs</code> uma vez por projeto</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Usar <code class="mono text-xs bg-dark-700 px-1 rounded">font-display:block</code> (sem flash)</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Commitar <code class="mono text-xs bg-dark-700 px-1 rounded">assets/fonts/</code> no repositório</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Verificar subset latin com <code class="mono text-xs bg-dark-700 px-1 rounded">unicode-range</code></li>
+            </ul>
+          </div>
+          <div class="rounded-xl bg-red-900/10 border border-red-500/20 p-4">
+            <div class="text-red-400 font-semibold mb-3 text-sm">✗ NÃO FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Link para Google Fonts CDN no HTML de cena</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Usar <code class="mono text-xs bg-dark-700 px-1 rounded">font-display:swap</code> (causa flash no render)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Baixar todos os subsets (aumenta tamanho sem ganho PT-BR)</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Ignorar o .gitignore — fonts devem ser commitadas</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="mono text-cyan-400 text-sm mb-1">.woff2</div>
+            <div class="text-xs text-neutral-500">formato ideal</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🇧🇷</div>
+            <div class="text-xs font-semibold text-neutral-200">subset latin</div>
+            <div class="text-xs text-neutral-500">cobre PT-BR</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg mb-1">⚡</div>
+            <div class="text-xs font-semibold text-neutral-200">font-display:block</div>
+            <div class="text-xs text-neutral-500">sem flash</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-emerald-400 text-lg mb-1">📁</div>
+            <div class="text-xs font-semibold text-neutral-200">assets/fonts/</div>
+            <div class="text-xs text-neutral-500">local sempre</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 5 — Escala de Vídeo
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-5" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">5</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">🎬 Escala de Vídeo, Não Web</h2>
+            <p class="text-neutral-400 mt-1">8–10 elementos por cena. Headlines em 64–172px. Movimento ambiente em tudo.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-5">O maior erro ao criar vídeos com HTML é usar escala web. Em 1920×1080 com zoom 1:1, texto de 16px some. O house style define <strong class="text-purple-400">headline mínima de 64px</strong>, corpo 28–42px, e decorativos com 12–25% de opacidade para criar camadas sem poluir. <strong class="text-amber-400">8–10 elementos por cena</strong> é o limite — mais que isso cria caos visual na compressão.</p>
+
+        <!-- Box conceito principal -->
+        <div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5 mb-5">
+          <div class="text-purple-400 font-semibold mb-3">Escala de tipografia por contexto</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-2">16:9 · 1920×1080</div>
+              <div class="space-y-1 text-neutral-300">
+                <div><span class="mono text-cyan-400">headline:</span> 72–172px</div>
+                <div><span class="mono text-cyan-400">corpo:</span> 28–40px</div>
+                <div><span class="mono text-cyan-400">caption:</span> 32–36px</div>
+                <div><span class="mono text-cyan-400">kicker:</span> 20–28px</div>
+              </div>
+            </div>
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-2">9:16 · 1080×1920</div>
+              <div class="space-y-1 text-neutral-300">
+                <div><span class="mono text-cyan-400">headline:</span> 104–118px</div>
+                <div><span class="mono text-cyan-400">corpo:</span> 36–42px</div>
+                <div><span class="mono text-cyan-400">caption:</span> 38–44px</div>
+                <div><span class="mono text-cyan-400">kicker:</span> 24–32px</div>
+              </div>
+            </div>
+            <div class="bg-dark-800 rounded-lg p-3">
+              <div class="text-xs text-neutral-500 mb-2">Decorativos</div>
+              <div class="space-y-1 text-neutral-300">
+                <div><span class="mono text-cyan-400">opacidade:</span> 12–25%</div>
+                <div><span class="mono text-cyan-400">bordas:</span> 2–4px</div>
+                <div><span class="mono text-cyan-400">ghost text:</span> ~3.5%</div>
+                <div><span class="mono text-cyan-400">glow:</span> 4–8%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- tip box -->
+        <div class="rounded-xl bg-primary/10 border border-primary/40 p-4 mb-5">
+          <div class="text-primary font-semibold mb-1 text-sm">💡 Tip — Movimento ambiente</div>
+          <p class="text-sm text-neutral-300">Toda decoração tem <strong class="text-amber-400">motion ambiente</strong>: entradas 0.4–0.6s, eases variados, combinando <code class="mono text-xs bg-dark-700 px-1 rounded">transform + opacity</code>, stagger de 0.08–0.14s entre elementos. A regra é: se é decorativo, ele respira. Se é conteúdo, ele aparece uma vez e para.</p>
+        </div>
+
+        <!-- timeline de composição de cena -->
+        <div class="mb-5">
+          <div class="text-sm font-semibold text-neutral-300 mb-3">Anatomia de uma cena (8–10 elementos)</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-purple-400 w-16 flex-shrink-0">z:-1</span>
+              <span class="text-sm text-neutral-300">Camada fundo: glow + ghost + grid + grain (data-layout-ignore)</span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-amber-400 w-16 flex-shrink-0">z:1</span>
+              <span class="text-sm text-neutral-300">Kicker/label: fonte 20–28px, âmbar ou muted, 0.8s de entrada</span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-amber-400 w-16 flex-shrink-0">z:1</span>
+              <span class="text-sm text-neutral-300">Headline: Sora 800, 72–172px, branco-creme, entrada 0.4s ease-out</span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-neutral-500 w-16 flex-shrink-0">z:1</span>
+              <span class="text-sm text-neutral-300">Regra âmbar: 2–3px de altura, 0% → 100% de largura, 0.6s ease</span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-neutral-500 w-16 flex-shrink-0">z:1</span>
+              <span class="text-sm text-neutral-300">Subhead: Inter 400, 28–36px, muted, stagger 0.12s após headline</span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-cyan-400 w-16 flex-shrink-0">z:2</span>
+              <span class="text-sm text-neutral-300">Caption no rodapé: Inter 600, fundo translúcido <code class="mono text-xs bg-dark-900 px-1 rounded">#0D1321CC</code></span>
+            </div>
+            <div class="flex items-center gap-3 bg-dark-700 rounded-lg p-3">
+              <span class="mono text-xs text-cyan-400 w-16 flex-shrink-0">z:2</span>
+              <span class="text-sm text-neutral-300">Barra de progresso âmbar: 2px altura no rodapé, scaleX(progress)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg mb-1">8–10</div>
+            <div class="text-xs font-semibold text-neutral-200">elementos/cena</div>
+            <div class="text-xs text-neutral-500">máximo</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">172px</div>
+            <div class="text-xs font-semibold text-neutral-200">headline max</div>
+            <div class="text-xs text-neutral-500">16:9</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">0.4s</div>
+            <div class="text-xs font-semibold text-neutral-200">entrada rápida</div>
+            <div class="text-xs text-neutral-500">ease-out</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-neutral-400 text-lg mb-1">25%</div>
+            <div class="text-xs font-semibold text-neutral-200">decorativo max</div>
+            <div class="text-xs text-neutral-500">opacidade</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         TÓPICO 6 — A CTA INEMA.CLUB
+    ═══════════════════════════════════════════════════ -->
+    <section id="topico-6" class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden">
+      <div class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">6</div>
+          <div>
+            <h2 class="text-xl font-bold text-neutral-100">🏁 A CTA INEMA.CLUB</h2>
+            <p class="text-neutral-400 mt-1">A última cena. A assinatura padrão. Não remover jamais.</p>
+          </div>
+        </div>
+        <p class="text-neutral-300 mb-5">A scene9 (última cena de todo vídeo HyperFrames) é a <strong class="text-amber-400">CTA INEMA.CLUB</strong>: texto "CONTINUA EM" em muted, <strong class="text-neutral-100">INEMA</strong> em creme (<code class="mono text-xs bg-dark-700 px-1 rounded">--fg</code>), <strong class="text-amber-400">.CLUB</strong> em âmbar com drop-shadow glow, e <code class="mono text-cyan-400">🌐 inema.club</code> em JetBrains Mono. É a assinatura do canal — todos os vídeos terminam igual.</p>
+
+        <!-- Preview visual da CTA -->
+        <div class="rounded-xl border border-amber-500/30 p-6 mb-5" style="background:#0D1321;">
+          <div class="text-center">
+            <div class="mono text-sm mb-2" style="color:#748CAB; letter-spacing:0.2em;">CONTINUA EM</div>
+            <div class="sora font-extrabold mb-2" style="font-size:clamp(28px,5vw,56px); line-height:1;">
+              <span style="color:#F0EBD8;">INEMA</span><span style="color:#FFC300; filter:drop-shadow(0 0 12px #FFC300aa);">.CLUB</span>
+            </div>
+            <div class="mono" style="color:#2EC4B6; font-size:clamp(13px,1.5vw,18px);">🌐 inema.club</div>
+          </div>
+        </div>
+
+        <!-- Code box da scene9 real -->
+        <div class="rounded-xl bg-dark-900 border border-amber-500/30 p-4 mb-5">
+          <div class="text-xs text-amber-400 font-semibold mb-2 mono">scene9() — composition-template.mjs (não remover)</div>
+          <pre class="mono text-xs text-cyan-400 overflow-x-auto leading-relaxed"><code>function scene9() {
+  return `
+    &lt;div class="cta-wrap"&gt;
+      &lt;div class="cta-pre"&gt;CONTINUA EM&lt;/div&gt;
+      &lt;div class="cta-brand"&gt;
+        &lt;span class="cta-inema"&gt;INEMA&lt;/span&gt;
+        &lt;span class="cta-club"&gt;.CLUB&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class="cta-url"&gt;🌐 inema.club&lt;/div&gt;
+    &lt;/div&gt;`;
+}
+
+/* CSS correspondente */
+.cta-pre  { font-family:'Inter'; color:var(--muted); letter-spacing:.2em; }
+.cta-brand{ font-family:'Sora'; font-weight:800; font-size:clamp(72px,8vw,120px); }
+.cta-inema{ color:var(--fg); }                /* INEMA — creme */
+.cta-club { color:var(--accent);              /* .CLUB — âmbar */
+             filter:drop-shadow(0 0 16px #FFC300aa); }
+.cta-url  { font-family:'JetBrains Mono'; color:var(--code); } /* 🌐 inema.club */</code></pre>
+        </div>
+
+        <!-- tip box -->
+        <div class="rounded-xl bg-primary/10 border border-primary/40 p-4 mb-5">
+          <div class="text-primary font-semibold mb-1 text-sm">💡 Tip — Narração da CTA</div>
+          <p class="text-sm text-neutral-300">A narração padrão da scene9 é: <em class="text-neutral-200">"Isso é conteúdo do INEMA ponto CLUB. Acesse: inema ponto club."</em> — gerada com <code class="mono text-xs bg-dark-700 px-1 rounded">pf_dora --speed 0.98</code>. Duração típica: ~3.84s. LEAD: 0.5s, TAIL: 0.9s.</p>
+        </div>
+
+        <!-- grid ✓/✗ -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+          <div class="rounded-xl bg-emerald-900/10 border border-emerald-500/20 p-4">
+            <div class="text-emerald-400 font-semibold mb-3 text-sm">✓ FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Manter scene9 como última cena de todo vídeo</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>INEMA em <code class="mono text-xs bg-dark-700 px-1 rounded">--fg</code> (creme), .CLUB em <code class="mono text-xs bg-dark-700 px-1 rounded">--accent</code> (âmbar)</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Drop-shadow glow no .CLUB</li>
+              <li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>URL em JetBrains Mono + ciano</li>
+            </ul>
+          </div>
+          <div class="rounded-xl bg-red-900/10 border border-red-500/20 p-4">
+            <div class="text-red-400 font-semibold mb-3 text-sm">✗ NÃO FAZER</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Remover ou pular a scene9</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Mudar a cor de .CLUB para outra cor da trilha</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Usar fonte diferente na CTA</li>
+              <li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Omitir o 🌐 na URL</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-neutral-100 text-lg font-bold mb-1">INEMA</div>
+            <div class="text-xs text-neutral-500">--fg creme</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-amber-400 text-lg font-bold mb-1">.CLUB</div>
+            <div class="text-xs text-neutral-500">--accent + glow</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="mono text-cyan-400 text-sm mb-1">🌐 inema.club</div>
+            <div class="text-xs text-neutral-500">JetBrains Mono</div>
+          </div>
+          <div class="bg-dark-700 rounded-xl p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🏁</div>
+            <div class="text-xs font-semibold text-neutral-200">scene9</div>
+            <div class="text-xs text-neutral-500">sempre a última</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════
+         RESUMO DO MÓDULO
+    ═══════════════════════════════════════════════════ -->
+    <section class="rounded-2xl bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 border border-purple-500/30 p-8">
+      <h2 class="sora text-2xl font-bold text-neutral-100 mb-6">📋 Resumo do Módulo 3.2</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <div class="text-purple-400 font-semibold mb-3 text-sm">O que você aprendeu</div>
+          <ul class="space-y-2 text-sm text-neutral-300">
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>A paleta de 8 variáveis CSS com papéis fixos</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>âmbar como accent ÚNICO dominante (<code class="mono text-xs bg-dark-700 px-1 rounded">#FFC300</code>)</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>Três fontes: Sora / Inter / JetBrains Mono com papéis distintos</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>Por que <code class="mono text-xs bg-dark-700 px-1 rounded">.woff2</code> local e nunca CDN em render</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>Camada de fundo persistente com <code class="mono text-xs bg-dark-700 px-1 rounded">data-layout-ignore</code></li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>Escala de vídeo: 64–172px headlines, 8–10 elementos/cena</li>
+            <li class="flex items-start gap-2"><span class="text-emerald-400">✓</span>CTA INEMA.CLUB: INEMA creme + .CLUB âmbar + glow + 🌐</li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-purple-400 font-semibold mb-3 text-sm">Referências do módulo</div>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400">📄</span>
+              <code class="mono text-xs text-cyan-400">references/house-style.md</code>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400">📄</span>
+              <code class="mono text-xs text-cyan-400">scripts/composition-template.mjs</code>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-purple-400">📄</span>
+              <code class="mono text-xs text-cyan-400">scripts/fetch-fonts.mjs</code>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-amber-400">🔑</span>
+              <span class="text-neutral-300">Regra âmbar: 1 accent. Fundo idêntico. NUNCA CDN.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Box próximo módulo -->
+      <div class="rounded-xl bg-dark-900/60 border border-purple-500/20 p-4 mb-6">
+        <div class="text-xs text-neutral-500 mb-1">Próximo módulo:</div>
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">⚙️</span>
+          <div>
+            <div class="font-semibold text-neutral-100">3.3 — O gerador build-index.mjs</div>
+            <div class="text-sm text-neutral-400">Como o gerador transforma HTML em frames e frames em MP4.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Voltar para Trilha 3</a>
+        <a href="modulo-3-3.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Próximo Módulo: 3.3 O gerador →</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-dark-600 py-8 mt-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p class="mb-1">Conteúdo do <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium">INEMA.CLUB</a></p>
+      <p>HyperFrames — Trilha 3: Por dentro · Módulo 3.2 · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

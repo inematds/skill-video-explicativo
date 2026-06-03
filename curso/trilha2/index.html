@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 2 — Pipeline: HTML → MP4 | HyperFrames · INEMA.CLUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .modal.hidden { display: none; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento blue */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes pipe-flow { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .pipe-a { animation: pipe-flow 2.4s ease-in-out infinite; }
+      .pipe-a:nth-child(2){animation-delay:.3s} .pipe-a:nth-child(3){animation-delay:.6s} .pipe-a:nth-child(4){animation-delay:.9s} .pipe-a:nth-child(5){animation-delay:1.2s}
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+          <a href="../trilha4/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicações</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">TRILHA 2</span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">🎬 Pipeline: HTML → MP4</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">A trilha prática. Do zero ao vídeo renderizado: como o HyperFrames transforma HTML animado + narração TTS em MP4 via Chrome headless e FFmpeg — tudo na sua máquina, sem chave de API.</p>
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">5</div><div class="text-xs text-neutral-400">Módulos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">30</div><div class="text-xs text-neutral-400">Tópicos</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">~2.5h</div><div class="text-xs text-neutral-400">Duração</div></div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-blue-400">Prático</div><div class="text-xs text-neutral-400">Nível</div></div>
+      </div>
+
+      <!-- Hero SVG: pipeline fan-out HTML/narração/timeline → render → MP4 16:9 + 9:16 -->
+      <div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mt-8 overflow-hidden">
+        <svg viewBox="0 0 1000 220" class="w-full h-auto" role="img" aria-label="Pipeline HyperFrames: HTML animado, narração TTS e timeline convergem para o render HyperFrames que gera MP4 16:9 e 9:16">
+          <defs>
+            <linearGradient id="m2-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+            <linearGradient id="m2-cyan" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient>
+            <filter id="m2-glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <pattern id="m2-grid" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="1.3" cy="1.3" r="1.3" fill="#3b82f6" opacity="0.10"/></pattern>
+            <marker id="m2-ah" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"/></marker>
+            <marker id="m2-ah2" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"/></marker>
+          </defs>
+          <rect x="0" y="0" width="1000" height="220" fill="url(#m2-grid)"/>
+
+          <!-- Inputs (fan-in) -->
+          <g class="pipe-a" filter="url(#m2-glow)">
+            <rect x="30" y="20" width="170" height="44" rx="10" fill="#0e1622" stroke="url(#m2-grad)" stroke-width="2"/>
+            <text x="115" y="39" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-weight="700" font-size="14">HTML animado</text>
+            <text x="115" y="56" text-anchor="middle" fill="#93c5fd" font-family="Inter,sans-serif" font-size="11">cenas + GSAP</text>
+          </g>
+          <g class="pipe-a" filter="url(#m2-glow)">
+            <rect x="30" y="88" width="170" height="44" rx="10" fill="#0e1622" stroke="url(#m2-grad)" stroke-width="2"/>
+            <text x="115" y="107" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-weight="700" font-size="14">Narração TTS</text>
+            <text x="115" y="124" text-anchor="middle" fill="#93c5fd" font-family="Inter,sans-serif" font-size="11">Kokoro pf_dora</text>
+          </g>
+          <g class="pipe-a" filter="url(#m2-glow)">
+            <rect x="30" y="156" width="170" height="44" rx="10" fill="#0e1622" stroke="url(#m2-grad)" stroke-width="2"/>
+            <text x="115" y="175" text-anchor="middle" fill="#60a5fa" font-family="Inter,sans-serif" font-weight="700" font-size="14">Timeline</text>
+            <text x="115" y="192" text-anchor="middle" fill="#93c5fd" font-family="Inter,sans-serif" font-size="11">LEAD=0.5 TAIL=0.9</text>
+          </g>
+
+          <!-- Arrows to render box -->
+          <path d="M200,42 Q310,42 310,110" fill="none" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#m2-ah)"/>
+          <path d="M200,110 L310,110" fill="none" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#m2-ah)"/>
+          <path d="M200,178 Q310,178 310,110" fill="none" stroke="#60a5fa" stroke-width="1.8" marker-end="url(#m2-ah)"/>
+
+          <!-- Render box (center) -->
+          <g filter="url(#m2-glow)">
+            <rect x="315" y="70" width="210" height="80" rx="14" fill="#0e1622" stroke="url(#m2-cyan)" stroke-width="2.5"/>
+          </g>
+          <text x="420" y="103" text-anchor="middle" fill="#38bdf8" font-family="Inter,sans-serif" font-weight="800" font-size="16">HyperFrames</text>
+          <text x="420" y="122" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="12">Chrome headless</text>
+          <text x="420" y="139" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="12">+ FFmpeg</text>
+
+          <!-- Arrows from render to outputs -->
+          <path d="M525,110 Q600,110 600,60" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#m2-ah2)"/>
+          <path d="M525,110 Q600,110 600,160" fill="none" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#m2-ah2)"/>
+
+          <!-- Output 16:9 -->
+          <g class="pipe-a" filter="url(#m2-glow)">
+            <rect x="605" y="28" width="170" height="64" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+            <text x="690" y="55" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="700" font-size="14">MP4 16:9</text>
+            <text x="690" y="74" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11">YouTube / horizontal</text>
+          </g>
+          <!-- Output 9:16 -->
+          <g class="pipe-a" filter="url(#m2-glow)">
+            <rect x="605" y="128" width="170" height="64" rx="10" fill="#0e1b26" stroke="#38bdf8" stroke-width="2"/>
+            <text x="690" y="155" text-anchor="middle" fill="#bfe6ff" font-family="Inter,sans-serif" font-weight="700" font-size="14">MP4 9:16</text>
+            <text x="690" y="174" text-anchor="middle" fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11">Shorts / vertical</text>
+          </g>
+
+          <!-- Label direita -->
+          <text x="870" y="107" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-size="13" font-weight="600">100% local</text>
+          <text x="870" y="127" text-anchor="middle" fill="#9ad6ff" font-family="Inter,sans-serif" font-size="13" font-weight="600">sem chave de API</text>
+        </svg>
+        <p class="text-center text-xs text-neutral-500 mt-2">Pipeline HyperFrames — HTML + narração + timeline → MP4 16:9 e 9:16</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- MAPA DA TRILHA -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold mb-6">Mapa da trilha</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        <a href="#modulo-2-1" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold text-sm">2.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🎬 O que é o HyperFrames</h3>
+          <p class="text-xs text-neutral-400">HTML vira MP4</p>
+        </a>
+        <a href="#modulo-2-2" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold text-sm">2.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🛠️ Setup & pré-requisitos</h3>
+          <p class="text-xs text-neutral-400">Node, FFmpeg, Kokoro</p>
+        </a>
+        <a href="#modulo-2-3" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold text-sm">2.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">📝 Roteiro & narração TTS</h3>
+          <p class="text-xs text-neutral-400">6–9 cenas narradas</p>
+        </a>
+        <a href="#modulo-2-4" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold text-sm">2.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">🎞️ Composição de cenas</h3>
+          <p class="text-xs text-neutral-400">Áudio e animação batidos</p>
+        </a>
+        <a href="#modulo-2-5" class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-blue-500/30 p-5 transition-all">
+          <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold text-sm">2.5</span><span class="text-xs text-neutral-500">~30 min</span></div>
+          <h3 class="font-semibold mb-1 group-hover:text-blue-400 transition-colors">✅ Validar & renderizar</h3>
+          <p class="text-xs text-neutral-400">Draft, depois high</p>
+        </a>
+      </div>
+    </section>
+
+    <h2 class="text-2xl font-bold mb-6">Conteúdo detalhado</h2>
+
+    <!-- MÓDULO 2.1 -->
+    <div id="modulo-2-1" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold">2.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🎬 O que é o HyperFrames</h3>
+        <p class="text-neutral-400 text-sm">Do primeiro princípio: você escreve HTML animado, o HyperFrames captura frame a frame com Chrome headless e monta o MP4 com FFmpeg. Nenhuma chave de API, tudo local.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">⚙️</span><div><span class="font-medium">Stack HTML → MP4</span><span class="text-neutral-500 text-sm ml-2">- o fluxo completo</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O HyperFrames renderiza uma página HTML cena por cena, captura cada frame como imagem PNG e usa o FFmpeg para montar o vídeo final — com áudio WAV sincronizado.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Entender o fluxo ponta-a-ponta evita surpresas: cada etapa tem um artefato concreto (HTML, WAV, MP4) que você pode inspecionar.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">HTML → frames PNG → FFmpeg → MP4; cada cena é um estado da página.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">🌐</span><div><span class="font-medium">Chrome headless + FFmpeg</span><span class="text-neutral-500 text-sm ml-2">- os dois motores</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O Chrome headless gerenciado pelo HyperFrames renderiza cada frame da animação. O FFmpeg mescla os frames com os áudios WAV e gera o arquivo MP4 final.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Saber que são dois processos separados ajuda a diagnosticar: problemas visuais → Chrome; problemas de áudio/timing → FFmpeg.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Puppeteer/Chrome, FFmpeg, pipeline de dois estágios.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">🗣️</span><div><span class="font-medium">TTS local Kokoro</span><span class="text-neutral-500 text-sm ml-2">- sem chave de API</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O Kokoro é um modelo TTS que roda localmente via Python (<code>kokoro-onnx</code>). Gera arquivos WAV de alta qualidade sem nenhuma chamada a serviço externo.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Elimina custo variável e dependência de internet. O modelo (~340 MB) baixa uma vez e fica na máquina.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">kokoro-onnx, voz pf_dora, ONNX runtime, WAV local.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">💻</span><div><span class="font-medium">Roda 100% na máquina</span><span class="text-neutral-500 text-sm ml-2">- offline e gratuito</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Todo o pipeline (TTS, render, encode) acontece localmente. Depois do setup inicial, você produz vídeos sem internet e sem custos por uso.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Remove o medo de custos escalando e garante que o projeto pode ser reproduzido em qualquer máquina com os pré-requisitos instalados.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Offline-first, custo zero por vídeo, reprodutível.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">📐</span><div><span class="font-medium">Formatos 16:9 e 9:16</span><span class="text-neutral-500 text-sm ml-2">- horizontal e vertical</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O HyperFrames suporta os dois formatos principais. O mesmo roteiro gera um vídeo 16:9 (YouTube, horizontal) e um 9:16 (Shorts, TikTok, Reels) automaticamente.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Uma produção, duas entregas. O CSS da cena adapta o layout para cada formato via media query ou variável.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">1920×1080, 1080×1920, multi-formato, reproveitamento.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">🎯</span><div><span class="font-medium">Quando usar HyperFrames</span><span class="text-neutral-500 text-sm ml-2">- ideal e não-ideal</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Ideal para vídeos explicativos animados com narração (tutoriais, onboarding, lançamentos). Não é para capturas de tela ao vivo, entrevistas ou vídeos com face-cam.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Saber o escopo certo evita frustração. O HyperFrames brilha em conteúdo motion-graphics + narração; não substitui gravação ao vivo.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Motion-graphics, narração TTS, conteúdo técnico estruturado.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-2-1')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-2-1.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2.2 -->
+    <div id="modulo-2-2" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold">2.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🛠️ Setup & pré-requisitos</h3>
+        <p class="text-neutral-400 text-sm">Instale Node 22+, FFmpeg, Chrome gerenciado e o Kokoro — rode <code class="text-blue-400">npx hyperframes doctor</code> e veja tudo verde antes de começar.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">📦</span><div><span class="font-medium">Node 22+ e FFmpeg</span><span class="text-neutral-500 text-sm ml-2">- base do pipeline</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Node 22 LTS é o mínimo exigido. No Windows, o FFmpeg vai em <code>C:\ffmpeg\bin</code> e, no git-bash, use sempre <code>ffmpeg -nostdin</code> para evitar travamentos de stdin.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Versões antigas do Node podem quebrar o CLI. A flag <code>-nostdin</code> é um gotcha clássico no Windows que trava o render silenciosamente.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Node 22+, FFmpeg no PATH, <code>-nostdin</code> no git-bash.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">🌐</span><div><span class="font-medium">Chrome do HyperFrames</span><span class="text-neutral-500 text-sm ml-2">- não é o seu Chrome</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O HyperFrames usa um Chrome isolado, baixado via <code>npx hyperframes browser ensure</code>. Ele fica em cache local e não interfere com o Chrome que você usa no dia a dia.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Usar o Chrome pessoal pode causar conflitos de perfil. O browser isolado garante ambiente limpo e reprodutível.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>npx hyperframes browser ensure</code>, cache local, Puppeteer isolado.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">🗣️</span><div><span class="font-medium">TTS Kokoro</span><span class="text-neutral-500 text-sm ml-2">- pip install e modelo</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Instale com <code>pip install kokoro-onnx soundfile</code>. Na primeira execução, o modelo (~340 MB) é baixado automaticamente e cacheado. As execuções seguintes são offline.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Sem o Kokoro instalado, a geração de narração falha. O download demora na primeira vez — planeje isso no setup.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>pip install kokoro-onnx soundfile</code>, download único ~340 MB, cache local.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">🩺</span><div><span class="font-medium">npx hyperframes doctor</span><span class="text-neutral-500 text-sm ml-2">- verificar tudo de uma vez</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O comando <code>npx hyperframes doctor</code> checa Node, FFmpeg, Chrome e Kokoro de uma vez e imprime o status de cada dependência. Verde em tudo = pronto para criar.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Economiza tempo de depuração: em vez de descobrir a falha no meio do render, você identifica o problema antes de começar.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>npx hyperframes doctor</code>, checklist de deps, diagnóstico rápido.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">📁</span><div><span class="font-medium">Estrutura de projeto</span><span class="text-neutral-500 text-sm ml-2">- npx hyperframes init</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Crie o scaffolding com <code>npx hyperframes init &lt;nome&gt; --example blank</code>. Gera as pastas <code>audio/</code>, <code>frames/</code>, os scripts e o HTML de entrada já com a estrutura correta.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Partir do template certo evita erros de estrutura que só aparecem na hora do render.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>npx hyperframes init</code>, <code>--example blank</code>, pastas <code>audio/</code> e <code>frames/</code>.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">📄</span><div><span class="font-medium">Copiar design.md</span><span class="text-neutral-500 text-sm ml-2">- house style do projeto</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O <code>design.md</code> define a paleta, tipografia e regras visuais do seu canal. Copie-o da referência do skill para dentro do projeto e referencie nas instruções ao Claude.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Sem um design.md, cada vídeo pode ter visual diferente. Ter o arquivo garante consistência de identidade visual.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>design.md</code>, house-style, paleta #0D1321, identidade visual.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-2-2')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-2-2.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2.3 -->
+    <div id="modulo-2-3" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold">2.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">📝 Roteiro & narração TTS</h3>
+        <p class="text-neutral-400 text-sm">Escreva o SCRIPT.md com 6–9 cenas em arco hook→princípio→avançado→CTA, gere os WAVs com Kokoro e meça as durações antes de compor.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">📋</span><div><span class="font-medium">SCRIPT.md com 6–9 cenas</span><span class="text-neutral-500 text-sm ml-2">- arco narrativo</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O SCRIPT.md é um Markdown com uma seção por cena. O arco ideal: hook (por quê assistir) → princípio (conceito base) → avançado (detalhe prático) → CTA (próximo passo).</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Roteiro bem estruturado antes de programar evita retrabalho de animação. A narrativa guia o visual, não o contrário.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">SCRIPT.md, 6–9 cenas, arco hook→CTA, uma ideia por cena.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">⏱️</span><div><span class="font-medium">Narração curta por cena</span><span class="text-neutral-500 text-sm ml-2">- ~100s total</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Com 6–9 cenas e ~100 segundos de narração total, o vídeo fica com ~1:50 de duração — ideal para Shorts e vídeos curtos no YouTube.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Textos longos por cena geram áudios longos que esticam a animação além do suportado. Cada cena deve ter no máximo 3–4 frases curtas.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">~100s total, 3–4 frases por cena, ritmo de atenção.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">🔤</span><div><span class="font-medium">Expandir siglas para a fala</span><span class="text-neutral-500 text-sm ml-2">- TTS lê o que está escrito</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O TTS lê literalmente o texto. Escreva "SKILL ponto M D" em vez de "SKILL.md", "M J S" em vez de ".mjs", "N P X" em vez de "npx" — ou o resultado soa estranho.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É um dos gotchas mais comuns. Ouvir "SKILL ponto MD" natural vs o modelo tentando pronunciar "skill-dot-md" literalmente faz diferença enorme na qualidade percebida.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">Texto fonético, expansão de siglas, revisar a narração em voz alta.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">🎤</span><div><span class="font-medium">Gerar WAV com Kokoro</span><span class="text-neutral-500 text-sm ml-2">- voz pf_dora --speed 0.98</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Use a voz <code>pf_dora</code> com <code>--speed 0.98</code> para uma fala natural e levemente mais pausada. O resultado é um arquivo WAV por cena em <code>audio/</code>.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">A velocidade padrão (1.0) pode soar acelerada. O ajuste 0.98 é sutil mas melhora a clareza sem perder o ritmo.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">voz <code>pf_dora</code>, <code>--speed 0.98</code>, WAV por cena, pasta <code>audio/</code>.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">📏</span><div><span class="font-medium">Medir durações com ffprobe</span><span class="text-neutral-500 text-sm ml-2">- fonte única de verdade</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Após gerar os WAVs, use <code>ffprobe -show_entries format=duration</code> em cada arquivo para obter a duração exata em segundos. Esses valores alimentam o array <code>AUDIO[]</code> no build-index.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Durações estimadas geram vídeos com áudio cortado ou silêncio no fim. ffprobe dá o número exato que o HyperFrames precisa.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>ffprobe -show_entries format=duration</code>, duração real em segundos, AUDIO[] array.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">🎙️</span><div><span class="font-medium">Vozes alternativas</span><span class="text-neutral-500 text-sm ml-2">- pm_alex / pm_santa</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Além da voz padrão <code>pf_dora</code>, o Kokoro oferece <code>pm_alex</code> (masculino neutro) e <code>pm_santa</code> (masculino mais grave) para variedade ou personalização de canal.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Escolher a voz antes de gravar tudo evita retrabalho. Teste as três com 2–3 frases do roteiro e decida antes de gerar todos os WAVs.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>pf_dora</code>, <code>pm_alex</code>, <code>pm_santa</code>, teste antes de gerar tudo.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-2-3')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-2-3.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2.4 -->
+    <div id="modulo-2-4" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold">2.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">🎞️ Composição de cenas</h3>
+        <p class="text-neutral-400 text-sm">O build-index.mjs é o coração: array AUDIO[] com durações reais, funções sceneN() de HTML, animações GSAP com <code>anim(i,t)</code> e legendas CAPTIONS[] — tudo batido no mesmo timing.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">📜</span><div><span class="font-medium">build-index.mjs</span><span class="text-neutral-500 text-sm ml-2">- copiado do template</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O <code>build-index.mjs</code> é o gerador: lê o AUDIO[], chama as funções de cena e produz o <code>index.html</code> final que o HyperFrames vai renderizar. Copie do template e edite.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Entender a estrutura do gerador permite customizar sem medo. Cada parte tem responsabilidade clara: dados, HTML de cena, animação.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>build-index.mjs</code>, gerador, template copiado e editado.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">🔢</span><div><span class="font-medium">Array AUDIO[] com durações reais</span><span class="text-neutral-500 text-sm ml-2">- preencha do ffprobe</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O array <code>AUDIO[]</code> mapeia cada cena ao seu arquivo WAV e à duração exata (em segundos, com decimais) obtida do ffprobe. Ex.: <code>&#123; file: 'audio/scene1.wav', dur: 12.34 &#125;</code>.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">É a fonte única de verdade do timing. Todos os cálculos de animação derivam das durações reais do AUDIO[] — nunca estime.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">AUDIO[], durações reais, fonte única de verdade, ffprobe.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">🖼️</span><div><span class="font-medium">sceneN() — HTML por cena</span><span class="text-neutral-500 text-sm ml-2">- um estado da página</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Cada cena é uma função <code>sceneN()</code> que retorna HTML posicionado absolutamente dentro do container de vídeo. Os elementos começam invisíveis e o GSAP os anima.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Separar HTML de cena em funções mantém o código organizado e facilita editar uma cena sem afetar as outras.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">sceneN(), posição absoluta, opacity 0 inicial, GSAP anima.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">✨</span><div><span class="font-medium">anim(i,t) com GSAP</span><span class="text-neutral-500 text-sm ml-2">- anima no tempo certo</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">A função <code>anim(i, t)</code> recebe o índice da cena e o timeline GSAP e adiciona as animações. O GSAP interpola os valores frame a frame, garantindo que o Chrome captura movimentos fluidos.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">GSAP é o padrão no HyperFrames porque garante timing determinístico — mesmo frame sempre igual, essencial para captura headless.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>anim(i, t)</code>, GSAP timeline, timing determinístico, frame perfeito.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">💬</span><div><span class="font-medium">CAPTIONS[]</span><span class="text-neutral-500 text-sm ml-2">- legendas no vídeo</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O array <code>CAPTIONS[]</code> define o texto de legenda de cada cena, exibido na faixa inferior do vídeo. Pode ser o texto completo da narração ou um resumo em bullets.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Legendas melhoram acessibilidade e aumentam retenção em plataformas onde o vídeo toca sem som por padrão.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">CAPTIONS[], faixa inferior, acessibilidade, vídeo sem som.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">⏰</span><div><span class="font-medium">Timing fonte-única</span><span class="text-neutral-500 text-sm ml-2">- LEAD=0.5 TAIL=0.9 FADE=0.45</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Três constantes controlam o timing de toda animação: <code>LEAD=0.5</code> (pausa antes da narração), <code>TAIL=0.9</code> (hold após o fim da fala) e <code>FADE=0.45</code> (duração do fade entre cenas). Mudar aqui afeta tudo uniformemente.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Ter uma fonte única de timing é o que garante que áudio e animação estejam sempre sincronizados. Nunca hard-code segundos nas funções de cena.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>LEAD=0.5</code>, <code>TAIL=0.9</code>, <code>FADE=0.45</code>, fonte única, sincronismo áudio+visual.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-2-4')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-2-4.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2.5 -->
+    <div id="modulo-2-5" class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+      <div class="p-6 border-b border-dark-600">
+        <div class="flex items-center justify-between mb-2"><span class="text-blue-400 font-bold">2.5</span><span class="text-xs text-neutral-500">~30 min</span></div>
+        <h3 class="text-2xl font-bold mb-2">✅ Validar & renderizar</h3>
+        <p class="text-neutral-400 text-sm">Antes do render final: lint, inspect, draft para conferir visualmente, validar com o usuário — e só então render high com 30fps nas duas versões.</p>
+      </div>
+      <div class="divide-y divide-dark-600">
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+            <span class="text-lg">🔍</span><div><span class="font-medium">npx hyperframes lint</span><span class="text-neutral-500 text-sm ml-2">- zero erros antes de render</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O comando <code>npx hyperframes lint</code> verifica o HTML gerado: durações, referências de áudio, estrutura do timeline e erros de sintaxe. Deve retornar 0 erros antes de prosseguir.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Render com erros de lint pode produzir vídeos silenciosos, cortados ou com cenas faltando. Lint barato agora evita render caro depois.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>npx hyperframes lint</code>, 0 erros, validação prévia ao render.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+            <span class="text-lg">🖥️</span><div><span class="font-medium">npx hyperframes inspect</span><span class="text-neutral-500 text-sm ml-2">- 16 amostras, 0 problemas</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O <code>npx hyperframes inspect --samples 16</code> abre o Chrome headless, captura 16 frames distribuídos pelo vídeo e exibe miniaturas para inspeção visual rápida de layout.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">Texto cortado, elementos fora da tela ou sobreposições só aparecem visualmente. O inspect detecta antes de desperdiçar minutos de render.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>npx hyperframes inspect --samples 16</code>, miniaturas, problemas de layout.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+            <span class="text-lg">📽️</span><div><span class="font-medium">Render --quality draft</span><span class="text-neutral-500 text-sm ml-2">- conferir antes de high</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">O modo <code>--quality draft</code> rende em resolução reduzida e velocidade maior, para uma pré-visualização rápida do vídeo completo antes do render final.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">O draft permite conferir sequência, transições e timing sem esperar o render completo. Corrija no draft, não no high.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>--quality draft</code>, preview rápido, iteração barata.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+            <span class="text-lg">🖼️</span><div><span class="font-medium">Extrair frames e validar</span><span class="text-neutral-500 text-sm ml-2">- o Claude não ouve</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Extraia frames do draft com FFmpeg (<code>ffmpeg -i draft.mp4 -vf fps=1 frames/%04d.png</code>) e compartilhe com o usuário para validação visual. O Claude não consegue ouvir o áudio.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">A validação humana antes do render final captura problemas subjetivos (texto muito pequeno, cores fora, ordem errada) que o lint não detecta.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">ffmpeg -vf fps=1, frames PNG, validação humana, o Claude não ouve.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+            <span class="text-lg">🏆</span><div><span class="font-medium">Render --quality high --fps 30</span><span class="text-neutral-500 text-sm ml-2">- entrega final</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Após aprovação do draft, rode <code>--quality high --fps 30</code> para o render completo. Gera o MP4 final em resolução total, pronto para upload.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">O render high demora mais e não deve ser repetido. Aprovação do draft antes garante que o esforço de render vai no arquivo certo.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm"><code>--quality high --fps 30</code>, render final, não repetir sem validação.</p></div>
+          </div></div>
+        </div>
+        <div class="topic-item">
+          <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+            <span class="text-lg">📱</span><div><span class="font-medium">Gerar 16:9 e 9:16</span><span class="text-neutral-500 text-sm ml-2">- duas versões, uma produção</span></div>
+          </button>
+          <div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+            <div><span class="text-blue-400 font-semibold">O que é:</span><p class="text-neutral-300 text-sm">Rode o render duas vezes com os parâmetros de formato diferentes (ou use a flag <code>--both</code> se disponível no seu projeto). O resultado é o arquivo horizontal (16:9) e o vertical (9:16) prontos para distribuição.</p></div>
+            <div><span class="text-blue-400 font-semibold">Por que aprender:</span><p class="text-neutral-300 text-sm">YouTube e Shorts têm alcances diferentes. Gerar as duas versões no mesmo render maximiza distribuição sem retrabalho de conteúdo.</p></div>
+            <div><span class="text-blue-400 font-semibold">Conceitos-chave:</span><p class="text-neutral-300 text-sm">16:9 YouTube, 9:16 Shorts, duas versões, distribuição multi-plataforma.</p></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+        <button onclick="openModal('modal-2-5')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">Ver em Modal</button>
+        <a href="modulo-2-5.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">Ver Completo</a>
+      </div>
+    </div>
+
+    <!-- NAV TRILHA -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-10">
+      <a href="../../index.html" class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors">← Todas as trilhas</a>
+      <a href="../trilha3/index.html" class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors">Trilha 3: Por dentro →</a>
+    </div>
+  </main>
+
+  <!-- MODAIS -->
+  <div id="modal-2-1" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.1</span><span class="font-semibold">O que é o HyperFrames</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div>
+      <iframe src="modulo-2-1.html" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-2-2" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.2</span><span class="font-semibold">Setup & pré-requisitos</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div>
+      <iframe src="modulo-2-2.html" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-2-3" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.3</span><span class="font-semibold">Roteiro & narração TTS</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div>
+      <iframe src="modulo-2-3.html" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-2-4" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.4</span><span class="font-semibold">Composição de cenas</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div>
+      <iframe src="modulo-2-4.html" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+  <div id="modal-2-5" class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" onclick="if(event.target === this) closeModal()">
+    <div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+      <div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-blue-400 font-bold">2.5</span><span class="font-semibold">Validar & renderizar</span></div><button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button></div>
+      <iframe src="modulo-2-5.html" class="flex-1 w-full rounded-b-xl"></iframe>
+    </div>
+  </div>
+
+  <footer class="border-t border-dark-600 py-8 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p class="mb-1">Conteúdo do <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 font-medium">INEMA.CLUB</a></p>
+      <p>HyperFrames — Trilha 2: Pipeline HTML → MP4 · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) exp.classList.remove('active'); });
+      explanation.classList.toggle('active');
+    }
+    function openModal(id){ const m=document.getElementById(id); if(m){ m.classList.remove('hidden'); document.body.style.overflow='hidden'; } }
+    function closeModal(){ document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden')); document.body.style.overflow='auto'; }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+    const themeToggle=document.getElementById('theme-toggle');
+    const di=document.getElementById('theme-toggle-dark-icon'), li=document.getElementById('theme-toggle-light-icon');
+    const root=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){ di.classList.remove('hidden'); root.classList.remove('dark'); } else { li.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', ()=>{ di.classList.toggle('hidden'); li.classList.toggle('hidden'); root.classList.toggle('dark'); localStorage.setItem('theme', root.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

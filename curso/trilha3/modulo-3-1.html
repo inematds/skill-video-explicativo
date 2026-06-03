@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo 3.1 — Estrutura do skill | HyperFrames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode overrides */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Purple accent — T3 */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+
+    /* Light mode — remove gradients */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+
+    /* Light mode — special colors */
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode — nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+    /* Dark mode — softer borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG light mode adaptation */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    /* SVG pulse animation */
+    @keyframes m31-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m31-pulse { animation: m31-pulse 2.6s ease-in-out infinite; }
+      .m31-pulse:nth-child(2) { animation-delay: .3s; }
+      .m31-pulse:nth-child(3) { animation-delay: .6s; }
+      .m31-pulse:nth-child(4) { animation-delay: .9s; }
+    }
+    @keyframes m31-flow { 0%,100% { stroke-dashoffset: 0; } 50% { stroke-dashoffset: 16; } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m31-flow { animation: m31-flow 3s linear infinite; stroke-dasharray: 8 8; }
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+          <a href="../trilha4/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicações</span></a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" aria-label="Alternar tema">
+            <svg id="theme-toggle-dark-icon" class="w-4 h-4 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-toggle-light-icon" class="w-4 h-4 text-neutral-300 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <nav class="flex items-center space-x-2 text-sm text-neutral-500">
+      <a href="../../index.html" class="hover:text-purple-400 transition-colors">Início</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400 transition-colors">Trilha 3 — Por dentro</a>
+      <span>/</span>
+      <span class="text-purple-400 font-medium">Módulo 3.1</span>
+    </nav>
+  </div>
+
+  <!-- HEADER -->
+  <header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <!-- Left: meta + title -->
+      <div>
+        <div class="inline-flex items-center space-x-2 bg-purple-500/20 border border-purple-500/30 rounded-full px-4 py-1.5 mb-4">
+          <span class="text-purple-400 text-xs font-semibold uppercase tracking-widest">MÓDULO 3.1</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-neutral-100 mb-3 leading-tight">
+          🗂️ Estrutura do skill
+        </h1>
+        <p class="text-neutral-400 text-lg mb-6">
+          Radiografia completa da pasta <code class="bg-dark-700 text-purple-400 px-1.5 py-0.5 rounded text-sm font-mono">video-explicativo/</code>: cada arquivo, cada script e cada referência — e por que cada um existe.
+        </p>
+        <!-- Stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+            <div class="text-2xl font-bold text-purple-400">6</div>
+            <div class="text-xs text-neutral-500 mt-1">Tópicos</div>
+          </div>
+          <div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+            <div class="text-2xl font-bold text-purple-400">25</div>
+            <div class="text-xs text-neutral-500 mt-1">Minutos</div>
+          </div>
+          <div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+            <div class="text-2xl font-bold text-purple-400">Avançado</div>
+            <div class="text-xs text-neutral-500 mt-1">Nível</div>
+          </div>
+          <div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+            <div class="text-2xl font-bold text-purple-400">Leitura</div>
+            <div class="text-xs text-neutral-500 mt-1">Tipo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: SVG futurista — árvore de arquivos -->
+      <div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4">
+        <svg viewBox="0 0 420 280" class="w-full h-auto" role="img" aria-label="Diagrama futurista da árvore de arquivos do skill video-explicativo" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="m31-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#1a1230;stop-opacity:1"/>
+              <stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"/>
+            </linearGradient>
+            <linearGradient id="m31-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#c084fc;stop-opacity:1"/>
+              <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1"/>
+            </linearGradient>
+            <linearGradient id="m31-cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"/>
+              <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"/>
+            </linearGradient>
+            <filter id="m31-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="1.8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <pattern id="m31-dots" width="28" height="28" patternUnits="userSpaceOnUse">
+              <circle cx="1.2" cy="1.2" r="1.2" fill="#a855f7" opacity="0.1"/>
+            </pattern>
+          </defs>
+
+          <!-- Background -->
+          <rect width="420" height="280" fill="url(#m31-bg)" rx="12"/>
+          <rect width="420" height="280" fill="url(#m31-dots)" rx="12"/>
+
+          <!-- Corner decorators -->
+          <circle cx="20" cy="20" r="2.5" fill="#c084fc" class="m31-pulse" opacity="0.6"/>
+          <circle cx="400" cy="20" r="2.5" fill="#38bdf8" class="m31-pulse" opacity="0.6"/>
+          <circle cx="20" cy="260" r="2.5" fill="#38bdf8" class="m31-pulse" opacity="0.6"/>
+          <circle cx="400" cy="260" r="2.5" fill="#c084fc" class="m31-pulse" opacity="0.6"/>
+
+          <!-- Root folder -->
+          <rect x="16" y="30" width="168" height="26" rx="6" fill="#a855f7" opacity="0.18" stroke="#a855f7" stroke-width="1.5" filter="url(#m31-glow)"/>
+          <text x="26" y="48" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="#c084fc">📁 video-explicativo/</text>
+
+          <!-- SKILL.md -->
+          <line x1="34" y1="56" x2="34" y2="76" stroke="#a855f7" stroke-width="1.2" opacity="0.4" class="m31-flow"/>
+          <line x1="34" y1="76" x2="52" y2="76" stroke="#a855f7" stroke-width="1.2" opacity="0.4"/>
+          <rect x="52" y="66" width="100" height="20" rx="4" fill="#c084fc" opacity="0.12" stroke="#c084fc" stroke-width="1"/>
+          <text x="62" y="80" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#c084fc">📄 SKILL.md</text>
+
+          <!-- scripts/ folder -->
+          <line x1="34" y1="76" x2="34" y2="102" stroke="#a855f7" stroke-width="1.2" opacity="0.4" class="m31-flow"/>
+          <line x1="34" y1="102" x2="52" y2="102" stroke="#a855f7" stroke-width="1.2" opacity="0.4"/>
+          <rect x="52" y="92" width="120" height="20" rx="4" fill="#a855f7" opacity="0.15" stroke="#a855f7" stroke-width="1"/>
+          <text x="62" y="106" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#a855f7">📁 scripts/</text>
+
+          <!-- scripts children -->
+          <line x1="70" y1="112" x2="70" y2="128" stroke="#a855f7" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="128" x2="88" y2="128" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="132" font-family="Inter,sans-serif" font-size="9" fill="#e9d5ff">composition-template.mjs</text>
+
+          <line x1="70" y1="128" x2="70" y2="146" stroke="#a855f7" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="146" x2="88" y2="146" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="150" font-family="Inter,sans-serif" font-size="9" fill="#e9d5ff">fetch-fonts.mjs</text>
+
+          <line x1="70" y1="146" x2="70" y2="164" stroke="#a855f7" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="164" x2="88" y2="164" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="168" font-family="Inter,sans-serif" font-size="9" fill="#e9d5ff">narration-template.sh</text>
+
+          <!-- references/ folder -->
+          <line x1="34" y1="102" x2="34" y2="190" stroke="#a855f7" stroke-width="1.2" opacity="0.4" class="m31-flow"/>
+          <line x1="34" y1="190" x2="52" y2="190" stroke="#a855f7" stroke-width="1.2" opacity="0.4"/>
+          <rect x="52" y="180" width="120" height="20" rx="4" fill="#38bdf8" opacity="0.12" stroke="#38bdf8" stroke-width="1"/>
+          <text x="62" y="194" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#38bdf8">📁 references/</text>
+
+          <!-- references children -->
+          <line x1="70" y1="200" x2="70" y2="216" stroke="#38bdf8" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="216" x2="88" y2="216" stroke="#38bdf8" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="220" font-family="Inter,sans-serif" font-size="9" fill="#bfe6ff">pipeline.md</text>
+
+          <line x1="70" y1="216" x2="70" y2="234" stroke="#38bdf8" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="234" x2="88" y2="234" stroke="#38bdf8" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="238" font-family="Inter,sans-serif" font-size="9" fill="#bfe6ff">house-style.md</text>
+
+          <line x1="70" y1="234" x2="70" y2="252" stroke="#38bdf8" stroke-width="1" opacity="0.3" class="m31-flow"/>
+          <line x1="70" y1="252" x2="88" y2="252" stroke="#38bdf8" stroke-width="1" opacity="0.3"/>
+          <text x="92" y="256" font-family="Inter,sans-serif" font-size="9" fill="#bfe6ff">gotchas.md</text>
+
+          <!-- Right panel: legend -->
+          <rect x="248" y="60" width="158" height="80" rx="8" fill="#1a1230" stroke="#a855f7" stroke-width="1" opacity="0.7"/>
+          <text x="258" y="78" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#c084fc">Legenda</text>
+          <rect x="258" y="86" width="10" height="10" rx="2" fill="#a855f7" opacity="0.3" stroke="#a855f7" stroke-width="1"/>
+          <text x="274" y="96" font-family="Inter,sans-serif" font-size="9" fill="#e9d5ff">Pasta / script principal</text>
+          <rect x="258" y="104" width="10" height="10" rx="2" fill="#38bdf8" opacity="0.2" stroke="#38bdf8" stroke-width="1"/>
+          <text x="274" y="114" font-family="Inter,sans-serif" font-size="9" fill="#bfe6ff">Referências (sob demanda)</text>
+          <rect x="258" y="122" width="10" height="10" rx="2" fill="#c084fc" opacity="0.2" stroke="#c084fc" stroke-width="1"/>
+          <text x="274" y="132" font-family="Inter,sans-serif" font-size="9" fill="#e9d5ff">Arquivo fonte (SKILL.md)</text>
+
+          <!-- Right panel: counts -->
+          <rect x="248" y="160" width="158" height="90" rx="8" fill="#0e1b26" stroke="#38bdf8" stroke-width="1" opacity="0.7"/>
+          <text x="258" y="178" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#38bdf8">Arquivos totais</text>
+          <text x="258" y="198" font-family="Inter,sans-serif" font-size="28" font-weight="800" fill="#c084fc" filter="url(#m31-glow)">7</text>
+          <text x="296" y="198" font-family="Inter,sans-serif" font-size="9" fill="#bfe6ff">arquivos</text>
+          <text x="258" y="216" font-family="Inter,sans-serif" font-size="9" fill="#9ca3af">1 SKILL.md · 3 scripts</text>
+          <text x="258" y="230" font-family="Inter,sans-serif" font-size="9" fill="#9ca3af">3 references</text>
+          <text x="258" y="248" font-family="Inter,sans-serif" font-size="8" fill="#6b7280">Estrutura mínima e funcional</text>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-10">
+
+    <!-- TÓPICO 1 -->
+    <section id="topico-1" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">1</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">📂 A pasta <code class="text-purple-400 font-mono">video-explicativo/</code></h2>
+            <p class="text-neutral-400 mt-1">Tudo que o Claude precisa para criar um vídeo explicativo vive dentro de uma única pasta bem organizada. Nem mais, nem menos.</p>
+          </div>
+        </div>
+
+        <!-- Box conceito principal -->
+        <div class="bg-gradient-to-r from-purple-900/30 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-5">
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="text-purple-400 text-lg">💡</span>
+            <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide">Conceito Principal</span>
+          </div>
+          <p class="text-neutral-200 text-sm leading-relaxed">
+            A pasta <code class="text-purple-400 font-mono">video-explicativo/</code> é o skill completo: ela contém o arquivo de entrada (<code class="text-purple-400 font-mono">SKILL.md</code>), os scripts executáveis (<code class="text-purple-400 font-mono">scripts/</code>) e as referências de apoio (<code class="text-purple-400 font-mono">references/</code>). O Claude acessa cada camada apenas quando precisa — nunca tudo de uma vez.
+          </p>
+        </div>
+
+        <!-- Box de código — árvore real -->
+        <div class="bg-dark-900 border border-dark-600 rounded-xl p-4 mb-5 overflow-x-auto">
+          <div class="flex items-center space-x-2 mb-3">
+            <div class="w-3 h-3 rounded-full bg-red-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500 opacity-60"></div>
+            <span class="text-neutral-500 text-xs ml-2 font-mono">árvore completa do skill</span>
+          </div>
+          <pre class="text-sm font-mono text-neutral-300 leading-relaxed"><code>video-explicativo/
+├── SKILL.md                          ← entrada principal
+├── scripts/
+│   ├── composition-template.mjs      ← gerador de composição
+│   ├── fetch-fonts.mjs               ← baixa .woff2 subset latin
+│   └── narration-template.sh         ← gera WAVs com Kokoro
+└── references/
+    ├── pipeline.md                   ← passo a passo completo
+    ├── house-style.md                ← identidade visual dark premium
+    └── gotchas.md                    ← armadilhas e correções</code></pre>
+        </div>
+
+        <!-- Grid FAZER / NÃO FAZER -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-4">
+            <div class="text-emerald-400 font-semibold text-sm mb-3 flex items-center space-x-2">
+              <span>✓</span><span>FAZER</span>
+            </div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Manter todos os 7 arquivos na estrutura exata</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Copiar scripts para o projeto de vídeo antes de editar</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Usar <code class="font-mono text-emerald-300">SKILL.md</code> como porta de entrada sempre</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Consultar <code class="font-mono text-emerald-300">references/</code> sob demanda via links</span></li>
+            </ul>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
+            <div class="text-red-400 font-semibold text-sm mb-3 flex items-center space-x-2">
+              <span>✗</span><span>NÃO FAZER</span>
+            </div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Editar os scripts diretamente na pasta do skill</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Ignorar os arquivos de referência achando que são opcionais</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Criar arquivos extras na raiz do projeto (<code class="font-mono text-red-300">index-vertical.html</code>, backups)</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Renomear <code class="font-mono text-red-300">SKILL.md</code> ou mudar sua localização</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave mini-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">📄</div>
+            <div class="text-xs font-semibold text-neutral-300">SKILL.md</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Porta de entrada</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">📁</div>
+            <div class="text-xs font-semibold text-neutral-300">scripts/</div>
+            <div class="text-xs text-neutral-500 mt-0.5">3 executáveis</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">📚</div>
+            <div class="text-xs font-semibold text-neutral-300">references/</div>
+            <div class="text-xs text-neutral-500 mt-0.5">3 guias de apoio</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🗂️</div>
+            <div class="text-xs font-semibold text-neutral-300">7 arquivos</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Estrutura mínima</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 2 -->
+    <section id="topico-2" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">2</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">📚 As 3 referências</h2>
+            <p class="text-neutral-400 mt-1">Cada arquivo em <code class="text-purple-400 font-mono">references/</code> tem um propósito único e carregado apenas quando aquele conhecimento específico é necessário.</p>
+          </div>
+        </div>
+
+        <!-- Timeline das 3 referências -->
+        <div class="relative pl-6 mb-6">
+          <div class="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500/60 via-cyan-500/40 to-purple-500/20"></div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <code class="text-purple-400 font-mono text-sm font-semibold">pipeline.md</code>
+                <span class="bg-purple-500/10 text-purple-300 text-xs px-2 py-0.5 rounded-full border border-purple-500/20">Passo a passo</span>
+              </div>
+              <p class="text-neutral-300 text-sm">O guia operacional completo. Explica em detalhe cada um dos 7 passos do fluxo: estrutura de projeto, como escrever o roteiro, gerar narrações com Kokoro, medir durações com <code class="font-mono text-purple-300">ffprobe</code>, montar a composição e renderizar em dois formatos.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-cyan-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <code class="text-cyan-400 font-mono text-sm font-semibold">house-style.md</code>
+                <span class="bg-cyan-500/10 text-cyan-300 text-xs px-2 py-0.5 rounded-full border border-cyan-500/20">Identidade visual</span>
+              </div>
+              <p class="text-neutral-300 text-sm">Define o <em>dark premium</em> que Nei usa em todos os vídeos: paleta (<code class="font-mono text-cyan-300">#0D1321</code> bg, âmbar como acento, ciano como destaque), tipografia Sora 700–800 para títulos e Inter para corpo, JetBrains Mono para código. Formatos: 16:9 → 1920×1080 e 9:16 → 1080×1920. CTA final obrigatória: INEMA.CLUB.</p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-400 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <code class="text-purple-400 font-mono text-sm font-semibold">gotchas.md</code>
+                <span class="bg-red-500/10 text-red-300 text-xs px-2 py-0.5 rounded-full border border-red-500/20">Armadilhas</span>
+              </div>
+              <p class="text-neutral-300 text-sm">Problemas reais já enfrentados: <code class="font-mono text-purple-300">overlapping_clips_same_track</code> (alternar <code class="font-mono text-purple-300">data-track-index</code> 1/3 para cenas, 2/4 para captions), <code class="font-mono text-purple-300">gsap_exit_missing_hard_kill</code> (adicionar <code class="font-mono text-purple-300">tl.set</code> após fade-out), elementos decorativos off-canvas marcados com <code class="font-mono text-purple-300">data-layout-ignore</code>, e uso de <code class="font-mono text-purple-300">ffmpeg -nostdin</code> no git-bash.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box dados -->
+        <div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-blue-400 text-lg flex-shrink-0">📊</span>
+            <div>
+              <div class="text-blue-400 font-semibold text-sm mb-1">Dados do design de divulgação progressiva</div>
+              <p class="text-neutral-300 text-sm">O <code class="font-mono text-blue-300">SKILL.md</code> aponta para os 3 arquivos de referência via links Markdown relativos. O Claude <strong>nunca carrega todas as referências de uma vez</strong> — ele abre apenas o arquivo que é linkado quando aquele contexto específico é necessário. Isso mantém a janela de contexto leve.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tip box -->
+        <div class="bg-primary/10 border border-primary/40 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-primary text-lg flex-shrink-0">⚡</span>
+            <div>
+              <div class="text-primary font-semibold text-sm mb-1">Dica prática</div>
+              <p class="text-neutral-300 text-sm">Antes de iniciar qualquer vídeo, leia o <code class="font-mono text-primary">pipeline.md</code> completo. Ele documenta casos reais já vividos e evita que você repita erros que tomam horas para diagnosticar — especialmente o erro do <code class="font-mono text-primary">ffmpeg -nostdin</code> no Windows/git-bash.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave -->
+        <div class="grid grid-cols-3 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🔀</div>
+            <div class="text-xs font-semibold text-neutral-300">pipeline.md</div>
+            <div class="text-xs text-neutral-500 mt-0.5">7 passos detalhados</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">🎨</div>
+            <div class="text-xs font-semibold text-neutral-300">house-style.md</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Dark premium âmbar</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-red-400 text-lg mb-1">⚠️</div>
+            <div class="text-xs font-semibold text-neutral-300">gotchas.md</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Erros reais evitados</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 3 -->
+    <section id="topico-3" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">3</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">🔧 Os 3 scripts</h2>
+            <p class="text-neutral-400 mt-1">Cada script em <code class="text-purple-400 font-mono">scripts/</code> é um template que você copia para o projeto de vídeo e adapta — nunca edita diretamente no skill.</p>
+          </div>
+        </div>
+
+        <!-- Tip box -->
+        <div class="bg-primary/10 border border-primary/40 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-primary text-lg flex-shrink-0">⚡</span>
+            <div>
+              <div class="text-primary font-semibold text-sm mb-1">Regra de ouro dos scripts</div>
+              <p class="text-neutral-300 text-sm">Scripts são templates — não executáveis diretos. Você <strong>copia</strong> para o seu projeto de vídeo (renomeando conforme necessário) e então adapta. O original no skill permanece intocado para o próximo vídeo.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid 3 scripts -->
+        <div class="grid sm:grid-cols-3 gap-4 mb-5">
+          <!-- composition-template.mjs -->
+          <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+            <div class="text-purple-400 text-2xl mb-2">⚙️</div>
+            <code class="text-purple-400 font-mono text-xs font-semibold block mb-2">composition-template.mjs</code>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-3">Gerador principal da composição HyperFrames. Define <code class="font-mono text-purple-300">AUDIO[]</code> com durações reais, <code class="font-mono text-purple-300">CAPTIONS[]</code>, função <code class="font-mono text-purple-300">sceneN()</code> por cena HTML e <code class="font-mono text-purple-300">anim(i,t)</code> para tweens GSAP.</p>
+            <div class="text-xs text-neutral-500">Copiar como <code class="font-mono text-purple-300">build-index.mjs</code></div>
+          </div>
+          <!-- fetch-fonts.mjs -->
+          <div class="bg-dark-700 border border-cyan-500/20 rounded-xl p-4">
+            <div class="text-cyan-400 text-2xl mb-2">🔤</div>
+            <code class="text-cyan-400 font-mono text-xs font-semibold block mb-2">fetch-fonts.mjs</code>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-3">Baixa as fontes Sora, Inter e JetBrains Mono do Google Fonts como arquivos <code class="font-mono text-cyan-300">.woff2</code> subset latin, gerando <code class="font-mono text-cyan-300">assets/fonts/fonts.css</code> com <code class="font-mono">@font-face</code> locais.</p>
+            <div class="text-xs text-neutral-500">Execute: <code class="font-mono text-cyan-300">node fetch-fonts.mjs</code></div>
+          </div>
+          <!-- narration-template.sh -->
+          <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+            <div class="text-purple-400 text-2xl mb-2">🎙️</div>
+            <code class="text-purple-400 font-mono text-xs font-semibold block mb-2">narration-template.sh</code>
+            <p class="text-neutral-400 text-xs leading-relaxed mb-3">Shell script que escreve os arquivos <code class="font-mono text-purple-300">assets/txt/sN.txt</code> e chama o HyperFrames TTS com voz <code class="font-mono text-purple-300">pf_dora --speed 0.98</code> para gerar <code class="font-mono text-purple-300">assets/audio/sN.wav</code>.</p>
+            <div class="text-xs text-neutral-500">Copiar como <code class="font-mono text-purple-300">assets/narration.sh</code></div>
+          </div>
+        </div>
+
+        <!-- Box de código — exemplo narration -->
+        <div class="bg-dark-900 border border-dark-600 rounded-xl p-4 mb-5 overflow-x-auto">
+          <div class="flex items-center space-x-2 mb-3">
+            <div class="w-3 h-3 rounded-full bg-red-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500 opacity-60"></div>
+            <span class="text-neutral-500 text-xs ml-2 font-mono">narration-template.sh — trecho</span>
+          </div>
+          <pre class="text-xs font-mono text-neutral-300 leading-relaxed"><code><span class="text-neutral-500"># Gera cada cena via HyperFrames TTS</span>
+for i in 1 2 3 4 5 6 7 8; do
+  npx -y hyperframes tts "txt/s$i.txt" \
+    --voice <span class="text-cyan-400">pf_dora</span> \
+    --speed <span class="text-purple-400">0.98</span> \
+    --output "audio/s$i.wav"
+done
+
+<span class="text-neutral-500"># Mede durações com ffprobe</span>
+for i in 1 2 3 4 5 6 7 8; do
+  d=$(ffprobe -v error \
+    -show_entries format=duration \
+    -of default=noprint_wrappers=1:nokey=1 \
+    "audio/s$i.wav" 2>/dev/null)
+  echo "s$i: ${d}s"
+done</code></pre>
+        </div>
+
+        <!-- Grid FAZER / NÃO FAZER -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-4">
+            <div class="text-emerald-400 font-semibold text-sm mb-3">✓ FAZER com os scripts</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Copiar para o projeto antes de editar</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Rodar <code class="font-mono text-emerald-300">node fetch-fonts.mjs</code> antes do primeiro render</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Preencher <code class="font-mono text-emerald-300">AUDIO[]</code> com durações REAIS do ffprobe</span></li>
+            </ul>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
+            <div class="text-red-400 font-semibold text-sm mb-3">✗ NÃO FAZER com os scripts</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Usar Google Fonts via CDN (lint falha: <code class="font-mono text-red-300">google_fonts_import</code>)</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Usar durações estimadas em vez das medidas com ffprobe</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Esquecer <code class="font-mono text-red-300">ffmpeg -nostdin</code> no Windows (arquivo não gerado)</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">⚙️</div>
+            <div class="text-xs font-semibold text-neutral-300">composition</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Gerador principal</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">🔤</div>
+            <div class="text-xs font-semibold text-neutral-300">fetch-fonts</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Woff2 local</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🎙️</div>
+            <div class="text-xs font-semibold text-neutral-300">narration</div>
+            <div class="text-xs text-neutral-500 mt-0.5">pf_dora 0.98</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">📋</div>
+            <div class="text-xs font-semibold text-neutral-300">Templates</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Copiar, adaptar</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 4 -->
+    <section id="topico-4" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">4</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">🔢 O fluxo de 7 passos do SKILL.md</h2>
+            <p class="text-neutral-400 mt-1">O SKILL.md define uma sequência obrigatória. Seguir nessa ordem evita retrabalho — cada passo depende do anterior.</p>
+          </div>
+        </div>
+
+        <!-- Timeline 7 passos -->
+        <div class="relative pl-6 mb-6">
+          <div class="absolute left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500/60 to-purple-500/10"></div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-dark-800 text-xs flex items-center justify-center"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">1</span>
+                <code class="text-purple-400 font-mono text-sm font-semibold">Roteiro</code>
+                <span class="text-neutral-500 text-xs">— escreve SCRIPT.md</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9">6–9 cenas, do primeiro princípio ao avançado. Narração curta por cena (≈100s de voz ≈ 1:50 de vídeo). Expandir siglas na fala: "SKILL.md" → "SKILL ponto M D".</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-400 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">2</span>
+                <code class="text-purple-400 font-mono text-sm font-semibold">Projeto</code>
+                <span class="text-neutral-500 text-xs">— init HyperFrames</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9"><code class="font-mono text-purple-300">npx hyperframes init &lt;nome&gt; --example blank --non-interactive</code>. Copiar <code class="font-mono text-purple-300">design.md</code> (house style) para a raiz.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-cyan-500 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-cyan-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xs font-bold">3</span>
+                <code class="text-cyan-400 font-mono text-sm font-semibold">Fontes</code>
+                <span class="text-neutral-500 text-xs">— baixa .woff2 subset latin</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9"><code class="font-mono text-cyan-300">node fetch-fonts.mjs</code> → gera <code class="font-mono text-cyan-300">assets/fonts/fonts.css</code>. Obrigatório: lint falha se usar CDN de fontes.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-500 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">4</span>
+                <code class="text-purple-400 font-mono text-sm font-semibold">Narração</code>
+                <span class="text-neutral-500 text-xs">— gera WAVs Kokoro</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9">Voz <code class="font-mono text-purple-300">pf_dora --speed 0.98</code>. Medir durações com <code class="font-mono text-purple-300">ffprobe</code>. Template em <code class="font-mono text-purple-300">scripts/narration-template.sh</code>.</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-400 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">5</span>
+                <code class="text-purple-400 font-mono text-sm font-semibold">Composição</code>
+                <span class="text-neutral-500 text-xs">— adapta o template</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9">Copiar como <code class="font-mono text-purple-300">build-index.mjs</code>. Preencher <code class="font-mono text-purple-300">AUDIO[]</code> com durações REAIS. Rodar: <code class="font-mono text-purple-300">node build-index.mjs</code> (16:9) e <code class="font-mono text-purple-300">node build-index.mjs --vertical</code> (9:16).</p>
+            </div>
+          </div>
+
+          <div class="relative mb-4">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-cyan-400 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-cyan-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xs font-bold">6</span>
+                <code class="text-cyan-400 font-mono text-sm font-semibold">Validar</code>
+                <span class="text-neutral-500 text-xs">— lint + inspect</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9"><code class="font-mono text-cyan-300">npx hyperframes lint</code> (0 erros) e <code class="font-mono text-cyan-300">npx hyperframes inspect --samples 16</code> (0 problemas). Corrigir seguindo <code class="font-mono text-cyan-300">references/gotchas.md</code>.</p>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute -left-5 top-1 w-3 h-3 rounded-full bg-purple-600 border-2 border-dark-800"></div>
+            <div class="bg-dark-700 border border-purple-500/20 rounded-xl p-4">
+              <div class="flex items-center space-x-3 mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xs font-bold">7</span>
+                <code class="text-purple-400 font-mono text-sm font-semibold">Render</code>
+                <span class="text-neutral-500 text-xs">— draft → high</span>
+              </div>
+              <p class="text-neutral-400 text-xs ml-9">Draft primeiro para conferir, depois <code class="font-mono text-purple-300">--quality high</code>. Gera <code class="font-mono text-purple-300">renders/&lt;nome&gt;-16x9.mp4</code> e <code class="font-mono text-purple-300">renders/&lt;nome&gt;-9x16.mp4</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box alerta -->
+        <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-red-400 text-lg flex-shrink-0">🚨</span>
+            <div>
+              <div class="text-red-400 font-semibold text-sm mb-1">Ordem obrigatória</div>
+              <p class="text-neutral-300 text-sm">O passo 3 (fontes) DEVE vir antes do passo 5 (composição), pois o template importa <code class="font-mono text-red-300">assets/fonts/fonts.css</code> que só existe após o fetch. Pular essa ordem gera erro de arquivo não encontrado em tempo de execução.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">📝</div>
+            <div class="text-xs font-semibold text-neutral-300">Roteiro → Render</div>
+            <div class="text-xs text-neutral-500 mt-0.5">7 passos fixos</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">⏱️</div>
+            <div class="text-xs font-semibold text-neutral-300">ffprobe</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Durações reais</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">✅</div>
+            <div class="text-xs font-semibold text-neutral-300">lint + inspect</div>
+            <div class="text-xs text-neutral-500 mt-0.5">0 erros antes render</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🎬</div>
+            <div class="text-xs font-semibold text-neutral-300">16:9 + 9:16</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Sempre os dois</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 5 -->
+    <section id="topico-5" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">5</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">🧠 Divulgação progressiva na prática</h2>
+            <p class="text-neutral-400 mt-1">O design de <em>divulgação progressiva</em> é o que torna o skill eficiente: o Claude carrega só o que precisa, quando precisa.</p>
+          </div>
+        </div>
+
+        <!-- Box conceito principal -->
+        <div class="bg-gradient-to-r from-purple-900/30 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-5">
+          <div class="flex items-center space-x-2 mb-2">
+            <span class="text-purple-400 text-lg">💡</span>
+            <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide">Como funciona na memória do Claude</span>
+          </div>
+          <div class="space-y-2 text-sm text-neutral-300">
+            <p><span class="text-purple-400 font-semibold">Nível 1 — Sempre na memória:</span> só o <code class="font-mono text-purple-300">name</code> e <code class="font-mono text-purple-300">description</code> do skill. O Claude sabe que o skill existe e quando usá-lo.</p>
+            <p><span class="text-purple-400 font-semibold">Nível 2 — Carregado na tarefa:</span> o <code class="font-mono text-purple-300">SKILL.md</code> completo, com os 7 passos e os links para referências.</p>
+            <p><span class="text-cyan-400 font-semibold">Nível 3 — Carregado sob demanda:</span> cada arquivo em <code class="font-mono text-cyan-300">references/</code> só quando aquele passo específico está sendo executado.</p>
+          </div>
+        </div>
+
+        <!-- Box dados -->
+        <div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-blue-400 text-lg flex-shrink-0">📊</span>
+            <div>
+              <div class="text-blue-400 font-semibold text-sm mb-2">Por que isso importa (números reais)</div>
+              <div class="grid sm:grid-cols-3 gap-3 text-center">
+                <div class="bg-dark-800 rounded-lg p-3">
+                  <div class="text-2xl font-bold text-blue-400">~2KB</div>
+                  <div class="text-xs text-neutral-500 mt-1">SKILL.md base</div>
+                </div>
+                <div class="bg-dark-800 rounded-lg p-3">
+                  <div class="text-2xl font-bold text-blue-400">+15KB</div>
+                  <div class="text-xs text-neutral-500 mt-1">references/ total</div>
+                </div>
+                <div class="bg-dark-800 rounded-lg p-3">
+                  <div class="text-2xl font-bold text-blue-400">3×</div>
+                  <div class="text-xs text-neutral-500 mt-1">contexto mais leve</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tip box -->
+        <div class="bg-primary/10 border border-primary/40 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-primary text-lg flex-shrink-0">⚡</span>
+            <div>
+              <div class="text-primary font-semibold text-sm mb-1">Padrão replicável</div>
+              <p class="text-neutral-300 text-sm">Esse design funciona para qualquer skill complexo: SKILL.md enxuto com links explícitos para referências especializadas. Quando o Claude executa o passo 6 (validar), ele acessa <code class="font-mono text-primary">gotchas.md</code>. Quando monta a composição, acessa <code class="font-mono text-primary">pipeline.md</code>. Nunca os dois ao mesmo tempo sem necessidade.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid FAZER / NÃO FAZER -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-4">
+            <div class="text-emerald-400 font-semibold text-sm mb-3">✓ Design correto de SKILL.md</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Description clara e específica (o gatilho de quando usar)</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Fluxo enxuto com links para referências detalhadas</span></li>
+              <li class="flex items-start space-x-2"><span class="text-emerald-400 mt-0.5">✓</span><span>Referências organizadas por assunto (pipeline / style / gotchas)</span></li>
+            </ul>
+          </div>
+          <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-4">
+            <div class="text-red-400 font-semibold text-sm mb-3">✗ Design incorreto de SKILL.md</div>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Colocar todo o conteúdo de references/ dentro do SKILL.md</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Description vaga como "cria vídeos" sem especificidade</span></li>
+              <li class="flex items-start space-x-2"><span class="text-red-400 mt-0.5">✗</span><span>Misturar regras de identidade visual com regras de execução</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🧠</div>
+            <div class="text-xs font-semibold text-neutral-300">Nível 1</div>
+            <div class="text-xs text-neutral-500 mt-0.5">name + description</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">📄</div>
+            <div class="text-xs font-semibold text-neutral-300">Nível 2</div>
+            <div class="text-xs text-neutral-500 mt-0.5">SKILL.md completo</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">📚</div>
+            <div class="text-xs font-semibold text-neutral-300">Nível 3</div>
+            <div class="text-xs text-neutral-500 mt-0.5">references/ sob demanda</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">⚡</div>
+            <div class="text-xs font-semibold text-neutral-300">Contexto leve</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Resposta mais rápida</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TÓPICO 6 -->
+    <section id="topico-6" class="bg-dark-800 border border-dark-600 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <div class="flex items-start space-x-4 mb-4">
+          <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-purple-400 font-bold text-lg">6</span>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-neutral-100">🎯 O padrão do usuário Nei</h2>
+            <p class="text-neutral-400 mt-1">Toda produção de vídeo de Nei segue convenções firmes — não são preferências opcionais, são a assinatura de identidade do canal.</p>
+          </div>
+        </div>
+
+        <!-- Box conceito principal -->
+        <div class="bg-gradient-to-r from-purple-900/30 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-5">
+          <div class="flex items-center space-x-2 mb-3">
+            <span class="text-purple-400 text-lg">💡</span>
+            <span class="text-purple-400 font-semibold text-sm uppercase tracking-wide">Convenções não-negociáveis</span>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <div class="flex items-start space-x-2 text-sm">
+                <span class="text-purple-400 mt-0.5 flex-shrink-0">→</span>
+                <span class="text-neutral-300"><strong class="text-neutral-200">PT-BR obrigatório:</strong> todo texto, narração e legenda em português brasileiro. Siglas expandidas na voz ("SKILL ponto M D").</span>
+              </div>
+              <div class="flex items-start space-x-2 text-sm">
+                <span class="text-purple-400 mt-0.5 flex-shrink-0">→</span>
+                <span class="text-neutral-300"><strong class="text-neutral-200">Dark premium âmbar:</strong> paleta <code class="font-mono text-purple-300">#0D1321</code> fundo, âmbar como acento principal, ciano para destaques secundários.</span>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-start space-x-2 text-sm">
+                <span class="text-cyan-400 mt-0.5 flex-shrink-0">→</span>
+                <span class="text-neutral-300"><strong class="text-neutral-200">Dois formatos sempre:</strong> 16:9 (1920×1080) para YouTube e 9:16 (1080×1920) para Shorts. Ambos em cada projeto.</span>
+              </div>
+              <div class="flex items-start space-x-2 text-sm">
+                <span class="text-cyan-400 mt-0.5 flex-shrink-0">→</span>
+                <span class="text-neutral-300"><strong class="text-neutral-200">CTA INEMA.CLUB sempre:</strong> última cena de todo vídeo é "CONTINUA EM INEMA.CLUB" — já incluída no template.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box de código — CTA final -->
+        <div class="bg-dark-900 border border-dark-600 rounded-xl p-4 mb-5 overflow-x-auto">
+          <div class="flex items-center space-x-2 mb-3">
+            <div class="w-3 h-3 rounded-full bg-red-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500 opacity-60"></div>
+            <div class="w-3 h-3 rounded-full bg-emerald-500 opacity-60"></div>
+            <span class="text-neutral-500 text-xs ml-2 font-mono">narração padrão CTA final</span>
+          </div>
+          <pre class="text-xs font-mono text-neutral-300 leading-relaxed"><code><span class="text-neutral-500"># Cena s9 — CTA INEMA.CLUB (incluída no template, não remover)</span>
+write s9 "Isso é conteúdo do INEMA ponto CLUB. Acesse: inema ponto club."
+
+<span class="text-neutral-500"># Render — sempre os dois formatos</span>
+node build-index.mjs <span class="text-cyan-400">&amp;&amp;</span> npx hyperframes render \
+  --quality high \
+  --output renders/&lt;nome&gt;-16x9.mp4
+
+node build-index.mjs <span class="text-purple-400">--vertical</span> <span class="text-cyan-400">&amp;&amp;</span> npx hyperframes render \
+  --quality high \
+  --output renders/&lt;nome&gt;-9x16.mp4</code></pre>
+        </div>
+
+        <!-- Tip box -->
+        <div class="bg-primary/10 border border-primary/40 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-primary text-lg flex-shrink-0">⚡</span>
+            <div>
+              <div class="text-primary font-semibold text-sm mb-1">A voz de Nei: pf_dora</div>
+              <p class="text-neutral-300 text-sm">A voz <code class="font-mono text-primary">pf_dora</code> com velocidade <code class="font-mono text-primary">--speed 0.98</code> é a voz padrão de todos os vídeos. Alternativas PT-BR disponíveis: <code class="font-mono text-primary">pm_alex</code> (masculina) e <code class="font-mono text-primary">pm_santa</code> (masculina formal). A primeira execução do TTS baixa ~340MB de modelo — sem chave de API, sem espeak-ng.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box alerta -->
+        <div class="bg-red-900/20 border border-red-500/30 rounded-xl p-4 mb-5">
+          <div class="flex items-start space-x-3">
+            <span class="text-red-400 text-lg flex-shrink-0">🚨</span>
+            <div>
+              <div class="text-red-400 font-semibold text-sm mb-1">CTA INEMA.CLUB é inegociável</div>
+              <p class="text-neutral-300 text-sm">A cena 9 (CTA INEMA.CLUB) já está pré-construída no <code class="font-mono text-red-300">composition-template.mjs</code>. Ela NUNCA deve ser removida. É a assinatura de canal e parte da identidade da marca. Adicionar mais cenas? Insira antes da cena 9, não depois.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conceitos-chave -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🇧🇷</div>
+            <div class="text-xs font-semibold text-neutral-300">PT-BR</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Sempre, sem exceção</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-yellow-400 text-lg mb-1">🌑</div>
+            <div class="text-xs font-semibold text-neutral-300">Dark premium</div>
+            <div class="text-xs text-neutral-500 mt-0.5">#0D1321 + âmbar</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-cyan-400 text-lg mb-1">📐</div>
+            <div class="text-xs font-semibold text-neutral-300">16:9 + 9:16</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Ambos obrigatórios</div>
+          </div>
+          <div class="bg-dark-700 rounded-lg p-3 text-center">
+            <div class="text-purple-400 text-lg mb-1">🌐</div>
+            <div class="text-xs font-semibold text-neutral-300">INEMA.CLUB CTA</div>
+            <div class="text-xs text-neutral-500 mt-0.5">Última cena sempre</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESUMO DO MÓDULO -->
+    <section class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 border border-purple-500/30 rounded-2xl overflow-hidden">
+      <div class="p-6 sm:p-8">
+        <h2 class="text-2xl font-bold text-neutral-100 mb-6">📋 Resumo do Módulo 3.1</h2>
+
+        <div class="grid sm:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="text-purple-400 font-semibold text-sm uppercase tracking-wide mb-3">O que você aprendeu</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>A estrutura exata dos 7 arquivos do skill <code class="font-mono text-purple-300">video-explicativo/</code></span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>O propósito de cada um dos 3 arquivos em <code class="font-mono text-purple-300">references/</code></span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Como cada script funciona e como deve ser usado</span></li>
+              <li class="flex items-start space-x-2"><span class="text-purple-400">✓</span><span>Os 7 passos obrigatórios do fluxo e sua ordem</span></li>
+              <li class="flex items-start space-x-2"><span class="text-cyan-400">✓</span><span>Como a divulgação progressiva mantém o contexto leve</span></li>
+              <li class="flex items-start space-x-2"><span class="text-cyan-400">✓</span><span>As convenções não-negociáveis de Nei (PT-BR, dark premium, 16:9+9:16, CTA)</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-purple-400 font-semibold text-sm uppercase tracking-wide mb-3">Fatos para lembrar</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li class="flex items-start space-x-2"><span class="text-neutral-500">→</span><span>Voz padrão: <code class="font-mono text-purple-300">pf_dora --speed 0.98</code></span></li>
+              <li class="flex items-start space-x-2"><span class="text-neutral-500">→</span><span>LEAD = 0.5s · TAIL = 0.9s · FADE = 0.45s</span></li>
+              <li class="flex items-start space-x-2"><span class="text-neutral-500">→</span><span>Fontes: Sora 700–800 / Inter 400–600 / JetBrains Mono</span></li>
+              <li class="flex items-start space-x-2"><span class="text-neutral-500">→</span><span>Fundo: <code class="font-mono text-purple-300">#0D1321</code> · Acento âmbar · Ciano destaque</span></li>
+              <li class="flex items-start space-x-2"><span class="text-neutral-500">→</span><span>7 arquivos totais: 1 SKILL.md + 3 scripts + 3 references</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Próximo módulo -->
+        <div class="bg-dark-800 border border-purple-500/20 rounded-xl p-4 mb-6">
+          <div class="text-sm text-neutral-500 mb-1">Próximo módulo:</div>
+          <div class="text-neutral-200 font-semibold">3.2 🎨 House style dark premium</div>
+          <div class="text-neutral-400 text-sm mt-1">Mergulhe na identidade visual: paleta <code class="font-mono text-purple-300">#0D1321</code>, tipografia Sora, animações GSAP, e como o âmbar e o ciano criam o mood premium nos vídeos do INEMA.CLUB.</div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-3">
+          <a href="index.html" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-dark-700 border border-dark-600 text-neutral-300 hover:text-purple-400 hover:border-purple-500/40 transition-colors text-sm font-semibold">
+            <span>←</span><span>Voltar para Trilha 3</span>
+          </a>
+          <a href="modulo-3-2.html" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-purple-500/20 border border-purple-500/30 text-purple-300 hover:bg-purple-500/30 transition-colors text-sm font-semibold">
+            <span>Próximo Módulo</span><span>→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 mt-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+        <div class="flex items-center space-x-3">
+          <span class="text-2xl">🎬</span>
+          <div>
+            <div class="font-bold text-neutral-200">HyperFrames</div>
+            <div class="text-xs text-neutral-500">Curso completo de produção de vídeos com IA</div>
+          </div>
+        </div>
+        <div class="flex items-center space-x-4 text-sm text-neutral-500">
+          <a href="../../index.html" class="hover:text-purple-400 transition-colors">Início</a>
+          <span>·</span>
+          <a href="index.html" class="hover:text-purple-400 transition-colors">Trilha 3</a>
+          <span>·</span>
+          <a href="https://inema.club" target="_blank" class="hover:text-sky-400 transition-colors">INEMA.CLUB</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    function updateThemeIcons() {
+      if (document.documentElement.classList.contains('dark')) {
+        darkIcon.classList.remove('hidden');
+        lightIcon.classList.add('hidden');
+      } else {
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      }
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    updateThemeIcons();
+
+    themeToggle.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcons();
+    });
+  </script>
+
+</body>
+</html>

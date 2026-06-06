@@ -2,6 +2,16 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.4.0 — Transições entre cenas
+Recurso: cardápio de transições reimplementado em GSAP (inspirado nos templates Remotion/RVE), usado nos 2–3 momentos-chave.
+
+- Mapa `TRANS` no gerador: `fade` (default), `push`, `slideUp`, `zoom`, `wipe`, `fadeBlack`.
+- Marcação por cena via `transIn` (a cena que sai usa o mesmo tipo automaticamente).
+- Transform vai no **clip** (`.scene`), opacidade no `.scene-inner` → não conflita com a câmera Ken Burns.
+- Overlay `#tdip` (dip-to-black) para `fadeBlack`.
+- Exemplo aplica 3 momentos: zoom no conceito-chave, push no exemplo real, fade-to-black antes da CTA.
+- Catálogo de transições em [`references/motion.md`](references/motion.md).
+
 ## 1.3.0 — Linguagem de movimento
 Recurso: o movimento vira um **estilo definido e reutilizável**, não mais tweens improvisados cena a cena.
 

@@ -30,6 +30,20 @@ Cada helper retorna uma string GSAP; chame com `M.x("#sel", at(t), { opções })
 | `countUp(sel, at, to, {from,suffix,d})` | número subindo (data story). Determinístico no render. |
 | `raw(str)` | escape hatch p/ algo fora do vocabulário (use com parcimônia). |
 
+## Transições entre cenas (`TRANS`)
+Padrão = **corte limpo** (`fade`). Use as especiais em **2–3 momentos-chave** apenas (recomendação oficial), nunca em toda cena. Marque na cena que ENTRA: `transIn: "zoom"` (a cena que sai usa o mesmo tipo automaticamente).
+
+| Tipo | Efeito |
+| --- | --- |
+| `fade` | cross-dissolve (default). |
+| `push` | a cena nova empurra a antiga pra fora (lateral). |
+| `slideUp` | desliza de baixo pra cima. |
+| `zoom` | zoom-through (sai crescendo, entra do pequeno). |
+| `wipe` | varredura horizontal (clip-path). |
+| `fadeBlack` | dip-to-black via overlay `#tdip` — quebra forte (quebra de capítulo / antes da CTA). |
+
+Implementação: o transform vai no **clip** (`.scene`) e a opacidade no `.scene-inner` — o framework só força `opacity:1` no clip, então o transform passa livre e não conflita com a câmera Ken Burns (que é no inner). Para transição com shader (efeito mais pesado), ver o catálogo oficial do HyperFrames.
+
 ## Movimento por formato (16:9 vs 9:16)
 O gerador escala os deslocamentos por `VMOVE` (`1` no 16:9, `0.7` no 9:16) via `mv()`. Tela
 estreita = movimentos menores, sem reescrever nada: os mesmos `reveal/float` saem mais contidos

@@ -1,6 +1,6 @@
 ---
 name: video-explicativo
-version: 1.3.0
+version: 1.4.0
 description: Cria vídeos explicativos completos em PT-BR (HTML→MP4 via HyperFrames) a partir de um assunto — roteiro, narração TTS local, cenas animadas dark premium, captions e CTA do INEMA.CLUB, nos formatos 16:9 (YouTube) e 9:16 (Shorts/Reels). Use quando o usuário pedir para "fazer um vídeo", "vídeo explicativo", "vídeo sobre X", "vídeo pra Shorts/Reels", "mini tutorial em vídeo", "vídeo do INEMA", ou quando der um assunto e quiser um vídeo narrado pronto. Cobre roteiro, locução, animação, render e a CTA final.
 ---
 
@@ -43,7 +43,7 @@ Padrão do usuário (Nei): **PT-BR**, **dark premium** (accent âmbar), gerar **
 ## Regras de ouro (não-negociáveis)
 - **CTA INEMA.CLUB é sempre a última cena** — anexada pelo gerador (`ALL = [...SCENES, CTA]`). Nunca remover nem mudar de posição.
 - **Mid-scene activity, não slideshow**: toda cena tem movimento contínuo (câmera Ken Burns embutida); nas cenas longas, some atividade extra (contador, pulso, drift) ao longo da fala — não deixe o quadro parado depois da entrada.
-- **Transições**: corte limpo é o padrão. Shader transitions só em 2–3 momentos-chave (recomendação oficial HyperFrames), não em toda cena.
+- **Transições**: corte limpo (`fade`) é o padrão. Especiais (`push/zoom/wipe/slideUp/fadeBlack`, via `transIn` na cena) só em 2–3 momentos-chave (recomendação oficial HyperFrames), não em toda cena. Catálogo em [references/motion.md](references/motion.md).
 - **Animar o `.scene-inner`**, nunca o wrapper `.clip` (o framework força `opacity:1` no clip ativo).
 - **Cenas e captions em tracks alternados** (1/3 e 2/4) para não dar overlap nas bordas (erro de float).
 - **Decorativos off-canvas** (ghost/bg-layer): `data-layout-ignore`.

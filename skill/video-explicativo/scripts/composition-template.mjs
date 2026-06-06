@@ -135,6 +135,7 @@ const SCENES = [
   {
     audio: 17.237333,
     caption: "Divulgação progressiva: carrega só quando precisa",
+    transIn: "zoom",   // momento-chave: entra com zoom no conceito central
     html: (p) => `
       <div class="kicker center" id="${p}-k">O CONCEITO-CHAVE · DIVULGAÇÃO PROGRESSIVA</div>
       <div class="layers">
@@ -218,6 +219,7 @@ const SCENES = [
   {
     audio: 11.114667,
     caption: "Este vídeo foi feito pela Skill HyperFrames",
+    transIn: "push",   // momento-chave: empurra pra revelar o exemplo real
     html: (p) => `
       <p class="meta-top" id="${p}-top">Quer um exemplo real?</p>
       <h2 class="h2 center" id="${p}-h">Este vídeo foi feito<br/>por uma <span class="accent">Skill</span>.</h2>
@@ -252,6 +254,7 @@ const SCENES = [
 const CTA = {
   audio: 3.840,
   caption: "Mais conteúdo em inema.club",
+  transIn: "fadeBlack",   // dip-to-black antes da CTA INEMA.CLUB (quebra forte, intencional)
   html: (p) => `
     <div class="cta-eyebrow" id="${p}-eye">CONTINUA EM</div>
     <div class="cta-brand" id="${p}-brand"><span class="b1">INEMA</span><span class="bdotsep">.</span><span class="b2">CLUB</span></div>
@@ -314,6 +317,37 @@ const M = {
   raw(s) { return s; },        // escape hatch p/ algo fora do vocabulário
 };
 
+// ---------- TRANSIÇÕES (corte limpo = 'fade'; especiais em 2–3 momentos — ver motion.md) ----------
+// Transform vai no CLIP (.scene) — o framework só força opacity:1 nele, não o transform.
+// A opacidade vai no .scene-inner. Assim não conflita com a câmera Ken Burns (que é no inner).
+// Cada boundary é definido pelo `transIn` da cena que ENTRA (a cena que sai usa o mesmo tipo).
+const TRANS = {
+  fade: {
+    in: (c, n, at, d) => [`tl.fromTo(${J(n)},{opacity:0},{opacity:1,duration:${d},ease:"power2.out"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(n)},{opacity:0,duration:${d},ease:"power2.in"},${at});`],
+  },
+  push: {
+    in: (c, n, at, d) => [`tl.set(${J(n)},{opacity:1},${at});`, `tl.fromTo(${J(c)},{xPercent:110},{xPercent:0,duration:${d},ease:"power3.out"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(c)},{xPercent:-110,duration:${d},ease:"power3.in"},${at});`],
+  },
+  slideUp: {
+    in: (c, n, at, d) => [`tl.set(${J(n)},{opacity:1},${at});`, `tl.fromTo(${J(c)},{yPercent:110},{yPercent:0,duration:${d},ease:"power3.out"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(c)},{yPercent:-110,duration:${d},ease:"power3.in"},${at});`],
+  },
+  zoom: {
+    in: (c, n, at, d) => [`tl.fromTo(${J(n)},{opacity:0},{opacity:1,duration:${d},ease:"power2.out"},${at});`, `tl.fromTo(${J(c)},{scale:0.7},{scale:1,duration:${d},ease:"power3.out"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(n)},{opacity:0,duration:${d},ease:"power2.in"},${at});`, `tl.to(${J(c)},{scale:1.35,duration:${d},ease:"power3.in"},${at});`],
+  },
+  wipe: {
+    in: (c, n, at, d) => [`tl.set(${J(n)},{opacity:1},${at});`, `tl.fromTo(${J(c)},{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:${d},ease:"power2.inOut"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(c)},{clipPath:"inset(0 0 0 100%)",duration:${d},ease:"power2.inOut"},${at});`],
+  },
+  fadeBlack: {     // dip-to-black via overlay #tdip (mais forte — use em quebras de capítulo / antes da CTA)
+    in: (c, n, at, d) => [`tl.fromTo(${J(n)},{opacity:0},{opacity:1,duration:${round(d * 0.6)},ease:"power2.out"},${round(at + d * 0.4)});`, `tl.fromTo("#tdip",{opacity:1},{opacity:0,duration:${d},ease:"power2.out"},${at});`],
+    out: (c, n, at, d) => [`tl.to(${J(n)},{opacity:0,duration:${round(d * 0.6)},ease:"power2.in"},${at});`, `tl.fromTo("#tdip",{opacity:0},{opacity:1,duration:${d},ease:"power2.in"},${at});`],
+  },
+};
+
 // ---------- ANIMAÇÃO POR CENA ----------
 function emitScene(sc, idx) {
   const s = S[idx];
@@ -321,13 +355,17 @@ function emitScene(sc, idx) {
   const p = `s${i}`;
   const at = (d) => round(s.start + d);
   const dur = round(s.end - s.start);
+  const clip = `#s${i}`, inner = `#scene-inner-${i}`;
+  const inType = TRANS[sc.transIn] ? sc.transIn : "fade";        // transição que ENTRA nesta cena
+  const next = ALL[idx + 1];
+  const outType = next && TRANS[next.transIn] ? next.transIn : "fade"; // saída = transIn da próxima
   const L = [];
   // mid-scene activity: câmera Ken Burns (zoom/pan lento) a cena INTEIRA → não vira slide
-  L.push(`tl.fromTo("#scene-inner-${i}",{scale:1,yPercent:0},{scale:1.05,yPercent:-1.6,duration:${dur},ease:"sine.inOut"},${s.start});`);
-  // entrada/saída do inner (o framework força opacity:1 no clip ativo → anime o filho)
-  L.push(`tl.fromTo("#scene-inner-${i}",{opacity:0},{opacity:1,duration:${FADE},ease:"power2.out"},${s.start});`);
-  L.push(`tl.to("#scene-inner-${i}",{opacity:0,duration:${FADE},ease:"power2.in"},${round(s.end - FADE)});`);
-  L.push(`tl.set("#scene-inner-${i}",{opacity:0},${round(s.end)});`);
+  L.push(`tl.fromTo(${J(inner)},{scale:1,yPercent:0},{scale:1.05,yPercent:-1.6,duration:${dur},ease:"sine.inOut"},${s.start});`);
+  // transição de entrada / saída
+  for (const line of TRANS[inType].in(clip, inner, s.start, FADE)) L.push(line);
+  for (const line of TRANS[outType].out(clip, inner, round(s.end - FADE), FADE)) L.push(line);
+  L.push(`tl.set(${J(inner)},{opacity:0},${round(s.end)});`);
   // coreografia da cena
   for (const line of sc.anim(at, p)) L.push(line);
   // caption
@@ -386,6 +424,7 @@ const html = `<!doctype html>
         background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
       #progress{position:absolute;left:0;bottom:0;height:6px;width:100%;transform:scaleX(0);transform-origin:left center;
         background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:40;box-shadow:0 0 18px rgba(255,195,0,.5)}
+      #tdip{position:absolute;inset:0;background:#000;opacity:0;z-index:38;pointer-events:none}
 
       /* ---- cena base ---- */
       .scene{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:center;
@@ -595,6 +634,7 @@ const html = `<!doctype html>
 ${scenesHTML}
 ${captionsHTML}
       <div id="progress"></div>
+      <div id="tdip"></div>
 ${audioHTML}${musicHTML}
       <script>
         window.__timelines = window.__timelines || {};

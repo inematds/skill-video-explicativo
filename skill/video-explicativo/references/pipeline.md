@@ -29,7 +29,7 @@
 - O gerador embute **câmera Ken Burns** (zoom/pan lento) em toda cena → o quadro nunca fica 100% parado depois da entrada.
 - Distribua os reveals ao LONGO da fala (não tudo nos 2s iniciais); revele cada elemento quando a voz o mencionar.
 - Em cenas longas, adicione atividade contínua: contador subindo, pulso na palavra-chave, drift de um elemento, varredura de gradiente.
-- **Transições**: corte limpo (crossfade do `.scene-inner`) é o padrão. Reserve **shader transitions para 2–3 momentos-chave** (recomendação oficial). Não sobreponha cenas em todo corte.
+- **Transições** (`TRANS`): corte limpo (`fade`) é o padrão; especiais (`push/zoom/wipe/slideUp/fadeBlack`) só em **2–3 momentos-chave**, marcadas com `transIn` na cena que entra. Catálogo em [motion.md](motion.md).
 
 ## Banco de padrões (exemplos oficiais HyperFrames)
 Para inspiração de motion, veja `npx hyperframes init x --example <name>`: `decision-tree` (explainers/tutoriais — nosso caso), `nyt-graph` (data stories/contadores), `kinetic-type` (motion tipográfico), `swiss-grid` (técnico/limpo). A skill usa `blank` + house style dark premium próprio, mas esses exemplos são ótimos para copiar ideias de animação.

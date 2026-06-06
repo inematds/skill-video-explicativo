@@ -54,13 +54,14 @@ Roda 100% local, sem chave de API. Você precisa de:
 
 ### O que a Skill faz (pipeline HTML → MP4)
 
-1. **Roteiro** — `SCRIPT.md` com 6–9 cenas, do primeiro princípio ao avançado, narração curta por cena.
-2. **Projeto** — `npx hyperframes init` + house style dark premium.
-3. **Fontes** — baixa `.woff2` locais (Sora / Inter / JetBrains Mono).
-4. **Narração** — gera os WAVs por cena com Kokoro (voz `pf_dora`).
-5. **Composição** — monta as cenas em HTML + animação GSAP (timing único = áudio batido com a animação).
-6. **Validação** — `hyperframes lint` + `inspect` (0 erros de layout).
-7. **Render** — gera **16:9** e **9:16** em `--quality high`, sempre terminando com a **cena de CTA do INEMA.CLUB**.
+1. **Plano de cenas** — o nº de cenas sai do **assunto**, não é fixo: cada beat do arco vira uma cena (range 4–12 + CTA). Default ~1:40–2:00; se o usuário fixar o número, ele manda.
+2. **Roteiro** — `SCRIPT.md` com as cenas do plano, do primeiro princípio ao avançado, narração curta por cena.
+3. **Projeto** — `npx hyperframes init` + house style dark premium.
+4. **Fontes** — baixa `.woff2` locais (Sora / Inter / JetBrains Mono).
+5. **Narração** — gera os WAVs por cena com Kokoro (voz `pf_dora`).
+6. **Composição** — gerador **data-driven** (`SCENES[]` → N dinâmico) monta HTML + animação GSAP, com **mid-scene activity** (câmera Ken Burns embutida = anti-slideshow) e a **CTA anexada automaticamente** como última cena. Timing único = áudio batido com a animação.
+7. **Validação** — `hyperframes lint` + `inspect` (0 erros de layout).
+8. **Render** — gera **16:9** e **9:16** em `--quality high`, sempre terminando com a **cena de CTA do INEMA.CLUB**.
 
 > Detalhes completos no [`skill/video-explicativo/SKILL.md`](skill/video-explicativo/SKILL.md) e nas
 > [`references/`](skill/video-explicativo/references/) (pipeline, house style, gotchas).
@@ -85,31 +86,34 @@ A Skill tem **padrões fixos** (CTA do INEMA.CLUB, paleta dark âmbar, voz, form
 
 ### 1. Mudar a CTA (INEMA.CLUB → outra marca/URL)
 
-A CTA é a **última cena** (`scene9()` / `case 9`) do `composition-template.mjs`. O texto fica em `scene9()`:
+A CTA é a **última cena**, definida em `const CTA` no `composition-template.mjs` e anexada automaticamente (`ALL = [...SCENES, CTA]`). Edite o `html` dela:
 
 ```js
-function scene9() {
-  return `
-    <div class="cta-eyebrow" id="s9-eye">CONTINUA EM</div>
-    <div class="cta-brand" id="s9-brand"><span class="b1">SUA</span><span class="bdotsep">.</span><span class="b2">MARCA</span></div>
-    <div class="rule center" id="s9-rule"></div>
-    <div class="cta-url mono" id="s9-url"><span class="cta-globe">🌐</span>suamarca.com</div>
-    ...`;
-}
+const CTA = {
+  audio: 3.840,                 // duração real do WAV da narração da CTA
+  caption: "Mais conteúdo em suamarca.com",
+  html: (p) => `
+    <div class="cta-eyebrow" id="${p}-eye">CONTINUA EM</div>
+    <div class="cta-brand" id="${p}-brand"><span class="b1">SUA</span><span class="bdotsep">.</span><span class="b2">MARCA</span></div>
+    <div class="rule center" id="${p}-rule"></div>
+    <div class="cta-url mono" id="${p}-url"><span class="cta-globe">🌐</span>suamarca.com</div>
+    ...`,
+  anim: (at, p) => [ /* tweens GSAP da CTA */ ],
+};
 ```
 
 - `b1` = parte clara (creme), `b2` + `bdotsep` = parte âmbar (accent). Edite o texto dentro dos spans.
 - `cta-eyebrow` = "CONTINUA EM"; `cta-url` = a URL exibida.
-- **Narração da CTA**: está no áudio da última cena — edite `assets/txt/s9.txt` do projeto e gere o WAV de novo (expanda a URL pra fala, ex.: "sua marca ponto com"). Veja [`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh).
+- **Narração da CTA**: é o último `sN.wav` do projeto — edite o `.txt` correspondente e gere o WAV de novo (expanda a URL pra fala, ex.: "sua marca ponto com"), e ajuste `CTA.audio` com a duração real. Veja [`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh).
 - **Estilo da CTA**: regras CSS `.cta-eyebrow` / `.cta-brand` / `.cta-url` (tamanho da marca, glow etc.) no mesmo arquivo.
-- Para **remover** a CTA: tire `scene9` do array `BODIES`, o `case 9` e ajuste `AUDIO[]`/`CAPTIONS[]`. (O padrão da casa é **sempre manter** a CTA.)
+- Para **remover** a CTA: troque `const ALL = [...SCENES, CTA]` por `const ALL = [...SCENES]`. (O padrão da casa é **sempre manter** a CTA.)
 
 ### 2. Cores / paleta (dark premium âmbar)
 
 Tokens CSS no topo do `composition-template.mjs` (bloco `:root`):
 
 ```css
---bg:#0D1321; --bg2:#1D2D44; --line:#3E5C76;
+--bg:#0D1321; --bg2:#1D2D44; --bg3:#3E5C76;
 --fg:#F0EBD8; --muted:#748CAB;
 --accent:#FFC300; --accent2:#FCA311; --code:#2EC4B6;
 ```
@@ -143,6 +147,21 @@ node build-index.mjs --vertical # 9:16
 ```
 
 Ajustes específicos do vertical ficam nas regras CSS `body.v ...`.
+
+### 6. Número de cenas (dinâmico)
+
+Não há número fixo: o nº de cenas = nº de itens no array `SCENES[]` do gerador. O assunto define quantas (range 4–12 + CTA); se você pedir um número específico, ele é respeitado. A CTA é sempre anexada no fim (`ALL = [...SCENES, CTA]`) — não conta no total.
+
+### 7. Música de fundo (opcional)
+
+Defina o caminho de um leito sonoro no topo do gerador (fica baixo, o vídeo inteiro):
+
+```js
+const MUSIC = "assets/audio/bg.mp3"; // null = sem música
+const MUSIC_VOL = 0.14;              // 0–1 (deixe a narração na frente)
+```
+
+Use um arquivo **≥ a duração do vídeo**. Vídeo/imagem como b-roll: ver [`references/clips-midia.md`](skill/video-explicativo/references/clips-midia.md).
 
 ---
 

@@ -25,6 +25,7 @@
 - Para a FALA (TTS), expanda: "SKILL.md" → "SKILL ponto M D"; ".claude/skills" → "ponto claude, barra skills"; URLs → "inema ponto club".
 
 ## Movimento (mid-scene activity — anti-slideshow)
+- **Linguagem de movimento definida**: componha do vocabulário `M.*` do gerador (`reveal/sweep/type/float/pulse/glow/countUp…`), não tweens soltos. Catálogo e princípios em [motion.md](motion.md).
 - O gerador embute **câmera Ken Burns** (zoom/pan lento) em toda cena → o quadro nunca fica 100% parado depois da entrada.
 - Distribua os reveals ao LONGO da fala (não tudo nos 2s iniciais); revele cada elemento quando a voz o mencionar.
 - Em cenas longas, adicione atividade contínua: contador subindo, pulso na palavra-chave, drift de um elemento, varredura de gradiente.

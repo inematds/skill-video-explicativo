@@ -24,7 +24,7 @@ Regra: UM accent dominante (âmbar). Fundo idêntico em todas as cenas.
 - 8–10 elementos por cena; nunca fundo chapado.
 - Camada de fundo persistente (`data-layout-ignore`): glow radial âmbar respirando, ghost text gigante driftando, grid hairline, grão.
 - Escala grande: headline 64–172px, corpo 28–42px, decorativos 12–25% opacidade, bordas 2–4px.
-- Movimento: entradas 0.4–0.6s, eases variados, combinar transform+opacity, stagger 0.08–0.14s. Toda decoração tem motion ambiente.
+- Movimento: **linguagem definida** — toda cena compõe do vocabulário `M.*` (entradas 0.4–0.7s, easing-assinatura, stagger 0.08–0.14s, mid-scene activity, ritmo ≥3 eventos/cena). Detalhes em [motion.md](motion.md). Toda decoração tem motion ambiente.
 - Captions no rodapé (Inter 600, fundo translúcido). Barra de progresso âmbar no rodapé.
 
 ## Formatos

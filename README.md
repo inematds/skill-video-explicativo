@@ -7,6 +7,8 @@ framework [HyperFrames](https://github.com/heygen-com/hyperframes) — animados,
 
 > Este projeto nasceu de um vídeo que foi, ele mesmo, **feito por uma Skill**.
 
+**Versão da Skill:** `v1.3.0` · esquema `v1.yy.xxx` (yy = recurso, xxx = bug) · histórico em [`skill/video-explicativo/CHANGELOG.md`](skill/video-explicativo/CHANGELOG.md).
+
 ---
 
 ## 📦 A Skill
@@ -162,6 +164,10 @@ const MUSIC_VOL = 0.14;              // 0–1 (deixe a narração na frente)
 ```
 
 Use um arquivo **≥ a duração do vídeo**. Vídeo/imagem como b-roll: ver [`references/clips-midia.md`](skill/video-explicativo/references/clips-midia.md).
+
+### 8. Movimento / animação
+
+O movimento é um **estilo definido**: toda cena compõe a partir do vocabulário `M.*` no gerador (`reveal`, `sweep`, `type`, `float`, `pulse`, `glow`, `countUp`…), com **mid-scene activity** (câmera Ken Burns) e deslocamentos que se ajustam ao formato (9:16 mais contido). Para mudar o "jeito" do movimento, ajuste os presets em `M` — não escreva tweens soltos. Catálogo e princípios em [`references/motion.md`](skill/video-explicativo/references/motion.md).
 
 ---
 

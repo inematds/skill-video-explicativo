@@ -62,13 +62,13 @@ const SCENES = [
       <p class="subhead" id="${p}-sub">do primeiro princípio ao avançado<span class="cursor" id="${p}-cur"></span></p>
       <div class="reg tl" id="${p}-r1"></div><div class="reg br" id="${p}-r2"></div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-eyebrow",{y:-24,opacity:0,duration:.55,ease:"power3.out"},${at(0.15)});`,
-      `tl.from("#${p}-w1",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.35)});`,
-      `tl.from("#${p}-w2",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.55)});`,
-      `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out",transformOrigin:"left center"},${at(0.95)});`,
-      `tl.from("#${p}-sub",{y:20,opacity:0,duration:.6,ease:"power2.out"},${at(1.15)});`,
-      `tl.fromTo("#${p}-cur",{opacity:1},{opacity:0,duration:.5,repeat:18,yoyo:true,ease:"none"},${at(1.6)});`,
-      `tl.from(["#${p}-r1","#${p}-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.5)});`,
+      M.reveal(`#${p}-eyebrow`, at(0.15), { y: -24, d: .55 }),
+      M.reveal(`#${p}-w1`, at(0.35), { y: 70, d: .7, ease: "power4.out" }),
+      M.reveal(`#${p}-w2`, at(0.55), { y: 70, d: .7, ease: "power4.out" }),
+      M.sweep(`#${p}-rule`, at(0.95)),
+      M.reveal(`#${p}-sub`, at(1.15), { y: 20, d: .6, ease: EASE.soft }),
+      M.blink(`#${p}-cur`, at(1.6), { times: 18 }),
+      M.reveal([`#${p}-r1`, `#${p}-r2`], at(0.5), { scale: .5, d: .6, stagger: .12, ease: "back.out(2)" }),
     ],
   },
   {
@@ -97,14 +97,13 @@ const SCENES = [
         </div>
       </div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-folder",{x:-60,opacity:0,scale:.9,duration:.7,ease:"power3.out"},${at(0.2)});`,
-      `tl.from("#${p}-file",{y:40,opacity:0,duration:.6,ease:"back.out(1.6)"},${at(0.9)});`,
-      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.5)});`,
-      `tl.from("#${p}-h",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`,
-      `tl.from(["#${p}-c1","#${p}-c2","#${p}-c3"],{y:24,opacity:0,duration:.5,stagger:.13,ease:"back.out(1.7)"},${at(1.4)});`,
-      `tl.from("#${p}-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.1)});`,
-      // mid-scene activity: o arquivo "respira" enquanto a voz explica
-      `tl.to("#${p}-file",{y:"-=10",duration:1.6,repeat:4,yoyo:true,ease:"sine.inOut"},${at(2.6)});`,
+      M.reveal(`#${p}-folder`, at(0.2), { x: -60, scale: .9, d: .7 }),
+      M.reveal(`#${p}-file`, at(0.9), { y: 40, d: .6, ease: EASE.back }),
+      M.reveal(`#${p}-k`, at(0.5), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-h`, at(0.7), { x: 40, d: .6 }),
+      M.reveal([`#${p}-c1`, `#${p}-c2`, `#${p}-c3`], at(1.4), { y: 24, d: .5, stagger: .13, ease: "back.out(1.7)" }),
+      M.reveal(`#${p}-lead`, at(2.1), { y: 16, d: .55, ease: EASE.soft }),
+      M.float(`#${p}-file`, at(2.6)),   // mid-scene activity: o arquivo "respira"
     ],
   },
   {
@@ -125,12 +124,12 @@ const SCENES = [
         <span class="arrow-note" id="${p}-note">↑ o gatilho</span>
       </div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-code",{y:36,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`,
-      `tl.from(["#${p}-l1","#${p}-l2","#${p}-l3","#${p}-l4"],{x:-18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.7)});`,
-      `tl.fromTo("#${p}-mark",{scaleX:0},{scaleX:1,duration:.7,ease:"power2.inOut",transformOrigin:"left center"},${at(2.0)});`,
-      `tl.from(["#${p}-t1","#${p}-t2"],{y:20,opacity:0,duration:.5,stagger:.14,ease:"back.out(1.6)"},${at(2.4)});`,
-      `tl.from("#${p}-note",{opacity:0,y:10,duration:.5,ease:"power2.out"},${at(2.9)});`,
+      M.reveal(`#${p}-k`, at(0.2), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-code`, at(0.4), { y: 36, d: .6 }),
+      M.reveal([`#${p}-l1`, `#${p}-l2`, `#${p}-l3`, `#${p}-l4`], at(0.7), { x: -18, d: .4, stagger: .12, ease: EASE.soft }),
+      M.sweep(`#${p}-mark`, at(2.0), { d: .7, ease: "power2.inOut" }),   // highlight na frase-gatilho
+      M.reveal([`#${p}-t1`, `#${p}-t2`], at(2.4), { y: 20, d: .5, stagger: .14, ease: EASE.back }),
+      M.reveal(`#${p}-note`, at(2.9), { y: 10, d: .5, ease: EASE.soft }),
     ],
   },
   {
@@ -145,13 +144,13 @@ const SCENES = [
       </div>
       <div class="meter" id="${p}-meter"><div class="meter-label mono">contexto</div><div class="meter-bar"><div class="meter-fill" id="${p}-fill"></div></div><div class="meter-val mono" id="${p}-val">leve</div></div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-L1",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(0.6)});`,
-      `tl.to("#${p}-L1",{"--lit":1,borderColor:"var(--accent)",duration:.4},${at(1.0)});`,
-      `tl.from("#${p}-L2",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(1.9)});`,
-      `tl.from("#${p}-L3",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(3.2)});`,
-      `tl.fromTo("#${p}-fill",{scaleX:0},{scaleX:.26,duration:1.1,ease:"power2.out",transformOrigin:"left center"},${at(1.0)});`,
-      `tl.from("#${p}-meter",{opacity:0,y:18,duration:.5,ease:"power2.out"},${at(0.8)});`,
+      M.reveal(`#${p}-k`, at(0.2), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-L1`, at(0.6), { x: -40, d: .55 }),
+      M.raw(`tl.to("#${p}-L1",{"--lit":1,borderColor:"var(--accent)",duration:.4},${at(1.0)});`),
+      M.reveal(`#${p}-L2`, at(1.9), { x: -40, d: .55 }),
+      M.reveal(`#${p}-L3`, at(3.2), { x: -40, d: .55 }),
+      M.bar(`#${p}-fill`, at(1.0), .26),   // contexto "leve" subindo
+      M.reveal(`#${p}-meter`, at(0.8), { y: 18, d: .5, ease: EASE.soft }),
     ],
   },
   {
@@ -173,12 +172,12 @@ const SCENES = [
       </div>
       <div class="term" id="${p}-term"><span class="prompt mono">$</span> <span class="mono cmd" id="${p}-cmd">npx skills add &lt;skill&gt;</span><span class="cursor" id="${p}-cur"></span></div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-p1",{x:-50,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`,
-      `tl.from("#${p}-p2",{x:50,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`,
-      `tl.from("#${p}-term",{y:30,opacity:0,duration:.55,ease:"power3.out"},${at(1.6)});`,
-      `tl.fromTo("#${p}-cmd",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:1.1,ease:"steps(22)"},${at(2.0)});`,
-      `tl.fromTo("#${p}-cur",{opacity:1},{opacity:0,duration:.5,repeat:10,yoyo:true,ease:"none"},${at(3.1)});`,
+      M.reveal(`#${p}-k`, at(0.2), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-p1`, at(0.5), { x: -50, d: .6 }),
+      M.reveal(`#${p}-p2`, at(0.7), { x: 50, d: .6 }),
+      M.reveal(`#${p}-term`, at(1.6), { y: 30, d: .55 }),
+      M.type(`#${p}-cmd`, at(2.0)),        // comando digitando
+      M.blink(`#${p}-cur`, at(3.1)),
     ],
   },
   {
@@ -207,13 +206,13 @@ const SCENES = [
         </div>
       </div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-h",{x:-30,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`,
-      `tl.from(["#${p}-b1","#${p}-b2","#${p}-b3"],{x:-24,opacity:0,duration:.5,stagger:.16,ease:"power2.out"},${at(0.9)});`,
-      `tl.from("#${p}-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.0)});`,
-      `tl.from("#${p}-tree",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.6)});`,
-      `tl.from(["#${p}-r0","#${p}-r1","#${p}-r2","#${p}-r3","#${p}-r4"],{x:18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.9)});`,
-      `tl.fromTo("#${p}-r3",{backgroundColor:"rgba(46,196,182,0)"},{backgroundColor:"rgba(46,196,182,.14)",duration:.5,repeat:5,yoyo:true,ease:"sine.inOut"},${at(2.2)});`,
+      M.reveal(`#${p}-k`, at(0.2), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-h`, at(0.4), { x: -30, d: .6 }),
+      M.reveal([`#${p}-b1`, `#${p}-b2`, `#${p}-b3`], at(0.9), { x: -24, d: .5, stagger: .16, ease: EASE.soft }),
+      M.reveal(`#${p}-lead`, at(2.0), { y: 16, d: .55, ease: EASE.soft }),
+      M.reveal(`#${p}-tree`, at(0.6), { x: 40, d: .6 }),
+      M.reveal([`#${p}-r0`, `#${p}-r1`, `#${p}-r2`, `#${p}-r3`, `#${p}-r4`], at(0.9), { x: 18, d: .4, stagger: .12, ease: EASE.soft }),
+      M.tint(`#${p}-r3`, at(2.2)),         // destaque pulsando na linha "run"
     ],
   },
   {
@@ -225,11 +224,11 @@ const SCENES = [
       <div class="badge" id="${p}-badge"><div class="badge-halo" id="${p}-halo"></div><span class="badge-name">HyperFrames</span></div>
       <div class="flow mono" id="${p}-flow"><span class="fitem" id="${p}-f1">HTML</span><span class="farr" id="${p}-a1">→</span><span class="fitem big" id="${p}-f2">🎬</span><span class="farr" id="${p}-a2">→</span><span class="fitem" id="${p}-f3">vídeo</span></div>`,
     anim: (at, p) => [
-      `tl.from("#${p}-top",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-h",{y:30,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`,
-      `tl.from("#${p}-badge",{scale:.4,opacity:0,duration:.7,ease:"back.out(1.8)"},${at(1.4)});`,
-      `tl.fromTo("#${p}-halo",{scale:.6,opacity:.7},{scale:1.5,opacity:0,duration:1.6,repeat:4,ease:"sine.out"},${at(1.7)});`,
-      `tl.from(["#${p}-f1","#${p}-a1","#${p}-f2","#${p}-a2","#${p}-f3"],{y:20,opacity:0,duration:.45,stagger:.14,ease:"back.out(1.6)"},${at(2.5)});`,
+      M.reveal(`#${p}-top`, at(0.2), { y: -16, d: .5, ease: EASE.soft }),
+      M.reveal(`#${p}-h`, at(0.5), { y: 30, d: .6 }),
+      M.reveal(`#${p}-badge`, at(1.4), { scale: .4, y: 0, d: .7, ease: EASE.pop }),
+      M.ping(`#${p}-halo`, at(1.7)),       // halo pulsando no badge
+      M.reveal([`#${p}-f1`, `#${p}-a1`, `#${p}-f2`, `#${p}-a2`, `#${p}-f3`], at(2.5), { y: 20, d: .45, stagger: .14, ease: EASE.back }),
     ],
   },
   {
@@ -241,10 +240,10 @@ const SCENES = [
       <div class="rule center" id="${p}-rule"></div>
       <p class="sig mono" id="${p}-sig">agora é com você</p>`,
     anim: (at, p) => [
-      `tl.from("#${p}-sub",{y:-16,opacity:0,duration:.55,ease:"power2.out"},${at(0.2)});`,
-      `tl.from("#${p}-h",{scale:.85,opacity:0,duration:.8,ease:"power3.out"},${at(0.6)});`,
-      `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out"},${at(1.3)});`,
-      `tl.from("#${p}-sig",{opacity:0,letterSpacing:"0.5em",duration:.9,ease:"power2.out"},${at(1.6)});`,
+      M.reveal(`#${p}-sub`, at(0.2), { y: -16, d: .55, ease: EASE.soft }),
+      M.reveal(`#${p}-h`, at(0.6), { scale: .85, y: 0, d: .8 }),
+      M.sweep(`#${p}-rule`, at(1.3)),
+      M.reveal(`#${p}-sig`, at(1.6), { letter: "0.5em", y: 0, d: .9, ease: EASE.soft }),
     ],
   },
 ];
@@ -260,12 +259,12 @@ const CTA = {
     <div class="cta-url mono" id="${p}-url"><span class="cta-globe">🌐</span>inema.club</div>
     <div class="reg tl" id="${p}-r1"></div><div class="reg br" id="${p}-r2"></div>`,
   anim: (at, p) => [
-    `tl.from("#${p}-eye",{y:-18,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
-    `tl.from("#${p}-brand",{scale:.7,opacity:0,duration:.7,ease:"back.out(1.7)"},${at(0.5)});`,
-    `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.6,ease:"expo.out"},${at(1.1)});`,
-    `tl.from("#${p}-url",{y:20,opacity:0,duration:.55,ease:"power2.out"},${at(1.3)});`,
-    `tl.fromTo("#${p}-brand",{filter:"drop-shadow(0 0 0px rgba(255,195,0,0))"},{filter:"drop-shadow(0 0 26px rgba(255,195,0,.55))",duration:1.1,repeat:4,yoyo:true,ease:"sine.inOut"},${at(1.4)});`,
-    `tl.from(["#${p}-r1","#${p}-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.6)});`,
+    M.reveal(`#${p}-eye`, at(0.2), { y: -18, d: .5, ease: EASE.soft }),
+    M.reveal(`#${p}-brand`, at(0.5), { scale: .7, y: 0, d: .7, ease: "back.out(1.7)" }),
+    M.sweep(`#${p}-rule`, at(1.1), { d: .6 }),
+    M.reveal(`#${p}-url`, at(1.3), { y: 20, d: .55, ease: EASE.soft }),
+    M.glow(`#${p}-brand`, at(1.4)),       // marca INEMA.CLUB com glow âmbar pulsando
+    M.reveal([`#${p}-r1`, `#${p}-r2`], at(0.6), { scale: .5, d: .6, stagger: .12, ease: "back.out(2)" }),
   ],
 };
 
@@ -282,6 +281,38 @@ const S = ALL.map((sc, i) => {
 });
 const TOTAL = round(t);
 function round(n) { return Math.round(n * 1000) / 1000; }
+
+// ---------- VOCABULÁRIO DE MOVIMENTO (estilo da casa — ver references/motion.md) ----------
+// Toda cena compõe a partir daqui → o movimento fica CONSISTENTE (não tweens soltos).
+const J = (s) => JSON.stringify(s);
+const VMOVE = VERT ? 0.7 : 1;          // (d) deslocamentos menores no 9:16 (tela estreita)
+const mv = (v) => Math.round(v * VMOVE);
+const EASE = { out: "power3.out", soft: "power2.out", in: "power2.in", back: "back.out(1.6)", expo: "expo.out", pop: "back.out(1.8)" };
+const M = {
+  // entrada padrão (a base do estilo): desloca + fade, ease-assinatura, stagger opcional
+  reveal(sel, at, o = {}) {
+    const f = ["opacity:0"];
+    if (o.x) f.push(`x:${mv(o.x)}`);
+    if (o.y) f.push(`y:${mv(o.y)}`);
+    if (o.scale != null) f.push(`scale:${o.scale}`);
+    if (o.letter) f.push(`letterSpacing:${J(o.letter)}`);
+    const extra = o.stagger ? `,stagger:${o.stagger}` : "";
+    return `tl.from(${J(sel)},{${f.join(",")},duration:${o.d ?? 0.55},ease:"${o.ease ?? EASE.out}"${extra}},${at});`;
+  },
+  sweep(sel, at, o = {}) { return `tl.fromTo(${J(sel)},{scaleX:0},{scaleX:1,duration:${o.d ?? 0.7},ease:"${o.ease ?? EASE.expo}",transformOrigin:"left center"},${at});`; },
+  type(sel, at, o = {}) { return `tl.fromTo(${J(sel)},{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:${o.d ?? 1.1},ease:"steps(${o.steps ?? 22})"},${at});`; },
+  blink(sel, at, o = {}) { return `tl.fromTo(${J(sel)},{opacity:1},{opacity:0,duration:${o.d ?? 0.5},repeat:${o.times ?? 10},yoyo:true,ease:"none"},${at});`; },
+  float(sel, at, o = {}) { return `tl.to(${J(sel)},{y:"-=${mv(o.dist ?? 10)}",duration:${o.d ?? 1.6},repeat:${o.repeat ?? 4},yoyo:true,ease:"sine.inOut"},${at});`; },
+  pulse(sel, at, o = {}) { return `tl.fromTo(${J(sel)},{scale:1},{scale:${o.s ?? 1.08},duration:${o.d ?? 0.35},repeat:${(o.times ?? 3) * 2 - 1},yoyo:true,ease:"sine.inOut"},${at});`; },
+  glow(sel, at, o = {}) { const c = o.color ?? "255,195,0"; return `tl.fromTo(${J(sel)},{filter:"drop-shadow(0 0 0px rgba(${c},0))"},{filter:"drop-shadow(0 0 ${o.blur ?? 26}px rgba(${c},.55))",duration:${o.d ?? 1.1},repeat:${o.times ?? 4},yoyo:true,ease:"sine.inOut"},${at});`; },
+  ping(sel, at, o = {}) { return `tl.fromTo(${J(sel)},{scale:.6,opacity:.7},{scale:1.5,opacity:0,duration:${o.d ?? 1.6},repeat:${o.times ?? 4},ease:"sine.out"},${at});`; },
+  tint(sel, at, o = {}) { const c = o.color ?? "46,196,182"; return `tl.fromTo(${J(sel)},{backgroundColor:"rgba(${c},0)"},{backgroundColor:"rgba(${c},${o.a ?? 0.14})",duration:${o.d ?? 0.5},repeat:${o.times ?? 5},yoyo:true,ease:"sine.inOut"},${at});`; },
+  bar(sel, at, to, o = {}) { return `tl.fromTo(${J(sel)},{scaleX:0},{scaleX:${to},duration:${o.d ?? 1.1},ease:"${o.ease ?? EASE.soft}",transformOrigin:"left center"},${at});`; },
+  // contador subindo (mid-scene activity de dados) — determinístico no render
+  countUp(sel, at, to, o = {}) { return `tl.to({v:${o.from ?? 0}},{v:${to},duration:${o.d ?? 1.2},ease:"${o.ease ?? EASE.soft}",onUpdate(){var e=document.querySelector(${J(sel)});if(e)e.textContent=Math.round(this.targets()[0].v)+${J(o.suffix ?? "")};}},${at});`; },
+  set(sel, at, props) { return `tl.to(${J(sel)},{${props},duration:${0.4}},${at});`; },
+  raw(s) { return s; },        // escape hatch p/ algo fora do vocabulário
+};
 
 // ---------- ANIMAÇÃO POR CENA ----------
 function emitScene(sc, idx) {

@@ -22,8 +22,22 @@ Problemas reais já enfrentados e como resolver — aplique ANTES de renderizar.
 - Extrair frame único: `ffmpeg -nostdin -y -ss <t> -i in.mp4 -vframes 1 -update 1 out.png`.
 
 ## Mecânica do HyperFrames
-- Todo elemento temporizado precisa de `class="clip"` + `data-start` + `data-duration` + `data-track-index`.
+- Todo elemento VISÍVEL temporizado precisa de `class="clip"` + `data-start` + `data-duration` + `data-track-index`. Áudio: idem, mas **sem** `class="clip"`.
 - O framework força `opacity:1` no clip ativo → para fade de cena, anime um filho `.scene-inner`, nunca o wrapper.
-- Timeline GSAP **pausada** e registrada: `window.__timelines["main"] = gsap.timeline({paused:true})`.
+- Timeline GSAP **pausada** e registrada: `window.__timelines["main"] = gsap.timeline({paused:true})`. O ID tem que bater com `data-composition-id`.
+- **Root SEM `data-duration`**: a duração da composição vem de `tl.duration()`. `data-duration` no root é contra o contrato (pode quebrar em updates do framework).
 - Animação de fundo "ambiente" (glow/grid) com `repeat` finito cobrindo o total + `tl.set({}, {}, TOTAL)` de sentinela no fim.
 - Nada de `Date.now()`/`Math.random()`/fetch — render é determinístico.
+
+## Vídeo (`<video>`) — pegadinhas
+- **NUNCA animar `width`/`height`/`top`/`left` direto no `<video>`** com GSAP → o Chrome para de renderizar frames. Envolva num `<div>` wrapper e anime o wrapper.
+- Vídeo **não** leva `class="clip"` — o framework gerencia play/pause/seek dele direto pelo `data-start`/`data-duration`/`data-track-index` no próprio `<video>`.
+- `data-media-start="5"` = trim (começa 5s dentro do source). `data-volume="0"` = mudo. Se o source acaba antes do `data-duration`, congela o último frame.
+- Imagem (`<img class="clip">`): `data-duration` é **obrigatório** (não tem source duration). Ver [clips-midia.md](clips-midia.md).
+
+## Checklist antes de renderizar
+- `npx hyperframes lint` → **0 erros**; `npx hyperframes inspect --samples 16` → 0 problemas.
+- Todo visível temporizado tem `class="clip"`; vídeo **não** tem.
+- Todo `data-start` que referencia outro clip aponta pra um ID que existe.
+- Só **um** `index.html` (composição root) na raiz.
+- A última cena é a **CTA INEMA.CLUB**.

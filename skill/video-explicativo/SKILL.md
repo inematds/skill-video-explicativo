@@ -15,13 +15,23 @@ Padrão do usuário (Nei): **PT-BR**, **dark premium** (accent âmbar), gerar **
 - TTS local: `pip install kokoro-onnx soundfile` (sem espeak-ng — o Kokoro já fonemiza PT-BR).
 - Verifique com `npx hyperframes doctor` se algo falhar.
 
+## Plano de cenas (quantas cenas?)
+
+**Não há número fixo.** O nº de cenas sai do roteiro, não de um template travado:
+
+- **O assunto define a quantidade.** Quebre o arco (hook → primeiro princípio → mecânica → conceito-chave → aplicação → avançado → exemplo real → fecho) em quantos beats o tema pedir. Cada beat = 1 cena, 1–3 frases, ~8–15s de voz.
+- **Range saudável: 4–12 cenas de conteúdo.** Abaixo de 4 fica raso; acima de 12 cansa/perde retenção. Tema grande → desdobre beats (mecânica em 2, exemplos em 2); tema pequeno → funda.
+- **Duração-alvo** (se o usuário pedir): nº de cenas ≈ `voz_alvo / ~12s`, dentro do range. **Default quando não dizem nada: ~1:40–2:00** (curto, bom pra Shorts).
+- **A CTA do INEMA.CLUB é sempre +1, obrigatória, última** — e já vem anexada automaticamente pelo gerador (`ALL = [...SCENES, CTA]`). Não conta no nº de cenas de conteúdo.
+- **Override do usuário manda:** se ele fixar ("faz 6 cenas", "quero 5"), use exatamente esse número de conteúdo + a CTA, ignorando a heurística.
+
 ## Fluxo (sempre nesta ordem)
 
-1. **Roteiro** — escreva `SCRIPT.md`: 6–9 cenas, do primeiro princípio ao avançado, com exemplo real. Narração curta por cena (≈100s de voz ≈ 1:50 de vídeo). Expanda siglas para a fala (ex.: "SKILL.md" → "SKILL ponto M D"). Veja [references/pipeline.md](references/pipeline.md).
+1. **Roteiro** — escreva `SCRIPT.md` com o nº de cenas que o "Plano de cenas" acima determinou (não force 6–9), do primeiro princípio ao avançado, com exemplo real. Narração curta por cena. Expanda siglas para a fala (ex.: "SKILL.md" → "SKILL ponto M D"). Veja [references/pipeline.md](references/pipeline.md).
 2. **Projeto** — `npx hyperframes init <nome> --example blank --non-interactive`. Copie `design.md` (house style) para a raiz.
 3. **Fontes** — `node fetch-fonts.mjs` (baixa .woff2 subset latin → `assets/fonts/fonts.css`). Script em [scripts/fetch-fonts.mjs](scripts/fetch-fonts.mjs).
 4. **Narração** — escreva `assets/txt/sN.txt` e gere os WAVs com Kokoro voz `pf_dora`, `--speed 0.98`. Template em [scripts/narration-template.sh](scripts/narration-template.sh). Meça as durações com `ffprobe`.
-5. **Composição** — adapte [scripts/composition-template.mjs](scripts/composition-template.mjs) (copie como `build-index.mjs`): preencha `AUDIO[]` com as durações reais, escreva `sceneN()` (HTML) e `anim()` (GSAP) por cena, ajuste `CAPTIONS[]`. A **cena de CTA do INEMA.CLUB já está incluída** como última cena. Rode `node build-index.mjs` (16:9) e `node build-index.mjs --vertical` (9:16) — ambos escrevem `index.html` (renderize logo após cada geração).
+5. **Composição** — adapte [scripts/composition-template.mjs](scripts/composition-template.mjs) (copie como `build-index.mjs`). O gerador é **data-driven**: edite o array `SCENES[]` — uma entrada por cena de conteúdo, cada uma `{ audio, caption, html(p), anim(at,p) }` (use o prefixo `p` nos ids). O **nº de cenas = nº de itens em `SCENES[]`** (dinâmico). A **CTA do INEMA.CLUB já vem anexada como última cena** (`const CTA` + `ALL = [...SCENES, CTA]`) — não remover. Cada cena já ganha **mid-scene activity** (câmera Ken Burns embutida) pra não virar slideshow. Mídia (vídeo/imagem/música): ver [references/clips-midia.md](references/clips-midia.md). Rode `node build-index.mjs` (16:9) e `node build-index.mjs --vertical` (9:16) — ambos escrevem `index.html` (renderize logo após cada geração).
 6. **Validar** — `npx hyperframes lint` (0 erros) e `npx hyperframes inspect --samples 16` (0 problemas de layout). Corrija seguindo [references/gotchas.md](references/gotchas.md).
 7. **Render** — `--quality draft` para conferir (extraia frames e mostre ao usuário), depois `--quality high`. Gere as duas versões:
    ```bash
@@ -30,11 +40,15 @@ Padrão do usuário (Nei): **PT-BR**, **dark premium** (accent âmbar), gerar **
    ```
 
 ## Regras de ouro (não-negociáveis)
+- **CTA INEMA.CLUB é sempre a última cena** — anexada pelo gerador (`ALL = [...SCENES, CTA]`). Nunca remover nem mudar de posição.
+- **Mid-scene activity, não slideshow**: toda cena tem movimento contínuo (câmera Ken Burns embutida); nas cenas longas, some atividade extra (contador, pulso, drift) ao longo da fala — não deixe o quadro parado depois da entrada.
+- **Transições**: corte limpo é o padrão. Shader transitions só em 2–3 momentos-chave (recomendação oficial HyperFrames), não em toda cena.
 - **Animar o `.scene-inner`**, nunca o wrapper `.clip` (o framework força `opacity:1` no clip ativo).
 - **Cenas e captions em tracks alternados** (1/3 e 2/4) para não dar overlap nas bordas (erro de float).
 - **Decorativos off-canvas** (ghost/bg-layer): `data-layout-ignore`.
 - **Fontes locais** via `@font-face` (NÃO usar Google Fonts CDN — some no render).
-- **Timing é fonte única**: o gerador tira `data-start/duration` E os tempos dos tweens do MESMO array `AUDIO[]` → áudio e animação sempre batidos.
+- **Timing é fonte única**: o gerador tira `data-start/duration` E os tempos dos tweens do campo `audio` de cada cena → áudio e animação sempre batidos.
+- **Root sem `data-duration`**: a duração da composição vem de `tl.duration()` (contrato HyperFrames). Não adicione `data-duration` no elemento root.
 - Sempre **conferir frames** com o usuário antes do render final (não consigo ouvir o áudio — pedir pra ele validar a locução).
 
 ## Identidade visual (house style)

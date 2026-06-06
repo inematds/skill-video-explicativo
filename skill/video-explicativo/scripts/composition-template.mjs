@@ -1,17 +1,27 @@
 // ============================================================================
-// TEMPLATE DE COMPOSIÇÃO (HyperFrames) — adapte para cada novo vídeo.
-// Exemplo: vídeo "Skills no Claude Code" (9 cenas; a 9ª é a CTA INEMA.CLUB).
+// TEMPLATE DE COMPOSIÇÃO (HyperFrames) — data-driven, N de cenas DINÂMICO.
+//
+// COMO FUNCIONA:
+//   - `SCENES[]` = cenas de CONTEÚDO. O nº de itens aqui = nº de cenas.
+//     NÃO existe número fixo: o roteiro/plano define quantas cenas entram
+//     (ver SKILL.md › "Plano de cenas"). Range saudável: 4–12 de conteúdo.
+//   - `CTA` (INEMA.CLUB) é SEMPRE anexada como a ÚLTIMA cena, automaticamente
+//     (`ALL = [...SCENES, CTA]`). Não remover — é a assinatura padrão.
+//   - Cada cena é um objeto: { audio, caption, html(p), anim(at,p) }
+//       audio   -> duração REAL do WAV (ffprobe), em segundos
+//       caption -> legenda curta da cena
+//       html(p) -> HTML da cena; use o prefixo `p` nos ids (ex.: id="${p}-h")
+//       anim(at,p) -> array de strings GSAP; `at(d)` = tempo absoluto (início+d)
+//   - mid-scene activity: a câmera Ken Burns (zoom/pan lento) já roda em TODA
+//     cena por baixo da coreografia → nunca vira "slideshow" parado. Some
+//     atividade contínua extra nas cenas longas (contadores, pulsos, drift).
 //
 // COMO ADAPTAR a um novo assunto:
-//   1. AUDIO[]    -> durações REAIS (ffprobe) dos WAVs, na ordem das cenas
-//                    (mantenha a última = narração da CTA s9).
-//   2. CAPTIONS[] -> uma legenda curta por cena.
-//   3. sceneN()   -> HTML de cada cena (reaproveite as classes CSS já definidas).
-//   4. anim(i,t)  -> tweens GSAP por cena (case N).
-//   5. BODIES     -> liste as funções sceneN na ordem.
-//   6. scene9()/case 9 = CTA INEMA.CLUB -> NÃO remover (assinatura padrão).
-// CSS dark premium, camada de fundo, captions, barra de progresso, overrides
-// 9:16 (body.v) e a CTA já estão prontos. Em geral só se mexe nas cenas + AUDIO[].
+//   1. SCENES[] -> uma entrada por beat do roteiro (audio real + caption + html + anim).
+//   2. CTA.audio -> duração real do WAV da narração da CTA.
+//   3. MUSIC -> (opcional) caminho de um leito sonoro; fica baixo o vídeo todo.
+//   Reaproveite as classes CSS já definidas. Transições: corte limpo é o padrão;
+//   shader transitions só em 2–3 momentos-chave (ver references/pipeline.md).
 //
 // Uso: `node build-index.mjs` (16:9) e `node build-index.mjs --vertical` (9:16).
 // Fonte única de verdade do timing -> áudio e timeline GSAP sempre batidos.
@@ -28,266 +38,289 @@ const W = VERT ? 1080 : 1920;
 const H = VERT ? 1920 : 1080;
 const OUT = "index.html"; // sempre index.html; o modo é definido por --vertical (renderize logo após gerar)
 
-const AUDIO = [10.944, 14.464, 13.760, 17.237333, 10.858667, 13.525333, 11.114667, 8.170667, 3.840];
 const LEAD = 0.5;   // visual estabelece antes da voz
 const TAIL = 0.9;   // segura depois da voz
 const FADE = 0.45;
 
-// Timing por cena
+// Leito sonoro opcional (baixo, o vídeo inteiro). null = sem música.
+// ex.: const MUSIC = "assets/audio/bg.mp3";  (use um arquivo >= duração do vídeo)
+const MUSIC = null;
+const MUSIC_VOL = 0.14;
+
+// ---------- CENAS DE CONTEÚDO (N dinâmico) ----------
+const SCENES = [
+  {
+    audio: 10.944,
+    caption: "Skills no Claude Code — do básico ao avançado",
+    html: (p) => `
+      <div class="eyebrow" id="${p}-eyebrow"><span class="dot"></span>CLAUDE CODE · SKILLS</div>
+      <h1 class="title">
+        <span class="word" id="${p}-w1">Skills</span>
+        <span class="word accent" id="${p}-w2">no Claude&nbsp;Code</span>
+      </h1>
+      <div class="rule" id="${p}-rule"></div>
+      <p class="subhead" id="${p}-sub">do primeiro princípio ao avançado<span class="cursor" id="${p}-cur"></span></p>
+      <div class="reg tl" id="${p}-r1"></div><div class="reg br" id="${p}-r2"></div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-eyebrow",{y:-24,opacity:0,duration:.55,ease:"power3.out"},${at(0.15)});`,
+      `tl.from("#${p}-w1",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.35)});`,
+      `tl.from("#${p}-w2",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.55)});`,
+      `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out",transformOrigin:"left center"},${at(0.95)});`,
+      `tl.from("#${p}-sub",{y:20,opacity:0,duration:.6,ease:"power2.out"},${at(1.15)});`,
+      `tl.fromTo("#${p}-cur",{opacity:1},{opacity:0,duration:.5,repeat:18,yoyo:true,ease:"none"},${at(1.6)});`,
+      `tl.from(["#${p}-r1","#${p}-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.5)});`,
+    ],
+  },
+  {
+    audio: 14.464,
+    caption: "Uma Skill = uma pasta + um arquivo SKILL.md",
+    html: (p) => `
+      <div class="grid2">
+        <div class="left">
+          <div class="folder" id="${p}-folder">
+            <div class="folder-tab"></div>
+            <div class="folder-body"><span class="mono">minha-skill/</span></div>
+            <div class="file-card" id="${p}-file">
+              <div class="file-dot"></div><span class="mono">SKILL.md</span>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="kicker" id="${p}-k">O PRIMEIRO PRINCÍPIO</div>
+          <h2 class="h2" id="${p}-h">Uma pasta.<br/>Um arquivo.</h2>
+          <div class="chips">
+            <span class="chip" id="${p}-c1">criar vídeos</span>
+            <span class="chip" id="${p}-c2">revisar código</span>
+            <span class="chip" id="${p}-c3">desenhar UI</span>
+          </div>
+          <p class="lead" id="${p}-lead">É conhecimento <b>empacotado</b>.</p>
+        </div>
+      </div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-folder",{x:-60,opacity:0,scale:.9,duration:.7,ease:"power3.out"},${at(0.2)});`,
+      `tl.from("#${p}-file",{y:40,opacity:0,duration:.6,ease:"back.out(1.6)"},${at(0.9)});`,
+      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.5)});`,
+      `tl.from("#${p}-h",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`,
+      `tl.from(["#${p}-c1","#${p}-c2","#${p}-c3"],{y:24,opacity:0,duration:.5,stagger:.13,ease:"back.out(1.7)"},${at(1.4)});`,
+      `tl.from("#${p}-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.1)});`,
+      // mid-scene activity: o arquivo "respira" enquanto a voz explica
+      `tl.to("#${p}-file",{y:"-=10",duration:1.6,repeat:4,yoyo:true,ease:"sine.inOut"},${at(2.6)});`,
+    ],
+  },
+  {
+    audio: 13.760,
+    caption: "name + description — a description é o gatilho",
+    html: (p) => `
+      <div class="kicker center" id="${p}-k">ANATOMIA DO SKILL.md</div>
+      <div class="code" id="${p}-code">
+        <div class="code-bar"><i></i><i></i><i></i><span class="mono dim">SKILL.md</span></div>
+        <pre class="mono"><span class="ln" id="${p}-l1"><span class="punc">---</span></span>
+<span class="ln" id="${p}-l2"><span class="key">name:</span> <span class="val">youtube-thumbnail</span></span>
+<span class="ln" id="${p}-l3"><span class="key">description:</span> <span class="val">Cria thumbnails. <span class="hl"><span class="marker" id="${p}-mark"></span>Use quando o usuário pedir…</span></span></span>
+<span class="ln" id="${p}-l4"><span class="punc">---</span></span></pre>
+      </div>
+      <div class="tagrow">
+        <span class="tag" id="${p}-t1"><b>name</b> = identidade</span>
+        <span class="tag accent2" id="${p}-t2"><b>description</b> = quando usar</span>
+        <span class="arrow-note" id="${p}-note">↑ o gatilho</span>
+      </div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-code",{y:36,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`,
+      `tl.from(["#${p}-l1","#${p}-l2","#${p}-l3","#${p}-l4"],{x:-18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.7)});`,
+      `tl.fromTo("#${p}-mark",{scaleX:0},{scaleX:1,duration:.7,ease:"power2.inOut",transformOrigin:"left center"},${at(2.0)});`,
+      `tl.from(["#${p}-t1","#${p}-t2"],{y:20,opacity:0,duration:.5,stagger:.14,ease:"back.out(1.6)"},${at(2.4)});`,
+      `tl.from("#${p}-note",{opacity:0,y:10,duration:.5,ease:"power2.out"},${at(2.9)});`,
+    ],
+  },
+  {
+    audio: 17.237333,
+    caption: "Divulgação progressiva: carrega só quando precisa",
+    html: (p) => `
+      <div class="kicker center" id="${p}-k">O CONCEITO-CHAVE · DIVULGAÇÃO PROGRESSIVA</div>
+      <div class="layers">
+        <div class="layer" id="${p}-L1"><span class="lnum">1</span><div class="ltxt"><b>name + description</b><span class="lsub">sempre na memória</span></div><span class="lbadge">always</span></div>
+        <div class="layer" id="${p}-L2"><span class="lnum">2</span><div class="ltxt"><b>SKILL.md completo</b><span class="lsub">carrega quando a tarefa combina</span></div><span class="lbadge">on match</span></div>
+        <div class="layer" id="${p}-L3"><span class="lnum">3</span><div class="ltxt"><b>referências · scripts</b><span class="lsub">só sob demanda</span></div><span class="lbadge">on demand</span></div>
+      </div>
+      <div class="meter" id="${p}-meter"><div class="meter-label mono">contexto</div><div class="meter-bar"><div class="meter-fill" id="${p}-fill"></div></div><div class="meter-val mono" id="${p}-val">leve</div></div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-L1",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(0.6)});`,
+      `tl.to("#${p}-L1",{"--lit":1,borderColor:"var(--accent)",duration:.4},${at(1.0)});`,
+      `tl.from("#${p}-L2",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(1.9)});`,
+      `tl.from("#${p}-L3",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(3.2)});`,
+      `tl.fromTo("#${p}-fill",{scaleX:0},{scaleX:.26,duration:1.1,ease:"power2.out",transformOrigin:"left center"},${at(1.0)});`,
+      `tl.from("#${p}-meter",{opacity:0,y:18,duration:.5,ease:"power2.out"},${at(0.8)});`,
+    ],
+  },
+  {
+    audio: 10.858667,
+    caption: "Onde vivem: .claude/skills (projeto ou global)",
+    html: (p) => `
+      <div class="kicker center" id="${p}-k">ONDE VIVEM · COMO INSTALAR</div>
+      <div class="paths">
+        <div class="pathcard" id="${p}-p1">
+          <div class="ptag mono">GLOBAL</div>
+          <div class="ppath mono">~/.claude/skills/</div>
+          <div class="pdesc">vale em qualquer projeto</div>
+        </div>
+        <div class="pathcard" id="${p}-p2">
+          <div class="ptag mono accentbg">PROJETO</div>
+          <div class="ppath mono">.claude/skills/</div>
+          <div class="pdesc">só neste repositório</div>
+        </div>
+      </div>
+      <div class="term" id="${p}-term"><span class="prompt mono">$</span> <span class="mono cmd" id="${p}-cmd">npx skills add &lt;skill&gt;</span><span class="cursor" id="${p}-cur"></span></div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-p1",{x:-50,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`,
+      `tl.from("#${p}-p2",{x:50,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`,
+      `tl.from("#${p}-term",{y:30,opacity:0,duration:.55,ease:"power3.out"},${at(1.6)});`,
+      `tl.fromTo("#${p}-cmd",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:1.1,ease:"steps(22)"},${at(2.0)});`,
+      `tl.fromTo("#${p}-cur",{opacity:1},{opacity:0,duration:.5,repeat:10,yoyo:true,ease:"none"},${at(3.1)});`,
+    ],
+  },
+  {
+    audio: 13.525333,
+    caption: "Avançado: scripts, referências e templates",
+    html: (p) => `
+      <div class="grid2">
+        <div class="left">
+          <div class="kicker" id="${p}-k">NÍVEL AVANÇADO</div>
+          <h2 class="h2" id="${p}-h">Muito mais<br/>que texto.</h2>
+          <ul class="bullets">
+            <li id="${p}-b1"><span class="bdot"></span>scripts que o Claude executa</li>
+            <li id="${p}-b2"><span class="bdot"></span>referências carregadas sob demanda</li>
+            <li id="${p}-b3"><span class="bdot"></span>paletas &amp; templates reutilizáveis</li>
+          </ul>
+          <p class="lead" id="${p}-lead">Um <b>fluxo de trabalho</b> inteiro — não só uma dica.</p>
+        </div>
+        <div class="right">
+          <div class="tree" id="${p}-tree">
+            <div class="trow root mono" id="${p}-r0">hyperframes/</div>
+            <div class="trow mono" id="${p}-r1">├─ SKILL.md</div>
+            <div class="trow mono" id="${p}-r2">├─ references/<span class="dim">*.md</span></div>
+            <div class="trow mono run" id="${p}-r3">├─ scripts/<span class="dim">*.mjs</span> <span class="runtag">run</span></div>
+            <div class="trow mono" id="${p}-r4">└─ palettes/<span class="dim">*.md</span></div>
+          </div>
+        </div>
+      </div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-h",{x:-30,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`,
+      `tl.from(["#${p}-b1","#${p}-b2","#${p}-b3"],{x:-24,opacity:0,duration:.5,stagger:.16,ease:"power2.out"},${at(0.9)});`,
+      `tl.from("#${p}-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.0)});`,
+      `tl.from("#${p}-tree",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.6)});`,
+      `tl.from(["#${p}-r0","#${p}-r1","#${p}-r2","#${p}-r3","#${p}-r4"],{x:18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.9)});`,
+      `tl.fromTo("#${p}-r3",{backgroundColor:"rgba(46,196,182,0)"},{backgroundColor:"rgba(46,196,182,.14)",duration:.5,repeat:5,yoyo:true,ease:"sine.inOut"},${at(2.2)});`,
+    ],
+  },
+  {
+    audio: 11.114667,
+    caption: "Este vídeo foi feito pela Skill HyperFrames",
+    html: (p) => `
+      <p class="meta-top" id="${p}-top">Quer um exemplo real?</p>
+      <h2 class="h2 center" id="${p}-h">Este vídeo foi feito<br/>por uma <span class="accent">Skill</span>.</h2>
+      <div class="badge" id="${p}-badge"><div class="badge-halo" id="${p}-halo"></div><span class="badge-name">HyperFrames</span></div>
+      <div class="flow mono" id="${p}-flow"><span class="fitem" id="${p}-f1">HTML</span><span class="farr" id="${p}-a1">→</span><span class="fitem big" id="${p}-f2">🎬</span><span class="farr" id="${p}-a2">→</span><span class="fitem" id="${p}-f3">vídeo</span></div>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-top",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-h",{y:30,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`,
+      `tl.from("#${p}-badge",{scale:.4,opacity:0,duration:.7,ease:"back.out(1.8)"},${at(1.4)});`,
+      `tl.fromTo("#${p}-halo",{scale:.6,opacity:.7},{scale:1.5,opacity:0,duration:1.6,repeat:4,ease:"sine.out"},${at(1.7)});`,
+      `tl.from(["#${p}-f1","#${p}-a1","#${p}-f2","#${p}-a2","#${p}-f3"],{y:20,opacity:0,duration:.45,stagger:.14,ease:"back.out(1.6)"},${at(2.5)});`,
+    ],
+  },
+  {
+    audio: 8.170667,
+    caption: "Comece com um SKILL.md. Agora é com você.",
+    html: (p) => `
+      <p class="closer-sub" id="${p}-sub">Skills transformam o Claude Code num especialista sob medida.</p>
+      <h1 class="closer" id="${p}-h">Comece com um<br/><span class="accent">SKILL.md</span></h1>
+      <div class="rule center" id="${p}-rule"></div>
+      <p class="sig mono" id="${p}-sig">agora é com você</p>`,
+    anim: (at, p) => [
+      `tl.from("#${p}-sub",{y:-16,opacity:0,duration:.55,ease:"power2.out"},${at(0.2)});`,
+      `tl.from("#${p}-h",{scale:.85,opacity:0,duration:.8,ease:"power3.out"},${at(0.6)});`,
+      `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out"},${at(1.3)});`,
+      `tl.from("#${p}-sig",{opacity:0,letterSpacing:"0.5em",duration:.9,ease:"power2.out"},${at(1.6)});`,
+    ],
+  },
+];
+
+// ---------- CTA INEMA.CLUB (SEMPRE a última cena — anexada automaticamente) ----------
+const CTA = {
+  audio: 3.840,
+  caption: "Mais conteúdo em inema.club",
+  html: (p) => `
+    <div class="cta-eyebrow" id="${p}-eye">CONTINUA EM</div>
+    <div class="cta-brand" id="${p}-brand"><span class="b1">INEMA</span><span class="bdotsep">.</span><span class="b2">CLUB</span></div>
+    <div class="rule center" id="${p}-rule"></div>
+    <div class="cta-url mono" id="${p}-url"><span class="cta-globe">🌐</span>inema.club</div>
+    <div class="reg tl" id="${p}-r1"></div><div class="reg br" id="${p}-r2"></div>`,
+  anim: (at, p) => [
+    `tl.from("#${p}-eye",{y:-18,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`,
+    `tl.from("#${p}-brand",{scale:.7,opacity:0,duration:.7,ease:"back.out(1.7)"},${at(0.5)});`,
+    `tl.fromTo("#${p}-rule",{scaleX:0},{scaleX:1,duration:.6,ease:"expo.out"},${at(1.1)});`,
+    `tl.from("#${p}-url",{y:20,opacity:0,duration:.55,ease:"power2.out"},${at(1.3)});`,
+    `tl.fromTo("#${p}-brand",{filter:"drop-shadow(0 0 0px rgba(255,195,0,0))"},{filter:"drop-shadow(0 0 26px rgba(255,195,0,.55))",duration:1.1,repeat:4,yoyo:true,ease:"sine.inOut"},${at(1.4)});`,
+    `tl.from(["#${p}-r1","#${p}-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.6)});`,
+  ],
+};
+
+// CTA garantida no fim. NÃO inverter esta ordem.
+const ALL = [...SCENES, CTA];
+
+// ---------- TIMING (fonte única) ----------
 let t = 0;
-const S = AUDIO.map((a, i) => {
-  const dur = LEAD + a + TAIL;
-  const o = { i: i + 1, start: round(t), dur: round(dur), audioStart: round(t + LEAD), audioDur: round(a), end: round(t + dur) };
+const S = ALL.map((sc, i) => {
+  const dur = LEAD + sc.audio + TAIL;
+  const o = { i: i + 1, start: round(t), dur: round(dur), audioStart: round(t + LEAD), audioDur: round(sc.audio), end: round(t + dur) };
   t += dur;
   return o;
 });
 const TOTAL = round(t);
 function round(n) { return Math.round(n * 1000) / 1000; }
 
-const CAPTIONS = [
-  "Skills no Claude Code — do básico ao avançado",
-  "Uma Skill = uma pasta + um arquivo SKILL.md",
-  "name + description — a description é o gatilho",
-  "Divulgação progressiva: carrega só quando precisa",
-  "Onde vivem: .claude/skills (projeto ou global)",
-  "Avançado: scripts, referências e templates",
-  "Este vídeo foi feito pela Skill HyperFrames",
-  "Comece com um SKILL.md. Agora é com você.",
-  "Mais conteúdo em inema.club",
-];
-
-// ---------- CONTEÚDO HTML POR CENA ----------
-function scene1() {
-  return `
-    <div class="eyebrow" id="s1-eyebrow"><span class="dot"></span>CLAUDE CODE · SKILLS</div>
-    <h1 class="title">
-      <span class="word" id="s1-w1">Skills</span>
-      <span class="word accent" id="s1-w2">no Claude&nbsp;Code</span>
-    </h1>
-    <div class="rule" id="s1-rule"></div>
-    <p class="subhead" id="s1-sub">do primeiro princípio ao avançado<span class="cursor" id="s1-cur"></span></p>
-    <div class="reg tl" id="s1-r1"></div><div class="reg br" id="s1-r2"></div>`;
-}
-function scene2() {
-  return `
-    <div class="grid2">
-      <div class="left">
-        <div class="folder" id="s2-folder">
-          <div class="folder-tab"></div>
-          <div class="folder-body"><span class="mono">minha-skill/</span></div>
-          <div class="file-card" id="s2-file">
-            <div class="file-dot"></div><span class="mono">SKILL.md</span>
-          </div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="kicker" id="s2-k">O PRIMEIRO PRINCÍPIO</div>
-        <h2 class="h2" id="s2-h">Uma pasta.<br/>Um arquivo.</h2>
-        <div class="chips">
-          <span class="chip" id="s2-c1">criar vídeos</span>
-          <span class="chip" id="s2-c2">revisar código</span>
-          <span class="chip" id="s2-c3">desenhar UI</span>
-        </div>
-        <p class="lead" id="s2-lead">É conhecimento <b>empacotado</b>.</p>
-      </div>
-    </div>`;
-}
-function scene3() {
-  return `
-    <div class="kicker center" id="s3-k">ANATOMIA DO SKILL.md</div>
-    <div class="code" id="s3-code">
-      <div class="code-bar"><i></i><i></i><i></i><span class="mono dim">SKILL.md</span></div>
-      <pre class="mono"><span class="ln" id="s3-l1"><span class="punc">---</span></span>
-<span class="ln" id="s3-l2"><span class="key">name:</span> <span class="val">youtube-thumbnail</span></span>
-<span class="ln" id="s3-l3"><span class="key">description:</span> <span class="val">Cria thumbnails. <span class="hl"><span class="marker" id="s3-mark"></span>Use quando o usuário pedir…</span></span></span>
-<span class="ln" id="s3-l4"><span class="punc">---</span></span></pre>
-    </div>
-    <div class="tagrow">
-      <span class="tag" id="s3-t1"><b>name</b> = identidade</span>
-      <span class="tag accent2" id="s3-t2"><b>description</b> = quando usar</span>
-      <span class="arrow-note" id="s3-note">↑ o gatilho</span>
-    </div>`;
-}
-function scene4() {
-  return `
-    <div class="kicker center" id="s4-k">O CONCEITO-CHAVE · DIVULGAÇÃO PROGRESSIVA</div>
-    <div class="layers">
-      <div class="layer" id="s4-L1"><span class="lnum">1</span><div class="ltxt"><b>name + description</b><span class="lsub">sempre na memória</span></div><span class="lbadge">always</span></div>
-      <div class="layer" id="s4-L2"><span class="lnum">2</span><div class="ltxt"><b>SKILL.md completo</b><span class="lsub">carrega quando a tarefa combina</span></div><span class="lbadge">on match</span></div>
-      <div class="layer" id="s4-L3"><span class="lnum">3</span><div class="ltxt"><b>referências · scripts</b><span class="lsub">só sob demanda</span></div><span class="lbadge">on demand</span></div>
-    </div>
-    <div class="meter" id="s4-meter"><div class="meter-label mono">contexto</div><div class="meter-bar"><div class="meter-fill" id="s4-fill"></div></div><div class="meter-val mono" id="s4-val">leve</div></div>`;
-}
-function scene5() {
-  return `
-    <div class="kicker center" id="s5-k">ONDE VIVEM · COMO INSTALAR</div>
-    <div class="paths">
-      <div class="pathcard" id="s5-p1">
-        <div class="ptag mono">GLOBAL</div>
-        <div class="ppath mono">~/.claude/skills/</div>
-        <div class="pdesc">vale em qualquer projeto</div>
-      </div>
-      <div class="pathcard" id="s5-p2">
-        <div class="ptag mono accentbg">PROJETO</div>
-        <div class="ppath mono">.claude/skills/</div>
-        <div class="pdesc">só neste repositório</div>
-      </div>
-    </div>
-    <div class="term" id="s5-term"><span class="prompt mono">$</span> <span class="mono cmd" id="s5-cmd">npx skills add &lt;skill&gt;</span><span class="cursor" id="s5-cur"></span></div>`;
-}
-function scene6() {
-  return `
-    <div class="grid2">
-      <div class="left">
-        <div class="kicker" id="s6-k">NÍVEL AVANÇADO</div>
-        <h2 class="h2" id="s6-h">Muito mais<br/>que texto.</h2>
-        <ul class="bullets">
-          <li id="s6-b1"><span class="bdot"></span>scripts que o Claude executa</li>
-          <li id="s6-b2"><span class="bdot"></span>referências carregadas sob demanda</li>
-          <li id="s6-b3"><span class="bdot"></span>paletas &amp; templates reutilizáveis</li>
-        </ul>
-        <p class="lead" id="s6-lead">Um <b>fluxo de trabalho</b> inteiro — não só uma dica.</p>
-      </div>
-      <div class="right">
-        <div class="tree" id="s6-tree">
-          <div class="trow root mono" id="s6-r0">hyperframes/</div>
-          <div class="trow mono" id="s6-r1">├─ SKILL.md</div>
-          <div class="trow mono" id="s6-r2">├─ references/<span class="dim">*.md</span></div>
-          <div class="trow mono run" id="s6-r3">├─ scripts/<span class="dim">*.mjs</span> <span class="runtag">run</span></div>
-          <div class="trow mono" id="s6-r4">└─ palettes/<span class="dim">*.md</span></div>
-        </div>
-      </div>
-    </div>`;
-}
-function scene7() {
-  return `
-    <p class="meta-top" id="s7-top">Quer um exemplo real?</p>
-    <h2 class="h2 center" id="s7-h">Este vídeo foi feito<br/>por uma <span class="accent">Skill</span>.</h2>
-    <div class="badge" id="s7-badge"><div class="badge-halo" id="s7-halo"></div><span class="badge-name">HyperFrames</span></div>
-    <div class="flow mono" id="s7-flow"><span class="fitem" id="s7-f1">HTML</span><span class="farr" id="s7-a1">→</span><span class="fitem big" id="s7-f2">🎬</span><span class="farr" id="s7-a2">→</span><span class="fitem" id="s7-f3">vídeo</span></div>`;
-}
-function scene8() {
-  return `
-    <p class="closer-sub" id="s8-sub">Skills transformam o Claude Code num especialista sob medida.</p>
-    <h1 class="closer" id="s8-h">Comece com um<br/><span class="accent">SKILL.md</span></h1>
-    <div class="rule center" id="s8-rule"></div>
-    <p class="sig mono" id="s8-sig">agora é com você</p>`;
-}
-
-function scene9() {
-  return `
-    <div class="cta-eyebrow" id="s9-eye">CONTINUA EM</div>
-    <div class="cta-brand" id="s9-brand"><span class="b1">INEMA</span><span class="bdotsep">.</span><span class="b2">CLUB</span></div>
-    <div class="rule center" id="s9-rule"></div>
-    <div class="cta-url mono" id="s9-url"><span class="cta-globe">🌐</span>inema.club</div>
-    <div class="reg tl" id="s9-r1"></div><div class="reg br" id="s9-r2"></div>`;
-}
-
-const BODIES = [scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9];
-
-// ---------- ANIMAÇÃO POR CENA (retorna código GSAP, t = início absoluto) ----------
-function anim(i, t) {
-  const e = (sel) => JSON.stringify(sel);
+// ---------- ANIMAÇÃO POR CENA ----------
+function emitScene(sc, idx) {
+  const s = S[idx];
+  const i = s.i;
+  const p = `s${i}`;
+  const at = (d) => round(s.start + d);
+  const dur = round(s.end - s.start);
   const L = [];
-  const P = (s) => L.push(s);
-  // entrada/saída do inner (comum)
-  P(`tl.fromTo("#scene-inner-${i}",{opacity:0},{opacity:1,duration:${FADE},ease:"power2.out"},${t});`);
-  P(`tl.to("#scene-inner-${i}",{opacity:0,duration:${FADE},ease:"power2.in"},${round(S[i-1].end - FADE)});`);
-  P(`tl.set("#scene-inner-${i}",{opacity:0},${round(S[i-1].end)});`);
-  const at = (d) => round(t + d);
-  switch (i) {
-    case 1:
-      P(`tl.from("#s1-eyebrow",{y:-24,opacity:0,duration:.55,ease:"power3.out"},${at(0.15)});`);
-      P(`tl.from("#s1-w1",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.35)});`);
-      P(`tl.from("#s1-w2",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.55)});`);
-      P(`tl.fromTo("#s1-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out",transformOrigin:"left center"},${at(0.95)});`);
-      P(`tl.from("#s1-sub",{y:20,opacity:0,duration:.6,ease:"power2.out"},${at(1.15)});`);
-      P(`tl.fromTo("#s1-cur",{opacity:1},{opacity:0,duration:.5,repeat:18,yoyo:true,ease:"none"},${at(1.6)});`);
-      P(`tl.from(["#s1-r1","#s1-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.5)});`);
-      break;
-    case 2:
-      P(`tl.from("#s2-folder",{x:-60,opacity:0,scale:.9,duration:.7,ease:"power3.out"},${at(0.2)});`);
-      P(`tl.from("#s2-file",{y:40,opacity:0,duration:.6,ease:"back.out(1.6)"},${at(0.9)});`);
-      P(`tl.from("#s2-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.5)});`);
-      P(`tl.from("#s2-h",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`);
-      P(`tl.from(["#s2-c1","#s2-c2","#s2-c3"],{y:24,opacity:0,duration:.5,stagger:.13,ease:"back.out(1.7)"},${at(1.4)});`);
-      P(`tl.from("#s2-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.1)});`);
-      break;
-    case 3:
-      P(`tl.from("#s3-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s3-code",{y:36,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`);
-      P(`tl.from(["#s3-l1","#s3-l2","#s3-l3","#s3-l4"],{x:-18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.7)});`);
-      P(`tl.fromTo("#s3-mark",{scaleX:0},{scaleX:1,duration:.7,ease:"power2.inOut",transformOrigin:"left center"},${at(2.0)});`);
-      P(`tl.from(["#s3-t1","#s3-t2"],{y:20,opacity:0,duration:.5,stagger:.14,ease:"back.out(1.6)"},${at(2.4)});`);
-      P(`tl.from("#s3-note",{opacity:0,y:10,duration:.5,ease:"power2.out"},${at(2.9)});`);
-      break;
-    case 4:
-      P(`tl.from("#s4-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s4-L1",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(0.6)});`);
-      P(`tl.to("#s4-L1",{"--lit":1,borderColor:"var(--accent)",duration:.4},${at(1.0)});`);
-      P(`tl.from("#s4-L2",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(1.9)});`);
-      P(`tl.from("#s4-L3",{x:-40,opacity:0,duration:.55,ease:"power3.out"},${at(3.2)});`);
-      P(`tl.fromTo("#s4-fill",{scaleX:0},{scaleX:.26,duration:1.1,ease:"power2.out",transformOrigin:"left center"},${at(1.0)});`);
-      P(`tl.from("#s4-meter",{opacity:0,y:18,duration:.5,ease:"power2.out"},${at(0.8)});`);
-      break;
-    case 5:
-      P(`tl.from("#s5-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s5-p1",{x:-50,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`);
-      P(`tl.from("#s5-p2",{x:50,opacity:0,duration:.6,ease:"power3.out"},${at(0.7)});`);
-      P(`tl.from("#s5-term",{y:30,opacity:0,duration:.55,ease:"power3.out"},${at(1.6)});`);
-      P(`tl.fromTo("#s5-cmd",{clipPath:"inset(0 100% 0 0)"},{clipPath:"inset(0 0% 0 0)",duration:1.1,ease:"steps(22)"},${at(2.0)});`);
-      P(`tl.fromTo("#s5-cur",{opacity:1},{opacity:0,duration:.5,repeat:10,yoyo:true,ease:"none"},${at(3.1)});`);
-      break;
-    case 6:
-      P(`tl.from("#s6-k",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s6-h",{x:-30,opacity:0,duration:.6,ease:"power3.out"},${at(0.4)});`);
-      P(`tl.from(["#s6-b1","#s6-b2","#s6-b3"],{x:-24,opacity:0,duration:.5,stagger:.16,ease:"power2.out"},${at(0.9)});`);
-      P(`tl.from("#s6-lead",{opacity:0,y:16,duration:.55,ease:"power2.out"},${at(2.0)});`);
-      P(`tl.from("#s6-tree",{x:40,opacity:0,duration:.6,ease:"power3.out"},${at(0.6)});`);
-      P(`tl.from(["#s6-r0","#s6-r1","#s6-r2","#s6-r3","#s6-r4"],{x:18,opacity:0,duration:.4,stagger:.12,ease:"power2.out"},${at(0.9)});`);
-      P(`tl.fromTo("#s6-r3",{backgroundColor:"rgba(46,196,182,0)"},{backgroundColor:"rgba(46,196,182,.14)",duration:.5,repeat:5,yoyo:true,ease:"sine.inOut"},${at(2.2)});`);
-      break;
-    case 7:
-      P(`tl.from("#s7-top",{y:-16,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s7-h",{y:30,opacity:0,duration:.6,ease:"power3.out"},${at(0.5)});`);
-      P(`tl.from("#s7-badge",{scale:.4,opacity:0,duration:.7,ease:"back.out(1.8)"},${at(1.4)});`);
-      P(`tl.fromTo("#s7-halo",{scale:.6,opacity:.7},{scale:1.5,opacity:0,duration:1.6,repeat:4,ease:"sine.out"},${at(1.7)});`);
-      P(`tl.from(["#s7-f1","#s7-a1","#s7-f2","#s7-a2","#s7-f3"],{y:20,opacity:0,duration:.45,stagger:.14,ease:"back.out(1.6)"},${at(2.5)});`);
-      break;
-    case 8:
-      P(`tl.from("#s8-sub",{y:-16,opacity:0,duration:.55,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s8-h",{scale:.85,opacity:0,duration:.8,ease:"power3.out"},${at(0.6)});`);
-      P(`tl.fromTo("#s8-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out"},${at(1.3)});`);
-      P(`tl.from("#s8-sig",{opacity:0,letterSpacing:"0.5em",duration:.9,ease:"power2.out"},${at(1.6)});`);
-      break;
-    case 9:
-      P(`tl.from("#s9-eye",{y:-18,opacity:0,duration:.5,ease:"power2.out"},${at(0.2)});`);
-      P(`tl.from("#s9-brand",{scale:.7,opacity:0,duration:.7,ease:"back.out(1.7)"},${at(0.5)});`);
-      P(`tl.fromTo("#s9-rule",{scaleX:0},{scaleX:1,duration:.6,ease:"expo.out"},${at(1.1)});`);
-      P(`tl.from("#s9-url",{y:20,opacity:0,duration:.55,ease:"power2.out"},${at(1.3)});`);
-      P(`tl.fromTo("#s9-brand",{filter:"drop-shadow(0 0 0px rgba(255,195,0,0))"},{filter:"drop-shadow(0 0 26px rgba(255,195,0,.55))",duration:1.1,repeat:4,yoyo:true,ease:"sine.inOut"},${at(1.4)});`);
-      P(`tl.from(["#s9-r1","#s9-r2"],{opacity:0,scale:.5,duration:.6,stagger:.12,ease:"back.out(2)"},${at(0.6)});`);
-      break;
-  }
+  // mid-scene activity: câmera Ken Burns (zoom/pan lento) a cena INTEIRA → não vira slide
+  L.push(`tl.fromTo("#scene-inner-${i}",{scale:1,yPercent:0},{scale:1.05,yPercent:-1.6,duration:${dur},ease:"sine.inOut"},${s.start});`);
+  // entrada/saída do inner (o framework força opacity:1 no clip ativo → anime o filho)
+  L.push(`tl.fromTo("#scene-inner-${i}",{opacity:0},{opacity:1,duration:${FADE},ease:"power2.out"},${s.start});`);
+  L.push(`tl.to("#scene-inner-${i}",{opacity:0,duration:${FADE},ease:"power2.in"},${round(s.end - FADE)});`);
+  L.push(`tl.set("#scene-inner-${i}",{opacity:0},${round(s.end)});`);
+  // coreografia da cena
+  for (const line of sc.anim(at, p)) L.push(line);
   // caption
-  P(`tl.fromTo("#cap-${i}",{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:"power2.out"},${at(0.35)});`);
-  P(`tl.to("#cap-${i}",{opacity:0,duration:.4,ease:"power2.in"},${round(S[i-1].end - 0.55)});`);
+  L.push(`tl.fromTo("#cap-${i}",{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:"power2.out"},${at(0.35)});`);
+  L.push(`tl.to("#cap-${i}",{opacity:0,duration:.4,ease:"power2.in"},${round(s.end - 0.55)});`);
   return L.join("\n      ");
 }
 
 // ---------- MONTAGEM ----------
 const scenesHTML = S.map((s, idx) => `
     <section id="s${s.i}" class="scene clip" data-start="${s.start}" data-duration="${s.dur}" data-track-index="${s.i % 2 === 1 ? 1 : 3}">
-      <div class="scene-inner" id="scene-inner-${s.i}">${BODIES[idx]()}</div>
+      <div class="scene-inner" id="scene-inner-${s.i}">${ALL[idx].html(`s${s.i}`)}</div>
     </section>`).join("");
 
 const captionsHTML = S.map((s, idx) => `
-    <div class="caption clip" id="cap-${s.i}" data-start="${s.start}" data-duration="${s.dur}" data-track-index="${s.i % 2 === 1 ? 2 : 4}">${CAPTIONS[idx]}</div>`).join("");
+    <div class="caption clip" id="cap-${s.i}" data-start="${s.start}" data-duration="${s.dur}" data-track-index="${s.i % 2 === 1 ? 2 : 4}">${ALL[idx].caption}</div>`).join("");
 
 const audioHTML = S.map((s) => `
     <audio id="a${s.i}" data-start="${s.audioStart}" data-duration="${s.audioDur}" data-track-index="20" src="assets/audio/s${s.i}.wav"></audio>`).join("");
 
-const animJS = S.map((s) => anim(s.i, s.start)).join("\n      ");
+const musicHTML = MUSIC ? `
+    <audio id="bgm" data-start="0" data-duration="${TOTAL}" data-track-index="21" data-volume="${MUSIC_VOL}" src="${MUSIC}"></audio>` : "";
+
+const animJS = S.map((s, idx) => emitScene(ALL[idx], idx)).join("\n      ");
 
 const html = `<!doctype html>
 <html lang="pt-BR">
@@ -395,8 +428,8 @@ const html = `<!doctype html>
       .lsub{font-size:26px;color:var(--muted);margin-top:4px}
       .lbadge{font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--bg);background:var(--accent);
         padding:8px 18px;border-radius:999px;font-weight:700}
-      .layer#s4-L2 .lbadge{background:var(--accent2)}
-      .layer#s4-L3 .lbadge{background:var(--code)}
+      .layers .layer:nth-child(2) .lbadge{background:var(--accent2)}
+      .layers .layer:nth-child(3) .lbadge{background:var(--code)}
       .meter{display:flex;align-items:center;gap:24px;width:1180px;margin:38px auto 0}
       .meter-label{font-size:24px;color:var(--muted)}
       .meter-bar{flex:1;height:22px;background:var(--bg2);border:2px solid var(--bg3);border-radius:999px;overflow:hidden}
@@ -443,7 +476,7 @@ const html = `<!doctype html>
       .closer{text-align:center;font-family:Sora;font-weight:800;font-size:128px;line-height:1.02;letter-spacing:-.02em}
       .sig{text-align:center;font-size:30px;color:var(--accent);letter-spacing:.3em;text-transform:uppercase;margin-top:20px}
 
-      /* cena 9 CTA (INEMA.CLUB) */
+      /* cena CTA (INEMA.CLUB) */
       .cta-eyebrow{text-align:center;font-family:"JetBrains Mono",monospace;font-size:26px;letter-spacing:.36em;
         color:var(--muted);text-transform:uppercase;margin-bottom:30px}
       .cta-brand{text-align:center;font-family:Sora;font-weight:800;font-size:150px;line-height:.95;letter-spacing:-.02em}
@@ -511,7 +544,7 @@ const html = `<!doctype html>
       body.v .closer-sub{font-size:30px}
       body.v .closer{font-size:104px}
       body.v .sig{font-size:28px}
-      /* cena 9 */
+      /* cena CTA */
       body.v .cta-brand{font-size:116px}
       body.v .cta-url{font-size:42px}
       /* caption no vertical: sobe pra não cortar */
@@ -523,7 +556,7 @@ const html = `<!doctype html>
     </style>
   </head>
   <body class="${VERT ? "v" : ""}">
-    <div id="root" data-composition-id="main" data-start="0" data-duration="${TOTAL}" data-width="${W}" data-height="${H}">
+    <div id="root" data-composition-id="main" data-start="0" data-width="${W}" data-height="${H}">
       <div class="bg-layer" data-layout-ignore>
         <div id="glow"></div><div id="glow2"></div><div id="grid"></div>
         <div class="ghost" id="ghost" data-layout-ignore>SKILL.md</div><div id="grain"></div>
@@ -531,12 +564,12 @@ const html = `<!doctype html>
 ${scenesHTML}
 ${captionsHTML}
       <div id="progress"></div>
-${audioHTML}
+${audioHTML}${musicHTML}
       <script>
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
         const TOTAL = ${TOTAL};
-        // ambiente
+        // ambiente (movimento de fundo persistente)
         tl.to("#glow",{scale:1.22,opacity:.55,duration:4.5,yoyo:true,repeat:Math.ceil(TOTAL/4.5)+1,ease:"sine.inOut"},0);
         tl.to("#glow2",{scale:1.18,duration:6,yoyo:true,repeat:Math.ceil(TOTAL/6)+1,ease:"sine.inOut"},0);
         tl.to("#ghost",{x:120,duration:TOTAL,ease:"none"},0);
@@ -554,5 +587,5 @@ ${audioHTML}
 `;
 
 writeFileSync(new URL("./" + OUT, import.meta.url), html);
-console.log(`${OUT} gerado · ${W}x${H} · TOTAL = ${TOTAL}s · ${S.length} cenas`);
-S.forEach(s => console.log(`  s${s.i}: start=${s.start} dur=${s.dur} audio@${s.audioStart} (${s.audioDur}s)`));
+console.log(`${OUT} gerado · ${W}x${H} · TOTAL = ${TOTAL}s · ${S.length} cenas (${SCENES.length} conteúdo + CTA)`);
+S.forEach((s, idx) => console.log(`  s${s.i}${idx === S.length - 1 ? " [CTA]" : ""}: start=${s.start} dur=${s.dur} audio@${s.audioStart} (${s.audioDur}s)`));

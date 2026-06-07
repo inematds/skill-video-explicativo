@@ -46,5 +46,20 @@ O template tem o hook pronto: defina `const MUSIC = "assets/audio/bg.mp3"` (e `M
 
 Isso evita recalcular segundos quando o nº/ordem de cenas muda. As cenas têm IDs `s1…sN` (a CTA é o último).
 
+## Fallback SVG (sem servidor/API de imagem) — REGRA
+
+Imagens raster (ex.: flux2-klein via servidor `inemaimg` em `:8000`) são **opcionais, com fallback**. Antes de
+depender delas, cheque `curl -s localhost:8000/health`. Se o servidor (ou qualquer API de imagem) **não** estiver
+disponível, **não trave o vídeo** — use **SVG**:
+
+- **Ilustração de tópico (ícones/diagramas: seta, alvo, funil, megafone, etiqueta, contador):** **sempre pode ser
+  SVG** e é **preferível** — determinístico, ~KB, nítido em qualquer escala, versionável (texto no git), sem risco
+  de texto embaralhado, e **animável** nativamente (draw-on via `stroke-dashoffset`, morph, count-up).
+- **Fundo da cena:** com servidor/API → imagem raster (look editorial 3D); sem ele → **fundo SVG flat/editorial**
+  (formas + `<linearGradient>` + glow `feGaussianBlur`), no mesmo espírito visual dark premium âmbar.
+
+SVG entra como qualquer clip de mídia (inline `<svg>` numa cena, ou `<img src="...svg">` com `class="clip"`).
+Sempre **conferir o asset** antes de aceitar (raster às vezes mete texto/elemento errado → regerar/trocar seed).
+
 ## Transições especiais (shader)
 Padrão = corte limpo. Para 2–3 momentos-chave, o HyperFrames suporta **shader transitions** (ex.: glitch). Não aplicar em toda cena — só onde o ritmo pede um respiro forte. Detalhes na doc oficial do HyperFrames (catálogo de transições/componentes).

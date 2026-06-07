@@ -2,6 +2,15 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.5.0 — Safe zones 9:16 + fallback SVG
+Recurso: layout vertical respeita as zonas da UI das redes sociais, e geração de imagem passa a ter fallback SVG.
+
+- **Safe zones (9:16):** overrides `body.v` ancoram o conteúdo no topo (base ~380px e lateral-direita livres da UI
+  do app — legenda/perfil + botões), caption sobe pra `bottom:330px`. Nova ref [`references/safe-zones.md`](references/safe-zones.md) com o mapa e os knobs por plataforma.
+- **Fallback SVG:** imagem raster (servidor/API, ex.: flux2-klein) vira **opcional** — sem ela, usar SVG (ícone/diagrama
+  sempre pode ser SVG; fundo vira SVG flat). Documentado em [`references/clips-midia.md`](references/clips-midia.md).
+- Duas novas regras de ouro no SKILL.md. Origem: caso `videoprodutor/videos/hormozi-12-dicas` (3 camadas).
+
 ## 1.4.0 — Transições entre cenas
 Recurso: cardápio de transições reimplementado em GSAP (inspirado nos templates Remotion/RVE), usado nos 2–3 momentos-chave.
 

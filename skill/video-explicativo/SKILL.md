@@ -1,6 +1,6 @@
 ---
 name: video-explicativo
-version: 1.4.0
+version: 1.5.0
 description: Cria vídeos explicativos completos em PT-BR (HTML→MP4 via HyperFrames) a partir de um assunto — roteiro, narração TTS local, cenas animadas dark premium, captions e CTA do INEMA.CLUB, nos formatos 16:9 (YouTube) e 9:16 (Shorts/Reels). Use quando o usuário pedir para "fazer um vídeo", "vídeo explicativo", "vídeo sobre X", "vídeo pra Shorts/Reels", "mini tutorial em vídeo", "vídeo do INEMA", ou quando der um assunto e quiser um vídeo narrado pronto. Cobre roteiro, locução, animação, render e a CTA final.
 ---
 
@@ -47,6 +47,8 @@ Padrão do usuário (Nei): **PT-BR**, **dark premium** (accent âmbar), gerar **
 - **Animar o `.scene-inner`**, nunca o wrapper `.clip` (o framework força `opacity:1` no clip ativo).
 - **Cenas e captions em tracks alternados** (1/3 e 2/4) para não dar overlap nas bordas (erro de float).
 - **Decorativos off-canvas** (ghost/bg-layer): `data-layout-ignore`.
+- **Safe zones no 9:16**: conteúdo no topo-esquerda/centro; base e lateral-direita livres da UI do app (legenda/perfil + botões). O template já aplica nos overrides `body.v`. Ajustar por plataforma em [references/safe-zones.md](references/safe-zones.md).
+- **Fallback SVG**: imagem raster (servidor/API, ex.: flux2-klein) é opcional — sem ela, usar **SVG** (ícone/diagrama sempre pode ser SVG; fundo vira SVG flat). Não travar o vídeo. Ver [references/clips-midia.md](references/clips-midia.md).
 - **Fontes locais** via `@font-face` (NÃO usar Google Fonts CDN — some no render).
 - **Timing é fonte única**: o gerador tira `data-start/duration` E os tempos dos tweens do campo `audio` de cada cena → áudio e animação sempre batidos.
 - **Root sem `data-duration`**: a duração da composição vem de `tl.duration()` (contrato HyperFrames). Não adicione `data-duration` no elemento root.

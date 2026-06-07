@@ -561,7 +561,10 @@ const html = `<!doctype html>
         backdrop-filter:blur(6px);text-shadow:0 2px 10px rgba(0,0,0,.6)}
 
       /* =================== OVERRIDES 9:16 (Shorts) =================== */
-      body.v .scene{padding:170px 70px 240px}
+      /* SAFE ZONES p/ redes sociais: conteúdo ancorado no TOPO; base (~380px) e lateral-direita
+         ficam livres da UI do app (legenda/@perfil + botões curtir/comentar/compartilhar).
+         Ajustar por plataforma em references/safe-zones.md. */
+      body.v .scene{padding:200px 80px 380px;justify-content:flex-start}
       body.v .grid2{grid-template-columns:1fr;gap:54px}
       body.v .kicker{margin-bottom:20px;font-size:20px}
       body.v .h2{font-size:74px}
@@ -617,8 +620,8 @@ const html = `<!doctype html>
       /* cena CTA */
       body.v .cta-brand{font-size:116px}
       body.v .cta-url{font-size:42px}
-      /* caption no vertical: sobe pra não cortar */
-      body.v .caption{bottom:150px;max-width:940px;font-size:33px;padding:16px 32px}
+      /* caption ACIMA da zona de UI da base (legenda/perfil do app) — ver references/safe-zones.md */
+      body.v .caption{bottom:330px;max-width:900px;font-size:33px;padding:16px 32px}
       /* glows reposicionados pro frame alto */
       body.v #glow{top:-200px;left:-160px;width:900px;height:900px}
       body.v #glow2{bottom:-300px;right:-200px;width:1000px;height:1000px}

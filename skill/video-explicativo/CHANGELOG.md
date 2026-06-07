@@ -2,6 +2,14 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.5.1 — Layout 9:16 validado (mídia no topo, mensagem no meio)
+Correção do layout vertical após teste real (caso hormozi-12-dicas):
+
+- **Mensagem no MEIO** (não mais ancorada no topo — o `.scene-inner` recentralizava, então o "topo" não pegava).
+- **Mídia/ilustração = faixa de TOPO entrando da direita→esquerda**; sem imagem → ícone SVG no topo (fallback).
+- **Caption oculta no 9:16** (`display:none`) → base totalmente livre p/ a UI do app.
+- `safe-zones.md` ganhou a seção "Layout validado p/ 9:16".
+
 ## 1.5.0 — Safe zones 9:16 + fallback SVG
 Recurso: layout vertical respeita as zonas da UI das redes sociais, e geração de imagem passa a ter fallback SVG.
 

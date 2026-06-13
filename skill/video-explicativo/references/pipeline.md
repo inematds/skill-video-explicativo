@@ -13,8 +13,8 @@
     txt/sN.txt          # textos da locução
     audio/sN.wav        # narrações Kokoro
     fonts/*.woff2 + fonts.css
-  renders/
 ```
+> MP4 finais **não** ficam em `renders/` local — vão para a pasta única `~/projetos/output/<nome>/` (ver SKILL.md › Render).
 
 ## Roteiro (SCRIPT.md)
 - **Nº de cenas dinâmico** (ver "Plano de cenas" no SKILL.md): o assunto define quantos beats entram. Range 4–12 de conteúdo + a CTA. Não trave em 6–9.

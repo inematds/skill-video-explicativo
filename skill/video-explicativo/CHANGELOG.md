@@ -2,6 +2,12 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.5.2 — Sem cauda muda + saída única em ~/projetos/output
+Duas correções:
+
+- **Bug do silêncio no fim:** os loops de ambiente repetiam com `Math.ceil(TOTAL/ciclo)+1`, fazendo o tween mais longo (`#grid`, ciclo 18s) ultrapassar `TOTAL` em até ~40-50s. Como o HyperFrames usa `tl.duration()` como fim, o render sobrava com cauda muda. Agora usam `ambientRepeat(ciclo) = floor(TOTAL/ciclo)-1` → nenhum loop passa de `TOTAL` e `tl.duration()` = duração real.
+- **Pasta única:** todo o conteúdo (projeto, assets, áudios, `index.html` e MP4 finais) vive em `~/projetos/output/<nome>/`. Projeto é criado com `cd ~/projetos/output && npx hyperframes init <nome>`; não há mais `renders/` local. Render, init e regra de ouro atualizados.
+
 ## 1.5.1 — Layout 9:16 validado (mídia no topo, mensagem no meio)
 Correção do layout vertical após teste real (caso hormozi-12-dicas):
 

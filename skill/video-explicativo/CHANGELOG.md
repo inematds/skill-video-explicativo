@@ -2,6 +2,28 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.6.3 — Revisão de texto + pronúncia de inglês
+Recurso: nova etapa **antes** de gerar narração e slides, fechando um buraco do pipeline (o texto ia
+direto pra tela e pro TTS sem nenhuma revisão de acentuação/ortografia).
+
+- **Passo 2 "Revisão de texto"** inserido no fluxo (passos renumerados; 7→8). Revisa acentuação PT-BR
+  palavra a palavra e a ortografia de **todo** texto de tela (`caption` **+** literais em `html(p)`) e da
+  forma-fala (`txt/sN.txt`) **antes** dos WAVs e dos slides.
+- **Contrato de duas formas por frase**: **tela** (PT-BR acentuado + inglês na grafia original) vs
+  **fala** (siglas/URLs expandidas + inglês reescrito foneticamente). Formaliza o que já existia em parte
+  ("SKILL.md" → "SKILL ponto M D").
+- **Pronúncia de termos em inglês**: como PT-BR usa muito termo em inglês e o Kokoro fonemiza pela grafia
+  escrita, a forma-fala troca por grafia fonética (`deploy`→"deplói", `design`→"dizáin", `skill`→"skiu"…).
+  Na dúvida, gerar WAV de teste e o usuário ouvir.
+- Nova referência [`references/revisao-texto.md`](references/revisao-texto.md) (checklist + léxico inglês→PT
+  + acentos que mais escapam + como testar). `SKILL.md` (regra de ouro nova) e `pipeline.md` atualizados.
+
+## 1.5.3 — Um arquivo por formato (sem `-FINAL` duplicado)
+Correção de saída confusa:
+
+- **Saída única por formato.** O fluxo gerava dois MP4 por formato — o render cru do HyperFrames (`<nome>-16x9.mp4`, ~100-120 MB) **e** uma cópia comprimida ao lado (`<nome>-16x9-FINAL.mp4`, ~25 MB). Mesmo vídeo, dois arquivos → confunde. Agora a regra é **um arquivo por formato e só**: o render já é a entrega, **sem** segunda cópia comprimida.
+- **Compressão é opt-in.** Só quando o usuário pedir arquivo mais leve. E mesmo aí, a compressão **sobrescreve o mesmo nome** (via `.tmp.mp4` + `mv -f`), nunca deixando os dois. Passo 7 (Render) e regras de ouro atualizados.
+
 ## 1.5.2 — Sem cauda muda + saída única em ~/projetos/output
 Duas correções:
 

@@ -22,7 +22,14 @@
   - Default de duração quando o usuário não pede: ~1:40–2:00 (cabe em Shorts). Com duração-alvo: cenas ≈ `voz_alvo / ~12s`.
   - Override: se o usuário fixar o nº de cenas, use exatamente esse (conteúdo) + CTA.
 - Narração por cena: 1–3 frases curtas.
-- Para a FALA (TTS), expanda: "SKILL.md" → "SKILL ponto M D"; ".claude/skills" → "ponto claude, barra skills"; URLs → "inema ponto club".
+
+## Revisão de texto (antes de narração e slides)
+Etapa obrigatória **antes** de gerar os WAVs e de escrever texto na tela. Detalhe completo +
+checklist + léxico de inglês em [revisao-texto.md](revisao-texto.md). Resumo:
+- **Duas formas por frase**: **tela** (`caption` + literais em `html(p)`) = PT-BR acentuado + inglês na grafia original; **fala** (`txt/sN.txt`) = mesma frase com siglas/URLs expandidas **e inglês reescrito foneticamente**.
+- **Acentuação**: varrer palavra a palavra (vídeo, você, é, só, código, conteúdo, princípio, mecânica…).
+- **Siglas/URLs (forma-fala)**: "SKILL.md" → "SKILL ponto M D"; ".claude/skills" → "ponto claude, barra skills"; URLs → "inema ponto club".
+- **Inglês (forma-fala)**: `deploy`→"deplói", `design`→"dizáin", `skill`→"skiu", `framework`→"frêimuork"… (PT usa muito termo em inglês e o Kokoro fonemiza pela grafia escrita). Na dúvida, gerar WAV de teste e o usuário ouvir.
 
 ## Movimento (mid-scene activity — anti-slideshow)
 - **Linguagem de movimento definida**: componha do vocabulário `M.*` do gerador (`reveal/sweep/type/float/pulse/glow/countUp…`), não tweens soltos. Catálogo e princípios em [motion.md](motion.md).
@@ -48,6 +55,7 @@ npx hyperframes tts "assets/txt/s1.txt" --voice pf_dora --speed 0.98 --output as
 - Cada cena em `SCENES[]` tem o campo `audio` = duração REAL medida (ffprobe). `CTA.audio` = duração do WAV da CTA. O nº de WAVs (`s1.wav … sN.wav`) acompanha o nº de cenas — a CTA é o último `sN.wav`.
 
 ## Render
+- **Um arquivo por formato, e só.** O render do HyperFrames (`<nome>-16x9.mp4` / `<nome>-9x16.mp4`) é a entrega. **Não** criar uma segunda cópia comprimida (`-FINAL.mp4`) ao lado — são o mesmo vídeo e confundem. Comprimir é opt-in (só a pedido) e **sobrescreve o mesmo nome** (ver SKILL.md › Render).
 - `--quality draft` para iterar; `--quality high --fps 30` para entrega.
 - ~110s de vídeo = ~3500 frames ≈ 3–4 min de render (22 cores).
 - Extrair frame p/ conferência: `ffmpeg -nostdin -y -ss <t> -i video.mp4 -vframes 1 -update 1 frame.png` e abrir com a ferramenta Read.

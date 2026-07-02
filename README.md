@@ -7,7 +7,7 @@ framework [HyperFrames](https://github.com/heygen-com/hyperframes) — animados,
 
 > Este projeto nasceu de um vídeo que foi, ele mesmo, **feito por uma Skill**.
 
-**Versão da Skill:** `v1.7.3` · esquema `v1.yy.xxx` (yy = recurso, xxx = bug) · histórico em [`skill/video-explicativo/CHANGELOG.md`](skill/video-explicativo/CHANGELOG.md).
+**Versão da Skill:** `v1.8.3` · esquema `v1.yy.xxx` (yy = recurso, xxx = bug) · histórico em [`skill/video-explicativo/CHANGELOG.md`](skill/video-explicativo/CHANGELOG.md).
 
 ---
 
@@ -51,7 +51,7 @@ Roda 100% local, sem chave de API. Você precisa de:
 
 - **Node 22+** e **FFmpeg** (no git-bash, use `ffmpeg -nostdin`).
 - **Chrome headless** do HyperFrames: `npx hyperframes browser ensure`.
-- **TTS local Kokoro:** `pip install kokoro-onnx soundfile` (voz PT-BR `pf_dora`, sem espeak-ng).
+- **Voz `bella` (inemavox):** narração via `inemavox/tts_direct.py` (`--engine chatterbox-vc`, ref `bella.wav`). **Fallback Kokoro** (`pip install kokoro-onnx soundfile`, voz `pf_dora`) só se o inemavox falhar.
 - Diagnóstico: `npx hyperframes doctor`.
 
 ### O que a Skill faz (pipeline HTML → MP4)
@@ -60,7 +60,7 @@ Roda 100% local, sem chave de API. Você precisa de:
 2. **Roteiro** — `SCRIPT.md` com as cenas do plano, do primeiro princípio ao avançado, narração curta por cena.
 3. **Projeto** — `npx hyperframes init` + house style dark premium.
 4. **Fontes** — baixa `.woff2` locais (Sora / Inter / JetBrains Mono).
-5. **Narração** — gera os WAVs por cena com Kokoro (voz `pf_dora`).
+5. **Narração** — gera os WAVs por cena com a voz `bella` (inemavox); Kokoro `pf_dora` é fallback.
 6. **Composição** — gerador **data-driven** (`SCENES[]` → N dinâmico) monta HTML + animação GSAP, com **mid-scene activity** (câmera Ken Burns embutida = anti-slideshow) e a **CTA anexada automaticamente** como última cena. Timing único = áudio batido com a animação.
 7. **Validação** — `hyperframes lint` + `inspect` (0 erros de layout).
 8. **Render** — gera **16:9** e **9:16** em `--quality high`, sempre terminando com a **cena de CTA do INEMA.CLUB**.
@@ -70,7 +70,7 @@ Roda 100% local, sem chave de API. Você precisa de:
 
 ### Stack
 - **HyperFrames** — HTML → MP4 via Chrome headless + FFmpeg
-- **Kokoro** — TTS local PT-BR (voz `pf_dora`, sem chave de API)
+- **inemavox** — voz `bella` (clone chatterbox-vc), narração PT-BR local · **Kokoro** `pf_dora` como fallback
 - **GSAP** — animação das cenas
 
 ---
@@ -131,13 +131,18 @@ para trocar as famílias (use sempre fontes locais `@font-face` — Google Fonts
 
 ### 4. Voz da narração (TTS)
 
-Definida em [`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh):
+Default = **voz `bella` (inemavox)**; **Kokoro `pf_dora` é fallback** automático. Definida em
+[`scripts/narration-template.sh`](skill/video-explicativo/scripts/narration-template.sh) (variáveis no topo):
 
 ```bash
+# bella (inemavox) — grava generated.wav, o template renomeia para sN.wav:
+python3 ~/projetos/inemavox/tts_direct.py --text "$(cat txt/s$i.txt)" --lang pt \
+  --engine chatterbox-vc --ref ~/projetos/timesmkt3/media/voice-refs/bella.wav --outdir /tmp/tts_s$i
+# fallback (só se o inemavox falhar):
 npx -y hyperframes tts "txt/s$i.txt" --voice pf_dora --speed 0.98 --output "audio/s$i.wav"
 ```
 
-Mude `--voice` (vozes Kokoro) e `--speed` para outra locução.
+Para trocar a voz: mude `BELLA_REF` (outra referência de clone) ou `ENGINE`; o fallback usa `KOKORO_VOICE`.
 
 ### 5. Formato (16:9 / 9:16)
 

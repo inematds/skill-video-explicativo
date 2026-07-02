@@ -2,6 +2,21 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.8.3 — Voz `bella` (inemavox) como default, Kokoro vira fallback
+Mudança de default de narração: a skill nasceu com Kokoro `pf_dora`, mas a voz da casa é a **`bella`**
+(inemavox). Agora **bella é o padrão** e o Kokoro só entra se o inemavox falhar.
+
+- **`narration-template.sh` reescrito:** gera cada WAV com **inemavox `bella`** (`tts_direct.py
+  --engine chatterbox-vc --ref bella.wav`: Edge TTS + transferência de timbre) e faz **fallback
+  automático para Kokoro `pf_dora`** por cena se o inemavox não estiver disponível. Também ficou
+  **genérico** — itera sobre todos os `sN.txt` que existirem (não trava mais em 1..8).
+- **Verificado end-to-end:** teste real gerou WAV de 7.48s com a bella (env conda `chatterbox` OK,
+  `python3` do sistema roda o `tts_direct.py` via `edge_tts`).
+- **Regra de ouro nova:** "Voz = bella (inemavox), Kokoro é fallback" — não gerar em Kokoro por
+  padrão só porque é o embutido do HyperFrames.
+- `SKILL.md` (Pré-requisitos + passo 5) e `references/pipeline.md` (seção Narração) atualizados.
+  Curso/landing ainda citam Kokoro (superfície publicada separada) — trocar sob demanda.
+
 ## 1.7.3 — Gancho, áudio sob a voz, imagem×texto e variações
 Recurso: quatro comportamentos que eram feitos "por instinto" viram **contrato explícito** na skill —
 retenção da abertura, música que não briga com a voz, legibilidade de texto sobre imagem, e o que é

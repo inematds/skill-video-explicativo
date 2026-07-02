@@ -11,7 +11,7 @@
   assets/
     narration.sh       # copiar de scripts/narration-template.sh
     txt/sN.txt          # textos da locução
-    audio/sN.wav        # narrações Kokoro
+    audio/sN.wav        # narrações (voz bella / inemavox; Kokoro fallback)
     fonts/*.woff2 + fonts.css
 ```
 > MP4 finais **não** ficam em `renders/` local — vão para a pasta única `~/projetos/output/<nome>/` (ver SKILL.md › Render).
@@ -31,7 +31,7 @@ checklist + léxico de inglês em [revisao-texto.md](revisao-texto.md). Resumo:
 - **Duas formas por frase**: **tela** (`caption` + literais em `html(p)`) = PT-BR acentuado + inglês na grafia original; **fala** (`txt/sN.txt`) = mesma frase com siglas/URLs expandidas **e inglês reescrito foneticamente**.
 - **Acentuação**: varrer palavra a palavra (vídeo, você, é, só, código, conteúdo, princípio, mecânica…).
 - **Siglas/URLs (forma-fala)**: "SKILL.md" → "SKILL ponto M D"; ".claude/skills" → "ponto claude, barra skills"; URLs → "inema ponto club".
-- **Inglês (forma-fala)**: `deploy`→"deplói", `design`→"dizáin", `skill`→"skiu", `framework`→"frêimuork"… (PT usa muito termo em inglês e o Kokoro fonemiza pela grafia escrita). Na dúvida, gerar WAV de teste e o usuário ouvir.
+- **Inglês (forma-fala)**: `deploy`→"deplói", `design`→"dizáin", `skill`→"skiu", `framework`→"frêimuork"… (PT usa muito termo em inglês e o TTS — Edge/bella ou Kokoro — fonemiza pela grafia escrita). Na dúvida, gerar WAV de teste e o usuário ouvir.
 
 ## Movimento (mid-scene activity — anti-slideshow)
 - **Linguagem de movimento definida**: componha do vocabulário `M.*` do gerador (`reveal/sweep/type/float/pulse/glow/countUp…`), não tweens soltos. Catálogo e princípios em [motion.md](motion.md).
@@ -43,12 +43,18 @@ checklist + léxico de inglês em [revisao-texto.md](revisao-texto.md). Resumo:
 ## Banco de padrões (exemplos oficiais HyperFrames)
 Para inspiração de motion, veja `npx hyperframes init x --example <name>`: `decision-tree` (explainers/tutoriais — nosso caso), `nyt-graph` (data stories/contadores), `kinetic-type` (motion tipográfico), `swiss-grid` (técnico/limpo). A skill usa `blank` + house style dark premium próprio, mas esses exemplos são ótimos para copiar ideias de animação.
 
-## Narração (Kokoro, local)
+## Narração (voz `bella` via inemavox · Kokoro fallback)
+Default = **voz `bella`** (clone via inemavox `chatterbox-vc`: Edge TTS gera a fala, o Chatterbox transfere o timbre da `bella.wav`). O template `narration.sh` já faz isso e cai no Kokoro só se o inemavox falhar.
 ```bash
-npx hyperframes tts "assets/txt/s1.txt" --voice pf_dora --speed 0.98 --output assets/audio/s1.wav
+# bella (inemavox): grava sempre <outdir>/generated.wav → renomear para sN.wav
+python3 ~/projetos/inemavox/tts_direct.py \
+  --text "$(cat assets/txt/s1.txt)" --lang pt \
+  --engine chatterbox-vc --ref ~/projetos/timesmkt3/media/voice-refs/bella.wav \
+  --outdir /tmp/tts_s1 && mv -f /tmp/tts_s1/generated.wav assets/audio/s1.wav
 ```
-- Voz `pf_dora` = PT-BR feminina. Alternativas PT-BR: `pm_alex`, `pm_santa`.
-- Primeira execução baixa ~340MB (modelo + vozes). Sem chave, sem espeak-ng.
+- `python3` do sistema roda o `tts_direct.py` (tem `edge_tts`); o env conda `chatterbox` (`/home/nmaldaner/miniconda3/envs/chatterbox/bin/python3`) é chamado internamente para a conversão de timbre.
+- **Fallback Kokoro** (só se inemavox/bella falhar): `npx hyperframes tts "assets/txt/s1.txt" --voice pf_dora --speed 0.98 --output assets/audio/s1.wav`. Voz `pf_dora` = PT-BR feminina; 1ª execução baixa ~340MB.
+- Prático: rode `bash assets/narration.sh` — ele já tenta `bella` e faz o fallback por cena, iterando sobre todos os `sN.txt`.
 - Medir durações: `ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 assets/audio/sN.wav`.
 
 ## Timing (no gerador)

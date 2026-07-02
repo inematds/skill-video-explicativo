@@ -1,19 +1,19 @@
 ---
 name: video-explicativo
-version: 1.7.3
+version: 1.8.3
 description: Cria vídeos explicativos completos em PT-BR (HTML→MP4 via HyperFrames) a partir de um assunto — roteiro, narração TTS local, cenas animadas dark premium, captions e CTA do INEMA.CLUB, nos formatos 16:9 (YouTube) e 9:16 (Shorts/Reels). Use quando o usuário pedir para "fazer um vídeo", "vídeo explicativo", "vídeo sobre X", "vídeo pra Shorts/Reels", "mini tutorial em vídeo", "vídeo do INEMA", ou quando der um assunto e quiser um vídeo narrado pronto. Cobre roteiro, locução, animação, render e a CTA final.
 ---
 
 # Vídeo Explicativo (HyperFrames)
 
-Gera um vídeo narrado, animado e renderizado a partir de um **assunto**. Stack: [HyperFrames](https://github.com/heygen-com/hyperframes) (HTML→MP4, Chrome headless + FFmpeg) + TTS local Kokoro. Tudo roda na máquina do usuário, **sem chave de API**.
+Gera um vídeo narrado, animado e renderizado a partir de um **assunto**. Stack: [HyperFrames](https://github.com/heygen-com/hyperframes) (HTML→MP4, Chrome headless + FFmpeg) + narração local **voz `bella` (inemavox)**, com Kokoro `pf_dora` como fallback. Tudo roda na máquina do usuário, **sem chave de API**.
 
 Padrão do usuário (Nei): **PT-BR**, **dark premium** (accent âmbar), gerar **16:9 E 9:16**, e sempre terminar com a **cena de CTA do INEMA.CLUB**.
 
 ## Pré-requisitos (já instalados nesta máquina)
 - Node 22+ e FFmpeg em `C:\ffmpeg\bin` (no git-bash use `ffmpeg -nostdin`, senão sai exit 0 sem gerar arquivo).
 - Chrome headless do HyperFrames: `npx hyperframes browser ensure`.
-- TTS local: `pip install kokoro-onnx soundfile` (sem espeak-ng — o Kokoro já fonemiza PT-BR).
+- TTS: **voz `bella` via inemavox** (default) — `~/projetos/inemavox/tts_direct.py --engine chatterbox-vc --ref <bella.wav>` (roda com `python3` do sistema, que já tem `edge_tts`; usa o env conda `chatterbox` internamente). **Fallback Kokoro** (`pip install kokoro-onnx soundfile`, voz `pf_dora`) só se o inemavox/bella falhar. Ver [scripts/narration-template.sh](scripts/narration-template.sh).
 - Verifique com `npx hyperframes doctor` se algo falhar.
 
 ## Plano de cenas (quantas cenas?)
@@ -41,7 +41,7 @@ Variação **não** é o mesmo vídeo re-renderizado — é **outro ângulo do m
 2. **Revisão de texto** — **antes** de gerar narração e slides, revise o texto de cada cena. Cada frase tem **duas formas**: (a) **tela** (`caption` + literais dentro de `html(p)`) → PT-BR com acentuação correta, termos em inglês na **grafia original**; (b) **fala** (`txt/sN.txt`) → mesma frase com siglas/URLs expandidas (ex.: "SKILL.md" → "SKILL ponto M D") **e termos em inglês reescritos foneticamente** (ex.: `deploy` → "deplói", `design` → "dizáin", `skill` → "skiu"). Varra a acentuação palavra a palavra; na dúvida sobre uma pronúncia (PT ou inglês), gere um WAV de teste e peça o usuário ouvir. Checklist + léxico de inglês em [references/revisao-texto.md](references/revisao-texto.md).
 3. **Projeto** — crie **tudo dentro de `~/projetos/output/<nome>/`** (pasta única do usuário): `cd ~/projetos/output && npx hyperframes init <nome> --example blank --non-interactive`. Todo o conteúdo (projeto, assets, áudios, `index.html` e os MP4 finais) vive nessa pasta. Copie `design.md` (house style) para a raiz.
 4. **Fontes** — `node fetch-fonts.mjs` (baixa .woff2 subset latin → `assets/fonts/fonts.css`). Script em [scripts/fetch-fonts.mjs](scripts/fetch-fonts.mjs).
-5. **Narração** — escreva `assets/txt/sN.txt` (já na **forma-fala** revisada no passo 2) e gere os WAVs com Kokoro voz `pf_dora`, `--speed 0.98`. Template em [scripts/narration-template.sh](scripts/narration-template.sh). Meça as durações com `ffprobe`.
+5. **Narração** — escreva `assets/txt/sN.txt` (já na **forma-fala** revisada no passo 2) e gere os WAVs com a **voz `bella` (inemavox)** — o template já usa `bella` por padrão e cai no **Kokoro `pf_dora`** só se o inemavox falhar. Rode `bash assets/narration.sh` (copiado de [scripts/narration-template.sh](scripts/narration-template.sh); ele itera sobre os `sN.txt` que existirem). Meça as durações com `ffprobe`.
 6. **Composição** — adapte [scripts/composition-template.mjs](scripts/composition-template.mjs) (copie como `build-index.mjs`). O gerador é **data-driven**: edite o array `SCENES[]` — uma entrada por cena de conteúdo, cada uma `{ audio, caption, html(p), anim(at,p) }` (use o prefixo `p` nos ids); todo texto de tela (`caption` + `html(p)`) usa a **forma-tela** revisada no passo 2. O **nº de cenas = nº de itens em `SCENES[]`** (dinâmico). A **CTA do INEMA.CLUB já vem anexada como última cena** (`const CTA` + `ALL = [...SCENES, CTA]`) — não remover. Cada cena já ganha **mid-scene activity** (câmera Ken Burns embutida) pra não virar slideshow. **Componha o movimento a partir do vocabulário `M.*`** (`reveal/sweep/type/float/pulse/glow/countUp…`), não tweens soltos — ver [references/motion.md](references/motion.md). Mídia (vídeo/imagem/música): ver [references/clips-midia.md](references/clips-midia.md). Rode `node build-index.mjs` (16:9) e `node build-index.mjs --vertical` (9:16) — ambos escrevem `index.html` (renderize logo após cada geração).
 7. **Validar** — `npx hyperframes lint` (0 erros) e `npx hyperframes inspect --samples 16` (0 problemas de layout). Corrija seguindo [references/gotchas.md](references/gotchas.md).
 8. **Render** — `--quality draft` para conferir (extraia frames e mostre ao usuário), depois `--quality high`. Os MP4 saem na **raiz do próprio projeto** (que já está em `~/projetos/output/<nome>/`) — todo o conteúdo numa pasta só. **Um arquivo por formato, e só** — o render do HyperFrames já é a entrega final. Gere as duas versões:
@@ -74,6 +74,7 @@ Variação **não** é o mesmo vídeo re-renderizado — é **outro ângulo do m
 - **Timing é fonte única**: o gerador tira `data-start/duration` E os tempos dos tweens do campo `audio` de cada cena → áudio e animação sempre batidos.
 - **Root sem `data-duration`**: a duração da composição vem de `tl.duration()` (contrato HyperFrames). Não adicione `data-duration` no elemento root.
 - **Revisar texto antes de gerar áudio/slides**: acentuação PT-BR varrida palavra a palavra, e termos em inglês na **grafia original na tela** mas **foneticamente reescritos na forma-fala** (`txt/sN.txt`, ex.: `deploy`→"deplói"). Acento/pronúncia errados contaminam tela **e** locução de uma vez. Ver [references/revisao-texto.md](references/revisao-texto.md).
+- **Voz = `bella` (inemavox), Kokoro é fallback.** A narração usa a voz clonada `bella` via inemavox (`chatterbox-vc`); o Kokoro `pf_dora` entra **só** se o inemavox/bella não estiver disponível. Regra do usuário — não gerar em Kokoro por padrão só porque é o que o HyperFrames traz embutido.
 - Sempre **conferir frames** com o usuário antes do render final (não consigo ouvir o áudio — pedir pra ele validar a locução).
 
 ## Identidade visual (house style)

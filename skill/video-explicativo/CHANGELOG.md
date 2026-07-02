@@ -2,6 +2,24 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.7.3 — Gancho, áudio sob a voz, imagem×texto e variações
+Recurso: quatro comportamentos que eram feitos "por instinto" viram **contrato explícito** na skill —
+retenção da abertura, música que não briga com a voz, legibilidade de texto sobre imagem, e o que é
+uma "variação".
+
+- **Gancho de abertura (regra de ouro):** a cena 1 tem que **parar o scroll** — abrir direto no gancho
+  (pergunta/tensão/número/promessa/erro comum), imagem/texto forte no 1º segundo, sem aquecimento. Os
+  ~3s iniciais definem a retenção. Passo 1 (Roteiro) e `pipeline.md` (padrões de gancho) atualizados.
+- **Música sempre bem baixa sob a narração (regra de ouro):** a voz manda; teto `MUSIC_VOL ~0.14`
+  (0.10–0.18). Documentado o **ducking opcional** (camadas de áudio segmentadas: baixo sob a fala, mais
+  alto nos vazios) em `clips-midia.md`, pra quando houver trechos sem voz.
+- **Imagem nunca briga com o texto (regra de ouro):** texto sobre imagem exige **scrim** (gradiente
+  escuro), **blur** na imagem, ou **bloco-painel** isolando o texto — nunca imagem crua. Três snippets
+  prontos em `clips-midia.md`.
+- **Variações:** nova seção no SKILL.md — variação = roteiro + narração + layout + **ângulo/arco**
+  diferentes (não o mesmo vídeo re-renderizado, e não os dois formatos 16:9/9:16 que já são padrão).
+  Nomeação `<nome>-vN-…`.
+
 ## 1.6.3 — Revisão de texto + pronúncia de inglês
 Recurso: nova etapa **antes** de gerar narração e slides, fechando um buraco do pipeline (o texto ia
 direto pra tela e pro TTS sem nenhuma revisão de acentuação/ortografia).

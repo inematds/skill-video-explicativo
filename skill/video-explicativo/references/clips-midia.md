@@ -15,6 +15,28 @@ A skill é motion graphics (HTML/CSS/GSAP), mas o HyperFrames aceita **clips de 
 
 Para animar (entrada/zoom), anime o `#shot1` no script da composição como qualquer elemento.
 
+### Imagem atrás de texto — legibilidade (REGRA)
+Foto/raster **crua** atrás de texto quase sempre mata a leitura: um frame claro da imagem cai por cima da letra e ela some. Sempre que texto ficar **sobre** uma imagem, use **uma** destas três (nunca nenhuma):
+
+**(a) Scrim — gradiente/painel escuro por cima da imagem** (mais comum; barato e controlável):
+```html
+<div class="clip" data-start="s3" data-duration="6" data-track-index="6"
+     style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,19,33,.15),rgba(13,19,33,.82));z-index:4"></div>
+<!-- o texto da cena entra ACIMA (z-index maior) -->
+```
+
+**(b) Blur na própria imagem** (quando ela é só clima de fundo, não informação):
+```html
+<img class="clip" ... style="...;filter:blur(6px) brightness(.55)" />
+```
+
+**(c) Bloco-painel opaco isolando o texto** (imagem fica ao lado/atrás, texto num cartão sólido):
+```html
+<div style="position:absolute;...;background:rgba(29,45,68,.92);border:1px solid var(--bg3);border-radius:16px;padding:28px 34px;z-index:5">…texto…</div>
+```
+
+Regras de encaixe: o scrim/painel entra em **track própria** entre a imagem e o texto (ex.: imagem 5, scrim 6, cena 1/3 por cima). Ícone/diagrama **SVG** já nasce sobre o fundo dark — não precisa de nada disso. Na dúvida, escureça mais: legível > bonito.
+
 ## Vídeo (`<video>`) — b-roll / screen capture
 Regras críticas (ver também gotchas.md):
 - **NÃO** colocar `class="clip"` no `<video>` — o framework gerencia play/seek direto.
@@ -36,7 +58,13 @@ Quer deslizar o vídeo entrando? Anime `#bw` (o wrapper), não `#broll`.
 ## Música de fundo (leito sonoro)
 O template tem o hook pronto: defina `const MUSIC = "assets/audio/bg.mp3"` (e `MUSIC_VOL`, default `0.14`). Ele emite um `<audio data-volume>` cobrindo o vídeo todo no track 21.
 - Use um arquivo **>= a duração do vídeo** (se for mais curto, congela/silencia no fim — não dá loop automático).
-- `data-volume` vai de 0 a 1. ~0.10–0.18 deixa a narração na frente.
+- **A voz manda — música é cama, nunca protagonista.** `data-volume` vai de 0 a 1; teto **~0.14** (faixa 0.10–0.18). Acima disso ela compete com a narração e derruba a retenção. Na dúvida, mais baixo.
+
+### Ducking (baixar a música sob a fala, subir nos vazios)
+O `data-volume` é fixo no vídeo todo — bom quando quase tudo tem narração (`0.14` já resolve). Mas se há **trechos sem voz** (intro instrumental, respiro entre blocos, outro), vale **ducking**: música um pouco mais alta nos vazios e bem baixa durante a fala. Como não há automação de volume por trecho, faça por **camadas de áudio segmentadas** em vez de um `<audio>` único:
+- Um clip de música **baixo (`~0.10`) cobrindo as cenas com narração** (`data-start` na 1ª cena falada até a última).
+- Outro clip da mesma música **mais alto (`~0.22`) só nos trechos sem voz** (ex.: `data-start="0" data-duration="s1"` na intro, e um no fim depois da última fala).
+Cada um é um `<audio>` irmão com seu `data-start`/`data-duration`/`data-track-index` (use 21 e 22). Simples, determinístico, e a voz nunca briga com a trilha. Para a maioria dos vídeos curtos o volume fixo `0.14` basta — só faça ducking quando existir silêncio de fala real.
 
 ## Timing relativo (encaixar mídia numa cena)
 `data-start` aceita o **ID de outro clip** em vez de segundos absolutos:

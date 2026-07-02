@@ -22,6 +22,8 @@
   - Default de duração quando o usuário não pede: ~1:40–2:00 (cabe em Shorts). Com duração-alvo: cenas ≈ `voz_alvo / ~12s`.
   - Override: se o usuário fixar o nº de cenas, use exatamente esse (conteúdo) + CTA.
 - Narração por cena: 1–3 frases curtas.
+- **Gancho de abertura (cena 1):** é o beat mais importante — os ~3s iniciais decidem a retenção (regra de ouro no SKILL.md). Abra **direto na tensão**, sem aquecimento (logo/"olá pessoal" fora). Padrões que param o scroll: **pergunta afiada** ("Por que 90% dos vídeos morrem nos 3 primeiros segundos?"), **número/contraste chocante**, **promessa concreta** ("Em 40s você monta um vídeo narrado sozinho"), **erro comum** ("Você está fazendo isso errado — e nem sabe"). O texto/imagem forte precisa estar **no primeiro segundo**, não depois da abertura.
+- **Variações (se o usuário pedir 2–3 versões):** cada variação é um roteiro próprio com **ângulo/arco diferente** (didático vs. caso real vs. contrarian vs. lista) e **gancho diferente** — não é reordenar as mesmas frases. Ver seção "Variações" no SKILL.md. (Não confundir com os dois formatos 16:9/9:16, que são padrão.)
 
 ## Revisão de texto (antes de narração e slides)
 Etapa obrigatória **antes** de gerar os WAVs e de escrever texto na tela. Detalhe completo +

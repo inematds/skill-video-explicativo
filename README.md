@@ -7,7 +7,7 @@ framework [HyperFrames](https://github.com/heygen-com/hyperframes) — animados,
 
 > Este projeto nasceu de um vídeo que foi, ele mesmo, **feito por uma Skill**.
 
-**Versão da Skill:** `v1.6.3` · esquema `v1.yy.xxx` (yy = recurso, xxx = bug) · histórico em [`skill/video-explicativo/CHANGELOG.md`](skill/video-explicativo/CHANGELOG.md).
+**Versão da Skill:** `v1.7.3` · esquema `v1.yy.xxx` (yy = recurso, xxx = bug) · histórico em [`skill/video-explicativo/CHANGELOG.md`](skill/video-explicativo/CHANGELOG.md).
 
 ---
 

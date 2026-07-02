@@ -2,6 +2,15 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.9.3 — Título do assunto persistente no 9:16
+Recurso de retenção: um **título do assunto fixo no topo** do vertical, o vídeo inteiro, sumindo na CTA.
+
+- **`const TITLE`** novo no gerador: 1–2 palavras grandes (âmbar via `<b>`) que **chamam atenção e prendem**
+  — cria o loop "título → resposta". Fica no topo o vídeo todo e **some na CTA** (fade-out em `CTA.start`).
+  Renderizado **só no 9:16** (oculto no 16:9 via `body.v`).
+- **Regra de ouro nova:** no 9:16, sempre definir `TITLE`; não duplicar no eyebrow da cena 1.
+- Validado no piloto (Liberal v1): título "PROFISSIONAL LIBERAL" fixo, ausente na CTA.
+
 ## 1.8.3 — Voz `bella` (inemavox) como default, Kokoro vira fallback
 Mudança de default de narração: a skill nasceu com Kokoro `pf_dora`, mas a voz da casa é a **`bella`**
 (inemavox). Agora **bella é o padrão** e o Kokoro só entra se o inemavox falhar.

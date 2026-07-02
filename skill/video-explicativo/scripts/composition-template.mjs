@@ -47,6 +47,12 @@ const FADE = 0.45;
 const MUSIC = null;
 const MUSIC_VOL = 0.14;
 
+// Título persistente do 9:16 (1–2 palavras GRANDES que prendem a atenção; use <b> p/ a palavra âmbar).
+// É o "título do assunto": fica no TOPO o vídeo inteiro e SOME na CTA — cria o loop de retenção
+// (chama atenção → o vídeo entrega a resposta). Só aparece no 9:16 (no 16:9 fica oculto via CSS).
+// REGRA: no 9:16, sempre defina um TITLE curto. null = sem título.
+const TITLE = null;   // ex.: "SEU <b>COPILOTO</b>"  ·  "IA NA <b>PRÁTICA</b>"
+
 // ---------- CENAS DE CONTEÚDO (N dinâmico) ----------
 const SCENES = [
   {
@@ -425,6 +431,12 @@ const html = `<!doctype html>
       #progress{position:absolute;left:0;bottom:0;height:6px;width:100%;transform:scaleX(0);transform-origin:left center;
         background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:40;box-shadow:0 0 18px rgba(255,195,0,.5)}
       #tdip{position:absolute;inset:0;background:#000;opacity:0;z-index:38;pointer-events:none}
+      /* título persistente do assunto (SÓ 9:16; some na CTA) — 1–2 palavras que prendem */
+      #toptitle{position:absolute;top:0;left:0;right:0;z-index:34;display:none;justify-content:center;padding:58px 60px 0;pointer-events:none}
+      #toptitle .tt{font-family:Sora,sans-serif;font-weight:800;font-size:62px;letter-spacing:.02em;color:var(--fg);
+        text-align:center;line-height:1.02;text-transform:uppercase;text-shadow:0 4px 26px rgba(0,0,0,.8)}
+      #toptitle .tt b{color:var(--accent);font-weight:800}
+      body.v #toptitle{display:flex}
 
       /* ---- cena base ---- */
       .scene{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:center;
@@ -634,6 +646,7 @@ const html = `<!doctype html>
         <div id="glow"></div><div id="glow2"></div><div id="grid"></div>
         <div class="ghost" id="ghost" data-layout-ignore>SKILL.md</div><div id="grain"></div>
       </div>
+      ${TITLE ? `<div id="toptitle" data-layout-ignore><span class="tt">${TITLE}</span></div>` : ""}
 ${scenesHTML}
 ${captionsHTML}
       <div id="progress"></div>
@@ -652,6 +665,8 @@ ${audioHTML}${musicHTML}
         tl.to("#ghost",{x:120,duration:TOTAL,ease:"none"},0);
         tl.to("#grid",{backgroundPositionX:"+=128",backgroundPositionY:"+=128",duration:18,repeat:ambientRepeat(18),ease:"none"},0);
         tl.fromTo("#progress",{scaleX:0},{scaleX:1,duration:TOTAL,ease:"none"},0);
+        ${TITLE ? `tl.fromTo("#toptitle",{opacity:0,y:-18},{opacity:1,y:0,duration:.6,ease:"power2.out"},0.35);
+        tl.to("#toptitle",{opacity:0,y:-18,duration:.5,ease:"power2.in"},${round(S[S.length - 1].start - 0.3)});` : ""}
         // cenas
       ${animJS}
         // sentinela: estende a timeline até o fim da composição

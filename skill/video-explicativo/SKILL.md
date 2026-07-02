@@ -1,6 +1,6 @@
 ---
 name: video-explicativo
-version: 1.8.3
+version: 1.9.3
 description: Cria vídeos explicativos completos em PT-BR (HTML→MP4 via HyperFrames) a partir de um assunto — roteiro, narração TTS local, cenas animadas dark premium, captions e CTA do INEMA.CLUB, nos formatos 16:9 (YouTube) e 9:16 (Shorts/Reels). Use quando o usuário pedir para "fazer um vídeo", "vídeo explicativo", "vídeo sobre X", "vídeo pra Shorts/Reels", "mini tutorial em vídeo", "vídeo do INEMA", ou quando der um assunto e quiser um vídeo narrado pronto. Cobre roteiro, locução, animação, render e a CTA final.
 ---
 
@@ -68,6 +68,7 @@ Variação **não** é o mesmo vídeo re-renderizado — é **outro ângulo do m
 - **Animar o `.scene-inner`**, nunca o wrapper `.clip` (o framework força `opacity:1` no clip ativo).
 - **Cenas e captions em tracks alternados** (1/3 e 2/4) para não dar overlap nas bordas (erro de float).
 - **Decorativos off-canvas** (ghost/bg-layer): `data-layout-ignore`.
+- **Título do assunto no topo (9:16):** no vertical, **sempre** defina `TITLE` no gerador — **1–2 palavras GRANDES** que chamam atenção e prendem (o "título do assunto"). Ele fica **fixo no topo o vídeo inteiro e some na CTA**, criando o loop de retenção (chama atenção → o vídeo entrega a resposta). Aparece **só no 9:16** (oculto no 16:9). Não repita o `TITLE` no eyebrow da cena 1 (evita duplicar). Ex.: `const TITLE = "SEU <b>COPILOTO</b>"`.
 - **Safe zones no 9:16**: conteúdo no topo-esquerda/centro; base e lateral-direita livres da UI do app (legenda/perfil + botões). O template já aplica nos overrides `body.v`. Ajustar por plataforma em [references/safe-zones.md](references/safe-zones.md).
 - **Fallback SVG**: imagem raster (servidor/API, ex.: flux2-klein) é opcional — sem ela, usar **SVG** (ícone/diagrama sempre pode ser SVG; fundo vira SVG flat). Não travar o vídeo. Ver [references/clips-midia.md](references/clips-midia.md).
 - **Fontes locais** via `@font-face` (NÃO usar Google Fonts CDN — some no render).

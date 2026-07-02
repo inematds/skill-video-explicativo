@@ -2,6 +2,16 @@
 
 Versionamento: **`v1.yy.xxx`** — `yy` = recurso (feature), `xxx` = correção (bug).
 
+## 1.10.3 — Título do 9:16 em 2 linhas (persona + gancho)
+Evolução do título persistente (1.9.3): agora são **duas linhas** com a tipografia da casa.
+
+- **`const TITLE = { l1, l2 }`**: **l1 = persona/assunto** (impactante), **l2 = curiosidade** (gancho de
+  retenção logo abaixo, separado por régua âmbar). `<b>` = palavra âmbar em cada linha. O loop fica mais
+  forte: a persona chama o público certo, o gancho segura pra resposta.
+- Sora + régua âmbar (`--accent`→`--accent2`) — combina com o layout. Só 9:16; some na CTA.
+- Regra de ouro atualizada. Validado no piloto Liberal v1 ("PROFISSIONAL LIBERAL" / "por que ainda faz
+  tudo sozinho?").
+
 ## 1.9.3 — Título do assunto persistente no 9:16
 Recurso de retenção: um **título do assunto fixo no topo** do vertical, o vídeo inteiro, sumindo na CTA.
 

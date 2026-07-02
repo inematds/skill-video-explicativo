@@ -47,11 +47,11 @@ const FADE = 0.45;
 const MUSIC = null;
 const MUSIC_VOL = 0.14;
 
-// Título persistente do 9:16 (1–2 palavras GRANDES que prendem a atenção; use <b> p/ a palavra âmbar).
-// É o "título do assunto": fica no TOPO o vídeo inteiro e SOME na CTA — cria o loop de retenção
-// (chama atenção → o vídeo entrega a resposta). Só aparece no 9:16 (no 16:9 fica oculto via CSS).
-// REGRA: no 9:16, sempre defina um TITLE curto. null = sem título.
-const TITLE = null;   // ex.: "SEU <b>COPILOTO</b>"  ·  "IA NA <b>PRÁTICA</b>"
+// Título persistente do 9:16 (fica no TOPO o vídeo inteiro e SOME na CTA). Tipografia da casa (Sora + âmbar).
+// DUAS LINHAS: l1 = a PERSONA/assunto (impactante) · l2 = a CURIOSIDADE (gancho de retenção → o vídeo
+// entrega a resposta). Use <b> p/ a palavra âmbar em cada linha. Só aparece no 9:16 (oculto no 16:9).
+// REGRA: no 9:16, sempre defina o TITLE (l1 obrigatório; l2 = gancho, recomendado). null = sem título.
+const TITLE = null;   // ex.: { l1: "PROFISSIONAL <b>LIBERAL</b>", l2: "por que ainda faz tudo <b>sozinho?</b>" }
 
 // ---------- CENAS DE CONTEÚDO (N dinâmico) ----------
 const SCENES = [
@@ -431,11 +431,17 @@ const html = `<!doctype html>
       #progress{position:absolute;left:0;bottom:0;height:6px;width:100%;transform:scaleX(0);transform-origin:left center;
         background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:40;box-shadow:0 0 18px rgba(255,195,0,.5)}
       #tdip{position:absolute;inset:0;background:#000;opacity:0;z-index:38;pointer-events:none}
-      /* título persistente do assunto (SÓ 9:16; some na CTA) — 1–2 palavras que prendem */
-      #toptitle{position:absolute;top:0;left:0;right:0;z-index:34;display:none;justify-content:center;padding:58px 60px 0;pointer-events:none}
-      #toptitle .tt{font-family:Sora,sans-serif;font-weight:800;font-size:62px;letter-spacing:.02em;color:var(--fg);
-        text-align:center;line-height:1.02;text-transform:uppercase;text-shadow:0 4px 26px rgba(0,0,0,.8)}
-      #toptitle .tt b{color:var(--accent);font-weight:800}
+      /* título persistente do assunto (SÓ 9:16; some na CTA) — persona (l1) + gancho de retenção (l2) */
+      #toptitle{position:absolute;top:0;left:0;right:0;z-index:34;display:none;flex-direction:column;align-items:center;
+        gap:12px;padding:50px 54px 0;pointer-events:none;text-align:center}
+      #toptitle .tt-l1{font-family:Sora,sans-serif;font-weight:800;font-size:58px;letter-spacing:.02em;line-height:1.0;
+        text-transform:uppercase;color:var(--fg);text-shadow:0 4px 26px rgba(0,0,0,.85)}
+      #toptitle .tt-l1 b{color:var(--accent)}
+      #toptitle .tt-l2{font-family:Sora,sans-serif;font-weight:700;font-size:40px;line-height:1.05;color:var(--fg);
+        text-shadow:0 3px 22px rgba(0,0,0,.9)}
+      #toptitle .tt-l2 b{color:var(--accent)}
+      #toptitle .tt-l2::before{content:"";display:block;width:74px;height:5px;margin:0 auto 16px;border-radius:4px;
+        background:linear-gradient(90deg,var(--accent),var(--accent2))}
       body.v #toptitle{display:flex}
 
       /* ---- cena base ---- */
@@ -646,7 +652,7 @@ const html = `<!doctype html>
         <div id="glow"></div><div id="glow2"></div><div id="grid"></div>
         <div class="ghost" id="ghost" data-layout-ignore>SKILL.md</div><div id="grain"></div>
       </div>
-      ${TITLE ? `<div id="toptitle" data-layout-ignore><span class="tt">${TITLE}</span></div>` : ""}
+      ${TITLE ? `<div id="toptitle" data-layout-ignore><span class="tt-l1">${TITLE.l1}</span>${TITLE.l2 ? `<span class="tt-l2">${TITLE.l2}</span>` : ""}</div>` : ""}
 ${scenesHTML}
 ${captionsHTML}
       <div id="progress"></div>

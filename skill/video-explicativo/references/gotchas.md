@@ -35,6 +35,17 @@ Problemas reais já enfrentados e como resolver — aplique ANTES de renderizar.
 - `data-media-start="5"` = trim (começa 5s dentro do source). `data-volume="0"` = mudo. Se o source acaba antes do `data-duration`, congela o último frame.
 - Imagem (`<img class="clip">`): `data-duration` é **obrigatório** (não tem source duration). Ver [clips-midia.md](clips-midia.md).
 
+## 9:16 gerado por regex em cima do 16:9 — corta a imagem
+
+Se o projeto usa **1 foto full-bleed por cena** (`object-fit:cover` cobrindo o frame inteiro — estilo fora do
+`composition-template.mjs` oficial), **nunca** gere o `index-916.html` com um patch de regex sobre o `index.html`
+16:9 (só trocar `1920→1080`/`font-size`). A imagem (tipicamente 16:9, ex. 1280×720) fica full-bleed e
+`object-fit:cover` escala até a altura bater (2,67×) e corta ~69% da largura — perda de nitidez + corte
+imprevisível. Já aconteceu em produção 3× seguidas (`websites-morrem`, `claude-5videos`, `monako-glasses`, todos
+com o mesmo bug copiado). Gerador dedicado + imagem contida (não cortada) + título grande fixo no topo: ver
+["Variante: cena é 1 foto full-bleed"](safe-zones.md#variante-cena-é-1-foto-full-bleed-não-svgtipografia--regra)
+em safe-zones.md.
+
 ## Checklist antes de renderizar
 - `npx hyperframes lint` → **0 erros**; `npx hyperframes inspect --samples 16` → 0 problemas.
 - Todo visível temporizado tem `class="clip"`; vídeo **não** tem.

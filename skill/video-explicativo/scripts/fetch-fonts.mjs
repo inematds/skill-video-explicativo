@@ -15,8 +15,11 @@ let out = "";
 let n = 0;
 const seen = new Set();
 for (const b of blocks) {
-  // só o subset "latin" (cobre PT-BR: á à â ã é ê í ó ô õ ú ç)
-  const isLatin = /\/\*\s*latin\s*\*\//.test(b) || /unicode-range:[^;]*U\+0000-00FF/.test(b);
+  // só o subset "latin" (cobre PT-BR: á à â ã é ê í ó ô õ ú ç).
+  // NÃO usar o comentário /* latin */ — o split por "@font-face" joga o comentário
+  // do bloco SEGUINTE no chunk do anterior (off-by-one) e acaba baixando o latin-ext.
+  // O unicode-range está DENTRO do próprio bloco → é o teste confiável.
+  const isLatin = /unicode-range:[^;]*U\+0000-00FF/.test(b);
   if (!isLatin) continue;
   const fam = b.match(/font-family:\s*'([^']+)'/);
   const wght = b.match(/font-weight:\s*(\d+)/);

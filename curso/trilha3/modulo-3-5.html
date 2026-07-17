@@ -188,7 +188,7 @@
             <rect x="116" y="58" width="74" height="22" rx="5" fill="#2a1450" stroke="#a78bfa" stroke-width="1.2"/>
             <text x="153" y="73" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" font-weight="600" fill="#c4b5fd">composition-template.mjs</text>
             <text x="105" y="96" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" fill="#a78bfa">✦ muda TODOS os vídeos novos</text>
-            <text x="105" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#6d28d9">requer re-empacotamento do .zip</text>
+            <text x="105" y="107" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#6d28d9">requer commit + push no repo</text>
 
             <!-- Nível 2: LAYOUT (ciano — afeta só o projeto atual) -->
             <rect x="222" y="20" width="186" height="90" rx="10" fill="#0a1a2e" stroke="url(#m35-cyan)" stroke-width="2" filter="url(#m35-glow)"/>
@@ -699,7 +699,7 @@
           <div class="space-y-2 text-sm mb-4">
             <div class="flex items-start gap-2 text-neutral-300"><span class="text-emerald-400 mt-0.5">✓</span> Todos os vídeos novos herdam</div>
             <div class="flex items-start gap-2 text-neutral-300"><span class="text-emerald-400 mt-0.5">✓</span> Mantém consistência de marca</div>
-            <div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> Exige re-empacotar o .zip</div>
+            <div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> Exige commit + push no repo da skill</div>
             <div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> Mais impacto — testar antes</div>
           </div>
           <div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">Quando usar</div>
@@ -829,7 +829,7 @@
             <div class="text-neutral-300">Edite o skill instalado em <span class="text-purple-400">~/.claude/skills/video-explicativo/</span>:</div>
             <div class="mt-1 text-neutral-300">1. Em <span class="text-cyan-400">references/house-style.md</span>: adicione regra "marca sempre no topo do 9:16, centrada, opacity 0.4"</div>
             <div class="text-neutral-300">2. Em <span class="text-cyan-400">scripts/composition-template.mjs</span>: aumente <span class="text-emerald-400">.title</span> de 172px → 192px e override 9:16 de 118px → 135px</div>
-            <div class="text-neutral-300">3. Re-empacote o skill (.zip) e confirme que o <span class="text-yellow-300">SKILL.md</span> lista as mudanças</div>
+            <div class="text-neutral-300">3. Commite e publique o skill no repo e confirme que o <span class="text-yellow-300">SKILL.md</span> lista as mudanças</div>
             <div class="mt-1 text-neutral-300">Valide criando um vídeo de teste e rodando <span class="text-yellow-300">npx hyperframes inspect</span></div>
           </div>
         </div>

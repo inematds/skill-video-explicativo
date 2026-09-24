@@ -209,3 +209,11 @@ downloads/                 # video-explicativo.zip (a Skill empacotada)
 ---
 
 Conteúdo do [**INEMA.CLUB**](https://inema.club) · 2026
+
+<!-- inema-backlink:v1 -->
+## Mais no INEMA.CLUB
+
+- [Ficha completa deste curso](https://www.inema.club/cursos/129-hyperframes-videos-explicativos-com-claude-code/)
+- [Guia: como aprender inteligência artificial](https://www.inema.club/aprender-inteligencia-artificial/)
+- [Todos os cursos](https://www.inema.club/cursos/)
+<!-- /inema-backlink:v1 -->

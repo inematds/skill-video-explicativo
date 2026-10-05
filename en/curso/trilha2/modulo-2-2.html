@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2.2 — Setup &amp; Prerequisites | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-200 { color: #1f2937; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* Light mode - cores de acento (trilha blue T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .text-blue-300 { color: #1d4ed8; }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .text-cyan-300 { color: #0e7490; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .bg-blue-600 { background-color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500:hover { background-color: #3b82f6; }
+    /* Light mode - remove gradientes */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    /* Light mode - cores especiais */
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-yellow-300 { color: #854d0e; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .hover\:text-blue-300:hover { color: #1d4ed8; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    /* Light mode - Navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+    /* Dark mode - bordas suavizadas */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG animations */
+    @keyframes m22-flow {
+      0% { stroke-dashoffset: 40; }
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes m22-pulse {
+      0%, 100% { opacity: 0.4; r: 4; }
+      50% { opacity: 1; r: 6; }
+    }
+    @keyframes m22-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .m22-anim-flow { animation: m22-flow 1.4s linear infinite; }
+      .m22-anim-pulse { animation: m22-pulse 2.4s ease-in-out infinite; }
+      .m22-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m22-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m22-anim-blink { animation: m22-blink 1.8s ease-in-out infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha2/modulo-2-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha2/modulo-2-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha2/modulo-2-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center gap-2 text-sm font-bold text-neutral-200 hover:text-blue-400 transition-colors" href="../../index.html">
+            🎬 <span class="hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600 hidden sm:inline">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-semibold transition-colors hidden sm:inline" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="ml-2 p-2 rounded-lg text-neutral-400 hover:bg-dark-600 transition-colors" id="theme-toggle">
+<svg class="hidden w-5 h-5" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Track 2 — Pipeline</a>
+<span>/</span>
+<span class="text-blue-400 font-medium">Module 2.2</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-widest mb-4">
+          MODULE 2.2
+        </div>
+<h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-3">
+          🛠️ Setup &amp; prerequisites
+        </h1>
+<p class="text-neutral-400 text-lg mb-6">
+          Install Node.js 22+, headless Chrome, FFmpeg, and Kokoro TTS. Set everything up from scratch through execution <code class="text-blue-300 bg-dark-700 px-1 rounded">npx hyperframes init</code> successfully.
+        </p>
+<!-- STATS -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-bold text-xl">6</div>
+<div class="text-xs text-neutral-500 mt-0.5">Topics</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-bold text-xl">20</div>
+<div class="text-xs text-neutral-500 mt-0.5">Minutes</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-bold text-xl">Practical</div>
+<div class="text-xs text-neutral-500 mt-0.5">Level</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-bold text-xl">Setup</div>
+<div class="text-xs text-neutral-500 mt-0.5">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Ambiente de Setup -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Futuristic diagram of the setup environment: Node, FFmpeg, Chrome, Kokoro, and HyperFrames CLI" class="w-full h-auto" role="img" viewbox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m22-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e1622;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0a1520;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m22-blue-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m22-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m22-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<!-- Background -->
+<rect fill="url(#m22-bg-grad)" height="260" rx="12" width="400"></rect>
+<!-- Grid lines -->
+<g opacity="0.4" stroke="#1e3a5f" stroke-width="0.5">
+<line x1="0" x2="400" y1="65" y2="65"></line>
+<line x1="0" x2="400" y1="130" y2="130"></line>
+<line x1="0" x2="400" y1="195" y2="195"></line>
+<line x1="80" x2="80" y1="0" y2="260"></line>
+<line x1="160" x2="160" y1="0" y2="260"></line>
+<line x1="240" x2="240" y1="0" y2="260"></line>
+<line x1="320" x2="320" y1="0" y2="260"></line>
+</g>
+<!-- Central: HyperFrames CLI box -->
+<rect fill="#0e1622" filter="url(#m22-glow)" height="60" rx="10" stroke="url(#m22-blue-grad)" stroke-width="2" width="120" x="140" y="100"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="200" y="124">HyperFrames</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="200" y="138">CLI</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="151">npx hyperframes</text>
+<!-- Node.js — top-left -->
+<rect fill="#0e1622" height="50" rx="8" stroke="#60a5fa" stroke-width="1.5" width="86" x="18" y="20"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="61" y="42">Node.js</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="61" y="55">v22+</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="61" y="65">runtime</text>
+<!-- Arrow Node → CLI -->
+<path class="m22-anim-flow" d="M104 45 L140 115" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" points="136,111 144,118 139,107"></polygon>
+<!-- FFmpeg — bottom-left -->
+<rect fill="#0e1622" height="50" rx="8" stroke="#3b82f6" stroke-width="1.5" width="86" x="18" y="190"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="61" y="212">FFmpeg</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="61" y="225">C:\ffmpeg\bin</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="61" y="235">-nostdin</text>
+<!-- Arrow FFmpeg → CLI -->
+<path class="m22-anim-flow" d="M104 215 L140 155" fill="none" stroke="#3b82f6" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#3b82f6" points="136,158 145,152 141,163"></polygon>
+<!-- Chrome — top-right -->
+<rect fill="#0e1622" height="50" rx="8" stroke="#38bdf8" stroke-width="1.5" width="86" x="296" y="20"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="339" y="42">Chrome</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="339" y="55">headless</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="339" y="65">browser ensure</text>
+<!-- Arrow Chrome → CLI -->
+<path class="m22-anim-flow" d="M296 45 L260 115" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" points="264,111 256,118 261,107"></polygon>
+<!-- Kokoro TTS — bottom-right -->
+<rect fill="#0e1622" height="50" rx="8" stroke="#06b6d4" stroke-width="1.5" width="86" x="296" y="190"></rect>
+<text fill="#06b6d4" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="339" y="212">Kokoro</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="339" y="225">PT-BR TTS</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="339" y="235">pf_dora</text>
+<!-- Arrow Kokoro → CLI -->
+<path class="m22-anim-flow" d="M296 215 L260 155" fill="none" stroke="#06b6d4" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#06b6d4" points="264,158 255,153 261,163"></polygon>
+<!-- Doctor badge — middle bottom -->
+<rect fill="#0e1622" height="40" opacity="0.8" rx="8" stroke="#60a5fa" stroke-width="1" width="104" x="148" y="190"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="200" y="207">hyperframes doctor</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="222">✓ diagnosis</text>
+<!-- Arrow CLI → doctor -->
+<path class="m22-anim-flow" d="M200 160 L200 190" fill="none" stroke="#60a5fa" stroke-dasharray="4,3" stroke-width="1.5"></path>
+<polygon fill="#60a5fa" points="196,186 200,194 204,186"></polygon>
+<!-- Pulse dots -->
+<circle class="m22-anim-pulse" cx="200" cy="130" fill="#60a5fa" opacity="0.8" r="4"></circle>
+<circle class="m22-anim-pulse" cx="20" cy="20" fill="#60a5fa" opacity="0.6" r="2.5"></circle>
+<circle class="m22-anim-pulse" cx="380" cy="20" fill="#38bdf8" opacity="0.6" r="2.5"></circle>
+<circle class="m22-anim-pulse" cx="20" cy="240" fill="#3b82f6" opacity="0.6" r="2.5"></circle>
+<circle class="m22-anim-pulse" cx="380" cy="240" fill="#06b6d4" opacity="0.6" r="2.5"></circle>
+<!-- Label top -->
+<text fill="#4b6a8a" font-family="Inter,sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" x="200" y="14">SETUP ENVIRONMENT</text>
+</svg>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 space-y-6">
+<!-- TÓPICO 1 — Node 22+ e FFmpeg -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⚙️ Node 22+ and FFmpeg</h2>
+<p class="text-neutral-400 mt-2">Two required binaries: Node.js version 22 or higher and FFmpeg accessible in PATH. Without them, HyperFrames can't render a single frame.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Why Node 22+ specifically?</div>
+<p class="text-neutral-200 font-medium">HyperFrames uses <strong>Native ESM</strong> and APIs for <code class="text-blue-300">fs/promises</code> available starting with Node 18, but version 22 brings the <strong>--experimental-strip-types</strong> and the updated V8 that speeds up composition parsing. Older versions (16, 18) may work partially but cause warnings and unexpected behavior in <code class="text-cyan-300">build-index.mjs</code>.</p>
+</div>
+<!-- código: verificar + instalar Node -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Check the version and install via nvm (git-bash / WSL)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Check the current version</div>
+<div><span class="text-cyan-400">node</span> <span class="text-blue-400">--version</span></div>
+<div class="text-neutral-500 mt-1 mb-3"># should return v22.x.x or higher</div>
+<div class="text-neutral-500 text-xs mb-2"># If you need to install via nvm</div>
+<div><span class="text-cyan-400">nvm</span> <span class="text-blue-400">install</span> <span class="text-yellow-300">22</span></div>
+<div><span class="text-cyan-400">nvm</span> <span class="text-blue-400">use</span> <span class="text-yellow-300">22</span></div>
+<div><span class="text-cyan-400">nvm</span> <span class="text-blue-400">default alias</span> <span class="text-yellow-300">22</span></div>
+</div>
+</div>
+<!-- código: FFmpeg em C:\ffmpeg\bin -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Install FFmpeg and add it to PATH (Windows)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 1. Download the static release from ffmpeg.org/download.html</div>
+<div class="text-neutral-500 text-xs mb-2"># 2. Extract to C:\ffmpeg (it should contain bin\ffmpeg.exe)</div>
+<div class="text-neutral-500 text-xs mb-3"># 3. Add to PATH via PowerShell (Admin)</div>
+<div><span class="text-cyan-400">[Environment]::SetEnvironmentVariable</span>(<span class="text-yellow-300">"Path"</span>,</div>
+<div class="ml-4"><span class="text-yellow-300">"$env:Path;C:\ffmpeg\bin"</span>,</div>
+<div class="ml-4"><span class="text-yellow-300">"Machine"</span>)</div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># 4. Verify (new terminal)</div>
+<div><span class="text-cyan-400">ffmpeg</span> <span class="text-blue-400">-version</span></div>
+<div class="text-neutral-500 mt-1"># should show ffmpeg version 6.x or 7.x</div>
+</div>
+</div>
+<!-- grid fazer / não fazer -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Correct approach</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> FFmpeg in <code class="text-blue-300">C:\ffmpeg\bin\ffmpeg.exe</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> PATH configured in the <strong>system</strong> (non-user)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Node 22+ verified with <code class="text-blue-300">node --version</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Open a new terminal after changing PATH</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Common pitfalls</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Use the FFmpeg installed by <code class="text-red-300">choco</code> without checking PATH</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Node 16 or 18 — causes errors with native ESM</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Test <code class="text-red-300">ffmpeg</code> in the old terminal (PATH not updated)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> ffmpeg.exe outside the subdirectory <code class="text-red-300">bin</code></li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⚙️</div><div class="text-xs font-semibold text-neutral-200">Node 22+</div><div class="text-xs text-neutral-500">Native ESM</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎞️</div><div class="text-xs font-semibold text-neutral-200">FFmpeg</div><div class="text-xs text-neutral-500">C:\ffmpeg\bin</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🌿</div><div class="text-xs font-semibold text-neutral-200">nvm</div><div class="text-xs text-neutral-500">Manage versions</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔗</div><div class="text-xs font-semibold text-neutral-200">PATH</div><div class="text-xs text-neutral-500">System var.</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 — ffmpeg -nostdin no git-bash -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⌨️ <code class="text-blue-300">ffmpeg -nostdin</code> in git-bash</h2>
+<p class="text-neutral-400 mt-2">The most subtle setup gotcha: running FFmpeg inside git-bash without <code class="text-blue-300">-nostdin</code> causes exit 0 without generating any files. No visible error — nothing is simply created.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- alerta vermelho -->
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h3 class="text-base font-semibold text-red-400 mb-2 flex items-center gap-2">
+<span>⚠️</span> Critical gotcha—exits with code 0 without a file
+          </h3>
+<p class="text-neutral-300 text-sm">In git-bash (MinTTY), FFmpeg tries to read stdin and silently blocks. The process exits with code 0 (success), but no MP4 is generated. It’s the hardest bug to diagnose because everything seems to have worked.</p>
+</div>
+<!-- código: o problema e a solução -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div>
+<div class="text-xs font-semibold text-red-400 uppercase tracking-widest mb-2">✗ Problem (git-bash)</div>
+<div class="bg-dark-900 rounded-xl border border-red-500/20 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># Exits with code 0, no file!</div>
+<div><span class="text-red-400">ffmpeg</span> -i frames/%04d.png \</div>
+<div class="ml-4">-c:v libx264 output.mp4</div>
+<div class="text-neutral-500 text-xs mt-3"># No errors — and no MP4</div>
+</div>
+</div>
+<div>
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">✓ Solution (-nostdin)</div>
+<div class="bg-dark-900 rounded-xl border border-emerald-500/20 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># Correct in git-bash</div>
+<div><span class="text-cyan-400">ffmpeg</span> <span class="text-blue-400">-nostdin</span> \</div>
+<div class="ml-4">-i frames/%04d.png \</div>
+<div class="ml-4">-c:v libx264 output.mp4</div>
+<div class="text-neutral-500 text-xs mt-3"># Generates the MP4 correctly</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">HyperFrames already includes -nostdin</div>
+<p class="text-neutral-400 text-sm">The HyperFrames CLI (<code class="text-blue-300">npx hyperframes render</code>) passes <code class="text-blue-300">-nostdin</code> automatically in internal calls to FFmpeg. You only need to worry about it if you invoke FFmpeg <strong>directly</strong> in git-bash for manual post-processing, concatenation scripts, etc.</p>
+</div>
+</div>
+<!-- box dados -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Why does this happen?</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">MinTTY (git-bash)</div><div class="text-neutral-400">Emulates a POSIX terminal. When FFmpeg detects that stdin is a TTY, it waits for user input—which never comes.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-cyan-400 font-bold mb-1">Exit code 0</div><div class="text-neutral-400">FFmpeg closes stdin and exits normally, without an error—but processes nothing. Ambiguous behavior by design.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">-nostdin</div><div class="text-neutral-400">Completely disables reading from stdin. FFmpeg processes the input file without blocking on the TTY.</div></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-red-400 text-lg mb-1">⚠️</div><div class="text-xs font-semibold text-neutral-200">MinTTY</div><div class="text-xs text-neutral-500">TTY in git-bash</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔇</div><div class="text-xs font-semibold text-neutral-200">-nostdin</div><div class="text-xs text-neutral-500">Required flag</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">0️⃣</div><div class="text-xs font-semibold text-neutral-200">Exit 0</div><div class="text-xs text-neutral-500">Silent</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Auto CLI</div><div class="text-xs text-neutral-500">Already included</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 — Chrome do HyperFrames -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🌐 HyperFrames headless Chrome</h2>
+<p class="text-neutral-400 mt-2">HyperFrames includes its own headless Chrome — it doesn't depend on Chrome installed on the system. A single command downloads and links the exact version tested with the CLI.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Why a dedicated Chrome?</div>
+<p class="text-neutral-200 font-medium">Different Chrome versions render CSS and GSAP animations with <strong>subtle pixel differences</strong>. To make the output deterministic (same HTML → same MP4), HyperFrames pins to a specific version of Chromium via <strong>Puppeteer</strong>, downloaded and managed internally. You don't need to touch the system Chrome.</p>
+</div>
+<!-- código: instalar -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Download headless Chrome (only once)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Downloads and installs Chromium at the version pinned by HyperFrames</div>
+<div><span class="text-cyan-400">npx hyperframes</span> <span class="text-blue-400">browser ensure</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># Expected output:</div>
+<div class="text-neutral-400">✓ Chromium <span class="text-yellow-300">121.0.6167.85</span> already installed</div>
+<div class="text-neutral-400"># or</div>
+<div class="text-neutral-400">⬇ Downloading Chromium <span class="text-yellow-300">121.0.6167.85</span> (~170MB)...</div>
+<div class="text-neutral-400">✓ Done</div>
+</div>
+</div>
+<!-- timeline: passos do browser ensure -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">What the command does internally</div>
+<div class="space-y-4">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">1</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Read the pinned version in HyperFrames’ package.json</h4>
+<p class="text-sm text-neutral-400">The field <code class="text-blue-300">puppeteer.chromiumRevision</code> specifies exactly which Chromium build to use — no "latest".</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">2</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Checks local cache (<code class="text-blue-300">~/.cache/puppeteer/</code>)</h4>
+<p class="text-sm text-neutral-400">If the build already exists, skip the download. The second project you create waits for nothing — instant.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-sm">3</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Downloads ~170MB from the Chromium CDN if needed</h4>
+<p class="text-sm text-neutral-400">Only the first time or when the HyperFrames version is updated. A stable connection is recommended.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Check where Chrome was installed</div>
+<div class="bg-dark-900 rounded-lg border border-dark-600 p-3 font-mono text-xs mt-2">
+<span class="text-cyan-400">npx hyperframes</span> <span class="text-blue-400">browser path</span>
+<div class="text-neutral-500 mt-1"># shows the full path to the executable</div>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🌐</div><div class="text-xs font-semibold text-neutral-200">Chromium</div><div class="text-xs text-neutral-500">Locked version</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎭</div><div class="text-xs font-semibold text-neutral-200">Puppeteer</div><div class="text-xs text-neutral-500">Manager</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">💾</div><div class="text-xs font-semibold text-neutral-200">Cache</div><div class="text-xs text-neutral-500">~/.cache/puppeteer</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">Deterministic</div><div class="text-xs text-neutral-500">Pixel-perfect</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 — TTS Kokoro -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔊 Kokoro TTS</h2>
+<p class="text-neutral-400 mt-2">100% local PT-BR narration, no API key required. Kokoro has its own Portuguese phonemizer, so espeak-ng isn’t needed. On the first run, it downloads ~340MB of model files.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- grid fazer / não fazer -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Correct installation</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-blue-300">pip install kokoro-onnx soundfile</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Python 3.10+ on PATH</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> First run: wait for a ~340MB download</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Default voice: <code class="text-blue-300">pf_dora</code> with <code class="text-blue-300">--speed 0.98</code></li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Don't install</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <strong>espeak-ng</strong> — Kokoro doesn’t need it and it causes a conflict</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Other TTS packages that depend on espeak</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Interrupt the model's first download</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Use <code class="text-red-300">speed 1.0+</code> — sounds mechanical in Brazilian Portuguese</li>
+</ul>
+</div>
+</div>
+<!-- código: instalação e uso -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Install and generate your first audio</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Install (once)</div>
+<div><span class="text-cyan-400">pip</span> <span class="text-blue-400">install</span> <span class="text-yellow-300">kokoro-onnx soundfile</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># Generate narration via HyperFrames TTS</div>
+<div><span class="text-cyan-400">npx hyperframes tts</span> <span class="text-yellow-300">"assets/txt/s1.txt"</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--voice</span> <span class="text-yellow-300">pf_dora</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--speed</span> <span class="text-yellow-300">0.98</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">assets/audio/s1.wav</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># On the 1st run — expected output:</div>
+<div class="text-neutral-400">⬇ Downloading kokoro model (~340MB)...</div>
+<div class="text-neutral-400">✓ Model cached at ~/.cache/kokoro/</div>
+<div class="text-neutral-400">✓ Generated: assets/audio/s1.wav (3.2s)</div>
+</div>
+</div>
+<!-- tip boxes -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Why without espeak-ng?</div>
+<p class="text-neutral-400 text-sm">espeak-ng phonemizes Portuguese poorly — technical words sound robotic. Kokoro has its own PT-BR phonemizer trained specifically for the language.</p>
+</div>
+</div>
+<div class="rounded-xl bg-primary/10 border border-primary/40 p-4 flex gap-3">
+<span class="text-yellow-400 text-xl flex-shrink-0">⚡</span>
+<div>
+<div class="text-primary font-semibold text-sm mb-1">Second run: instant</div>
+<p class="text-neutral-400 text-sm">The model (~340MB) is cached in <code class="text-blue-300">~/.cache/kokoro/</code>. From the second invocation onward, generating a 10s segment takes less than 2 seconds.</p>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">kokoro-onnx</div><div class="text-xs text-neutral-500">TTS engine</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🗣️</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">PT-BR voice</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📦</div><div class="text-xs font-semibold text-neutral-200">340MB</div><div class="text-xs text-neutral-500">First time only</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚫</div><div class="text-xs font-semibold text-neutral-200">without espeak</div><div class="text-xs text-neutral-500">Don't install</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 — hyperframes doctor -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🩺 <code class="text-blue-300">npx hyperframes doctor</code></h2>
+<p class="text-neutral-400 mt-2">The diagnostic command checks the entire stack at once: Node, FFmpeg, Chrome, and Kokoro. If something is wrong, it tells you exactly what’s missing.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- código: saída do doctor -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Expected output (environment OK)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div><span class="text-cyan-400">npx hyperframes</span> <span class="text-blue-400">doctor</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-3"># Expected output:</div>
+<div class="text-emerald-400">✓ Node.js v22.3.0 — OK</div>
+<div class="text-emerald-400">✓ FFmpeg 6.1.1 found at C:\ffmpeg\bin\ffmpeg.exe</div>
+<div class="text-emerald-400">✓ Chrome headless 121.0.6167.85 — cached</div>
+<div class="text-emerald-400">✓ kokoro-onnx 0.8.2 — installed</div>
+<div class="text-emerald-400">✓ soundfile 0.12.1 — installed</div>
+<br/>
+<div class="text-blue-400">All systems go 🚀</div>
+</div>
+</div>
+<!-- código: saída com erro -->
+<div>
+<div class="text-xs font-semibold text-red-400 uppercase tracking-widest mb-3">Output with issues (FFmpeg not found)</div>
+<div class="bg-dark-900 rounded-xl border border-red-500/20 p-4 font-mono text-sm overflow-x-auto">
+<div><span class="text-cyan-400">npx hyperframes</span> <span class="text-blue-400">doctor</span></div>
+<br/>
+<div class="text-emerald-400">✓ Node.js v22.3.0 — OK</div>
+<div class="text-red-400">✗ FFmpeg not found in PATH</div>
+<div class="text-neutral-500 ml-4 text-xs">→ Install FFmpeg and add C:\ffmpeg\bin to PATH</div>
+<div class="text-emerald-400">✓ Chrome headless 121.0.6167.85 — cached</div>
+<div class="text-yellow-400">⚠ kokoro-onnx not found</div>
+<div class="text-neutral-500 ml-4 text-xs">→ Run: pip install kokoro-onnx soundfile</div>
+<br/>
+<div class="text-red-400">2 issues found. Fix them before rendering.</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Run doctor before any render</div>
+<p class="text-neutral-400 text-sm">Especially in a new environment or after updating HyperFrames. The <code class="text-blue-300">npx hyperframes render</code> fails midway through the process if a dependency is missing — the <code class="text-blue-300">doctor</code> detects it beforehand.</p>
+</div>
+</div>
+<!-- timeline: o que o doctor verifica -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">What the doctor checks</div>
+<div class="space-y-3">
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">1</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Node.js — minimum version 18, recommended 22+</h4>
+<p class="text-sm text-neutral-400">Read <code class="text-blue-300">process.version</code> and compares it with the field <code class="text-blue-300">engines</code> from package.json.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">2</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">FFmpeg — runs <code class="text-blue-300">ffmpeg -version</code> and parses the output</h4>
+<p class="text-sm text-neutral-400">Checks whether the binary is accessible via PATH and shows the full path found.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-sm">3</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Chrome — checks Puppeteer cache</h4>
+<p class="text-sm text-neutral-400">Checks whether the stuck build is in <code class="text-blue-300">~/.cache/puppeteer/</code>. If not, suggest running <code class="text-blue-300">browser ensure</code>.</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">4</div>
+<div class="flex-1 bg-dark-700/60 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-neutral-200 mb-1">Kokoro — import the Python module and check</h4>
+<p class="text-sm text-neutral-400">Runs <code class="text-blue-300">python -c "import kokoro_onnx"</code> e <code class="text-blue-300">import soundfile</code>. Minimum versions checked.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🩺</div><div class="text-xs font-semibold text-neutral-200">doctor</div><div class="text-xs text-neutral-500">Diagnostics</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">✓</div><div class="text-xs font-semibold text-neutral-200">All OK</div><div class="text-xs text-neutral-500">4 checks</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-red-400 text-lg mb-1">✗</div><div class="text-xs font-semibold text-neutral-200">Issues</div><div class="text-xs text-neutral-500">With suggestion</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔁</div><div class="text-xs font-semibold text-neutral-200">Pre-render</div><div class="text-xs text-neutral-500">Always run</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 — Iniciar projeto -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📦 Start a project</h2>
+<p class="text-neutral-400 mt-2">With the environment ready, the next step is to create the project structure. The template <code class="text-blue-300">blank</code> + <code class="text-blue-300">--non-interactive</code> generates everything without questions — ideal for scripts and CI.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Blank template vs. others</div>
+<p class="text-neutral-200 font-medium">O <code class="text-blue-300">--example blank</code> creates a minimal project with the correct folder structure but no prebuilt scenes — you start from scratch. This is the recommended entry point for learning the pipeline, since every file that appears was created intentionally.</p>
+</div>
+<!-- código: init completo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Create and configure a new project</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 1. Create project (no interaction)</div>
+<div><span class="text-cyan-400">npx hyperframes init</span> <span class="text-yellow-300">meu-video</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--example</span> <span class="text-yellow-300">blank</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--non-interactive</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># 2. Enter the directory</div>
+<div><span class="text-cyan-400">cd</span> <span class="text-yellow-300">meu-video</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># 3. Install dependencies</div>
+<div><span class="text-cyan-400">npm</span> <span class="text-blue-400">install</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># 4. Copy fonts (required before any render)</div>
+<div><span class="text-cyan-400">node</span> <span class="text-yellow-300">scripts/fetch-fonts.mjs</span></div>
+<br/>
+<div class="text-neutral-500 text-xs mb-2"># 5. Check the environment before rendering</div>
+<div><span class="text-cyan-400">npx hyperframes</span> <span class="text-blue-400">doctor</span></div>
+</div>
+</div>
+<!-- estrutura de pastas -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Structure generated by the <code class="text-blue-300">init blank</code></div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-blue-400">meu-video/</div>
+<div class="ml-4 text-neutral-400">├── <span class="text-cyan-300">scenes/</span> <span class="text-neutral-600"># HTML scenes + GSAP</span></div>
+<div class="ml-4 text-neutral-400">│   └── s01.html</div>
+<div class="ml-4 text-neutral-400">├── <span class="text-cyan-300">assets/</span></div>
+<div class="ml-4 text-neutral-400">│   ├── <span class="text-cyan-300">txt/</span> <span class="text-neutral-600"># narration per scene</span></div>
+<div class="ml-4 text-neutral-400">│   ├── <span class="text-cyan-300">audio/</span> <span class="text-neutral-600"># .wav generated by TTS</span></div>
+<div class="ml-4 text-neutral-400">│   └── <span class="text-cyan-300">fonts/</span> <span class="text-neutral-600"># ← fetch-fonts.mjs</span></div>
+<div class="ml-4 text-neutral-400">├── <span class="text-cyan-300">scripts/</span></div>
+<div class="ml-4 text-neutral-400">│   ├── build-index.mjs</div>
+<div class="ml-4 text-neutral-400">│   ├── fetch-fonts.mjs</div>
+<div class="ml-4 text-neutral-400">│   └── narration-template.sh</div>
+<div class="ml-4 text-neutral-400">├── <span class="text-yellow-300">design.md</span> <span class="text-neutral-600"># palette, typography, style</span></div>
+<div class="ml-4 text-neutral-400">└── <span class="text-yellow-300">package.json</span></div>
+</div>
+</div>
+<!-- grid fazer / não fazer -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ After init, always do this</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Read the <code class="text-blue-300">design.md</code> to understand the palette</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Run <code class="text-blue-300">node scripts/fetch-fonts.mjs</code> before the render</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Use <code class="text-blue-300">narration-template.sh</code> as a scriptwriting foundation</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Run <code class="text-blue-300">doctor</code> once in the new project</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Common beginner mistakes</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Render without running <code class="text-red-300">fetch-fonts.mjs</code> → font not found</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Ignore the <code class="text-red-300">design.md</code> and invent a color palette</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Skip the <code class="text-red-300">npm install</code> after init</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Use spaces in the project name (e.g., <code class="text-red-300">meu video</code>)</li>
+</ul>
+</div>
+</div>
+<!-- tip box: design.md -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">The design.md defines the visual identity</div>
+<p class="text-neutral-400 text-sm mb-2">Each project has a <code class="text-blue-300">design.md</code> with the main palette, typography, and visual style. For INEMA.CLUB videos, the default palette is: background <code class="text-blue-300">#0D1321</code>, amber accent <code class="text-yellow-300">#FACC15</code>, white/gray text. Claude reads this file before writing any scene.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📦</div><div class="text-xs font-semibold text-neutral-200">hyperframes init</div><div class="text-xs text-neutral-500">Scaffolding</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📄</div><div class="text-xs font-semibold text-neutral-200">design.md</div><div class="text-xs text-neutral-500">Palette + style</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔤</div><div class="text-xs font-semibold text-neutral-200">fetch-fonts</div><div class="text-xs text-neutral-500">Required</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📝</div><div class="text-xs font-semibold text-neutral-200">narration.sh</div><div class="text-xs text-neutral-500">TTS template</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl overflow-hidden border border-blue-500/30 bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800" id="resumo">
+<div class="p-6 border-b border-dark-600">
+<h2 class="text-xl font-bold text-blue-400">📋 Module 2.2 Summary</h2>
+<p class="text-neutral-400 mt-1 text-sm">What you learned in this module</p>
+</div>
+<div class="p-6 space-y-6">
+<!-- checklist -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Complete setup checklist</div>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Node.js 22+ installed and verified with <code class="text-blue-300">node --version</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> FFmpeg in <code class="text-blue-300">C:\ffmpeg\bin</code> added to the system PATH</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Headless Chrome installed via <code class="text-blue-300">npx hyperframes browser ensure</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Kokoro TTS installed (<code class="text-blue-300">pip install kokoro-onnx soundfile</code>), without espeak-ng</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> <code class="text-blue-300">npx hyperframes doctor</code> returning "All systems go"</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> First project created with <code class="text-blue-300">npx hyperframes init &lt;nome&gt; --example blank --non-interactive</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> <code class="text-blue-300">fetch-fonts.mjs</code> executed, fonts downloaded</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Understood why <code class="text-blue-300">-nostdin</code> is required in git-bash</li>
+</ul>
+</div>
+<!-- próximo módulo -->
+<div class="rounded-xl border border-blue-500/20 bg-dark-700/40 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Next module:</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold">2.3</div>
+<div>
+<div class="font-semibold text-neutral-200">📝 Script &amp; TTS narration</div>
+<div class="text-sm text-neutral-400 mt-1">Structure the script using the <code class="text-blue-300">narration-template.sh</code>, generate the audio files with Kokoro (<code class="text-blue-300">pf_dora --speed 0.98</code>) and measure durations with <code class="text-blue-300">ffprobe</code> to sync with the scenes.</div>
+</div>
+</div>
+<a class="mt-4 flex items-center justify-start gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors" href="modulo-2-3.html">
+            Go to module 2.3 →
+          </a>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 2</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-3.html">Next Module: 2.3 Script →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Content of the <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Track 2: Pipeline · Module 2.2 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

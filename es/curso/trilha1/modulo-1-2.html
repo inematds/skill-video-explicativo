@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 1.2 — Anatomía del SKILL.md | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento emerald */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .text-blue-300 { color: #1d4ed8; }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG animations */
+    @keyframes m12-flow { 0% { stroke-dashoffset: 120; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m12-pulse { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+    @keyframes m12-float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m12-anim-flow { animation: m12-flow 2.5s linear infinite; }
+      .m12-anim-pulse { animation: m12-pulse 2.8s ease-in-out infinite; }
+      .m12-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m12-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m12-anim-float { animation: m12-float 3.5s ease-in-out infinite; }
+    }
+    /* code block */
+    pre { overflow-x: auto; }
+    code.block { display: block; white-space: pre; }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha1/modulo-1-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha1/modulo-1-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha1/modulo-1-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha1/modulo-1-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-1-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-emerald-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-emerald-400 transition-colors" href="index.html">Ruta 1 — Skills</a>
+<span>/</span>
+<span class="text-emerald-400 font-medium">Módulo 1.2</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MÓDULO 1.2</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📝 Anatomía del SKILL.md</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Descubre cada parte del archivo SKILL.md: frontmatter YAML, campo <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">name</code>, <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">description</code> como disparador y el cuerpo en Markdown que Claude ejecuta paso a paso.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~20</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Básico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Teoría</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Anatomia do SKILL.md -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Diagrama futurista de la anatomía del archivo SKILL.md: frontmatter YAML, name, description y cuerpo markdown" class="w-full h-auto" role="img" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m12-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e2018;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m12-emerald-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#34d399;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#10b981;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m12-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m12-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m12-bg-grad)" height="240" rx="12" width="400"></rect>
+<!-- grid lines -->
+<g opacity="0.5" stroke="#1a3a28" stroke-width="0.5">
+<line x1="0" x2="400" y1="60" y2="60"></line>
+<line x1="0" x2="400" y1="120" y2="120"></line>
+<line x1="0" x2="400" y1="180" y2="180"></line>
+<line x1="133" x2="133" y1="0" y2="240"></line>
+<line x1="266" x2="266" y1="0" y2="240"></line>
+</g>
+<!-- Title -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle" x="200" y="24">SKILL.md</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" x="200" y="40">FRONTMATTER · NAME · DESCRIPTION · BODY</text>
+<!-- File container -->
+<rect fill="#0a1a10" filter="url(#m12-glow)" height="164" rx="8" stroke="#34d399" stroke-width="1.5" width="168" x="18" y="54"></rect>
+<!-- Line 1: --- -->
+<rect fill="#0e2018" height="18" rx="3" width="152" x="26" y="64"></rect>
+<text class="m12-anim-pulse" fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="34" y="77">---</text>
+<!-- Line 2: name -->
+<rect fill="#0e2018" height="18" rx="3" width="152" x="26" y="86"></rect>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" x="34" y="99"><tspan fill="#38bdf8">name:</tspan> video-explicativo</text>
+<!-- Line 3: description (multi) -->
+<rect fill="#0e2018" height="40" opacity="0.7" rx="3" stroke="#38bdf8" stroke-width="0.5" width="152" x="26" y="108"></rect>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" x="34" y="121"><tspan fill="#38bdf8">description:</tspan> Crea</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" x="34" y="131">videos en PT-BR...</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="8" x="34" y="141">Usa cuando pida</text>
+<!-- Line 4: --- -->
+<rect fill="#0e2018" height="18" rx="3" width="152" x="26" y="152"></rect>
+<text class="m12-anim-pulse" fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="34" y="165">---</text>
+<!-- Body -->
+<rect fill="#071510" height="35" rx="3" stroke="#10b981" stroke-width="0.5" width="152" x="26" y="175"></rect>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="8" x="34" y="188"># Cuerpo Markdown</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="34" y="200">Pasos, reglas, ejemplos...</text>
+<!-- Right panel: labels -->
+<!-- Label: frontmatter -->
+<line class="m12-anim-flow" fill="none" stroke="#34d399" stroke-dasharray="4,3" stroke-width="1" x1="186" x2="218" y1="73" y2="73"></line>
+<rect fill="#0e2018" height="28" rx="6" stroke="#34d399" stroke-width="1" width="156" x="218" y="62"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="226" y="74">① Frontmatter</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="226" y="85">Delimitado por ---/---</text>
+<!-- Label: name -->
+<line class="m12-anim-flow" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1" x1="186" x2="218" y1="95" y2="108"></line>
+<rect fill="#0e1b26" height="28" rx="6" stroke="#38bdf8" stroke-width="1" width="156" x="218" y="96"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="226" y="108">② name</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="226" y="119">kebab-case, igual que la carpeta</text>
+<!-- Label: description -->
+<line class="m12-anim-flow" fill="none" stroke="#6ee7b7" stroke-dasharray="4,3" stroke-width="1.5" x1="186" x2="218" y1="128" y2="142"></line>
+<rect fill="#0e2018" filter="url(#m12-glow)" height="30" rx="6" stroke="#6ee7b7" stroke-width="1.5" width="156" x="218" y="130"></rect>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="226" y="143">③ description ⭐</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" x="226" y="155">Disparador — Claude lee aquí</text>
+<!-- Label: body -->
+<line class="m12-anim-flow" fill="none" stroke="#10b981" stroke-dasharray="4,3" stroke-width="1" x1="186" x2="218" y1="192" y2="182"></line>
+<rect fill="#071510" height="28" rx="6" stroke="#10b981" stroke-width="1" width="156" x="218" y="168"></rect>
+<text fill="#10b981" font-family="Inter,sans-serif" font-size="9" font-weight="700" x="226" y="180">④ Cuerpo</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="226" y="191">Markdown que Claude ejecuta</text>
+<!-- dot decorations -->
+<circle class="m12-anim-pulse" cx="20" cy="20" fill="#34d399" opacity="0.7" r="2"></circle>
+<circle class="m12-anim-pulse" cx="380" cy="20" fill="#38bdf8" opacity="0.7" r="2"></circle>
+<circle class="m12-anim-pulse" cx="20" cy="220" fill="#38bdf8" opacity="0.7" r="2"></circle>
+<circle class="m12-anim-pulse" cx="380" cy="220" fill="#34d399" opacity="0.7" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 — Frontmatter YAML -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📑 Frontmatter YAML</h2>
+<p class="text-neutral-400 mt-2">El frontmatter es el bloque de metadatos que está al inicio del <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">SKILL.md</code>. Está delimitado por dos líneas de tres guiones (<code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">---</code>) y contiene pares clave-valor en formato YAML. Sin ese bloque, Claude Code no reconoce el archivo como una skill válida.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Concepto principal</div>
+<p class="text-neutral-200 font-medium">El frontmatter YAML son exactamente las líneas entre el primer <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> y el segundo <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code>. Todo lo que viene después del segundo <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> es el cuerpo de la skill en Markdown puro.</p>
+<p class="text-neutral-400 text-sm mt-3">Es lo primero que lee el harness de Claude Code: si el YAML está mal formado, la skill no se carga.</p>
+</div>
+<!-- Box de código: frontmatter YAML real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">Ejemplo real: frontmatter de la skill <code class="normal-case text-emerald-400">video-explicativo</code></div>
+<div class="rounded-xl border border-emerald-500/30 bg-dark-900/60 overflow-hidden">
+<div class="flex items-center justify-between px-4 py-2 border-b border-dark-600 bg-dark-700/50">
+<span class="text-xs font-mono text-neutral-400">SKILL.md</span>
+<span class="text-xs text-emerald-400 font-semibold">frontmatter</span>
+</div>
+<pre class="p-4 text-sm font-mono text-neutral-300 leading-relaxed"><code class="block">---
+name: video-explicativo
+description: Cria vídeos explicativos completos em PT-BR (HTML→MP4 via
+  HyperFrames) a partir de um assunto — roteiro, narração TTS local,
+  cenas animadas dark premium, captions e CTA do INEMA.CLUB, nos
+  formatos 16:9 (YouTube) e 9:16 (Shorts/Reels). Use quando o usuário
+  pedir para "fazer um vídeo", "vídeo explicativo", "vídeo sobre X",
+  "vídeo pra Shorts/Reels", "mini tutorial em vídeo", "vídeo do
+  INEMA", ou quando der um assunto e quiser um vídeo narrado pronto.
+---</code></pre>
+</div>
+</div>
+<!-- Tip box -->
+<div class="rounded-xl border border-primary/40 bg-primary/10 p-4 flex gap-3">
+<span class="text-2xl flex-shrink-0">💡</span>
+<div>
+<div class="font-semibold text-neutral-200 mb-1">El YAML necesita solo 2 campos</div>
+<p class="text-sm text-neutral-400">El frontmatter mínimo válido contiene solamente <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code> e <code class="text-emerald-300 bg-dark-700 px-1 rounded">description</code>. El harness actual ignora los campos adicionales.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📄</div><div class="text-xs font-semibold text-neutral-200">SKILL.md</div><div class="text-xs text-neutral-500">Archivo raíz</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">---</div><div class="text-xs font-semibold text-neutral-200">Delimitador</div><div class="text-xs text-neutral-500">Se abre y se cierra</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔑</div><div class="text-xs font-semibold text-neutral-200">Clave: valor</div><div class="text-xs text-neutral-500">Sintaxis YAML</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Lectura rápida</div><div class="text-xs text-neutral-500">Primero, el harness</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 — name = identidade -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🏷️ name = identidad de la skill</h2>
+<p class="text-neutral-400 mt-2">El campo <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">name</code> es el identificador único del skill. Debe ser idéntico al nombre de la carpeta donde el <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">SKILL.md</code> está guardado, y seguir rigurosamente el formato <strong class="text-neutral-200">kebab-case</strong> (todo en minúsculas, palabras separadas por guiones).</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Timeline: como o name é usado -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Cómo el <code class="normal-case text-emerald-400">name</code> recorre el sistema</div>
+<div class="space-y-3">
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-sm">1</div>
+<div class="flex-1 bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-neutral-200 text-sm">Carpeta en el filesystem</div>
+<p class="text-xs text-neutral-400 mt-1">El harness busca skills en <code class="text-emerald-300 bg-dark-700 px-1 rounded">~/.claude/skills/&lt;name&gt;/SKILL.md</code>. El nombre de la carpeta <em>debe</em> coincidir con el campo <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code>.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-sm">2</div>
+<div class="flex-1 bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-neutral-200 text-sm">Listado de skills disponibles</div>
+<p class="text-xs text-neutral-400 mt-1">El sistema-reminder enumera todas las skills por el campo <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code>. Es el nombre que aparece en el menú de skills de Claude.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center flex-shrink-0 text-cyan-400 font-bold text-sm">3</div>
+<div class="flex-1 bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-neutral-200 text-sm">Invocación mediante Skill tool</div>
+<p class="text-xs text-neutral-400 mt-1">Cuando Claude decide usar la skill, llama a <code class="text-cyan-300 bg-dark-700 px-1 rounded">Skill(skill: "video-explicativo")</code> — el valor es exactamente el <code class="text-cyan-300 bg-dark-700 px-1 rounded">name</code>.</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-sm">4</div>
+<div class="flex-1 bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-neutral-200 text-sm">Comando slash <code class="text-emerald-300 bg-dark-700 px-1 rounded">/name</code></div>
+<p class="text-xs text-neutral-400 mt-1">El usuario puede invocar manualmente con <code class="text-emerald-300 bg-dark-700 px-1 rounded">/video-explicativo</code>. El harness mapea directamente del slash al <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- grid ✓/✗ -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Nombres correctos</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded">video-explicativo</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded">formato-curso</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded">n8n-workflow-patterns</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Todo en minúsculas, con guiones, sin espacios</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Nombres problemáticos</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <code class="bg-dark-700 px-1 rounded">VideoExplicativo</code> — no se permite camelCase</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <code class="bg-dark-700 px-1 rounded">video explicativo</code> — el espacio rompe la búsqueda</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <code class="bg-dark-700 px-1 rounded">video_explicativo</code> — el guion bajo no es estándar</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Nombre distinto al de la carpeta = la skill no carga</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🐍</div><div class="text-xs font-semibold text-neutral-200">kebab-case</div><div class="text-xs text-neutral-500">Estándar obligatorio</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📁</div><div class="text-xs font-semibold text-neutral-200">= carpeta</div><div class="text-xs text-neutral-500">Debe ser idéntico</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">/</div><div class="text-xs font-semibold text-neutral-200">Comando slash</div><div class="text-xs text-neutral-500">/nome-do-skill</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔎</div><div class="text-xs font-semibold text-neutral-200">Lookup directo</div><div class="text-xs text-neutral-500">El harness usa el name</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 — description = gatilho -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎣 description = disparador de activación</h2>
+<p class="text-neutral-400 mt-2">A <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">description</code> es la parte <strong class="text-neutral-200">más importante</strong> del SKILL.md. Es el único campo que Claude lee para decidir, en tiempo real, si debe invocar el skill o no. Piensa en ella como el <em>etiqueta del envase</em>: si la etiqueta no describe lo que contiene, Claude elige el paquete equivocado.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box dados -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Cómo usa Claude la description</div>
+<div class="grid sm:grid-cols-3 gap-4 text-sm">
+<div class="text-center">
+<div class="text-3xl mb-2">🧠</div>
+<div class="font-semibold text-neutral-200 mb-1">Lectura en el system-reminder</div>
+<p class="text-neutral-400 text-xs">En cada turno, Claude recibe todos los nombres + descriptions de las skills disponibles en el contexto.</p>
+</div>
+<div class="text-center">
+<div class="text-3xl mb-2">⚖️</div>
+<div class="font-semibold text-neutral-200 mb-1">Coincidencia semántica</div>
+<p class="text-neutral-400 text-xs">Claude compara el mensaje del usuario con las descripciones y decide qué skill tiene mayor superposición semántica.</p>
+</div>
+<div class="text-center">
+<div class="text-3xl mb-2">🚀</div>
+<div class="font-semibold text-neutral-200 mb-1">Invocación automática</div>
+<p class="text-neutral-400 text-xs">Cuando hay una coincidencia, Claude llama a la herramienta Skill antes de cualquier otra respuesta: la descripción es la ley.</p>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="rounded-xl border border-primary/40 bg-primary/10 p-4 flex gap-3">
+<span class="text-2xl flex-shrink-0">⭐</span>
+<div>
+<div class="font-semibold text-neutral-200 mb-1">La description lo decide todo</div>
+<p class="text-sm text-neutral-400">El cuerpo del SKILL.md puede ser perfecto, pero si la description es vaga, la skill nunca se activará. Dedica el doble de tiempo a este campo.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🎣</div><div class="text-xs font-semibold text-neutral-200">Disparador</div><div class="text-xs text-neutral-500">Activa el skill</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔍</div><div class="text-xs font-semibold text-neutral-200">Coincidencia semántica</div><div class="text-xs text-neutral-500">Claude compara</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Antes que nada</div><div class="text-xs text-neutral-500">Invocación obligatoria</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 — Escrever boas descriptions -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">✨ Escribir buenas descriptions</h2>
+<p class="text-neutral-400 mt-2">Una buena description tiene dos partes: una frase que resume lo que hace la skill, seguida de <strong class="text-neutral-200">frases desencadenantes concretas</strong> con las variaciones de solicitud que el usuario podría hacer. Cuantos más sinónimos y variaciones, mayor será la cobertura semántica.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Anatomia da description do skill real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Anatomía de la description del <code class="normal-case text-emerald-400">video-explicativo</code></div>
+<div class="space-y-3">
+<div class="rounded-xl border border-emerald-500/30 bg-dark-900/60 p-4">
+<div class="text-xs text-emerald-400 font-semibold mb-2">Parte 1 — Qué hace la skill</div>
+<p class="text-sm font-mono text-neutral-300 bg-dark-700 rounded p-3 leading-relaxed">Crea videos explicativos completos en PT-BR (HTML→MP4 mediante HyperFrames) a partir de un tema: guion, narración TTS local, escenas animadas dark premium, captions y CTA de INEMA.CLUB, en formatos 16:9 (YouTube) y 9:16 (Shorts/Reels).</p>
+<p class="text-xs text-neutral-500 mt-2">Especifica la salida (<em>videos en PT-BR</em>), el mecanismo (<em>HTML→MP4</em>) y los subproductos (<em>guion, TTS, captions, CTA</em>).</p>
+</div>
+<div class="rounded-xl border border-cyan-500/30 bg-dark-900/60 p-4">
+<div class="text-xs text-cyan-400 font-semibold mb-2">Parte 2 — Frases de activación (la parte más importante)</div>
+<p class="text-sm font-mono text-neutral-300 bg-dark-700 rounded p-3 leading-relaxed">Usa cuando el usuario pida "hacer un video", "video explicativo", "video sobre X", "video para Shorts/Reels", "minitutorial en video", "video de INEMA" o cuando dé un tema y quiera un video narrado listo.</p>
+<p class="text-xs text-neutral-500 mt-2">Son citas literales de cómo lo pediría el usuario, con comillas, variaciones de lenguaje y distintos casos de uso.</p>
+</div>
+</div>
+</div>
+<!-- grid ✓/✗ descriptions -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Description eficaz</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Incluye frases que el usuario escribe literalmente</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Tiene sinónimos: "video", "tutorial en video", "mini video"</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Cubre variaciones de canal: YouTube, Shorts, Reels</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Menciona el resultado concreto: MP4, narración, captions</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usa «Úsala cuando el usuario pida X, Y, Z»</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Description débil</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> "Crea videos." — demasiado vago, sin disparadores</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Solo explica el «cómo», no el «cuándo usarlo»</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Usa jerga técnica que el usuario nunca escribiría</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No enumera las posibles variaciones del pedido</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Una sola línea — cobertura semántica mínima</li>
+</ul>
+</div>
+</div>
+<!-- Tip box 2 -->
+<div class="rounded-xl border border-primary/40 bg-primary/10 p-4 flex gap-3">
+<span class="text-2xl flex-shrink-0">🎯</span>
+<div>
+<div class="font-semibold text-neutral-200 mb-1">Prueba mental: "¿el usuario diría esto?"</div>
+<p class="text-sm text-neutral-400">Por cada frase de activación que escribas, pregúntate: <em>"Un usuario real, sin saber que esta skill existe, ¿escribiría esta frase?"</em> Si la respuesta es sí, es un buen disparador. Las palabras técnicas internas del sistema son pésimos disparadores.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📢</div><div class="text-xs font-semibold text-neutral-200">Frase desencadenante</div><div class="text-xs text-neutral-500">Qué dice el usuario</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Sinónimos</div><div class="text-xs text-neutral-500">Aumenta la cobertura</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📌</div><div class="text-xs font-semibold text-neutral-200">Casos de uso</div><div class="text-xs text-neutral-500">Escenarios concretos</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🚫</div><div class="text-xs font-semibold text-neutral-200">Sin jerga</div><div class="text-xs text-neutral-500">Idioma del usuario</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 — Corpo em Markdown -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📄 Cuerpo en Markdown</h2>
+<p class="text-neutral-400 mt-2">Todo lo que viene <em>después</em> del segundo <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">---</code> es el cuerpo de la skill. Es un documento Markdown común que describe, paso a paso, lo que Claude debe hacer cuando se activa la skill. Claude lo lee y lo ejecuta literalmente.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Concepto principal</div>
+<p class="text-neutral-200 font-medium">El cuerpo del SKILL.md es el <em>script de ejecución</em> de Claude. Si la description es el activador, el cuerpo es la instrucción de operación. Claude sigue el cuerpo como una lista de verificación: lee, entiende y ejecuta cada paso en orden.</p>
+</div>
+<!-- estrutura típica do corpo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Estructura típica del cuerpo de una skill</div>
+<div class="rounded-xl border border-emerald-500/30 bg-dark-900/60 overflow-hidden">
+<div class="flex items-center justify-between px-4 py-2 border-b border-dark-600 bg-dark-700/50">
+<span class="text-xs font-mono text-neutral-400">SKILL.md — cuerpo (después del segundo ---)</span>
+<span class="text-xs text-emerald-400 font-semibold">estructura</span>
+</div>
+<pre class="p-4 text-sm font-mono text-neutral-300 leading-relaxed"><code class="block"># Vídeo Explicativo (HyperFrames)
+
+## Pré-requisitos (já instalados nesta máquina)
+- Node.js ≥ 18, npx hyperframes, FFmpeg, Kokoro TTS
+- Voz: pf_dora · `--speed 0.98` · sem espeak-ng
+
+## Fluxo (sempre nesta ordem)
+
+1. **Roteiro** — escreva `SCRIPT.md`: 6–9 cenas, do primeiro
+   princípio ao avançado, com exemplo real.
+2. **Projeto** — `npx hyperframes init &lt;nome&gt; --example blank`
+3. **Fontes** — `node fetch-fonts.mjs`
+4. **Narração** — gere WAVs com Kokoro, voz `pf_dora`
+5. **Composição** — adapte `composition-template.mjs`
+6. **Validar** — `npx hyperframes lint`
+7. **Render** — `--quality high`
+
+## Regras de ouro (não-negociáveis)
+- Animar `.scene-inner`, nunca o wrapper `.clip`
+- Fontes locais via `@font-face` (não CDN)
+- Timing vem de AUDIO[] — fonte única de verdade</code></pre>
+</div>
+</div>
+<!-- box dados: o que o corpo pode conter -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Qué puedes poner en el cuerpo</div>
+<div class="grid sm:grid-cols-2 gap-3 text-sm">
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Listas numeradas de pasos (lo más común)</span></div>
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Bloques de código con comandos exactos</span></div>
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Reglas de negocio en negrita Markdown</span></div>
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Enlaces a archivos de referencia</span></div>
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Secciones H2 para organizar subtareas</span></div>
+<div class="flex gap-2 items-start"><span class="text-blue-400 mt-0.5">→</span><span class="text-neutral-300">Ejemplos del resultado esperado</span></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📋</div><div class="text-xs font-semibold text-neutral-200">Checklist</div><div class="text-xs text-neutral-500">Claude ejecuta</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">#</div><div class="text-xs font-semibold text-neutral-200">H2 por sección</div><div class="text-xs text-neutral-500">Organización clara</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">💻</div><div class="text-xs font-semibold text-neutral-200">Comandos reales</div><div class="text-xs text-neutral-500">Exactos, listos para copiar</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔗</div><div class="text-xs font-semibold text-neutral-200">Referencias</div><div class="text-xs text-neutral-500">Enlaces a archivos</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 — Erros comuns -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⚠️ Errores comunes en SKILL.md</h2>
+<p class="text-neutral-400 mt-2">Pequeños descuidos en SKILL.md causan fallas silenciosas: la skill no carga, no se activa o se activa en el momento equivocado. Conoce los errores más frecuentes y cómo evitarlos antes de publicar tu skill.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box alerta -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-2xl flex-shrink-0">🚨</span>
+<div>
+<div class="font-semibold text-red-400 mb-1">¿La skill no aparece en el menú?</div>
+<p class="text-sm text-neutral-400">La causa más común es el frontmatter mal formado. Verifica siempre: el archivo empieza con <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> en la primera línea (sin espacios antes) y hay un segundo <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> de cierre.</p>
+</div>
+</div>
+<!-- erros detalhados -->
+<div class="space-y-4">
+<!-- erro 1: --- faltando -->
+<div class="rounded-xl border border-dark-600 bg-dark-700/30 overflow-hidden">
+<div class="px-4 py-3 border-b border-dark-600 bg-red-500/10 flex items-center gap-2">
+<span class="text-red-400 font-bold text-sm">ERR 01</span>
+<span class="text-neutral-200 font-semibold text-sm">--- faltante o mal ubicado</span>
+</div>
+<div class="p-4 grid sm:grid-cols-2 gap-4">
+<div>
+<div class="text-xs text-red-400 font-semibold mb-2">✗ Incorrecto</div>
+<pre class="rounded bg-dark-900 border border-red-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">name: meu-skill
+description: Faz coisas...
+
+# Corpo aqui</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Sin los delimitadores <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code>, el harness ignora el frontmatter.</p>
+</div>
+<div>
+<div class="text-xs text-emerald-400 font-semibold mb-2">✓ Correcto</div>
+<pre class="rounded bg-dark-900 border border-emerald-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">---
+name: meu-skill
+description: Faz coisas...
+---
+
+# Corpo aqui</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Ambos <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> obligatorios, cada uno en su propia línea.</p>
+</div>
+</div>
+</div>
+<!-- erro 2: indentação YAML -->
+<div class="rounded-xl border border-dark-600 bg-dark-700/30 overflow-hidden">
+<div class="px-4 py-3 border-b border-dark-600 bg-red-500/10 flex items-center gap-2">
+<span class="text-red-400 font-bold text-sm">ERR 02</span>
+<span class="text-neutral-200 font-semibold text-sm">Indentación incorrecta en YAML multilínea</span>
+</div>
+<div class="p-4 grid sm:grid-cols-2 gap-4">
+<div>
+<div class="text-xs text-red-400 font-semibold mb-2">✗ Incorrecto</div>
+<pre class="rounded bg-dark-900 border border-red-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">---
+name: meu-skill
+description: Texto longo
+que continua aqui
+sem indentação
+---</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Una línea sin sangría rompe el YAML multilínea: el parser la interpreta como un campo nuevo.</p>
+</div>
+<div>
+<div class="text-xs text-emerald-400 font-semibold mb-2">✓ Correcto</div>
+<pre class="rounded bg-dark-900 border border-emerald-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">---
+name: meu-skill
+description: Texto longo
+  que continua aqui
+  com 2 espaços de indentação
+---</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Las líneas de continuación deben tener al menos 2 espacios de sangría.</p>
+</div>
+</div>
+</div>
+<!-- erro 3: description vaga -->
+<div class="rounded-xl border border-dark-600 bg-dark-700/30 overflow-hidden">
+<div class="px-4 py-3 border-b border-dark-600 bg-red-500/10 flex items-center gap-2">
+<span class="text-red-400 font-bold text-sm">ERR 03</span>
+<span class="text-neutral-200 font-semibold text-sm">Description vaga — la skill nunca se activa</span>
+</div>
+<div class="p-4 grid sm:grid-cols-2 gap-4">
+<div>
+<div class="text-xs text-red-400 font-semibold mb-2">✗ Incorrecto</div>
+<pre class="rounded bg-dark-900 border border-red-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">---
+name: video-explicativo
+description: Cria vídeos.
+---</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Sin frases disparadoras concretas, Claude rara vez hace la correspondencia semántica correcta.</p>
+</div>
+<div>
+<div class="text-xs text-emerald-400 font-semibold mb-2">✓ Correcto</div>
+<pre class="rounded bg-dark-900 border border-emerald-500/30 p-3 text-xs font-mono text-neutral-300"><code class="block">---
+name: video-explicativo
+description: Cria vídeos em PT-BR.
+  Use quando o usuário pedir
+  "fazer um vídeo", "vídeo
+  sobre X", "tutorial em vídeo".
+---</code></pre>
+<p class="text-xs text-neutral-500 mt-2">Las frases desencadenantes entre comillas aumentan drásticamente la coincidencia.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="rounded-xl border border-primary/40 bg-primary/10 p-4 flex gap-3">
+<span class="text-2xl flex-shrink-0">🛠️</span>
+<div>
+<div class="font-semibold text-neutral-200 mb-1">Checklist antes de publicar</div>
+<ul class="text-sm text-neutral-400 space-y-1 mt-2">
+<li class="flex gap-2"><span class="text-emerald-400">✓</span> El archivo comienza con <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> en la línea 1 (sin BOM ni espacios)</li>
+<li class="flex gap-2"><span class="text-emerald-400">✓</span> Segundo <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> presente después de los campos YAML</li>
+<li class="flex gap-2"><span class="text-emerald-400">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code> igual al nombre de la carpeta (kebab-case)</li>
+<li class="flex gap-2"><span class="text-emerald-400">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded">description</code> tiene al menos 3 frases concretas que activan su uso</li>
+<li class="flex gap-2"><span class="text-emerald-400">✓</span> Líneas de continuación de description con sangría de 2 espacios</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-red-400 text-lg mb-1">---</div><div class="text-xs font-semibold text-neutral-200">Delimitadores</div><div class="text-xs text-neutral-500">Obligatorios</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⎵⎵</div><div class="text-xs font-semibold text-neutral-200">2 espacios</div><div class="text-xs text-neutral-500">Multiline YAML</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">Disparadores</div><div class="text-xs text-neutral-500">Mínimo 3 frases</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📁</div><div class="text-xs font-semibold text-neutral-200">name = carpeta</div><div class="text-xs text-neutral-500">Identidad única</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 border border-emerald-500/30 overflow-hidden">
+<div class="p-6 border-b border-emerald-500/20">
+<h2 class="text-xl font-bold text-emerald-400">✅ Resumen del Módulo 1.2</h2>
+<p class="text-neutral-400 mt-2">Qué aprendiste en este módulo</p>
+</div>
+<div class="p-6 space-y-6">
+<!-- checklist do que aprendeu -->
+<div class="grid sm:grid-cols-2 gap-3">
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">El frontmatter YAML está delimitado por los dos <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> y contiene <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code> + <code class="text-emerald-300 bg-dark-700 px-1 rounded">description</code></span>
+</div>
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">El campo <code class="text-emerald-300 bg-dark-700 px-1 rounded">name</code> debe estar en kebab-case y ser idéntico al nombre de la carpeta del skill</span>
+</div>
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">A <code class="text-emerald-300 bg-dark-700 px-1 rounded">description</code> es el disparador de activación: Claude lee este campo para decidir cuándo invocar la skill</span>
+</div>
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Las buenas descriptions contienen frases concretas que activan la búsqueda, con variantes de lo que escribiría el usuario</span>
+</div>
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">El cuerpo en Markdown (después del segundo <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code>) es el script de ejecución que Claude sigue paso a paso</span>
+</div>
+<div class="flex gap-3 items-start bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Errores comunes: <code class="text-emerald-300 bg-dark-700 px-1 rounded">---</code> faltante, indentación YAML incorrecta, descripción vaga sin frases que activen</span>
+</div>
+</div>
+<!-- próximo módulo -->
+<div class="rounded-xl border border-cyan-500/30 bg-dark-900/60 p-4">
+<div class="text-xs font-semibold text-cyan-400 uppercase tracking-widest mb-2">Próximo módulo:</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-sm">1.3</div>
+<div>
+<div class="font-semibold text-neutral-200">🧠 Divulgación progresiva</div>
+<p class="text-sm text-neutral-400 mt-1">Aprende exactamente cómo estructurar el cuerpo del SKILL.md en capas de profundidad, desde el uso básico hasta los casos avanzados, para que Claude ejecute la skill con precisión en cualquier contexto.</p>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 1</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-3.html">Siguiente módulo: 1.3 Divulgación progresiva →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 1: Skills · Módulo 1.2 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

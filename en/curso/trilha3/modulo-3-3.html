@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.3 — The build-index.mjs Generator | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-purple-300 { color: #6d28d9; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG animations — m33 prefix */
+    @keyframes m33-flow { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m33-pulse { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+    @keyframes m33-blink { 0%,100% { opacity:.2 } 50% { opacity:.9 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m33-flow  { animation: m33-flow 3s linear infinite; }
+      .m33-flow2 { animation: m33-flow 3s linear infinite; animation-delay:.8s; }
+      .m33-flow3 { animation: m33-flow 3s linear infinite; animation-delay:1.6s; }
+      .m33-pulse { animation: m33-pulse 2.6s ease-in-out infinite; }
+      .m33-pulse2 { animation: m33-pulse 2.6s ease-in-out infinite; animation-delay:.5s; }
+      .m33-pulse3 { animation: m33-pulse 2.6s ease-in-out infinite; animation-delay:1s; }
+      .m33-blink  { animation: m33-blink 1.4s ease-in-out infinite; }
+    }
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha3/modulo-3-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha3/modulo-3-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha3/modulo-3-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-purple-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="index.html">Track 3 — Under the Hood</a>
+<span>/</span>
+<span class="text-purple-400 font-medium">Module 3.3</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULE 3.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">⚙️ The build-index.mjs generator</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Complete anatomy of the <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">composition-template.mjs</code>: how <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">AUDIO[]</code> controls everything, the calculation of <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">S[]</code>, GSAP scene and tween construction, complete HTML assembly, 9:16 overrides, and the invariant CTA.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">~40</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Advanced</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Technical</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — build-index.mjs pipeline interno (purple + cyan) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Futuristic diagram showing the internal build-index.mjs pipeline: AUDIO[] generates S[], which feeds scenesHTML, captionsHTML, audioHTML, and animJS, all assembled into the final index.html" class="w-full h-auto" role="img" viewbox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m33-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#120e1c;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1222;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m33-purple" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m33-cyan" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m33-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m33-bg)" height="260" rx="12" width="420"></rect>
+<!-- dot grid -->
+<g fill="#2d1f5e" opacity="0.5">
+<circle cx="30" cy="30" r="1.2"></circle><circle cx="90" cy="30" r="1.2"></circle><circle cx="150" cy="30" r="1.2"></circle>
+<circle cx="210" cy="30" r="1.2"></circle><circle cx="270" cy="30" r="1.2"></circle><circle cx="330" cy="30" r="1.2"></circle>
+<circle cx="390" cy="30" r="1.2"></circle><circle cx="30" cy="90" r="1.2"></circle><circle cx="390" cy="90" r="1.2"></circle>
+<circle cx="30" cy="150" r="1.2"></circle><circle cx="390" cy="150" r="1.2"></circle><circle cx="30" cy="210" r="1.2"></circle>
+<circle cx="390" cy="210" r="1.2"></circle>
+</g>
+<!-- AUDIO[] — fonte central (topo) -->
+<rect fill="#1a0e2e" filter="url(#m33-glow)" height="40" rx="8" stroke="url(#m33-purple)" stroke-width="2" width="116" x="152" y="14"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="210" y="32">AUDIO[]</text>
+<text fill="#7c3aed" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="210" y="45">single source of timing</text>
+<!-- arrow AUDIO -> S[] -->
+<path class="m33-flow" d="M210 54 L210 82" fill="none" stroke="#a78bfa" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#a78bfa" points="206,82 210,90 214,82"></polygon>
+<!-- S[] — array de objetos -->
+<rect fill="#1a0e2e" filter="url(#m33-glow)" height="44" rx="8" stroke="url(#m33-cyan)" stroke-width="2" width="116" x="152" y="90"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="210" y="108">S[]</text>
+<text fill="#06b6d4" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="210" y="120">start · dur · audioStart · end</text>
+<text fill="#4d8fa8" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="210" y="130">LEAD=0.5 · TAIL=0.9 · FADE=0.45</text>
+<!-- S[] fans out to 4 outputs -->
+<!-- scenesHTML (left-top) -->
+<path class="m33-flow2" d="M152 108 L90 90" fill="none" stroke="#a78bfa" stroke-dasharray="4,3" stroke-width="1.4"></path>
+<rect fill="#140d28" height="32" rx="6" stroke="#a78bfa" stroke-width="1.4" width="78" x="12" y="70"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="51" y="83">scenesHTML</text>
+<text fill="#6d28d9" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="51" y="95">.scene .clip · sceneN()</text>
+<!-- captionsHTML (left-bottom) -->
+<path class="m33-flow3" d="M152 120 L90 148" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1.4"></path>
+<rect fill="#0a1a2e" height="32" rx="6" stroke="#38bdf8" stroke-width="1.4" width="78" x="12" y="132"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="51" y="145">captionsHTML</text>
+<text fill="#4d8fa8" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="51" y="157">tracks 2 / 4</text>
+<!-- audioHTML (right-top) -->
+<path class="m33-flow" d="M268 108 L330 90" fill="none" stroke="#a78bfa" stroke-dasharray="4,3" stroke-width="1.4"></path>
+<rect fill="#140d28" height="32" rx="6" stroke="#a78bfa" stroke-width="1.4" width="78" x="330" y="70"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="369" y="83">audioHTML</text>
+<text fill="#6d28d9" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="369" y="95">track 20 · s.audioStart</text>
+<!-- animJS (right-bottom) -->
+<path class="m33-flow2" d="M268 120 L330 148" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1.4"></path>
+<rect fill="#0a1a2e" height="32" rx="6" stroke="#38bdf8" stroke-width="1.4" width="78" x="330" y="132"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="369" y="145">animJS</text>
+<text fill="#4d8fa8" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="369" y="157">anim(i, t) · GSAP tweens</text>
+<!-- all -> index.html (bottom center) -->
+<path d="M51 164 L51 200 L170 210" fill="none" opacity=".6" stroke="#a78bfa" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<path d="M369 164 L369 200 L250 210" fill="none" opacity=".6" stroke="#38bdf8" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<path class="m33-flow3" d="M210 134 L210 196" fill="none" stroke="#a78bfa" stroke-dasharray="4,3" stroke-width="1.4"></path>
+<polygon fill="#a78bfa" points="206,196 210,204 214,196"></polygon>
+<!-- index.html output -->
+<rect fill="#1a0e2e" filter="url(#m33-glow)" height="36" rx="8" stroke="url(#m33-purple)" stroke-width="2" width="124" x="148" y="204"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="210" y="220">index.html</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="210" y="233">writeFileSync · always synchronous</text>
+<!-- pulse dots -->
+<circle class="m33-pulse" cx="20" cy="20" fill="#a78bfa" opacity=".7" r="2"></circle>
+<circle class="m33-pulse2" cx="400" cy="20" fill="#38bdf8" opacity=".7" r="2"></circle>
+<circle class="m33-pulse3" cx="20" cy="240" fill="#38bdf8" opacity=".7" r="2"></circle>
+<circle class="m33-pulse" cx="400" cy="240" fill="#a78bfa" opacity=".7" r="2"></circle>
+<!-- label -->
+<text fill="#7c3aed" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle" x="210" y="252">AUDIO[] → S[] → 4 streams → index.html</text>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 — AUDIO[] como fonte única do timing -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔢 AUDIO[] as the single source of timing</h2>
+<p class="text-neutral-400 mt-2">The array <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">AUDIO[]</code> contains the REAL durations (measured with <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">ffprobe</code>) for each WAV narration. It's the only variable you need to fill in so that all video timing—HTML, GSAP, and audio—stays automatically synchronized.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">Main Concept</div>
+<p class="text-neutral-200 font-medium">The duration array controls everything. No time values appear elsewhere in the code. Change a WAV file, update the corresponding entry in <code class="text-purple-300">AUDIO[]</code>, run the generator — the entire video recalibrates automatically.</p>
+<p class="text-neutral-400 text-sm mt-3">This is possible because the generator runs in Node.js and produces a static HTML file with all timings already calculated. The browser receives ready-to-use numbers — it doesn’t need to calculate anything at runtime.</p>
+</div>
+<!-- box de código: AUDIO[] real do template -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">composition-template.mjs — AUDIO[] with actual durations measured by ffprobe</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// ACTUAL durations measured with ffprobe (9 scenes; s9 = CTA — do not remove)</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">AUDIO</span> <span class="text-neutral-300">= [</span></div>
+<div class="ml-4"><span class="text-orange-400">10.944</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s1 — intro</span></div>
+<div class="ml-4"><span class="text-orange-400">14.464</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s2 — folder + file</span></div>
+<div class="ml-4"><span class="text-orange-400">13.760</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s3 — SKILL.md anatomy</span></div>
+<div class="ml-4"><span class="text-orange-400">17.237333</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s4 — progressive disclosure</span></div>
+<div class="ml-4"><span class="text-orange-400">10.858667</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s5 — where they live</span></div>
+<div class="ml-4"><span class="text-orange-400">13.525333</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// s6 — advanced level</span></div>
+<div class="ml-4"><span class="text-orange-400">11.114667</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// real example</span></div>
+<div class="ml-4"><span class="text-orange-400">8.170667</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// closing</span></div>
+<div class="ml-4"><span class="text-orange-400">3.840</span><span class="text-neutral-500">        // s9 — CTA inema.club (invariant)</span></div>
+<div><span class="text-neutral-300">];</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// Measure all at once with a shell script:</div>
+<div class="text-neutral-500 text-xs">// for i in 1 2 3 4 5 6 7 8 9; do</div>
+<div class="text-neutral-500 text-xs">//   echo "s$i: $(ffprobe -v error -show_entries format=duration \</div>
+<div class="text-neutral-500 text-xs">//         -of default=noprint_wrappers=1:nokey=1 assets/audio/s$i.wav)"</div>
+<div class="text-neutral-500 text-xs">// done</div>
+</div>
+</div>
+<!-- grid AUDIO governa / nunca estimar -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ What AUDIO[] controls</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">data-start</code> e <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">data-duration</code> of each <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">.scene.clip</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Absolute times for all GSAP tweens via <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">anim(i, s.start)</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">data-start</code> of the elements <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">&lt;audio&gt;</code> in track 20</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">TOTAL</code> of the composition and progress bar</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Why you should never estimate</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Kokoro generates different durations depending on the text and speed (<code class="text-red-300 bg-dark-700 px-1 rounded text-xs">--speed 0.98</code>)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Wrong estimate = permanently out-of-sync audio and visuals</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Headless rendering doesn’t alert you—the video simply turns out wrong</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Never guess durations — always use <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">ffprobe</code></li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🔢</div><div class="text-xs font-semibold text-neutral-200">AUDIO[]</div><div class="text-xs text-neutral-500">Only timing input</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">📏</div><div class="text-xs font-semibold text-neutral-200">ffprobe</div><div class="text-xs text-neutral-500">Required measurement</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Propagates everything</div><div class="text-xs text-neutral-500">HTML + GSAP + audio</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">s9 = CTA</div><div class="text-xs text-neutral-500">Always included</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 — O cálculo de S[] -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⏱️ The calculation of S[]—the timing series</h2>
+<p class="text-neutral-400 mt-2">The series <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">S</code> is generated by a single <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">AUDIO.map()</code>. Each object carries all the timing needed for scenes, captions, audio, and tweens—calculated once and propagated everywhere.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">The three constants and the accumulator</div>
+<p class="text-neutral-200 font-medium">Three constants control the rhythm: <code class="text-purple-300">LEAD=0.5</code> (visual comes in before the voice), <code class="text-purple-300">TAIL=0.9</code> (visual holds after the voice) and <code class="text-purple-300">FADE=0.45</code> (fade-in/out duration of the <code class="text-purple-300">.scene-inner</code>). An accumulator <code class="text-purple-300">t</code> grows with each scene.</p>
+<p class="text-neutral-400 text-sm mt-3">Fundamental formulas: <span class="font-mono text-cyan-300">dur = LEAD + a + TAIL</span> · <span class="font-mono text-cyan-300">audioStart = t + LEAD</span> · <span class="font-mono text-cyan-300">end = t + dur</span>.</p>
+</div>
+<!-- box de código: cálculo exato de S[] -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">composition-template.mjs — full S[] calculation with AUDIO.map()</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// Timing constants — never change</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">LEAD</span> <span class="text-neutral-300">= </span><span class="text-orange-400">0.5</span><span class="text-neutral-300">;</span> <span class="text-neutral-500">// visual before the voice</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">TAIL</span> <span class="text-neutral-300">= </span><span class="text-orange-400">0.9</span><span class="text-neutral-300">;</span> <span class="text-neutral-500">// hold after the voice</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">FADE</span> <span class="text-neutral-300">= </span><span class="text-orange-400">0.45</span><span class="text-neutral-300">;</span> <span class="text-neutral-500">// scene-inner fade in/out</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// rounding helper (3 decimal places) — avoids frame offsets</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">round</span> <span class="text-neutral-300">= (n) =&gt; Math.round(n * </span><span class="text-orange-400">1000</span><span class="text-neutral-300">) / </span><span class="text-orange-400">1000</span><span class="text-neutral-300">;</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// absolute time accumulator</div>
+<div><span class="text-purple-400">let</span> <span class="text-cyan-400">t</span> <span class="text-neutral-300">= </span><span class="text-orange-400">0</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">S</span> <span class="text-neutral-300">= AUDIO.</span><span class="text-cyan-400">map</span><span class="text-neutral-300">((a, i) =&gt; {</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">dur</span> <span class="text-neutral-300">= LEAD + a + TAIL;       </span><span class="text-neutral-500">// total scene duration</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">o</span> <span class="text-neutral-300">= {</span></div>
+<div class="ml-6"><span class="text-cyan-400">i</span><span class="text-neutral-300">:          i + </span><span class="text-orange-400">1</span><span class="text-neutral-300">,</span> <span class="text-neutral-500">// 1-based index</span></div>
+<div class="ml-6"><span class="text-cyan-400">start</span><span class="text-neutral-300">:      round(t),         </span><span class="text-neutral-500">// → data-start of the .clip</span></div>
+<div class="ml-6"><span class="text-cyan-400">dur</span><span class="text-neutral-300">:        round(dur),       </span><span class="text-neutral-500">// → data-duration of the .clip</span></div>
+<div class="ml-6"><span class="text-cyan-400">audioStart</span><span class="text-neutral-300">: round(t + LEAD), </span><span class="text-neutral-500">// → data-start of the &lt;audio&gt;</span></div>
+<div class="ml-6"><span class="text-cyan-400">audioDur</span><span class="text-neutral-300">:   round(a),         </span><span class="text-neutral-500">// → data-duration of the &lt;audio&gt;</span></div>
+<div class="ml-6"><span class="text-cyan-400">end</span><span class="text-neutral-300">:        round(t + dur),   </span><span class="text-neutral-500">// → exit tween (end - FADE)</span></div>
+<div class="ml-4"><span class="text-neutral-300">};</span></div>
+<div class="ml-4"><span class="text-cyan-400">t</span> <span class="text-neutral-300">+= dur;                      </span><span class="text-neutral-500">// advances the accumulator</span></div>
+<div class="ml-4"><span class="text-purple-400">return</span> <span class="text-cyan-400">o</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-neutral-300">});</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// Total composition duration — feeds the progress bar</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">TOTAL</span> <span class="text-neutral-300">= round(t);</span></div>
+</div>
+</div>
+<!-- timeline visual de cenas calculadas -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Actual output: S[] objects from the first scenes</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-purple-500/30"></div>
+<div class="relative pb-3">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600 font-mono text-xs">
+<span class="text-purple-400">s1</span>: start=<span class="text-orange-400">0</span>      dur=<span class="text-cyan-400">12.344</span>  audioStart=<span class="text-emerald-400">0.5</span>    audioDur=<span class="text-orange-400">10.944</span>  end=<span class="text-cyan-400">12.344</span>
+</div>
+</div>
+<div class="relative pb-3">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600 font-mono text-xs">
+<span class="text-purple-400">s2</span>: start=<span class="text-orange-400">12.344</span> dur=<span class="text-cyan-400">15.864</span>  audioStart=<span class="text-emerald-400">12.844</span> audioDur=<span class="text-orange-400">14.464</span>  end=<span class="text-cyan-400">28.208</span>
+</div>
+</div>
+<div class="relative pb-3">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white">…</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600 text-neutral-500 text-xs">
+                s3–s8: accumulate sequentially. Each start = the previous scene’s end.
+              </div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-purple-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">9</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600 font-mono text-xs">
+<span class="text-purple-400">s9</span>: start=<span class="text-orange-400">~96.x</span> dur=<span class="text-cyan-400">5.240</span>   audioStart=<span class="text-emerald-400">~97.x</span>  audioDur=<span class="text-orange-400">3.840</span>   end=<span class="text-cyan-400">~101.x</span> — CTA
+              </div>
+</div>
+</div>
+</div>
+<!-- tip: log do gerador -->
+<div class="rounded-xl bg-purple-500/10 border border-purple-500/30 p-4 flex gap-3">
+<span class="text-purple-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-purple-400 font-semibold text-sm mb-1">The generator prints the calculated values</div>
+<p class="text-neutral-400 text-sm">After generating the HTML, the template displays this in the console: <code class="text-purple-300">OUT gerado · W×H · TOTAL = Xs · N cenas</code>, followed by one line per scene with start, dur, audio@, and audioDur. Check these numbers before rendering.</p>
+</div>
+</div>
+<!-- mini-grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">LEAD=0.5</div><div class="text-xs text-neutral-500">Visuals before voice</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🔚</div><div class="text-xs font-semibold text-neutral-200">TAIL=0.9</div><div class="text-xs text-neutral-500">Holds after voice</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🌊</div><div class="text-xs font-semibold text-neutral-200">FADE=0.45</div><div class="text-xs text-neutral-500">scene-inner transition</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">➕</div><div class="text-xs font-semibold text-neutral-200">round(n)</div><div class="text-xs text-neutral-500">3 decimal places</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 — sceneN() e anim(i,t) -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎬 sceneN() and anim(i,t) per scene</h2>
+<p class="text-neutral-400 mt-2">Each scene has two functions: <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">sceneN()</code> returns the inner HTML of <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">.scene-inner</code>, e <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">anim(i,t)</code> generates GSAP code strings that will be embedded in the <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">&lt;script&gt;</code> in the final HTML. The fade on the <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">.scene-inner</code> is always generated by the shared part of <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">anim()</code>.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal: por que gerar código como string -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">Why generate tweens as code strings?</div>
+<p class="text-neutral-200 font-medium">The generator runs in Node.js, but GSAP executes in the browser (headless Chrome). <code class="text-purple-300">anim()</code> builds JavaScript strings with the already calculated absolute times — when the browser loads the HTML, these strings run with exact numbers, without recalculation. The fade of the <code class="text-purple-300">.scene-inner</code> is shared by all scenes; the internal switch adds each scene's specific tweens.</p>
+</div>
+<!-- box de código: sceneN exemplo real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">sceneN() — actual example from composition-template.mjs (scene 1)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// Each sceneN() returns plain HTML — no timing, no GSAP</div>
+<div><span class="text-purple-400">function</span> <span class="text-cyan-400">scene1</span><span class="text-neutral-300">() {</span></div>
+<div class="ml-4"><span class="text-purple-400">return</span> <span class="text-yellow-300">`</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;div class="eyebrow" id="s1-eyebrow"&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;span class="dot"&gt;&lt;/span&gt;CLAUDE CODE · SKILLS</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;/div&gt;</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;h1 class="title"&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;span class="word" id="s1-w1"&gt;Skills&lt;/span&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;span class="word accent" id="s1-w2"&gt;in Claude Code&lt;/span&gt;</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;/h1&gt;</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;div class="rule" id="s1-rule"&gt;&lt;/div&gt;</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;p class="subhead" id="s1-sub"&gt;from the first principle to advanced&lt;/p&gt;</span></div>
+<div class="ml-4"><span class="text-yellow-300">`</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-neutral-300">}</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// BODIES = ordered list of functions (scene9 = CTA, do not remove)</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">BODIES</span> <span class="text-neutral-300">= [scene1, scene2, scene3, scene4, scene5, scene6, scene7, scene8, scene9];</span></div>
+</div>
+</div>
+<!-- box de código: anim() completo com fade + case -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">anim(i,t) — scene-inner fade + case-specific tweens</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// anim() generates GSAP strings embedded in the generated HTML's &lt;script&gt;</div>
+<div><span class="text-purple-400">function</span> <span class="text-cyan-400">anim</span><span class="text-neutral-300">(i, t) {</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">L</span> <span class="text-neutral-300">= [];</span> <span class="text-neutral-500">// string buffer</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">P</span> <span class="text-neutral-300">= (s) =&gt; L.push(s);</span> <span class="text-neutral-500">// push helper</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">at</span> <span class="text-neutral-300">= (d) =&gt; round(t + d);</span> <span class="text-neutral-500">// relative offset</span></div>
+<br/>
+<div class="ml-4 text-neutral-500 text-xs">// --- .scene-inner fade in/out (common to ALL scenes) ---</div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.fromTo("#scene-inner-${i}",</span></div>
+<div class="ml-8"><span class="text-neutral-300">{opacity:0},{opacity:1,duration:${FADE},ease:"power2.out"},${t});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.to("#scene-inner-${i}",</span></div>
+<div class="ml-8"><span class="text-neutral-300">{opacity:0,duration:${FADE},ease:"power2.in"},${round(S[i-1].end - FADE)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.set("#scene-inner-${i}",{opacity:0},${round(S[i-1].end)});`);</span></div>
+<br/>
+<div class="ml-4 text-neutral-500 text-xs">// --- scene-specific tweens ---</div>
+<div class="ml-4"><span class="text-purple-400">switch</span> <span class="text-neutral-300">(i) {</span></div>
+<div class="ml-6"><span class="text-purple-400">case</span> <span class="text-orange-400">1</span><span class="text-neutral-300">:</span></div>
+<div class="ml-8"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s1-eyebrow",{y:-24,opacity:0,duration:.55,ease:"power3.out"},${at(0.15)});`);</span></div>
+<div class="ml-8"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s1-w1",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.35)});`);</span></div>
+<div class="ml-8"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s1-w2",{y:70,opacity:0,duration:.7,ease:"power4.out"},${at(0.55)});`);</span></div>
+<div class="ml-8"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.fromTo("#s1-rule",{scaleX:0},{scaleX:1,duration:.7,ease:"expo.out",</span></div>
+<div class="ml-12"><span class="text-neutral-300">transformOrigin:"left center"},${at(0.95)});`);</span></div>
+<div class="ml-8"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s1-sub",{y:20,opacity:0,duration:.6,ease:"power2.out"},${at(1.15)});`);</span></div>
+<div class="ml-6"><span class="text-purple-400">break</span><span class="text-neutral-300">;</span></div>
+<div class="ml-6 text-neutral-500 text-xs">// ... cases 2–8 with scene-specific tweens ...</div>
+<div class="ml-6 text-neutral-500 text-xs">// case 9 = CTA — do not modify</div>
+<div class="ml-4"><span class="text-neutral-300">}</span></div>
+<div class="ml-4 text-neutral-500 text-xs">// caption fade in/out</div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.fromTo("#cap-${i}",{opacity:0,y:14},{opacity:1,y:0,duration:.5,ease:"power2.out"},${at(0.35)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.to("#cap-${i}",{opacity:0,duration:.4,ease:"power2.in"},${round(S[i-1].end - 0.55)});`);</span></div>
+<div class="ml-4"><span class="text-purple-400">return</span> <span class="text-cyan-400">L</span><span class="text-neutral-300">.join(</span><span class="text-yellow-300">"\n      "</span><span class="text-neutral-300">);</span></div>
+<div><span class="text-neutral-300">}</span></div>
+</div>
+</div>
+<!-- alerta: animar scene-inner, não clip -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Always animate .scene-inner — never .clip</div>
+<p class="text-neutral-400 text-sm">HyperFrames forces <code class="text-red-300">opacity:1</code> in the active clip. If you try to animate the <code class="text-red-300">.clip</code> or the <code class="text-red-300">.scene</code>, the fade animation doesn't work. The animatable wrapper is always the child <code class="text-red-300">.scene-inner</code>. The template already generates the fades for it—don't remove these lines.</p>
+</div>
+</div>
+<!-- mini-grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🎭</div><div class="text-xs font-semibold text-neutral-200">scene-inner</div><div class="text-xs text-neutral-500">Only animatable wrapper</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🕐</div><div class="text-xs font-semibold text-neutral-200">at(d)</div><div class="text-xs text-neutral-500">Offset relative to the scene</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📋</div><div class="text-xs font-semibold text-neutral-200">BODIES[]</div><div class="text-xs text-neutral-500">Scene order</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🔀</div><div class="text-xs font-semibold text-neutral-200">switch(i)</div><div class="text-xs text-neutral-500">Tweens per scene</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 — Montagem do HTML -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧱 Assembling the complete HTML</h2>
+<p class="text-neutral-400 mt-2">The four streams (<code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">scenesHTML</code>, <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">captionsHTML</code>, <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">audioHTML</code> in track 20, <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">animJS</code>) are assembled into a final template string with the paused GSAP timeline registered in <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">window.__timelines["main"]</code>. The background (glow/grid) and the sentinel <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">tl.set({},{},TOTAL)</code> are also part of the assembly.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">Four streams, one HTML file</div>
+<p class="text-neutral-200 font-medium">The final assembly is one giant template string that stitches the four streams together. Captions are on alternating tracks (2/4), and audio is on track 20 (special). The GSAP timeline is created paused and registered in <code class="text-purple-300">window.__timelines["main"]</code> — the HyperFrames player controls it externally.</p>
+<p class="text-neutral-400 text-sm mt-3">The sentinel <code class="text-purple-300">tl.set({}, {}, TOTAL)</code> extends the timeline to the end of the composition, ensuring the progress bar reaches the end even when there are no tweens after the last scene.</p>
+</div>
+<!-- box de código: montagem das cenas e captions -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Generation of the four streams from S[]</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// composition-template.mjs — the four streams</div>
+<div class="text-neutral-500 text-xs">// 1. scenesHTML: .scene.clip with alternating tracks 1/3</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">scenesHTML</span> <span class="text-neutral-300">= S.map((s, idx) =&gt; `</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;section id="s${s.i}" class="scene clip"</span></div>
+<div class="ml-6"><span class="text-yellow-300">data-start="${s.start}" data-duration="${s.dur}"</span></div>
+<div class="ml-6"><span class="text-yellow-300">data-track-index="${s.i % 2 === 1 ? 1 : 3}"&gt;</span></div>
+<div class="ml-4"><span class="text-yellow-300">  &lt;div class="scene-inner" id="scene-inner-${s.i}"&gt;</span></div>
+<div class="ml-6"><span class="text-cyan-400">    ${BODIES[idx]()}</span></div>
+<div class="ml-4"><span class="text-yellow-300">  &lt;/div&gt;</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;/section&gt;`</span></div>
+<div><span class="text-neutral-300">).join("");</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// 2. captionsHTML: same timing as S, tracks 2/4</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">captionsHTML</span> <span class="text-neutral-300">= S.map((s, idx) =&gt; `</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;div class="caption clip" id="cap-${s.i}"</span></div>
+<div class="ml-6"><span class="text-yellow-300">data-start="${s.start}" data-duration="${s.dur}"</span></div>
+<div class="ml-6"><span class="text-yellow-300">data-track-index="${s.i % 2 === 1 ? 2 : 4}"&gt;</span></div>
+<div class="ml-4"><span class="text-cyan-400">  ${CAPTIONS[idx]}</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;/div&gt;`</span></div>
+<div><span class="text-neutral-300">).join("");</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// 3. audioHTML: data-start = audioStart (starts after the visual LEAD), track 20</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">audioHTML</span> <span class="text-neutral-300">= S.map((s) =&gt; `</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;audio id="a${s.i}" data-start="${s.audioStart}"</span></div>
+<div class="ml-6"><span class="text-yellow-300">data-duration="${s.audioDur}" data-track-index="20"</span></div>
+<div class="ml-6"><span class="text-yellow-300">src="assets/audio/s${s.i}.wav"&gt;&lt;/audio&gt;`</span></div>
+<div><span class="text-neutral-300">).join("");</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// 4. animJS: GSAP code strings — embedded in the &lt;script&gt;</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">animJS</span> <span class="text-neutral-300">= S.map((s) =&gt; anim(s.i, s.start)).join("\n      ");</span></div>
+</div>
+</div>
+<!-- box de código: estrutura do script final com timeline pausada -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Final &lt;script&gt; block — paused timeline, environment, sentinel</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// Generated HTML fragment — the final &lt;script&gt;</div>
+<div><span class="text-yellow-300">&lt;script&gt;</span></div>
+<div class="ml-4"><span class="text-cyan-400">window.__timelines</span> <span class="text-neutral-300">= window.__timelines || {};</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">tl</span> <span class="text-neutral-300">= gsap.timeline({ paused: </span><span class="text-orange-400">true</span> <span class="text-neutral-300">});</span></div>
+<div class="ml-4"><span class="text-purple-400">const</span> <span class="text-cyan-400">TOTAL</span> <span class="text-neutral-300">= </span><span class="text-orange-400">101.234</span><span class="text-neutral-300">; </span><span class="text-neutral-500">// value calculated by the generator</span></div>
+<br/>
+<div class="ml-4 text-neutral-500 text-xs">// ambient animation — repeat covers the TOTAL</div>
+<div class="ml-4"><span class="text-cyan-400">tl</span><span class="text-neutral-300">.to("#glow",{scale:</span><span class="text-orange-400">1.22</span><span class="text-neutral-300">,opacity:</span><span class="text-orange-400">.55</span><span class="text-neutral-300">,duration:</span><span class="text-orange-400">4.5</span><span class="text-neutral-300">,yoyo:</span><span class="text-orange-400">true</span><span class="text-neutral-300">,</span></div>
+<div class="ml-6"><span class="text-neutral-300">repeat:Math.ceil(TOTAL/</span><span class="text-orange-400">4.5</span><span class="text-neutral-300">)+</span><span class="text-orange-400">1</span><span class="text-neutral-300">,ease:</span><span class="text-yellow-300">"sine.inOut"</span><span class="text-neutral-300">},</span><span class="text-orange-400">0</span><span class="text-neutral-300">);</span></div>
+<div class="ml-4"><span class="text-cyan-400">tl</span><span class="text-neutral-300">.to("#glow2",{scale:</span><span class="text-orange-400">1.18</span><span class="text-neutral-300">,duration:</span><span class="text-orange-400">6</span><span class="text-neutral-300">,yoyo:</span><span class="text-orange-400">true</span><span class="text-neutral-300">,</span></div>
+<div class="ml-6"><span class="text-neutral-300">repeat:Math.ceil(TOTAL/</span><span class="text-orange-400">6</span><span class="text-neutral-300">)+</span><span class="text-orange-400">1</span><span class="text-neutral-300">,ease:</span><span class="text-yellow-300">"sine.inOut"</span><span class="text-neutral-300">},</span><span class="text-orange-400">0</span><span class="text-neutral-300">);</span></div>
+<div class="ml-4"><span class="text-cyan-400">tl</span><span class="text-neutral-300">.to("#grid",{backgroundPositionY:</span><span class="text-yellow-300">"+=128"</span><span class="text-neutral-300">,duration:</span><span class="text-orange-400">18</span><span class="text-neutral-300">,</span></div>
+<div class="ml-6"><span class="text-neutral-300">repeat:Math.ceil(TOTAL/</span><span class="text-orange-400">18</span><span class="text-neutral-300">)+</span><span class="text-orange-400">1</span><span class="text-neutral-300">,ease:</span><span class="text-yellow-300">"none"</span><span class="text-neutral-300">},</span><span class="text-orange-400">0</span><span class="text-neutral-300">);</span></div>
+<div class="ml-4"><span class="text-cyan-400">tl</span><span class="text-neutral-300">.fromTo("#progress",{scaleX:</span><span class="text-orange-400">0</span><span class="text-neutral-300">},{scaleX:</span><span class="text-orange-400">1</span><span class="text-neutral-300">,duration:TOTAL,ease:</span><span class="text-yellow-300">"none"</span><span class="text-neutral-300">},</span><span class="text-orange-400">0</span><span class="text-neutral-300">);</span></div>
+<br/>
+<div class="ml-4 text-neutral-500 text-xs">// scene tweens (generated by animJS)</div>
+<div class="ml-4 text-neutral-500 text-xs">// ${animJS} — strings generated by anim()</div>
+<br/>
+<div class="ml-4 text-neutral-500 text-xs">// sentinel: extends the timeline to the end of the composition</div>
+<div class="ml-4"><span class="text-cyan-400">tl</span><span class="text-neutral-300">.set({}, {}, TOTAL);</span></div>
+<div class="ml-4"><span class="text-cyan-400">window.__timelines</span><span class="text-neutral-300">[</span><span class="text-yellow-300">"main"</span><span class="text-neutral-300">] = tl;</span></div>
+<div><span class="text-yellow-300">&lt;/script&gt;</span></div>
+</div>
+</div>
+<!-- grid estrutura do bg-layer -->
+<div class="rounded-xl border border-purple-500/30 bg-purple-500/10 p-4">
+<div class="text-purple-400 font-semibold text-sm mb-3">🏗️ .bg-layer structure (persistent environment)</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-purple-400 font-bold mb-1">#glow + #glow2</div>
+<div class="text-neutral-400">Two pulsing radial gradients with <code class="text-purple-300 text-xs">yoyo:true</code> covering the entire TOTAL. <code class="text-purple-300 text-xs">data-layout-ignore</code> — does not interfere with the HyperFrames layout.</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-purple-400 font-bold mb-1">#grid</div>
+<div class="text-neutral-400">Grid pattern that scrolls infinitely with <code class="text-purple-300 text-xs">backgroundPositionY+=128</code> throughout the video. Creates a sense of movement.</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-purple-400 font-bold mb-1">#grain + #ghost</div>
+<div class="text-neutral-400">Subtle SVG grain and ghost text <code class="text-purple-300 text-xs">SKILL.md</code> decorative. Both with <code class="text-purple-300 text-xs">data-layout-ignore</code>.</div>
+</div>
+</div>
+</div>
+<!-- mini-grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">⏸️</div><div class="text-xs font-semibold text-neutral-200">paused:true</div><div class="text-xs text-neutral-500">Player controls externally</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">Track 20</div><div class="text-xs text-neutral-500">Reserved for audio</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🏁</div><div class="text-xs font-semibold text-neutral-200">tl.set({},TOTAL)</div><div class="text-xs text-neutral-500">End sentinel</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">📌</div><div class="text-xs font-semibold text-neutral-200">__timelines</div><div class="text-xs text-neutral-500">Public player API</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 — Overrides 9:16 -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📱 9:16 overrides via body.v and the --vertical flag</h2>
+<p class="text-neutral-400 mt-2">The generator supports two formats: 16:9 (1920×1080) standard and 9:16 (1080×1920) for Shorts. The flag <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">--vertical</code> switches W and H, adds the class <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">body.v</code> in the generated HTML and applies automatic CSS overrides. The output is always <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">index.html</code>.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">One generator, two formats</div>
+<p class="text-neutral-200 font-medium">The same <code class="text-purple-300">build-index.mjs</code> generates 16:9 and 9:16. The timing logic is identical — only the W/H dimensions change, along with the CSS for the <code class="text-purple-300">body.v</code> adjusts fonts, padding, and layout. You render twice with the same font, producing two synchronized formats.</p>
+<p class="text-neutral-400 text-sm mt-3">Typical workflow: <code class="text-purple-300">node build-index.mjs</code> → renders 16:9 → <code class="text-purple-300">node build-index.mjs --vertical</code> → renders 9:16. Both overwrite <code class="text-purple-300">index.html</code> — never edit the HTML directly.</p>
+</div>
+<!-- box de código: detecção da flag e troca de W/H -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">composition-template.mjs — --vertical detection and W/H swap</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// Format detection at the top of the file</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">VERT</span> <span class="text-neutral-300">= process.argv.includes(</span><span class="text-yellow-300">"--vertical"</span><span class="text-neutral-300">);</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">W</span> <span class="text-neutral-300">= VERT ? </span><span class="text-orange-400">1080</span> <span class="text-neutral-300">: </span><span class="text-orange-400">1920</span><span class="text-neutral-300">; </span><span class="text-neutral-500">// composition width</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">H</span> <span class="text-neutral-300">= VERT ? </span><span class="text-orange-400">1920</span> <span class="text-neutral-300">: </span><span class="text-orange-400">1080</span><span class="text-neutral-300">; </span><span class="text-neutral-500">// composition height</span></div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">OUT</span> <span class="text-neutral-300">= </span><span class="text-yellow-300">"index.html"</span><span class="text-neutral-300">; </span><span class="text-neutral-500">// always index.html — both formats</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// body receives class "v" when --vertical</div>
+<div><span class="text-neutral-500">// In the generated HTML: &lt;body${VERT ? ' class="v"' : ''}&gt;</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// Root composition attributes</div>
+<div><span class="text-yellow-300">&lt;div id="composition"</span></div>
+<div class="ml-4"><span class="text-yellow-300">data-start="0" data-duration="${TOTAL}"</span></div>
+<div class="ml-4"><span class="text-yellow-300">data-width="${W}" data-height="${H}"&gt;</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// Confirmation log in the terminal</div>
+<div><span class="text-cyan-400">console</span><span class="text-neutral-300">log(`${OUT} generated · ${W}×${H} · TOTAL = ${TOTAL}s · ${S.length} scenes`);</span></div>
+<div><span class="text-cyan-400">S</span><span class="text-neutral-300">.forEach(s =&gt; console.log(</span></div>
+<div class="ml-4"><span class="text-neutral-300">`  s${s.i}: start=${s.start} dur=${s.dur} audio@${s.audioStart} (${s.audioDur}s)`));</span></div>
+</div>
+</div>
+<!-- CSS overrides body.v -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">CSS overrides for body.v — 9:16 layout adjustments</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">/* Overrides applied automatically when body has class="v" */</div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.title      { font-size: 88px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.subhead    { font-size: 38px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.kicker     { font-size: 28px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.h2         { font-size: 62px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.reg        { font-size: 32px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.caption    { font-size: 36px; bottom: 140px; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">.grid2      { grid-template-columns: 1fr; }</span></div>
+<div><span class="text-cyan-400">body.v</span> <span class="text-neutral-300">#ghost      { font-size: 340px; opacity: .018; }</span></div>
+</div>
+</div>
+<!-- grid workflow 16:9 e 9:16 -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-purple-500/30 bg-purple-500/10 p-4">
+<div class="text-purple-400 font-semibold text-sm mb-3">📐 16:9 — Main YouTube format</div>
+<div class="space-y-2 text-sm text-neutral-300">
+<div class="font-mono text-xs bg-dark-700/60 rounded p-2">node build-index.mjs</div>
+<div class="text-neutral-400">Generates 1920×1080. No class <code class="text-purple-300 text-xs">v</code> in the body. Default CSS with large fonts for 1080p screens.</div>
+</div>
+</div>
+<div class="rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
+<div class="text-cyan-400 font-semibold text-sm mb-3">📱 9:16 — Shorts / Reels</div>
+<div class="space-y-2 text-sm text-neutral-300">
+<div class="font-mono text-xs bg-dark-700/60 rounded p-2">node build-index.mjs --vertical</div>
+<div class="text-neutral-400">Generates 1080×1920. Adds <code class="text-cyan-300 text-xs">class="v"</code> to the body. CSS overrides adjust fonts and layout for mobile.</div>
+</div>
+</div>
+</div>
+<!-- mini-grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">📐</div><div class="text-xs font-semibold text-neutral-200">1920×1080</div><div class="text-xs text-neutral-500">16:9 default</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">1080×1920</div><div class="text-xs text-neutral-500">9:16 Shorts</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🏷️</div><div class="text-xs font-semibold text-neutral-200">body.v</div><div class="text-xs text-neutral-500">Mode CSS class</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">💾</div><div class="text-xs font-semibold text-neutral-200">index.html</div><div class="text-xs text-neutral-500">Always overwritten</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 — A CTA scene9() -->
+<section class="bg-dark-800 rounded-2xl border border-purple-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🏁 CTA scene9() / case 9 — invariant signature</h2>
+<p class="text-neutral-400 mt-2">Scene 9 is the standard signature for all INEMA.CLUB videos. It shows “CONTINUES AT” + <strong class="text-yellow-300">INEMA</strong><strong class="text-amber-400">.CLUB</strong> with a glow and the URL <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">🌐 inema.club</code>. It must never be removed, repositioned, or changed—it's part of the channel identity.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-purple-900/30 to-dark-700/50 border border-purple-500/30 p-5">
+<div class="text-xs font-semibold text-purple-400 uppercase tracking-widest mb-2">Why the CTA is invariant</div>
+<p class="text-neutral-200 font-medium">Scene 9 works as a brand signature: anyone watching an INEMA.CLUB video always sees the same ending. This builds recognition and directs viewers to the site. The template already includes the CTA narration (<code class="text-purple-300">s9.wav</code>) and the HTML—you only provide the actual duration in the <code class="text-purple-300">AUDIO[]</code>.</p>
+<p class="text-neutral-400 text-sm mt-3">Rule: <strong class="text-purple-300">AUDIO[8]</strong> (index 8, scene 9) is always the duration of <code class="text-purple-300">assets/audio/s9.wav</code>. Default narration: <em>"This is INEMA dot CLUB content. Go to: inema dot club."</em></p>
+</div>
+<!-- box de código: scene9() completo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">composition-template.mjs — scene9() and case 9 of anim()</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// scene9() — CTA INEMA.CLUB — do not modify</div>
+<div><span class="text-purple-400">function</span> <span class="text-cyan-400">scene9</span><span class="text-neutral-300">() {</span></div>
+<div class="ml-4"><span class="text-purple-400">return</span> <span class="text-yellow-300">`</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;div class="cta-wrap" id="s9-wrap"&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;div class="cta-eyebrow" id="s9-eye"&gt;CONTINUE AT&lt;/div&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;div class="cta-logo" id="s9-logo"&gt;</span></div>
+<div class="ml-10"><span class="text-yellow-300">&lt;span class="cta-inema" id="s9-inema"&gt;INEMA&lt;/span&gt;</span></div>
+<div class="ml-10"><span class="text-yellow-300">&lt;span class="cta-club"  id="s9-club"&gt;.CLUB&lt;/span&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;/div&gt;</span></div>
+<div class="ml-8"><span class="text-yellow-300">&lt;div class="cta-url" id="s9-url"&gt;🌐 inema.club&lt;/div&gt;</span></div>
+<div class="ml-6"><span class="text-yellow-300">&lt;/div&gt;</span></div>
+<div class="ml-4"><span class="text-yellow-300">`</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-neutral-300">}</span></div>
+<br/>
+<div class="text-neutral-500 text-xs">// case 9 in anim() — CTA animations</div>
+<div><span class="text-purple-400">case</span> <span class="text-orange-400">9</span><span class="text-neutral-300">:</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s9-eye",{y:-20,opacity:0,duration:.5,ease:"power3.out"},${at(0.12)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s9-inema",{y:60,opacity:0,duration:.7,ease:"power4.out"},${at(0.28)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s9-club",{y:60,opacity:0,duration:.7,ease:"power4.out"},${at(0.42)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.from("#s9-url",{opacity:0,duration:.5,ease:"power2.out"},${at(0.85)});`);</span></div>
+<div class="ml-4"><span class="text-cyan-400">P</span><span class="text-neutral-300">(`tl.to("#s9-logo",{textShadow:"0 0 40px #facc15",duration:1,</span></div>
+<div class="ml-6"><span class="text-neutral-300">yoyo:true,repeat:4,ease:"sine.inOut"},${at(1.0)});`);</span></div>
+<div><span class="text-purple-400">break</span><span class="text-neutral-300">;</span></div>
+</div>
+</div>
+<!-- regra de ouro: não remover -->
+<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Golden rule: scene9() never goes away</div>
+<p class="text-neutral-400 text-sm">The CTA is in position 9 of <code class="text-amber-300">BODIES[]</code> and at index 8 of <code class="text-amber-300">AUDIO[]</code>. Removing or repositioning it breaks the timing of the entire video and removes the channel signature. When adapting the template for a new video, change only scenes 1–8 and update the durations in <code class="text-amber-300">AUDIO[0..7]</code>. <code class="text-amber-300">AUDIO[8]</code> is always the CTA WAV.</p>
+</div>
+</div>
+<!-- CSS da CTA -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">CTA CSS — INEMA.CLUB visual identity</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">/* CTA palette — cream + amber with glow */</div>
+<div><span class="text-cyan-400">.cta-eyebrow</span> <span class="text-neutral-300">{ font-size: 28px; letter-spacing: .25em; color: #9ca3af; }</span></div>
+<div><span class="text-cyan-400">.cta-inema</span> <span class="text-neutral-300">{ font-size: 128px; font-weight: 800; color: #fef3c7; </span><span class="text-neutral-500">/* cream */</span><span class="text-neutral-300"> }</span></div>
+<div><span class="text-cyan-400">.cta-club</span> <span class="text-neutral-300">{ font-size: 128px; font-weight: 800; color: #f59e0b; </span><span class="text-neutral-500">/* amber */</span><span class="text-neutral-300"> }</span></div>
+<div><span class="text-cyan-400">.cta-url</span> <span class="text-neutral-300">{ font-size: 36px; color: #60a5fa; letter-spacing: .05em; }</span></div>
+</div>
+</div>
+<!-- grid próximos módulos / checklist CTA -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Checklist for adapting the template</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Copy the entire template as <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">build-index.mjs</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Fill in <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">AUDIO[0..7]</code> with ffprobe — keep <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">AUDIO[8]</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Write <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">scene1()</code>–<code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">scene8()</code> — keep <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">scene9()</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Code <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">case 1</code>–<code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">case 8</code> in <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">anim()</code> — keep <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">case 9</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Run the generator and check the timing log before rendering</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Never do this with the CTA</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Remove <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">scene9()</code> of <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">BODIES[]</code></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Remove <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">AUDIO[8]</code> or leave the array with fewer than 9 entries</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Replace scene 9 with content from another video</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Change the colors <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">.cta-inema</code> / <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">.cta-club</code></li>
+</ul>
+</div>
+</div>
+<!-- mini-grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🏁</div><div class="text-xs font-semibold text-neutral-200">scene9() fixed</div><div class="text-xs text-neutral-500">Default signature</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🎨</div><div class="text-xs font-semibold text-neutral-200">Cream + amber</div><div class="text-xs text-neutral-500">INEMA.CLUB identity</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">AUDIO[8]</div><div class="text-xs text-neutral-500">CTA WAV</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-purple-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">case 9 untouched</div><div class="text-xs text-neutral-500">CTA animations</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 text-purple-400">📋 Module 3.3 Summary</h2>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<div>
+<div class="text-sm font-semibold text-neutral-400 mb-3">What you learned</div>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> <code class="text-purple-300">AUDIO[]</code> controls 100% of the timing — HTML, GSAP, and audio</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> <code class="text-purple-300">S[] = AUDIO.map()</code> with LEAD/TAIL/FADE, calculate start, dur, audioStart, end</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> <code class="text-purple-300">sceneN()</code> returns HTML; <code class="text-purple-300">anim(i,t)</code> generates GSAP strings with a fade on the <code class="text-purple-300">.scene-inner</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> Four streams assembled in HTML: scenesHTML, captionsHTML, audioHTML (track 20), animJS</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> GSAP timeline paused at <code class="text-purple-300">window.__timelines["main"]</code>, sentinel <code class="text-purple-300">tl.set({},{},TOTAL)</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> Flag <code class="text-purple-300">--vertical</code> switches W/H and adds <code class="text-purple-300">body.v</code> — output always <code class="text-purple-300">index.html</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> <code class="text-purple-300">scene9()</code> / <code class="text-purple-300">case 9</code> is the INEMA.CLUB CTA — never remove</li>
+</ul>
+</div>
+<!-- próximo módulo -->
+<div class="bg-dark-700/50 rounded-xl border border-purple-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Next module</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold">3.4</div>
+<div>
+<div class="font-semibold text-neutral-200">🧯 Gotchas &amp; fixes</div>
+<div class="text-sm text-neutral-400 mt-1">The most common errors when working with the generator — incorrect tracks, duplicate IDs, timing mismatches — and how to diagnose and fix each one before rendering.</div>
+</div>
+</div>
+<a class="mt-4 flex items-center justify-start gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors" href="modulo-3-4.html">
+            Go to module 3.4 →
+          </a>
+</div>
+</div>
+<!-- CTAs de navegação -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 3</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-700 text-white rounded-lg font-semibold hover:bg-purple-600 transition-colors" href="modulo-3-4.html">Next Module: 3.4 Gotchas &amp; fixes →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Content of the <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Track 3: Inside · Module 3.3 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

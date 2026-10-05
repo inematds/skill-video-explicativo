@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 4.2 — Onboarding, clases y lanzamientos | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento amber */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-sky-300 { color: #0284c7; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-cyan-400 { color: #0e7490; }
+    /* dark mode bordas suaves */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG animations */
+    @keyframes m42-flow { 0% { stroke-dashoffset: 120; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m42-pulse { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+    @keyframes m42-glow { 0%,100% { opacity:.6 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m42-anim-flow { animation: m42-flow 2.8s linear infinite; }
+      .m42-anim-pulse { animation: m42-pulse 2.4s ease-in-out infinite; }
+      .m42-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m42-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m42-anim-pulse:nth-child(4) { animation-delay: 1.5s; }
+      .m42-anim-pulse:nth-child(5) { animation-delay: 2s; }
+      .m42-anim-glow { animation: m42-glow 3s ease-in-out infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha4/modulo-4-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha4/modulo-4-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha4/modulo-4-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/modulo-4-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/modulo-4-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-4-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10" href="index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-amber-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-amber-400 transition-colors" href="index.html">Ruta 4 — Aplicaciones</a>
+<span>/</span>
+<span class="text-amber-400 font-medium">Módulo 4.2</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
+<div class="flex flex-col lg:flex-row gap-8 items-start">
+<div class="flex-1">
+<div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/30 rounded-full px-4 py-1.5 mb-4">
+<span class="text-amber-400 font-bold text-sm tracking-widest uppercase">MÓDULO 4.2</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4 flex items-center gap-3">
+          🚀 Incorporación, clases y lanzamientos
+        </h1>
+<p class="text-neutral-400 text-lg leading-relaxed mb-6">
+          Del onboarding de producto al changelog en video: cómo aplicar HyperFrames en los seis escenarios reales en los que los videos narrados cortos generan más resultados con menos esfuerzo.
+        </p>
+<!-- STATS -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-3 text-center">
+<div class="text-amber-400 font-bold text-xl">6</div>
+<div class="text-neutral-500 text-xs mt-1">Temas</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-3 text-center">
+<div class="text-amber-400 font-bold text-xl">35</div>
+<div class="text-neutral-500 text-xs mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-3 text-center">
+<div class="text-amber-400 font-bold text-xl">Práctico</div>
+<div class="text-neutral-500 text-xs mt-1">Nivel</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-3 text-center">
+<div class="text-amber-400 font-bold text-xl">Casos</div>
+<div class="text-neutral-500 text-xs mt-1">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Fan-out: um assunto → vários casos de uso -->
+<div class="lg:w-96 w-full rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Diagrama fan-out: HyperFrames como hub central que se expande a seis casos de uso" class="w-full h-auto" role="img" viewbox="0 0 380 300" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m42-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#1f1604;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m42-amber-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m42-cyan-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="160%" id="m42-glow-filter" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m42-bg)" height="300" rx="12" width="380"></rect>
+<!-- grid sutil -->
+<g opacity="0.7" stroke="#2a1f04" stroke-width="0.5">
+<line x1="0" x2="380" y1="50" y2="50"></line>
+<line x1="0" x2="380" y1="100" y2="100"></line>
+<line x1="0" x2="380" y1="150" y2="150"></line>
+<line x1="0" x2="380" y1="200" y2="200"></line>
+<line x1="0" x2="380" y1="250" y2="250"></line>
+<line x1="76" x2="76" y1="0" y2="300"></line>
+<line x1="152" x2="152" y1="0" y2="300"></line>
+<line x1="228" x2="228" y1="0" y2="300"></line>
+<line x1="304" x2="304" y1="0" y2="300"></line>
+</g>
+<!-- Hub central -->
+<circle class="m42-anim-glow" cx="190" cy="150" fill="#1f1604" filter="url(#m42-glow-filter)" r="36" stroke="url(#m42-amber-grad)" stroke-width="2.5"></circle>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="190" y="144">HyperFrames</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="190" y="158">SCRIPT.md → MP4</text>
+<!-- Spoke 1: Onboarding (cima-esq) -->
+<path class="m42-anim-flow" d="M163 125 L82 62" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" points="82,58 76,66 88,66"></polygon>
+<rect fill="#0e1b26" height="38" rx="7" stroke="#38bdf8" stroke-width="1.2" width="82" x="18" y="28"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="59" y="44">🧭 Incorporación</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="59" y="57">funcionalidad en ~90s</text>
+<!-- Spoke 2: Micro-aula (cima) -->
+<path class="m42-anim-flow" d="M190 114 L190 58" fill="none" stroke="#fbbf24" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#fbbf24" points="186,58 194,58 190,50"></polygon>
+<rect fill="#1f1604" height="38" rx="7" stroke="#fbbf24" stroke-width="1.2" width="110" x="135" y="18"></rect>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="190" y="34">🎓 Microclase</text>
+<text fill="#fde68a" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="190" y="47">concepto narrado</text>
+<!-- Spoke 3: Lançamento (cima-dir) -->
+<path class="m42-anim-flow" d="M217 125 L298 62" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" points="302,58 296,66 302,68"></polygon>
+<rect fill="#0e1b26" height="38" rx="7" stroke="#38bdf8" stroke-width="1.2" width="82" x="282" y="28"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="323" y="44">📣 Lanzamiento</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="323" y="57">changelog en video</text>
+<!-- Spoke 4: Time técnico (baixo-esq) -->
+<path class="m42-anim-flow" d="M163 175 L82 238" fill="none" stroke="#fbbf24" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#fbbf24" points="78,242 84,234 88,242"></polygon>
+<rect fill="#1f1604" height="38" rx="7" stroke="#fbbf24" stroke-width="1.2" width="82" x="18" y="238"></rect>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="59" y="254">🧑‍🤝‍🧑 Equipo</text>
+<text fill="#fde68a" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="59" y="267">alineación interna</text>
+<!-- Spoke 5: Docs em vídeo (baixo) -->
+<path class="m42-anim-flow" d="M190 186 L190 242" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" points="186,246 194,246 190,254"></polygon>
+<rect fill="#0e1b26" height="38" rx="7" stroke="#38bdf8" stroke-width="1.2" width="110" x="135" y="248"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="190" y="264">📄 Documentos en video</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="190" y="277">se regenera en el build</text>
+<!-- Spoke 6: House style (baixo-dir) -->
+<path class="m42-anim-flow" d="M217 175 L298 238" fill="none" stroke="#fbbf24" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<polygon fill="#fbbf24" points="298,242 302,234 308,242"></polygon>
+<rect fill="#1f1604" height="38" rx="7" stroke="#fbbf24" stroke-width="1.2" width="84" x="280" y="238"></rect>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="322" y="254">🎨 House style</text>
+<text fill="#fde68a" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="322" y="267">paleta de la marca</text>
+<!-- Labels de etapas no hub -->
+<text class="m42-anim-pulse" fill="#f59e0b" font-family="Inter,sans-serif" font-size="8" opacity="0.7" text-anchor="middle" x="190" y="290">① SCRIPT.md</text>
+</svg>
+<p class="text-xs text-neutral-500 mt-2 text-center">Un pipeline, seis aplicaciones reales</p>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+<!-- TÓPICO 1: Onboarding de produto -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧭 Incorporación al producto</h2>
+<p class="text-neutral-400 mt-2">Explicar una nueva función en ~90 segundos es el caso de uso más inmediato de HyperFrames. En vez de un recorrido estático de capturas de pantalla, entregas un MP4 narrado que el usuario ve en la propia app y que puedes volver a generar cada vez que cambie la función.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-700/50 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">¿Por qué video y no un carrusel de capturas de pantalla?</div>
+<p class="text-neutral-200 font-medium">Las capturas de pantalla quedan obsoletas: con cada release la UI cambia y el carrusel queda desactualizado. Con HyperFrames, el SCRIPT.md es la fuente de la verdad. Editas el guion, ejecutas <code class="text-amber-300 font-mono">node build-index.mjs &amp;&amp; npx hyperframes render</code> y tienes un video nuevo en minutos, sin editor ni grabador de pantalla.</p>
+</div>
+<!-- timeline do processo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Flujo para un onboarding de función</div>
+<div class="space-y-3">
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+<div><p class="text-neutral-200 font-medium text-sm">Escribir <code class="text-amber-300 font-mono">SCRIPT.md</code></p><p class="text-neutral-500 text-xs mt-0.5">6 escenas, ~100 s de narración en total. Describe la feature desde el punto de vista del usuario, no del desarrollador.</p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+<div><p class="text-neutral-200 font-medium text-sm">Generar narración con Kokoro</p><p class="text-neutral-500 text-xs mt-0.5">Voz <code class="text-amber-300 font-mono">pf_dora --speed 0.98</code>, medir la duración con <code class="text-amber-300 font-mono">ffprobe</code>, completar <code class="text-amber-300 font-mono">AUDIO[]</code> en el generador.</p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">3</div>
+<div><p class="text-neutral-200 font-medium text-sm">Componer escenas en <code class="text-amber-300 font-mono">build-index.mjs</code></p><p class="text-neutral-500 text-xs mt-0.5">Cada escena = un estado de la interfaz recreado en HTML dark premium. Usa GSAP para animar las entradas y los resaltados.</p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">4</div>
+<div><p class="text-neutral-200 font-medium text-sm">Renderizar y distribuir</p><p class="text-neutral-500 text-xs mt-0.5"><code class="text-amber-300 font-mono">npx hyperframes render --quality high --output renders/onboarding-v2.mp4</code> — lo sube al CDN o lo integra directamente en la app.</p></div>
+</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas prácticas de onboarding</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Narración de 1–3 frases por escena (≤20 s)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> UI recreada en HTML, no una captura de pantalla real</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> CTA final con enlace directo a la función</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Versión 9:16 para el onboarding móvil</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores comunes</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Video de 5+ minutos — el usuario abandona en 30 s</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Capturas de pantalla en lugar de HTML (queda desactualizado)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Narración muy rápida: usa <code class="text-red-300 font-mono">--speed 0.98</code>, no 1.2</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Sin versión muda: olvidar volver a renderizar después de una actualización</li>
+</ul>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Consejo: versionado semántico en el nombre del archivo</div>
+<p class="text-neutral-400 text-sm">Nombra los renders como <code class="text-amber-300 font-mono">onboarding-v1.mp4</code>, <code class="text-amber-300 font-mono">onboarding-v2.mp4</code>. Así, el CDN no almacena en caché el video anterior y conservas el historial para revertir cambios.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">~90 s</div><div class="text-xs text-neutral-500">duración ideal</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Regenerable</div><div class="text-xs text-neutral-500">en cada release</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">9:16 mobile</div><div class="text-xs text-neutral-500">onboarding in-app</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🎙️</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">voz local PT-BR</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2: Micro-aulas e cursos -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎓 Microclases y cursos</h2>
+<p class="text-neutral-400 mt-2">Transformar un concepto en una clase breve narrada —con código animado, diagrama SVG y captions sincronizados— es lo que HyperFrames hace mejor. Cada clase es un SCRIPT.md; un curso es una carpeta de SCRIPTs.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box prompt exemplo mono -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Prompt de ejemplo — pedirle una microclase a Claude</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Pega en Claude Code (con la skill video-explicativo activa)</div>
+<div class="text-cyan-400">Crea un video explicativo sobre</div>
+<div class="text-yellow-300 ml-4">"cierres en JavaScript".</div>
+<div class="text-neutral-400 mt-2">- 6 escenas, ~90 s de narración</div>
+<div class="text-neutral-400">- Muestra código animado en la escena 3</div>
+<div class="text-neutral-400">- Escena final: CTA al curso completo</div>
+<div class="text-neutral-400">- Formato 16:9 + 9:16</div>
+<div class="text-neutral-400 mt-2">Paleta: dark premium estándar</div>
+<div class="text-neutral-400">(<span class="text-amber-300">bg #0D1321, accent #FFC300</span>)</div>
+</div>
+</div>
+<!-- box conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-700/50 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Estructura recomendada de una microclase</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-amber-400 font-bold mb-1">Escena 1 — Hook</div><div class="text-neutral-400">Pregunta o problema cotidiano. ≤15 s.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-amber-400 font-bold mb-1">Escenas 2–5 — Concepto</div><div class="text-neutral-400">Explicación progresiva con código o diagrama. ~60 s en total.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-amber-400 font-bold mb-1">Escena 6 — CTA</div><div class="text-neutral-400">Enlace a la clase completa o al siguiente video. ≤10 s.</div></div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">CAPTIONS[] aumentan la retención hasta en un 40%</div>
+<p class="text-neutral-400 text-sm">El array <code class="text-amber-300 font-mono">CAPTIONS[]</code> no <code class="text-amber-300 font-mono">build-index.mjs</code> define los subtítulos sincronizados con el audio. En las microclases, completa todas las escenas: quien mira sin sonido (feed de LinkedIn, celular en silencio) aún absorbe el contenido.</p>
+</div>
+</div>
+<!-- box dado azul -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Métricas reales de microclases (formato ~90 s)</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">Tasa de finalización</div><div class="text-neutral-400">~65–80% para videos ≤2 min frente a ~30% para videos ≥10 min.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">Costo de producción</div><div class="text-neutral-400">R$ 0,00 por video: TTS local, render local, sin suscripción.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">Tiempo de actualización</div><div class="text-neutral-400">Editar SCRIPT.md + volver a renderizar: ~5 min de trabajo humano.</div></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📝</div><div class="text-xs font-semibold text-neutral-200">SCRIPT.md</div><div class="text-xs text-neutral-500">fuente de la verdad</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">💬</div><div class="text-xs font-semibold text-neutral-200">CAPTIONS[]</div><div class="text-xs text-neutral-500">subtítulo sincronizado</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🎬</div><div class="text-xs font-semibold text-neutral-200">6 escenas</div><div class="text-xs text-neutral-500">estructura estándar</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📐</div><div class="text-xs font-semibold text-neutral-200">16:9 + 9:16</div><div class="text-xs text-neutral-500">dos formatos</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3: Lançamento / changelog em vídeo -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📣 Lanzamiento / changelog en video</h2>
+<p class="text-neutral-400 mt-2">Anunciar un release con un video narrado en lugar de una publicación de texto aumenta la interacción, especialmente en LinkedIn y en el canal de Discord del producto. HyperFrames produce el video del changelog en el mismo CI que publica el release.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box alerta -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Trampa del changelog textual</div>
+<p class="text-neutral-400 text-sm">Más del 80% de los usuarios ignora las publicaciones con notas de lanzamiento. Los videos de 60–90 s con narración y animación de la nueva función tienen una tasa de apertura 3–5× mayor en canales como Discord, Slack y el correo electrónico del producto.</p>
+</div>
+</div>
+<!-- prompt mono exemplo changelog -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Script de ejemplo — escena de changelog</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># assets/txt/s1.txt — narración de la escena 1 del changelog</div>
+<div class="text-yellow-300">La versión dos punto tres está disponible.</div>
+<div class="text-yellow-300">Tres mejoras que notarás</div>
+<div class="text-yellow-300">desde el primer uso.</div>
+<br/>
+<div class="text-neutral-500 text-xs"># Generar el WAV:</div>
+<div class="text-cyan-400">npx kokoro-tts assets/txt/s1.txt \</div>
+<div class="ml-4 text-cyan-400">--voice pf_dora --speed 0.98 \</div>
+<div class="ml-4 text-cyan-400">--output assets/audio/s1.wav</div>
+<br/>
+<div class="text-neutral-500 text-xs"># Medir la duración:</div>
+<div class="text-amber-300">ffprobe -v error -show_entries format=duration \</div>
+<div class="ml-4 text-amber-300">-of default=noprint_wrappers=1:nokey=1 \</div>
+<div class="ml-4 text-amber-300">assets/audio/s1.wav</div>
+<div class="text-neutral-500 text-xs mt-1"># → p. ej.: 5.82 (segundos) — colócalo en AUDIO[0]</div>
+</div>
+</div>
+<!-- grid boas práticas -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Changelog eficaz en video</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Enfócate en 3 cambios, no en los 47 del release</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Muestra el «antes» y el «después» animado</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Versión 9:16 para Stories/Reels del producto</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Automatiza en CI: <code class="text-emerald-300 font-mono">npx hyperframes render</code> en el pipeline de release</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Qué evitar</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Listar bugs corregidos: al usuario no le importa</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Más de 2 min de duración: la atención disminuye</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Narrar jerga interna de la empresa ("refactorización de la capa de servicio")</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Olvidar el CTA: "actualiza ahora en inema.club/app"</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📣</div><div class="text-xs font-semibold text-neutral-200">Changelog narrado</div><div class="text-xs text-neutral-500">video &gt; texto</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🤖</div><div class="text-xs font-semibold text-neutral-200">CI/CD</div><div class="text-xs text-neutral-500">render en el pipeline</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔢</div><div class="text-xs font-semibold text-neutral-200">Máx. 3 funciones</div><div class="text-xs text-neutral-500">el enfoque aumenta el impacto</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4: Explicar conceito técnico ao time -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧑‍🤝‍🧑 Explicar un concepto técnico al equipo</h2>
+<p class="text-neutral-400 mt-2">Alinear el entendimiento interno sin reuniones. Un video de 90 s explica una decisión de arquitectura, un nuevo estándar de código o un proceso de deploy, y queda disponible para consultar de forma asíncrona en Notion, Confluence o un canal de Slack.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-700/50 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">El trabajo asíncrono supera a las reuniones en comprensión técnica</div>
+<p class="text-neutral-200 font-medium">Las reuniones de alineación tienen un alto costo de atención y baja retención. Un video narrado de 90 s, con un diagrama animado y código real, se puede pausar, retroceder y ver cuando el desarrollador esté concentrado, no cuando lo hayan convocado.</p>
+</div>
+<!-- comparativo tabela -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Video asíncrono vs. reunión de alineación</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600">
+<table class="w-full text-sm">
+<thead>
+<tr class="bg-dark-700/60 border-b border-dark-600">
+<th class="text-left p-3 text-neutral-400 font-semibold">Aspecto</th>
+<th class="text-center p-3 text-amber-400 font-semibold">Video HyperFrames</th>
+<th class="text-center p-3 text-neutral-400 font-semibold">Reunión sincrónica</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Costo de tiempo del equipo</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">90 s por persona</td>
+<td class="p-3 text-center text-red-400">30–60 min × N devs</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Disponibilidad</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">Asíncrono, 24/7</td>
+<td class="p-3 text-center text-red-400">Depende de la agenda</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Retención del contenido</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">Puedes pausar y volver a ver</td>
+<td class="p-3 text-center text-red-400">Depende de las notas</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Actualización</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">Volver a ejecutar el build</td>
+<td class="p-3 text-center text-red-400">Nueva reunión</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Un diagrama SVG inline es ideal para conceptos técnicos</div>
+<p class="text-neutral-400 text-sm">Usa la función <code class="text-amber-300 font-mono">sceneN()</code> del <code class="text-amber-300 font-mono">build-index.mjs</code> para inyectar SVG futurista con flechas animadas (GSAP <code class="text-amber-300 font-mono">gsap.from()</code> + <code class="text-amber-300 font-mono">stagger</code>) mostrando el flujo del sistema. Mucho más claro que una diapositiva de texto.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔀</div><div class="text-xs font-semibold text-neutral-200">Asíncrono</div><div class="text-xs text-neutral-500">sin bloquear la agenda</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📐</div><div class="text-xs font-semibold text-neutral-200">SVG animado</div><div class="text-xs text-neutral-500">arquitectura visual</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📎</div><div class="text-xs font-semibold text-neutral-200">Notion/Confluence</div><div class="text-xs text-neutral-500">embed permanente</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Se puede volver a ejecutar</div><div class="text-xs text-neutral-500">actualiza sin reunión</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5: Documentação em vídeo que não desatualiza -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📄 Documentación en video que no queda desactualizada</h2>
+<p class="text-neutral-400 mt-2">La queja más común sobre la documentación en video es que queda desactualizada en unas semanas. Con HyperFrames, el video es un artefacto de build: cuando cambia el contenido, solo tienes que editar el SCRIPT.md y volver a ejecutar el build. No hace falta abrir un editor de video.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- timeline: ciclo de atualização -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Ciclo de actualización de la documentación en video</div>
+<div class="space-y-3">
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">1</div>
+<div><p class="text-neutral-200 font-medium text-sm">La API cambia; la documentación queda desactualizada</p><p class="text-neutral-500 text-xs mt-0.5">Endpoint renombrado, parámetro nuevo, comportamiento modificado. El video anterior quedó desactualizado.</p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">2</div>
+<div><p class="text-neutral-200 font-medium text-sm">Editar <code class="text-amber-300 font-mono">SCRIPT.md</code> e <code class="text-amber-300 font-mono">assets/txt/sN.txt</code></p><p class="text-neutral-500 text-xs mt-0.5">Ajusta las líneas de narración y el HTML de la escena afectada. ~5 min de trabajo.</p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">3</div>
+<div><p class="text-neutral-200 font-medium text-sm">Volver a generar la narración solo de las escenas modificadas</p><p class="text-neutral-500 text-xs mt-0.5"><code class="text-amber-300 font-mono">npx kokoro-tts assets/txt/s3.txt --voice pf_dora --speed 0.98 --output assets/audio/s3.wav</code></p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs font-bold flex-shrink-0 mt-0.5">4</div>
+<div><p class="text-neutral-200 font-medium text-sm">Reconstrucción y renderizado</p><p class="text-neutral-500 text-xs mt-0.5"><code class="text-amber-300 font-mono">node build-index.mjs &amp;&amp; npx hyperframes lint &amp;&amp; npx hyperframes render --quality high --output renders/docs-api-v3.mp4</code></p></div>
+</div>
+<div class="flex gap-3 items-start">
+<div class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xs font-bold flex-shrink-0 mt-0.5">✓</div>
+<div><p class="text-emerald-400 font-medium text-sm">Video actualizado publicado</p><p class="text-neutral-500 text-xs mt-0.5">De cero a un MP4 nuevo: ~10 min. Sin abrir un editor de video ni volver a grabar la pantalla.</p></div>
+</div>
+</div>
+</div>
+<!-- box dado -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">🗂️ Estructura de proyecto recomendada para docs en video</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-cyan-400">docs-api/</div>
+<div class="ml-4 text-neutral-400">SCRIPT.md         <span class="text-neutral-600"># guion</span></div>
+<div class="ml-4 text-neutral-400">build-index.mjs   <span class="text-neutral-600"># generador</span></div>
+<div class="ml-4 text-neutral-400">design.md         <span class="text-neutral-600"># estilo de marca</span></div>
+<div class="ml-4 text-amber-300">assets/</div>
+<div class="ml-8 text-neutral-400">txt/s1.txt … s6.txt</div>
+<div class="ml-8 text-neutral-400">audio/s1.wav … s6.wav</div>
+<div class="ml-8 text-neutral-400">fonts/*.woff2 + fonts.css</div>
+<div class="ml-4 text-amber-300">renders/</div>
+<div class="ml-8 text-neutral-400">docs-api-v1.mp4</div>
+<div class="ml-8 text-neutral-400">docs-api-v2.mp4</div>
+<div class="ml-8 text-neutral-500">docs-api-v3.mp4   <span class="text-emerald-400"># ← actual</span></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🏗️</div><div class="text-xs font-semibold text-neutral-200">Artefacto de build</div><div class="text-xs text-neutral-500">MP4 = output del CI</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">✏️</div><div class="text-xs font-semibold text-neutral-200">~5 min para editar</div><div class="text-xs text-neutral-500">para actualizar</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📌</div><div class="text-xs font-semibold text-neutral-200">Versionado</div><div class="text-xs text-neutral-500">historial de renders</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">Local-first</div><div class="text-xs text-neutral-500">sin cloud, sin costo</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6: Adaptar house style à marca do cliente -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎨 Adaptar el house style a la marca del cliente</h2>
+<p class="text-neutral-400 mt-2">HyperFrames tiene una paleta dark premium predeterminada (<code class="text-amber-300 font-mono">#0D1321</code> bg, <code class="text-amber-300 font-mono">#FFC300</code> accent). Pero el <code class="text-amber-300 font-mono">design.md</code> es el único archivo que necesitas cambiar para adaptar todo el aspecto visual a una marca diferente, manteniendo el pipeline completo.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-700/50 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Qué cambia cuando reemplazas el design.md</div>
+<div class="grid sm:grid-cols-2 gap-4 text-sm mt-2">
+<div>
+<p class="text-neutral-400 font-semibold mb-2">Cambia con el design.md:</p>
+<ul class="space-y-1 text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Color de fondo (<code class="text-amber-300 font-mono">bg</code>)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Color de acento (botones, bordes, resaltados)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Fuentes (títulos, cuerpo, mono)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Color y texto de la CTA final</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Logo/ícono de la empresa en la escena inicial</li>
+</ul>
+</div>
+<div>
+<p class="text-neutral-400 font-semibold mb-2">No cambia (el pipeline permanece igual):</p>
+<ul class="space-y-1 text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-neutral-500">—</span> Estructura de escenas (SCRIPT.md)</li>
+<li class="flex items-start gap-2"><span class="text-neutral-500">—</span> TTS (pf_dora, Kokoro local)</li>
+<li class="flex items-start gap-2"><span class="text-neutral-500">—</span> Renderizado (Chrome headless + FFmpeg)</li>
+<li class="flex items-start gap-2"><span class="text-neutral-500">—</span> Comandos de npx hyperframes lint/render</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- prompt mono: design.md de uma marca fictícia -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Ejemplo de design.md para una marca "FinovaTech" (ficticia)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># design.md — FinovaTech (cambiarlo por el de la marca del cliente)</div>
+<div class="text-cyan-400">bg: <span class="text-yellow-300">"#0A0F1E"</span> <span class="text-neutral-600"># azul marino oscuro</span></div>
+<div class="text-cyan-400">panel: <span class="text-yellow-300">"#111827"</span> <span class="text-neutral-600"># panel</span></div>
+<div class="text-cyan-400">border: <span class="text-yellow-300">"#1E3A5F"</span> <span class="text-neutral-600"># borde sutil</span></div>
+<div class="text-cyan-400">text: <span class="text-yellow-300">"#E2F0FF"</span> <span class="text-neutral-600"># texto principal</span></div>
+<div class="text-cyan-400">accent: <span class="text-yellow-300">"#00C2FF"</span> <span class="text-neutral-600"># azul FinovaTech</span></div>
+<div class="text-cyan-400">code: <span class="text-yellow-300">"#7FDBFF"</span> <span class="text-neutral-600"># código/mono</span></div>
+<div class="text-cyan-400">font_title: <span class="text-yellow-300">"Plus Jakarta Sans"</span></div>
+<div class="text-cyan-400">font_body: <span class="text-yellow-300">"Inter"</span></div>
+<div class="text-cyan-400">font_code: <span class="text-yellow-300">"Fira Code"</span></div>
+<div class="text-cyan-400">cta_text: <span class="text-yellow-300">"Abre tu cuenta en finovatech.com"</span></div>
+<div class="text-cyan-400">cta_url: <span class="text-yellow-300">"https://finovatech.com/abrir"</span></div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Adaptación de marca eficaz</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Fondo siempre oscuro (dark premium — no cedas al "fondo blanco")</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Acento con contraste ≥4.5:1 frente al fondo</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Fuente del título con peso 700 u 800</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Probar con <code class="text-emerald-300 font-mono">npx hyperframes inspect --samples 16</code> antes de entregar</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Trampas de personalización</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Fondo blanco — las fuentes antialias se ven pixeladas en el render</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Acento demasiado claro (p. ej., <code class="text-red-300 font-mono">#FFFF00</code>) — ofusca el texto</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Cambiar el <code class="text-red-300 font-mono">LEAD</code>/<code class="text-red-300 font-mono">TAIL</code>/<code class="text-red-300 font-mono">FADE</code> sin probar (<code class="text-red-300 font-mono">LEAD=0.5 TAIL=0.9 FADE=0.45</code> son los valores validados)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Usar una fuente no disponible en Google Fonts: rompe el <code class="text-red-300 font-mono">fetch-fonts.mjs</code></li>
+</ul>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">LEAD, TAIL y FADE: los tiempos de escena</div>
+<p class="text-neutral-400 text-sm">Los valores <code class="text-amber-300 font-mono">LEAD=0.5</code> (silencio antes de la narración), <code class="text-amber-300 font-mono">TAIL=0.9</code> (pausa después de la narración) y <code class="text-amber-300 font-mono">FADE=0.45</code> (la duración del fade entre escenas) se calibraron para la voz <code class="text-amber-300 font-mono">pf_dora --speed 0.98</code>. Si cambias la voz o la velocidad, recalibra estos valores.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🎨</div><div class="text-xs font-semibold text-neutral-200">design.md</div><div class="text-xs text-neutral-500">único archivo que debes cambiar</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">LEAD/TAIL/FADE</div><div class="text-xs text-neutral-500">0.5 / 0.9 / 0.45</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔤</div><div class="text-xs font-semibold text-neutral-200">Google Fonts</div><div class="text-xs text-neutral-500">fetch-fonts.mjs</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🌑</div><div class="text-xs font-semibold text-neutral-200">Dark premium</div><div class="text-xs text-neutral-500">siempre con fondo oscuro</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-700/50 border border-amber-500/30 p-8" id="resumo">
+<h2 class="text-2xl font-bold mb-6 flex items-center gap-2">📋 Resumen del Módulo 4.2</h2>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<div>
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-3">Qué aprendiste</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Onboarding de producto: video narrado de ~90 s, regenerable con cada release</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Microlecciones: estructura de 6 escenas con CAPTIONS[] para accesibilidad</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Changelog en video: máx. 3 features, narración con lenguaje de producto</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Alineación técnica asíncrona: SVG animado reemplaza una reunión de 30 min</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Documentación en video: el MP4 es un artefacto de build y se actualiza en ~10 min</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span> Adaptación de marca: solo cambia design.md; el pipeline completo permanece</li>
+</ul>
+</div>
+<div>
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-3">Valores y comandos que debes recordar</div>
+<ul class="space-y-2 text-sm">
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">pf_dora --speed 0.98</code> — voz estándar PT-BR</li>
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">LEAD=0.5 / TAIL=0.9 / FADE=0.45</code> — timings validados</li>
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">npx hyperframes lint</code> antes de cada render</li>
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">npx hyperframes inspect --samples 16</code> para revisar el diseño</li>
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">bg #0D1321 / accent #FFC300</code> — paleta dark premium estándar</li>
+<li class="flex items-start gap-2 text-neutral-300"><span class="text-amber-400">→</span> <code class="text-amber-300 font-mono">--quality high</code> para el render final (no borrador)</li>
+</ul>
+</div>
+</div>
+<!-- próximo módulo -->
+<div class="rounded-xl bg-dark-700/60 border border-amber-500/20 p-4 mb-6">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Próximo módulo:</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-sm flex-shrink-0">4.3</div>
+<div>
+<p class="text-neutral-200 font-semibold">🧰 Biblioteca de prompts</p>
+<p class="text-neutral-500 text-sm">Colección de prompts listos para los casos de uso más comunes — onboarding, microclase, changelog y más.</p>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 4</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="modulo-4-3.html">Próximo módulo: 4.3 Biblioteca de prompts →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 4: Aplicaciones · Módulo 4.2 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

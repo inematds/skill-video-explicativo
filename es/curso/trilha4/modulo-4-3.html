@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 4.3 — Biblioteca de prompts | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#F59E0B', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento amber */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #92400e; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* Prompt box estilo terminal */
+    .prompt-box {
+      background: #0d1117;
+      border: 1px solid rgba(251,191,36,0.35);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .prompt-box-header {
+      background: rgba(251,191,36,0.08);
+      border-bottom: 1px solid rgba(251,191,36,0.2);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .prompt-box-header .dots span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    .prompt-box-header .dots .d1 { background: #ff5f57; }
+    .prompt-box-header .dots .d2 { background: #febc2e; }
+    .prompt-box-header .dots .d3 { background: #28c840; }
+    .prompt-box-body {
+      padding: 1.25rem 1.25rem;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .copy-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: #fbbf24;
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: 0.4rem;
+      padding: 0.2rem 0.6rem;
+      cursor: default;
+      user-select: none;
+    }
+    /* Animações SVG */
+    @keyframes m43-pulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
+    @keyframes m43-flow { 0%{stroke-dashoffset:40} 100%{stroke-dashoffset:0} }
+    .m43-pulse { animation: m43-pulse 2.5s ease-in-out infinite; }
+    .m43-flow { stroke-dasharray: 8 4; animation: m43-flow 1.5s linear infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .m43-pulse, .m43-flow { animation: none; opacity: 1; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha4/modulo-4-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha4/modulo-4-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha4/modulo-4-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/modulo-4-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/modulo-4-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-4-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2" href="../../index.html">
+<span class="text-amber-400 font-bold text-lg">⚡</span>
+<span class="font-bold text-sm hidden sm:block">HyperFrames</span>
+</a>
+<span class="text-dark-600 hidden sm:block">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10" href="index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-amber-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-amber-400 transition-colors" href="index.html">Ruta 4 — Aplicaciones</a>
+<span>/</span>
+<span class="text-amber-400 font-medium">Módulo 4.3</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">MÓDULO 4.3 · ÚLTIMO MÓDULO</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🧰 Biblioteca de prompts</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Seis prompts listos para pegar en Claude Code y activar la skill <code class="text-amber-400">video-explicativo</code> — desde la solicitud más básica hasta ajustes quirúrgicos de escena, paleta y CTA. Copia, adapta y produce.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-amber-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-amber-400">~20</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-amber-400">Práctico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-amber-400">Referencia</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Biblioteca de Prompts -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Diagrama futurista de prompts que fluyen hacia videos mediante la skill video-explicativo" class="w-full h-auto" role="img" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m43-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#1f1604;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m43-amber-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m43-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="160%" id="m43-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<!-- fundo -->
+<rect fill="url(#m43-bg-grad)" height="240" rx="12" width="400"></rect>
+<!-- Grade de fundo -->
+<g opacity="0.08" stroke="#fbbf24" stroke-width="0.5">
+<line x1="0" x2="400" y1="40" y2="40"></line><line x1="0" x2="400" y1="80" y2="80"></line>
+<line x1="0" x2="400" y1="120" y2="120"></line><line x1="0" x2="400" y1="160" y2="160"></line>
+<line x1="0" x2="400" y1="200" y2="200"></line>
+<line x1="80" x2="80" y1="0" y2="240"></line><line x1="160" x2="160" y1="0" y2="240"></line>
+<line x1="240" x2="240" y1="0" y2="240"></line><line x1="320" x2="320" y1="0" y2="240"></line>
+</g>
+<!-- Prompts (esquerda) -->
+<rect fill="#1f1604" height="26" opacity="0.9" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="24"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="41">🎬 prompt base</text>
+<rect fill="#1f1604" height="26" opacity="0.75" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="58"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="75">📱 prompt shorts</text>
+<rect fill="#1f1604" height="26" opacity="0.75" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="92"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="109">🎨 prompt paleta</text>
+<rect fill="#1f1604" height="26" opacity="0.75" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="126"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="143">🏁 prompt CTA</text>
+<rect fill="#1f1604" height="26" opacity="0.75" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="160"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="177">⏱️ prompt de duración</text>
+<rect fill="#1f1604" height="26" opacity="0.75" rx="6" stroke="#fbbf24" stroke-width="1" width="110" x="14" y="194"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="9" text-anchor="middle" x="69" y="211">🔧 prompt escena</text>
+<!-- Setas para skill -->
+<g class="m43-flow" fill="none" opacity="0.7" stroke="#fbbf24" stroke-width="1.5">
+<line x1="124" x2="178" y1="37" y2="100"></line>
+<line x1="124" x2="178" y1="71" y2="106"></line>
+<line x1="124" x2="178" y1="105" y2="112"></line>
+<line x1="124" x2="178" y1="139" y2="118"></line>
+<line x1="124" x2="178" y1="173" y2="124"></line>
+<line x1="124" x2="178" y1="207" y2="130"></line>
+</g>
+<!-- Skill box (centro) -->
+<rect fill="#0e1b26" filter="url(#m43-glow)" height="72" rx="10" stroke="#38bdf8" stroke-width="1.5" width="100" x="178" y="74"></rect>
+<text class="m43-pulse" fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="228" y="96">video-</text>
+<text class="m43-pulse" fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="228" y="110">explicativo</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" opacity="0.7" text-anchor="middle" x="228" y="126">skill HyperFrames</text>
+<!-- Setas para saídas -->
+<g class="m43-flow" fill="none" opacity="0.7" stroke="#38bdf8" stroke-width="1.5">
+<line x1="278" x2="312" y1="98" y2="68"></line>
+<line x1="278" x2="312" y1="110" y2="150"></line>
+</g>
+<!-- Saídas (direita) -->
+<rect fill="#0d1117" height="46" rx="8" stroke="#fbbf24" stroke-width="1" width="76" x="312" y="44"></rect>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="350" y="65">📺 16:9</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" opacity="0.7" text-anchor="middle" x="350" y="80">1920×1080</text>
+<rect fill="#0d1117" height="46" rx="8" stroke="#38bdf8" stroke-width="1" width="76" x="312" y="128"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="350" y="149">📱 9:16</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" opacity="0.7" text-anchor="middle" x="350" y="164">1080×1920</text>
+<!-- Cantos decorativos -->
+<circle class="m43-pulse" cx="20" cy="20" fill="#fbbf24" opacity="0.6" r="2"></circle>
+<circle class="m43-pulse" cx="380" cy="20" fill="#fbbf24" opacity="0.6" r="2"></circle>
+<circle class="m43-pulse" cx="20" cy="220" fill="#fbbf24" opacity="0.6" r="2"></circle>
+<circle class="m43-pulse" cx="380" cy="220" fill="#38bdf8" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+<!-- TÓPICO 1 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎬 Prompt base: de básico a avanzado</h2>
+<p class="text-neutral-400 mt-2">El punto de partida de cualquier video de HyperFrames. Especifica el tema, la progresión didáctica, ambos formatos y el CTA final de INEMA.CLUB, todo en una sola solicitud.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-base.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">Haz un video explicativo sobre {ASSUNTO}, desde lo básico hasta lo avanzado, en 16:9 y 9:16, y termina con la CTA de INEMA.CLUB.
+
+Usa la skill video-explicativo. Genera un guion completo en PT-BR con 6 a 8 escenas, narración vía pf_dora --speed 0.98, paleta dark premium (#0D1321 base), tipografía Inter. La última escena debe ser la CTA estándar de INEMA.CLUB con el logo y la URL inema.club. Renderiza los dos formatos.</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">Activa la skill completa: guion estructurado en escenas, narración TTS local con <code class="text-amber-300">pf_dora --speed 0.98</code>, animaciones CSS dark premium y doble exportación (<code class="text-cyan-400">1920×1080</code> + <code class="text-cyan-400">1080×1920</code>). La última escena sigue la plantilla CTA estándar de INEMA.CLUB, con fade-in de 0.45s.</p>
+</div>
+<!-- Quando usar -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Cuándo usar</div>
+<p class="text-neutral-400 text-sm">Usa como punto de partida para <strong class="text-neutral-200">cualquier tema nuevo</strong>. Reemplaza <code class="text-amber-300">{ASSUNTO}</code> según el tema — ej.: "Git rebase interactivo", "cómo funciona el DNS", "introducción a n8n".</p>
+</div>
+</div>
+<!-- Variações -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Variaciones</div>
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-amber-400 text-sm font-semibold mb-1">Solo un formato</div>
+<p class="text-neutral-400 text-xs">Cambia "en 16:9 y 9:16" por solo "en 16:9" para ahorrar tiempo de render cuando no necesites el formato vertical.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-amber-400 text-sm font-semibold mb-1">Más escenas</div>
+<p class="text-neutral-400 text-xs">Agrega «con 10 escenas y ejemplos de código» para contenido más detallado; es ideal para tutoriales técnicos.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-amber-400 text-sm font-semibold mb-1">Tono específico</div>
+<p class="text-neutral-400 text-xs">Agrega "tono directo y sin jerga" o "tono técnico para desarrolladores sénior" para ajustar la narración.</p>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🎬</div><div class="text-xs font-semibold text-neutral-200">Punto de partida</div><div class="text-xs text-neutral-500">Usa siempre</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">pf_dora 0.98</div><div class="text-xs text-neutral-500">Voz predeterminada</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📺</div><div class="text-xs font-semibold text-neutral-200">Salida doble</div><div class="text-xs text-neutral-500">16:9 + 9:16</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🏁</div><div class="text-xs font-semibold text-neutral-200">CTA INEMA</div><div class="text-xs text-neutral-500">Escena final</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📱 Prompt para Shorts vertical — hook potente, 60-90s</h2>
+<p class="text-neutral-400 mt-2">Para Reels y YouTube Shorts: formato exclusivamente 9:16, duración compacta (~60-90 segundos) y una primera escena que capta la atención en menos de 3 segundos: el "hook".</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-shorts.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">Crea un video en formato Shorts/Reels sobre {ASSUNTO}. Solo 9:16 (1080×1920). Duración total: ~75 segundos. La escena 1 debe tener un hook potente: una pregunta o afirmación impactante que aparezca en pantalla en menos de 3 segundos, sin narración durante los primeros 2 s. Usa la narración pf_dora --speed 1.02 (un poco más rápido). Máximo 5 escenas. Termina con la CTA de INEMA.CLUB.</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">Genera solo el formato vertical (<code class="text-cyan-400">--vertical</code> activado), con el <code class="text-amber-300">build-index.mjs</code> reescribiendo el canvas para <code class="text-cyan-400">1080×1920</code>. La narración usa <code class="text-amber-300">pf_dora --speed 1.02</code> — ligeramente más rápida que la estándar — y el guion está optimizado para retener la atención durante los primeros 3 segundos.</p>
+</div>
+<!-- Grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas prácticas para Shorts</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Hook visual en los primeros 2-3 segundos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Máximo 5 escenas — cada una con un propósito claro</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Narración ligeramente más rápida (speed 1.02)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Texto grande — legible en el celular sin auriculares</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores comunes en Shorts</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Empezar con una intro de logo demasiado lenta</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Más de 90 segundos: el algoritmo penaliza</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Texto pequeño o en un área cubierta por la interfaz de la app</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Recortar video 16:9 — siempre genera en formato nativo 9:16</li>
+</ul>
+</div>
+</div>
+<!-- Quando usar -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Cuándo usar</div>
+<p class="text-neutral-400 text-sm">Ideal para <strong class="text-neutral-200">divulgación rápida</strong> en Instagram Reels, TikTok y YouTube Shorts. Funciona muy bien con consejos puntuales («1 cosa que no sabías sobre X») o minitutoriales de un solo paso.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">1080×1920</div><div class="text-xs text-neutral-500">Nativo 9:16</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Hook de 3s</div><div class="text-xs text-neutral-500">Impacto de la escena 1</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">~75s en total</div><div class="text-xs text-neutral-500">Máx. 5 escenas</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">speed 1.02</div><div class="text-xs text-neutral-500">Ritmo más dinámico</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎨 Prompt para cambiar el mood/la paleta</h2>
+<p class="text-neutral-400 mt-2">Cambia la identidad visual del video sin reescribir el guion. Útil para crear versiones con el color de la marca de un cliente, un tema claro (light mode) o una paleta completamente diferente.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-paleta.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">Vuelve a crear el video sobre {ASSUNTO} con una paleta {PALETA} en lugar del dark ámbar predeterminado. Mantén el mismo guion y la narración ya generados. Cambia solo: el color de fondo base, el color de acento, el color de los textos secundarios y los degradados. {PALETA} puede ser: "dark morado con cian" (bg #110a1f, acento #a855f7, cian #38bdf8), "dark verde neón" (bg #0a1a0f, acento #22c55e, cian #34d399) o una especificación hex personalizada. Renderiza en 16:9 y 9:16.</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">La skill reemplaza las variables de color en el <code class="text-amber-300">composition-template.mjs</code> y en el CSS de las escenas. El guion (<code class="text-cyan-400">narration-template.sh</code>) se reutiliza, lo que ahorra tiempo de TTS. Solo se actualiza el render visual.</p>
+</div>
+<!-- Timeline de paletas disponíveis -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Paletas predefinidas</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#1f1604;border:2px solid #fbbf24;color:#fbbf24">A</div>
+<div>
+<div class="text-sm font-semibold text-neutral-200">Dark Amber (predeterminado)</div>
+<div class="text-xs text-neutral-500 font-mono">bg #0D1321 · acento #fbbf24 · ciano #38bdf8</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#110a1f;border:2px solid #a855f7;color:#a855f7">P</div>
+<div>
+<div class="text-sm font-semibold text-neutral-200">Dark Purple</div>
+<div class="text-xs text-neutral-500 font-mono">bg #110a1f · acento #a855f7 · ciano #38bdf8</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#0a1a0f;border:2px solid #22c55e;color:#22c55e">V</div>
+<div>
+<div class="text-sm font-semibold text-neutral-200">Dark Green Neon</div>
+<div class="text-xs text-neutral-500 font-mono">bg #0a1a0f · acento #22c55e · ciano #34d399</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold" style="background:#0e1b26;border:2px solid #38bdf8;color:#38bdf8">C</div>
+<div>
+<div class="text-sm font-semibold text-neutral-200">Dark Cyan Full</div>
+<div class="text-xs text-neutral-500 font-mono">bg #0e1b26 · acento #38bdf8 · ciano #06b6d4</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quando usar -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Cuándo usar</div>
+<p class="text-neutral-400 text-sm">Perfecto para crear <strong class="text-neutral-200">versiones de marca del cliente</strong> — un consultor que usa HyperFrames para el onboarding de SaaS puede generar el mismo tutorial en 4 paletas de distintos clientes sin reescribir nada.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🎨</div><div class="text-xs font-semibold text-neutral-200">Cambiar la paleta</div><div class="text-xs text-neutral-500">Sin nuevo TTS</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">#</div><div class="text-xs font-semibold text-neutral-200">Hexadecimal exacto</div><div class="text-xs text-neutral-500">Marca del cliente</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">♻️</div><div class="text-xs font-semibold text-neutral-200">El mismo guion</div><div class="text-xs text-neutral-500">Solo cambia lo visual</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🚀</div><div class="text-xs font-semibold text-neutral-200">Render rápido</div><div class="text-xs text-neutral-500">Sin volver a generar audio</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🏁 Prompt para cambiar la CTA final</h2>
+<p class="text-neutral-400 mt-2">Reemplaza la escena final predeterminada de INEMA.CLUB por la marca o URL de tu cliente —o por tu propia marca— y mantén intacto todo el resto del video.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-cta.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">En el video sobre {ASSUNTO} que generaste, reemplaza la escena final de INEMA.CLUB por la CTA de la marca {MARCA_CLIENTE}. La nueva escena final debe mostrar: el logo o nombre "{NOME_DA_MARCA}", la URL "{URL_DA_MARCA" y el texto de llamada "{TEXTO_CTA}" (p. ej., "Accede ahora y empieza gratis"). Mantén el fade-in de 0.45s y el mismo estilo dark premium de las demás escenas. Renderiza los dos formatos con la nueva escena.</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">La skill reemplaza solo la última escena del proyecto HTML. El <code class="text-amber-300">FADE=0.45</code> e o <code class="text-amber-300">TAIL=0.9</code> se conservan para mantener la coherencia del timing. Se reutilizan las demás escenas y toda la narración anterior; solo se vuelve a grabar y renderizar la escena final.</p>
+</div>
+<!-- Box alerta -->
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Atención al uso comercial</div>
+<p class="text-neutral-400 text-sm">Al cambiar la CTA para un cliente, asegúrate de tener los derechos sobre el logo y la identidad visual utilizados. HyperFrames no valida la propiedad intelectual; esa responsabilidad es tuya.</p>
+</div>
+</div>
+<!-- Grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas CTA finales</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> URL corta y legible (sin parámetros UTM visibles)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Texto de acción claro: "Accede", "Pruébalo", "Más información"</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Logo en versión blanca/transparente (fondo dark)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantener el fade-in de 0.45s para que no parezca abrupto</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ CTA que no funciona</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> URL demasiado larga — imposible de leer en 3 segundos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Logo a color sobre fondo dark sin contraste</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Texto pasivo: "Revísalo si quieres" — sin urgencia</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> CTA genérica sin relación con el tema del video</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🏁</div><div class="text-xs font-semibold text-neutral-200">Escena final</div><div class="text-xs text-neutral-500">Solo cambia esa</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">FADE</div><div class="text-xs font-semibold text-neutral-200">0.45s</div><div class="text-xs text-neutral-500">Timing preservado</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔗</div><div class="text-xs font-semibold text-neutral-200">URL corta</div><div class="text-xs text-neutral-500">Legible en video</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">♻️</div><div class="text-xs font-semibold text-neutral-200">Reutilización total</div><div class="text-xs text-neutral-500">Escenas anteriores OK</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⏱️ Prompt para ajustar la duración y el ritmo</h2>
+<p class="text-neutral-400 mt-2">Control preciso del tiempo total del video: acórtalo a ~60s para distribuirlo en redes sociales o amplíalo a 3-5min para contenido educativo más denso.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-duracao.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">En el video sobre {ASSUNTO}, ajusta la duración a ~60 segundos: reduce el número de escenas a 4, acorta la narración de cada escena a un máximo de 12 segundos de audio y usa pf_dora --speed 1.05 (narración más rápida). Mantén LEAD=0.5 y TAIL=0.9 en las escenas, pero reduce el FADE a 0.3s entre escenas. Regenera la narración y renderiza los dos formatos.</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">Ajusta tres variables de ritmo en cadena: cantidad de escenas, velocidad de TTS (<code class="text-amber-300">--speed 1.05</code>) y duración de transición (<code class="text-amber-300">FADE=0.3</code>). O <code class="text-cyan-400">LEAD=0.5</code> e <code class="text-cyan-400">TAIL=0.9</code> se mantienen para evitar cortes abruptos en la narración; solo se comprime la parte central.</p>
+</div>
+<!-- Box dados -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400/70 uppercase tracking-widest mb-3">Parámetros de timing de HyperFrames</div>
+<div class="grid sm:grid-cols-2 gap-4">
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-2">Variables de escena</div>
+<ul class="space-y-1.5 text-sm text-neutral-300">
+<li><code class="text-cyan-400">LEAD=0.5</code> — silencio antes de la narración (segundos)</li>
+<li><code class="text-cyan-400">TAIL=0.9</code> — silencio después de la narración (segundos)</li>
+<li><code class="text-cyan-400">FADE=0.45</code> — duración del cross-fade entre escenas</li>
+</ul>
+</div>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-2">Velocidad de TTS</div>
+<ul class="space-y-1.5 text-sm text-neutral-300">
+<li><code class="text-amber-300">--speed 0.95</code> — lenta, didáctica</li>
+<li><code class="text-amber-300">--speed 0.98</code> — estándar INEMA.CLUB</li>
+<li><code class="text-amber-300">--speed 1.02</code> — ligeramente más viva</li>
+<li><code class="text-amber-300">--speed 1.05</code> — compacto, Shorts</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Quando usar -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Cuándo usar</div>
+<p class="text-neutral-400 text-sm">Usa cuando ya haya un video generado, pero el cliente pida una versión más corta, o cuando quieras reutilizar el contenido en un formato diferente (ej.: video de curso de 3min → teaser de 60s para Stories).</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">LEAD</div><div class="text-xs font-semibold text-neutral-200">0.5s</div><div class="text-xs text-neutral-500">Pausa inicial</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">TAIL</div><div class="text-xs font-semibold text-neutral-200">0.9s</div><div class="text-xs text-neutral-500">Pausa final</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">FADE</div><div class="text-xs font-semibold text-neutral-200">0.3–0.45s</div><div class="text-xs text-neutral-500">Cross-fade</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⏩</div><div class="text-xs font-semibold text-neutral-200">speed 1.05</div><div class="text-xs text-neutral-500">Máx. recomendado</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔧 Prompt para regenerar solo una escena</h2>
+<p class="text-neutral-400 mt-2">Cirugía de precisión: cambia solo una escena específica sin reprocesar todo el video — ideal para corregir un error de narración, ajustar una animación o cambiar el texto de una diapositiva.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Prompt box -->
+<div class="prompt-box">
+<div class="prompt-box-header">
+<div class="dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+<span class="text-amber-400/70 text-xs font-mono">prompt-regenerar-cena.txt</span>
+<span class="copy-label">📋 copiar prompt</span>
+</div>
+<div class="prompt-box-body">En el video sobre {ASSUNTO}, vuelve a hacer solo la escena {N} con el siguiente cambio: {DESCRICAO_DA_MUDANCA}. Mantén intactas todas las demás escenas y sus narraciones. Regenera solo el audio de la escena {N} con pf_dora y renderiza el video final con la escena reemplazada. Ejemplos de cambios: "corrige el texto 'HTTP' para que diga 'HTTPS'", "agrega un diagrama de flechas que muestre el flujo", "cambia el título de la escena a 'Paso 2: Configuración'".</div>
+</div>
+<!-- O que ele faz -->
+<div class="rounded-xl bg-gradient-to-br from-amber-900/30 to-dark-800 border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-amber-400/70 uppercase tracking-widest mb-2">Qué hace</div>
+<p class="text-neutral-200 font-medium">La skill identifica el bloque HTML de la escena N, aplica el cambio, regenera solo el <code class="text-amber-300">.mp3</code> de esa escena mediante <code class="text-cyan-400">pf_dora --speed 0.98</code>, y vuelve a concatenar el MP4 final con FFmpeg, sin tocar las demás pistas de audio ni los fotogramas renderizados.</p>
+</div>
+<!-- Grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Cambios adecuados para una escena</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Corrección de un error ortográfico o técnico en el texto</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Agregar o quitar un elemento visual (flecha, diagrama)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Acortar la narración de una escena que quedó demasiado larga</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Cambiar una animación por otra más clara</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Cuándo usar el prompt completo</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Un cambio de tono o estructura afecta a todas las escenas</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Reordenar escenas — afecta el audio concatenado</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Cambiar la paleta (usa el prompt de paleta, tema 3)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Agregar una escena nueva en medio: vuelve a numerar las demás</li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Consejo de eficiencia</div>
+<p class="text-neutral-400 text-sm">Si te equivocas en más de 3 escenas, es más rápido regenerar todo el video con el prompt base corregido que aplicar 3 parches individuales. Usa el parche de escena para 1-2 correcciones puntuales.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">🔧</div><div class="text-xs font-semibold text-neutral-200">Patch quirúrgico</div><div class="text-xs text-neutral-500">Solo 1 escena</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">Audio local</div><div class="text-xs text-neutral-500">Solo escena N</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-amber-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Render rápido</div><div class="text-xs text-neutral-500">FFmpeg concat</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">Máx. 2 parches</div><div class="text-xs text-neutral-500">Si no, vuelve a generarlo todo</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TABELA RESUMO DOS PROMPTS -->
+<section class="bg-dark-800 rounded-2xl border border-amber-500/30 overflow-hidden">
+<div class="p-6 border-b border-dark-600">
+<h2 class="text-xl font-bold flex items-center gap-2 text-amber-400">📊 Tabla resumen de los 6 prompts</h2>
+<p class="text-neutral-400 mt-2 text-sm">Referencia rápida: cuándo usar cada prompt, qué modifica y cuánto tiempo ahorra.</p>
+</div>
+<div class="p-6 overflow-x-auto">
+<table class="w-full text-sm border-collapse">
+<thead>
+<tr class="border-b border-dark-600">
+<th class="text-left py-3 pr-4 text-amber-400 font-semibold text-xs uppercase tracking-widest">Prompt</th>
+<th class="text-left py-3 pr-4 text-amber-400 font-semibold text-xs uppercase tracking-widest">Qué cambia</th>
+<th class="text-left py-3 pr-4 text-amber-400 font-semibold text-xs uppercase tracking-widest">¿Reutiliza TTS?</th>
+<th class="text-left py-3 text-amber-400 font-semibold text-xs uppercase tracking-widest">Mejor para</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">🎬 Base</td>
+<td class="py-3 pr-4 text-neutral-400">Todo (desde cero)</td>
+<td class="py-3 pr-4 text-red-400">No</td>
+<td class="py-3 text-neutral-400">Cualquier tema nuevo</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">📱 Shorts</td>
+<td class="py-3 pr-4 text-neutral-400">Formato, ritmo, hook</td>
+<td class="py-3 pr-4 text-red-400">No</td>
+<td class="py-3 text-neutral-400">Reels, TikTok, Shorts</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">🎨 Paleta</td>
+<td class="py-3 pr-4 text-neutral-400">Colores y gradientes</td>
+<td class="py-3 pr-4 text-emerald-400">Sí ✓</td>
+<td class="py-3 text-neutral-400">Versión de marca del cliente</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">🏁 CTA</td>
+<td class="py-3 pr-4 text-neutral-400">Solo escena final</td>
+<td class="py-3 pr-4 text-emerald-400">Sí ✓</td>
+<td class="py-3 text-neutral-400">White-label para clientes</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">⏱️ Duración</td>
+<td class="py-3 pr-4 text-neutral-400">Escenas, speed, FADE</td>
+<td class="py-3 pr-4 text-red-400">No</td>
+<td class="py-3 text-neutral-400">Versión corta de un video largo</td>
+</tr>
+<tr>
+<td class="py-3 pr-4 font-semibold text-neutral-200">🔧 Escena única</td>
+<td class="py-3 pr-4 text-neutral-400">1 escena específica</td>
+<td class="py-3 pr-4 text-amber-400">Parcial</td>
+<td class="py-3 text-neutral-400">Corrección quirúrgica</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- DICA: ESCREVER BONS PEDIDOS -->
+<section class="bg-dark-800 rounded-2xl border border-cyan-500/30 overflow-hidden">
+<div class="p-6 border-b border-dark-600">
+<h2 class="text-xl font-bold flex items-center gap-2 text-cyan-400">✍️ Cómo escribir buenas solicitudes para el skill</h2>
+<p class="text-neutral-400 mt-2 text-sm">Un prompt bien escrito reduce las idas y vueltas — y produce mejores videos desde el primer intento.</p>
+</div>
+<div class="p-6 space-y-5">
+<!-- 4 dicas em grid -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-cyan-400 text-lg mb-2">1️⃣</div>
+<div class="font-semibold text-neutral-200 text-sm mb-1">Especifica el público</div>
+<p class="text-neutral-400 text-xs">Di "para desarrolladores principiantes" o "para gestores no técnicos". El guion cambia radicalmente según quién lo vaya a ver.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-cyan-400 text-lg mb-2">2️⃣</div>
+<div class="font-semibold text-neutral-200 text-sm mb-1">Da el objetivo del video</div>
+<p class="text-neutral-400 text-xs">"El espectador debe saber cómo configurar X al final" es mucho mejor que "explica X". Objetivo claro = guion enfocado.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-cyan-400 text-lg mb-2">3️⃣</div>
+<div class="font-semibold text-neutral-200 text-sm mb-1">Indica el formato de destino</div>
+<p class="text-neutral-400 text-xs">Di explícitamente "16:9 y 9:16" o "solo 9:16". El skill no asume el formato; si no lo dices, te lo preguntará.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-cyan-400 text-lg mb-2">4️⃣</div>
+<div class="font-semibold text-neutral-200 text-sm mb-1">Menciona ejemplos concretos</div>
+<p class="text-neutral-400 text-xs">Si tienes un video de referencia ("al estilo del video X"), describe qué te gusta de él. Eso guía el tono de las animaciones y la narración.</p>
+</div>
+</div>
+<!-- Tip box final -->
+<div class="rounded-xl bg-cyan-500/10 border border-cyan-500/30 p-4 flex gap-3">
+<span class="text-cyan-400 text-xl flex-shrink-0">💎</span>
+<div>
+<div class="text-cyan-400 font-semibold text-sm mb-1">Regla de oro de los prompts</div>
+<p class="text-neutral-400 text-sm">Si puedes describir el video en una frase clara — "un tutorial de 60s sobre Git rebase para devs que ya conocen lo básico de Git, sin jerga y que termina con la CTA de INEMA.CLUB" — la skill puede ejecutarlo sin preguntas adicionales. Cuanto más específico seas, menos iteraciones necesitarás.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO — último módulo, celebra fim do curso -->
+<section class="rounded-2xl bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 border border-amber-500/30 p-8">
+<h2 class="text-2xl font-bold mb-2 text-amber-400">🎉 ¡Resumen del Módulo 4.3 y de todo el curso!</h2>
+<p class="text-neutral-400 mb-6">Llegaste al final del curso HyperFrames. ¡Felicitaciones! Ahora tienes todo lo que necesitas para producir videos explicativos profesionales, desde el guion hasta el MP4, con control creativo total y costo de renderizado cero.</p>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<!-- checklist deste módulo -->
+<div class="bg-dark-700/50 rounded-xl border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Qué aprendiste aquí</div>
+<ul class="space-y-2.5">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> El prompt base que activa la skill completa (guion + TTS + render)</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Cómo adaptar para Shorts con un hook fuerte en los primeros 3 segundos</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Cambiar la paleta sin regenerar la narración: ahorro de tiempo real</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Personalizar la CTA para la marca del cliente (white-label)</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Controlar LEAD, TAIL, FADE y speed para ajustar el ritmo y la duración</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Patch quirúrgico de una escena sin reprocesar el video entero</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> Los 4 principios para hacer una buena solicitud al skill</li>
+</ul>
+</div>
+<!-- checklist do curso completo -->
+<div class="bg-dark-700/50 rounded-xl border border-amber-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Tu recorrido completo</div>
+<ul class="space-y-2.5">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-emerald-400 mt-0.5">✓</span> <a class="text-emerald-400 hover:text-emerald-300 underline" href="../trilha1/index.html">Ruta 1 — Skills</a>: qué son, anatomía del SKILL.md, divulgación progresiva</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> <a class="text-blue-400 hover:text-blue-300 underline" href="../trilha2/index.html">Ruta 2 — Pipeline</a>: setup, guion TTS, composición de escenas, render</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-purple-400 mt-0.5">✓</span> <a class="text-purple-400 hover:text-purple-300 underline" href="../trilha3/index.html">Ruta 3 — Por dentro</a>: house style, build-index.mjs, gotchas</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-amber-400 mt-0.5">✓</span> <a class="text-amber-400 hover:text-amber-300 underline" href="index.html">Ruta 4 — Aplicaciones</a>: YouTube, Shorts, onboarding, biblioteca de prompts</li>
+</ul>
+<div class="mt-5 rounded-lg bg-amber-500/10 border border-amber-500/20 p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">🚀 Próximo paso</div>
+<p class="text-neutral-400 text-xs">Abre Claude Code ahora, pega uno de los prompts de esta biblioteca y haz tu primer video. La mejor manera de consolidar lo aprendido es produciendo.</p>
+</div>
+</div>
+</div>
+<!-- CTAs: último módulo aponta de volta para o início -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 4</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="../../index.html">Volver al inicio del curso →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 4: Aplicaciones · Módulo 4.3 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

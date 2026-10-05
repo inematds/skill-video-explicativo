@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1.4 — Where They Live &amp; How to Install | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento emerald */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes m14-flow { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m14-pulse { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+    @keyframes m14-float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m14-anim-flow { animation: m14-flow 3s linear infinite; }
+      .m14-anim-pulse { animation: m14-pulse 2.8s ease-in-out infinite; }
+      .m14-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m14-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m14-anim-float { animation: m14-float 3s ease-in-out infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha1/modulo-1-4.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha1/modulo-1-4.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha1/modulo-1-4.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-4.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-4.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-4.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-emerald-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400 transition-colors" href="index.html">Track 1 — Skills</a>
+<span>/</span>
+<span class="text-emerald-400 font-medium">Module 1.4</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MODULE 1.4</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📂 Where they live &amp; how to install</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Discover the two places where skills live on your system—local and global project folders—and master all the ways to install, version, and share them with your team.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~20</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Basic</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Practical</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Mapa de caminhos de skills -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Futuristic diagram showing the two places where skills live: local and global project folders" class="w-full h-auto" role="img" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m14-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e2018;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m14-emerald-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#34d399;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#10b981;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m14-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m14-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2.5"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m14-bg-grad)" height="240" rx="12" width="400"></rect>
+<!-- grid -->
+<g opacity="0.5" stroke="#1a3d2a" stroke-width="0.5">
+<line x1="0" x2="400" y1="60" y2="60"></line>
+<line x1="0" x2="400" y1="120" y2="120"></line>
+<line x1="0" x2="400" y1="180" y2="180"></line>
+<line x1="133" x2="133" y1="0" y2="240"></line>
+<line x1="266" x2="266" y1="0" y2="240"></line>
+</g>
+<!-- título -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle" x="200" y="22">Where Skills live</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" letter-spacing="2" text-anchor="middle" x="200" y="36">LOCAL · GLOBAL · INSTALLATION SCOPE</text>
+<!-- Nó central: Claude Code -->
+<rect fill="#0e2018" filter="url(#m14-glow)" height="52" rx="8" stroke="#34d399" stroke-width="1.5" width="80" x="160" y="82"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="200" y="103">Claude</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="200" y="117">Code</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="128">+ Skills</text>
+<!-- Nó esquerdo: .claude/skills/ -->
+<rect fill="#0e2018" height="60" rx="8" stroke="#10b981" stroke-width="1.5" width="110" x="18" y="78"></rect>
+<text fill="#10b981" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="73" y="99">.claude/skills/</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="73" y="112">Project scope</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="73" y="124">version-controlled in git</text>
+<text fill="#6ee7b7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="73" y="133">only in this repo</text>
+<!-- Nó direito: ~/.claude/skills/ -->
+<rect fill="#0e1b26" height="60" rx="8" stroke="#38bdf8" stroke-width="1.5" width="110" x="272" y="78"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="327" y="99">~/.claude/skills/</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="327" y="112">Global scope</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="327" y="124">any project</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="327" y="133">of the machine</text>
+<!-- setas -->
+<path class="m14-anim-flow" d="M128 108 L160 108" fill="none" stroke="#34d399" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#34d399" points="160,104 168,108 160,112"></polygon>
+<path class="m14-anim-flow" d="M272 108 L240 108" fill="none" stroke="#38bdf8" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#38bdf8" points="240,104 232,108 240,112"></polygon>
+<!-- Labels de etapa abaixo -->
+<rect fill="#0e2018" height="32" opacity="0.9" rx="5" stroke="#10b981" stroke-width="1" width="86" x="30" y="170"></rect>
+<text fill="#10b981" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle" x="73" y="183">📁 Copy the folder</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="73" y="195">or unzip</text>
+<rect fill="#0e1b1a" height="32" opacity="0.9" rx="5" stroke="#38bdf8" stroke-width="1" width="86" x="157" y="170"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle" x="200" y="183">⌨️ npx skills add</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="200" y="195">via catalog</text>
+<rect fill="#0e2018" height="32" opacity="0.9" rx="5" stroke="#34d399" stroke-width="1" width="86" x="284" y="170"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle" x="327" y="183">🔁 git + history</text>
+<text fill="#a7f3d0" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="327" y="195">skill is plain text</text>
+<!-- conectores verticais pontilhados -->
+<line opacity="0.5" stroke="#10b981" stroke-dasharray="3,3" stroke-width="1" x1="73" x2="73" y1="138" y2="170"></line>
+<line opacity="0.5" stroke="#38bdf8" stroke-dasharray="3,3" stroke-width="1" x1="200" x2="200" y1="134" y2="170"></line>
+<line opacity="0.5" stroke="#34d399" stroke-dasharray="3,3" stroke-width="1" x1="327" x2="327" y1="138" y2="170"></line>
+<!-- dots decorativos -->
+<circle class="m14-anim-pulse" cx="20" cy="20" fill="#34d399" opacity="0.6" r="2"></circle>
+<circle class="m14-anim-pulse" cx="380" cy="20" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m14-anim-pulse" cx="20" cy="220" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m14-anim-pulse" cx="380" cy="220" fill="#34d399" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📁 Project .claude/skills/</h2>
+<p class="text-neutral-400 mt-2">The directory <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">.claude/skills/</code> is at the root of your repository. Skills there have local scope — they exist only for people working on that specific project.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Main Concept</div>
+<p class="text-neutral-200 font-medium">The directory <code class="text-emerald-400">.claude/skills/</code> at the repository root is the project-scoped skills space. Any skill placed there is available only when Claude Code is running inside that repo.</p>
+<p class="text-neutral-400 text-sm mt-3">Each skill is a subfolder. The folder name is exactly the name Claude recognizes it by—for example, <code class="text-emerald-400">.claude/skills/video-explicativo/</code>.</p>
+</div>
+<!-- box de código -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Directory structure</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># LOCAL scope — inside the repository</div>
+<div><span class="text-emerald-400">meu-projeto/</span></div>
+<div><span class="text-neutral-500">├── </span><span class="text-emerald-400">.claude/</span></div>
+<div><span class="text-neutral-500">│   └── </span><span class="text-emerald-400">skills/</span></div>
+<div><span class="text-neutral-500">│       ├── </span><span class="text-cyan-400">explainer video/</span> <span class="text-neutral-600"># this project's skill</span></div>
+<div><span class="text-neutral-500">│       │   ├── </span><span class="text-neutral-300">SKILL.md</span> <span class="text-neutral-600"># required manifest</span></div>
+<div><span class="text-neutral-500">│       │   ├── </span><span class="text-neutral-300">references/</span></div>
+<div><span class="text-neutral-500">│       │   └── </span><span class="text-neutral-300">scripts/</span></div>
+<div><span class="text-neutral-500">│       └── </span><span class="text-cyan-400">outra-skill/</span></div>
+<div><span class="text-neutral-500">├── src/</span></div>
+<div><span class="text-neutral-500">└── package.json</span></div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Use the project's .claude/skills/ when</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> The skill is specific to that product or client</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> You want to version the skill alongside the code</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> The whole team needs to use the same version of the skill</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> The skill changes every sprint along with the project</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Don't use the project's .claude/skills/ when</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> The skill is for all your personal projects</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> The repo is public and the skill contains sensitive data</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> You’re testing a temporary draft</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> The skill needs to work outside any project</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📁</div><div class="text-xs font-semibold text-neutral-200">Local scope</div><div class="text-xs text-neutral-500">In the repo only</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🗂️</div><div class="text-xs font-semibold text-neutral-200">Named folder</div><div class="text-xs text-neutral-500">Name = skill ID</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">Privacy</div><div class="text-xs text-neutral-500">Only those who clone can see it</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⚙️</div><div class="text-xs font-semibold text-neutral-200">Auto-detected</div><div class="text-xs text-neutral-500">No extra config</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🌐 ~/.claude/skills/ global</h2>
+<p class="text-neutral-400 mt-2">The global directory is in <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">~/.claude/skills/</code> (user's home directory). Skills there apply to absolutely any project you open on the machine.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box dado azul -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">🗺️ The two paths side by side</div>
+<div class="grid sm:grid-cols-2 gap-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="font-mono text-emerald-400 font-bold mb-2">.claude/skills/</div>
+<ul class="space-y-1 text-neutral-400">
+<li>• Inside the repository</li>
+<li>• Version-controlled in git</li>
+<li>• Shared with the team via clone</li>
+<li>• Scope: this project only</li>
+</ul>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="font-mono text-cyan-400 font-bold mb-2">~/.claude/skills/</div>
+<ul class="space-y-1 text-neutral-400">
+<li>• In the user’s home directory</li>
+<li>• Outside any repo</li>
+<li>• Only on your machine (not cloned)</li>
+<li>• Scope: all projects</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- box de código -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Overall structure</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># GLOBAL scope — user's home directory</div>
+<div><span class="text-cyan-400">~/</span></div>
+<div><span class="text-neutral-500">└── </span><span class="text-cyan-400">.claude/</span></div>
+<div><span class="text-neutral-500">    └── </span><span class="text-cyan-400">skills/</span></div>
+<div><span class="text-neutral-500">        ├── </span><span class="text-emerald-400">formato-curso/</span> <span class="text-neutral-600"># available in ALL projects</span></div>
+<div><span class="text-neutral-500">        │   ├── </span><span class="text-neutral-300">SKILL.md</span></div>
+<div><span class="text-neutral-500">        │   └── </span><span class="text-neutral-300">references/</span></div>
+<div><span class="text-neutral-500">        └── </span><span class="text-emerald-400">minha-skill-pessoal/</span></div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Precedence: local takes priority</div>
+<p class="text-neutral-400 text-sm">If a skill with the same name exists in both places (local and global), the local version (<code class="text-emerald-400">.claude/skills/</code>) takes precedence. Use this to your advantage: add a customized version of a skill you normally use globally to the project.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🌐</div><div class="text-xs font-semibold text-neutral-200">Global scope</div><div class="text-xs text-neutral-500">All projects</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🏠</div><div class="text-xs font-semibold text-neutral-200">User's Home Directory</div><div class="text-xs text-neutral-500">~/.claude/skills/</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔼</div><div class="text-xs font-semibold text-neutral-200">Local &gt; Global</div><div class="text-xs text-neutral-500">Local override</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">👤</div><div class="text-xs font-semibold text-neutral-200">Per machine</div><div class="text-xs text-neutral-500">Doesn't travel via git</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📋 Install by copying the folder</h2>
+<p class="text-neutral-400 mt-2">The simplest way to install a skill is to copy the folder—from a <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">git clone</code> — to the correct directory. That’s exactly how you install the skill <strong>explainer video</strong> of this course.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- timeline instalação manual -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Step by step: install by copying</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-emerald-500/30"></div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Get the skill package</div>
+<p class="text-neutral-400 text-sm mt-1">The skill can come from its own repository (<code class="text-emerald-300">github.com/inematds/video-explicativo</code>), from a compressed folder, or simply from a folder sent by someone on the team. The minimum contents are always: <code class="text-emerald-300">SKILL.md</code> at the folder root.</p>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Clone the repository</div>
+<p class="text-neutral-400 text-sm mt-1"><code class="text-emerald-300">git clone https://github.com/inematds/video-explicativo</code>. The skill is in <code class="text-emerald-300">skills/video-explicativo/</code> — this folder (with the <code class="text-emerald-300">SKILL.md</code> at its root) that you move, not the entire repo.</p>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Move to the correct directory</div>
+<p class="text-neutral-400 text-sm mt-1">For local scope: <code class="text-cyan-300">mv video-explicativo/ .claude/skills/</code>. For global scope: <code class="text-cyan-300">mv video-explicativo/ ~/.claude/skills/</code>. Create the directory if it doesn't exist: <code class="text-cyan-300">mkdir -p .claude/skills/</code>.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Check and use</div>
+<p class="text-neutral-400 text-sm mt-1">Open Claude Code in the project session. The skill will already be available—just invoke it by the name configured in the <code class="text-emerald-300">SKILL.md</code>. No restart or reload required.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- box de código: comandos reais -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Exact commands</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Install a skill in the current project (local scope)</div>
+<div><span class="text-emerald-400">mkdir</span> <span class="text-neutral-300">-p .claude/skills/</span></div>
+<div class="mt-1"><span class="text-emerald-400">cp</span> <span class="text-neutral-300">-r ~/Downloads/video-explicativo/ .claude/skills/</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># Install globally (works in any project)</div>
+<div><span class="text-emerald-400">mkdir</span> <span class="text-neutral-300">-p ~/.claude/skills/</span></div>
+<div class="mt-1"><span class="text-emerald-400">cp</span> <span class="text-neutral-300">-r ~/Downloads/video-explicativo/ ~/.claude/skills/</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># Confirm installation</div>
+<div><span class="text-emerald-400">ls</span> <span class="text-neutral-300">.claude/skills/</span> <span class="text-neutral-600"># lists project skills</span></div>
+<div><span class="text-emerald-400">ls</span> <span class="text-neutral-300">~/.claude/skills/</span> <span class="text-neutral-600"># lists global skills</span></div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">A skill is just text — so it’s just a folder</div>
+<p class="text-neutral-400 text-sm">There are no binaries, no build, and no npm dependencies to install. A skill is 100% text files: markdown, shell scripts, and templates. Copying the folder IS the complete installation.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📦</div><div class="text-xs font-semibold text-neutral-200">Zip or folder</div><div class="text-xs text-neutral-500">Accepted formats</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📋</div><div class="text-xs font-semibold text-neutral-200">cp -r</div><div class="text-xs text-neutral-500">Install = copy</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">✅</div><div class="text-xs font-semibold text-neutral-200">No build</div><div class="text-xs text-neutral-500">Zero dependencies</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Immediate</div><div class="text-xs text-neutral-500">No restart</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⌨️ By command</h2>
+<p class="text-neutral-400 mt-2">Besides copying manually, you can install skills via CLI — like <code class="text-emerald-400 bg-dark-700 px-1 rounded text-sm">npx skills add</code> — which accesses a centralized catalog and downloads it automatically.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Installation via catalog</div>
+<p class="text-neutral-200 font-medium">Tools like <code class="text-emerald-400">npx skills add &lt;nome&gt;</code> abstract away the manual copying process: they find the package in the catalog, download it, and automatically place it in the right location.</p>
+<p class="text-neutral-400 text-sm mt-3">It's the same pattern as <code class="text-neutral-300">npm install</code> but for Claude Code skills — no package.json, no node_modules, just the skill folder.</p>
+</div>
+<!-- box de código: exemplo real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Usage example</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Install a skill from the catalog (example)</div>
+<div><span class="text-emerald-400">npx</span> <span class="text-neutral-300">skills add video-explicativo</span></div>
+<div class="mt-1 text-neutral-500 text-xs"># ↑ downloads and places it in .claude/skills/video-explicativo/</div>
+<div class="mt-4 text-neutral-500 text-xs"># List skills available in the catalog</div>
+<div><span class="text-emerald-400">npx</span> <span class="text-neutral-300">skills list</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># Install globally</div>
+<div><span class="text-emerald-400">npx</span> <span class="text-neutral-300">skills add video-explicativo --global</span></div>
+<div class="mt-1 text-neutral-500 text-xs"># ↑ places it in ~/.claude/skills/video-explicativo/</div>
+<div class="mt-4 text-neutral-500 text-xs"># Update an already installed skill</div>
+<div><span class="text-emerald-400">npx</span> <span class="text-neutral-300">skills update video-explicativo</span></div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ When to use the command</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Public skills from the official catalog</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Want to ensure you have the latest version</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> New team needs to set up the environment quickly</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> You want to explore the catalog of available skills</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ When it's NOT the best option</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Internal/private company skills (not published)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> You need a specific custom version</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Environment without internet access</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> The skill is still in local development</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🛍️</div><div class="text-xs font-semibold text-neutral-200">Catalog</div><div class="text-xs text-neutral-500">Public skills</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⌨️</div><div class="text-xs font-semibold text-neutral-200">npx skills add</div><div class="text-xs text-neutral-500">Default command</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Easy to update</div><div class="text-xs text-neutral-500">npx skills update</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🌍</div><div class="text-xs font-semibold text-neutral-200">--global flag</div><div class="text-xs text-neutral-500">Install in ~/.claude</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔁 Version control with git</h2>
+<p class="text-neutral-400 mt-2">A skill is plain text — so it fits naturally into git. That means history, diffs, PR review, rollback, and full traceability of who changed what in the skill.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- tip box -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Why version the skill with the code?</div>
+<p class="text-neutral-400 text-sm">When the skill and code evolve together in the same commit, you always know exactly which version of the skill produced which output. No more "the skill changed and the video looks different" without traceability.</p>
+</div>
+</div>
+<!-- box de código -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Git workflow with skill in the repo</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 1. Add skill to repository</div>
+<div><span class="text-emerald-400">git</span> <span class="text-neutral-300">add .claude/skills/video-explicativo/</span></div>
+<div><span class="text-emerald-400">git</span> <span class="text-neutral-300">commit -m "feat: adiciona skill video-explicativo v1.0"</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># 2. View the skill's change history</div>
+<div><span class="text-emerald-400">git</span> <span class="text-neutral-300">log --oneline .claude/skills/video-explicativo/SKILL.md</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># 3. See what changed between versions</div>
+<div><span class="text-emerald-400">git</span> <span class="text-neutral-300">diff HEAD~1 .claude/skills/video-explicativo/</span></div>
+<div class="mt-4 text-neutral-500 text-xs"># 4. Revert the skill to a previous version</div>
+<div><span class="text-emerald-400">git</span> <span class="text-neutral-300">checkout HEAD~1 -- .claude/skills/video-explicativo/</span></div>
+</div>
+</div>
+<!-- box alerta vermelho -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Attention: I didn't version the global skill!</div>
+<p class="text-neutral-400 text-sm">Skills in <code class="text-red-300">~/.claude/skills/</code> are outside any repository and are NOT versioned automatically. If you want a backup or history of your global skill, create a dedicated repository (e.g., <code class="text-neutral-300">meus-skills-pessoais/</code>) and synchronize manually.</p>
+</div>
+</div>
+<!-- timeline -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Skill lifecycle in git</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-emerald-500/30"></div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Creates the skill</div>
+<p class="text-neutral-400 text-xs mt-1">Write SKILL.md + references → <code class="text-emerald-300">git add + commit</code></p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Evolves the skill</div>
+<p class="text-neutral-400 text-xs mt-1">Fix the prompt, add a reference → new <code class="text-emerald-300">commit</code> — visible diff in the PR</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Review via PR</div>
+<p class="text-neutral-400 text-xs mt-1">Team reviews skill changes the same way it reviews code — line-by-line comments</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Version tag</div>
+<p class="text-neutral-400 text-xs mt-1"><code class="text-emerald-300">git tag v1.2-skill</code> — freezes the skill in a stable state for production</p>
+</div>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📜</div><div class="text-xs font-semibold text-neutral-200">History</div><div class="text-xs text-neutral-500">the skill's git log</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔍</div><div class="text-xs font-semibold text-neutral-200">Readable diff</div><div class="text-xs text-neutral-500">Text = useful diff</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Rollback</div><div class="text-xs text-neutral-500">checkout version</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🏷️</div><div class="text-xs font-semibold text-neutral-200">Stable tag</div><div class="text-xs text-neutral-500">git tag to freeze</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🤝 Share with the team</h2>
+<p class="text-neutral-400 mt-2">A skill in the repository means every developer who clones the project automatically gets the same skills — no manual installation, no discrepancies between machines.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">The Power of the Team Standard</div>
+<p class="text-neutral-200 font-medium">When the skill lives in <code class="text-emerald-400">.claude/skills/</code> in the repository, any <code class="text-emerald-400">git clone</code> provides the complete environment. New developer on the team? Clone it and you have the skill. New machine? Clone it and it just works.</p>
+<p class="text-neutral-400 text-sm mt-3">This eliminates the question “which version of the skill are you using?” — everyone uses exactly what’s in the repo’s current commit.</p>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Best practices for sharing</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Document the skill in the README: what it is, how to invoke it</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Include real usage examples in the SKILL.md</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Use a PR for any changes to the skill (review)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Keep references up to date when the project changes</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Common pitfalls</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Commit API keys or tokens inside the skill</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Skill with absolute paths that only exist on your machine</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Modifying the skill without communicating changes to the team</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Skill that depends on software not listed in the prerequisites</li>
+</ul>
+</div>
+</div>
+<!-- box dado azul: checklist de onboarding -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📋 Checklist for a new team member</div>
+<div class="grid sm:grid-cols-2 gap-3 text-sm">
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> <code class="text-emerald-300">git clone &lt;repo&gt;</code></div>
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> Open Claude Code at the project root</div>
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> Check <code class="text-emerald-300">ls .claude/skills/</code></div>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> Read the main skill's SKILL.md</div>
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> Install the listed prerequisites</div>
+<div class="flex items-center gap-2 text-neutral-300"><span class="text-emerald-400">✓</span> Test with the SKILL.md example</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Skill in the repo = living documentation</div>
+<p class="text-neutral-400 text-sm">The skill's SKILL.md isn't just instructions for Claude — it's real documentation of what the team uses and how it uses it. Keep it as up to date as you would a README for a critical function.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🤝</div><div class="text-xs font-semibold text-neutral-200">Clone = install</div><div class="text-xs text-neutral-500">Zero onboarding</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔄</div><div class="text-xs font-semibold text-neutral-200">Synchronized</div><div class="text-xs text-neutral-500">Everyone in the same commit</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📝</div><div class="text-xs font-semibold text-neutral-200">Living documentation</div><div class="text-xs text-neutral-500">SKILL.md is README</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">No secrets</div><div class="text-xs text-neutral-500">Never commit keys</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 border border-emerald-500/30 overflow-hidden" id="resumo">
+<div class="p-6 border-b border-emerald-500/20">
+<h2 class="text-2xl font-bold flex items-center gap-2">📚 Module 1.4 summary</h2>
+<p class="text-neutral-400 mt-2">You’ve completed Track 1 — Skills. Here’s everything you’ve mastered:</p>
+</div>
+<div class="p-6 space-y-6">
+<!-- checklist -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Local skills live in <code class="text-emerald-400">.claude/skills/</code> from the project — scope limited to the repository</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Global skills live in <code class="text-emerald-400">~/.claude/skills/</code> — available in any project on the machine</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Installation is simple: copy the folder (or extract the zip) to the right location — no build, no dependencies</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Tools like <code class="text-emerald-400">npx skills add</code> automate downloading the catalog</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">Skills are plain text — they go into git with history, diffs, and PR reviews just like any code</span>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 font-bold mt-0.5">✓</span>
+<span class="text-sm text-neutral-300">A skill in the repo standardizes the team: cloning the project automatically installs all project skills</span>
+</div>
+</div>
+</div>
+<!-- box próximo módulo -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/40 to-dark-700/60 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">🎉 Track 1 complete! Next stop:</div>
+<div class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+<span class="text-blue-400 font-bold text-sm">2.1</span>
+</div>
+<div>
+<div class="font-bold text-neutral-200 text-lg">🎬 What HyperFrames Is</div>
+<p class="text-neutral-400 text-sm mt-1">Track 2 — Pipeline. Discover the open-source framework that turns animated HTML into local MP4s, with no cloud and no per-render cost — and how it connects to everything you learned about skills in Track 1.</p>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 1</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="../trilha2/index.html">Track 2: Pipeline →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Content of the <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Track 1: Skills · Module 1.4 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

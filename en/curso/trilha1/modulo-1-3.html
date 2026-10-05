@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1.3 — Progressive Disclosure | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento emerald */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5,150,105,0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/30:hover { background-color: rgba(5,150,105,0.18); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes m13-rise { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes m13-pulse { 0%,100% { opacity: .35 } 50% { opacity: 1 } }
+    @keyframes m13-slide { 0% { stroke-dashoffset: 80; } 100% { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m13-anim-rise { animation: m13-rise 0.6s ease-out forwards; }
+      .m13-anim-rise:nth-child(2) { animation-delay: 0.15s; opacity: 0; }
+      .m13-anim-rise:nth-child(3) { animation-delay: 0.30s; opacity: 0; }
+      .m13-anim-pulse { animation: m13-pulse 2.8s ease-in-out infinite; }
+      .m13-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m13-anim-pulse:nth-child(3) { animation-delay: 1.0s; }
+      .m13-anim-slide { animation: m13-slide 2.4s linear infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha1/modulo-1-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha1/modulo-1-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha1/modulo-1-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-emerald-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400 transition-colors" href="index.html">Track 1 — Skills</a>
+<span>/</span>
+<span class="text-emerald-400 font-medium">Module 1.3</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full mb-4">MODULE 1.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🧠 Progressive disclosure</h1>
+<p class="text-lg text-neutral-400 max-w-xl">How Claude intelligently manages context: it loads only the essentials and fetches more details as the task requires, keeping the context window lightweight and efficient.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~20</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Basic</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Concept</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — 3 camadas / escada de contexto -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Progressive disclosure diagram in 3 layers: name+description, SKILL.md, and on-demand references" class="w-full h-auto" role="img" viewbox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m13-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e2018;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m13-em-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#34d399;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#10b981;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m13-cy-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m13-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m13-bg)" height="260" rx="12" width="400"></rect>
+<!-- grid sutil -->
+<g opacity="0.6" stroke="#0d3320" stroke-width="0.5">
+<line x1="0" x2="400" y1="65" y2="65"></line>
+<line x1="0" x2="400" y1="130" y2="130"></line>
+<line x1="0" x2="400" y1="195" y2="195"></line>
+<line x1="100" x2="100" y1="0" y2="260"></line>
+<line x1="200" x2="200" y1="0" y2="260"></line>
+<line x1="300" x2="300" y1="0" y2="260"></line>
+</g>
+<!-- TÍTULO -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle" x="200" y="22">Progressive Disclosure</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" letter-spacing="2" text-anchor="middle" x="200" y="38">3 LAYERS · LIGHTWEIGHT CONTEXT · ON DEMAND</text>
+<!-- MEDIDOR DE CONTEXTO (barra lateral esquerda) -->
+<rect fill="#0e2018" height="150" opacity="0.5" rx="4" stroke="#34d399" stroke-width="1" width="12" x="14" y="55"></rect>
+<!-- preenchimento do medidor — nível baixo (camada 1 = sempre leve) -->
+<rect fill="url(#m13-em-grad)" height="24" opacity="0.8" rx="2" width="10" x="15" y="180"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="7" opacity="0.8" text-anchor="middle" x="20" y="218">ctx</text>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="7" opacity="0.8" text-anchor="middle" x="20" y="228">light</text>
+<!-- DEGRAU 1 — name+description (sempre na memória) -->
+<rect class="m13-anim-pulse" fill="#0e2018" filter="url(#m13-glow)" height="52" rx="8" stroke="#34d399" stroke-width="1.8" width="336" x="36" y="56"></rect>
+<rect fill="url(#m13-em-grad)" height="52" opacity="0.9" rx="4" width="10" x="36" y="56"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="10" font-weight="700" x="56" y="77">Layer 1 — always in memory</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" x="56" y="92">name: video-explicativo</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" x="56" y="103">description: "creates HTML→MP4 explainer videos..."</text>
+<text class="m13-anim-pulse" fill="#34d399" font-family="Inter,sans-serif" font-size="8" opacity="0.8" text-anchor="end" x="340" y="85">✓ always</text>
+<!-- SETA 1→2 -->
+<path class="m13-anim-slide" d="M200 108 L200 124" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" opacity="0.7" points="196,124 200,130 204,124"></polygon>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="7" opacity="0.7" x="212" y="121">on match</text>
+<!-- DEGRAU 2 — SKILL.md completo (on match) -->
+<rect fill="#0e1b26" height="52" rx="8" stroke="#38bdf8" stroke-width="1.5" width="296" x="56" y="132"></rect>
+<rect fill="url(#m13-cy-grad)" height="52" opacity="0.8" rx="4" width="10" x="56" y="132"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" x="76" y="153">Layer 2 — complete SKILL.md</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" x="76" y="168">loaded when the task matches the skill</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" x="76" y="179">instructions · workflow · rules of thumb · visual identity</text>
+<text class="m13-anim-pulse" fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" opacity="0.7" text-anchor="end" x="340" y="161">⚡ on match</text>
+<!-- SETA 2→3 -->
+<path class="m13-anim-slide" d="M200 184 L200 200" fill="none" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1.5"></path>
+<polygon fill="#38bdf8" opacity="0.5" points="196,200 200,206 204,200"></polygon>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="7" opacity="0.5" x="212" y="197">on demand</text>
+<!-- DEGRAU 3 — refs + scripts (on demand) -->
+<rect fill="#0e1b26" height="38" opacity="0.7" rx="8" stroke="#10b981" stroke-width="1" width="256" x="76" y="208"></rect>
+<rect fill="#10b981" height="38" opacity="0.5" rx="4" width="10" x="76" y="208"></rect>
+<text fill="#10b981" font-family="Inter,sans-serif" font-size="9" font-weight="700" opacity="0.8" x="96" y="224">Layer 3 — refs + scripts</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" opacity="0.7" x="96" y="238">references/ · narration-template.sh · only if needed</text>
+<text class="m13-anim-pulse" fill="#10b981" font-family="Inter,sans-serif" font-size="8" opacity="0.6" text-anchor="end" x="322" y="229">📂 demand</text>
+<!-- dot decorations -->
+<circle class="m13-anim-pulse" cx="20" cy="20" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m13-anim-pulse" cx="380" cy="20" fill="#34d399" opacity="0.6" r="2"></circle>
+<circle class="m13-anim-pulse" cx="20" cy="240" fill="#34d399" opacity="0.6" r="2"></circle>
+<circle class="m13-anim-pulse" cx="380" cy="240" fill="#38bdf8" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧮 The context problem</h2>
+<p class="text-neutral-400 mt-2">Every conversation with Claude has a finite context window — tokens that disappear when they run out. Loading all the skills at once would be disastrous for efficiency and response quality.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Main Concept</div>
+<p class="text-neutral-200 font-medium">An LLM’s context window is like a computer’s RAM: finite, valuable, and expensive to use. If Claude loaded the full contents of every installed skill in every conversation, it would run out of context before you even typed the first word.</p>
+<p class="text-neutral-400 text-sm mt-3">The solution is the <strong>progressive disclosure</strong>: load only what’s needed and fetch more as the task’s complexity requires.</p>
+</div>
+<!-- box dado azul -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Real context window numbers</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-blue-400 font-bold mb-1">~200K tokens</div>
+<div class="text-neutral-400">Typical context limit for advanced models (Claude, GPT-4, etc.)</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-emerald-400 font-bold mb-1">~800 tokens</div>
+<div class="text-neutral-400">Average size of a complete SKILL.md with detailed instructions</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-cyan-400 font-bold mb-1">~50 tokens</div>
+<div class="text-neutral-400">Cost of maintaining only <code class="text-cyan-300 bg-dark-700 px-1 rounded text-xs">name+description</code> in memory</div>
+</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ With progressive disclosure</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Dozens of skills installed at no context cost</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Faster, more focused responses</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Deep content only when really needed</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Context left free for the user’s code and conversation</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Without progressive disclosure</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Each skill always loads hundreds of tokens</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> 20 skills = 16,000 tokens burned before you even start</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Quality degradation in long conversations</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Conflicts between irrelevant skill instructions</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🪟</div><div class="text-xs font-semibold text-neutral-200">Finite window</div><div class="text-xs text-neutral-500">Scarce resource</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⚖️</div><div class="text-xs font-semibold text-neutral-200">Cost vs. benefit</div><div class="text-xs text-neutral-500">Tokens are valuable</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📈</div><div class="text-xs font-semibold text-neutral-200">Scalability</div><div class="text-xs text-neutral-500">Many skills, lightweight</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">Focus</div><div class="text-xs text-neutral-500">Only what's relevant</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">1️⃣ Layer 1: name + description always in memory</h2>
+<p class="text-neutral-400 mt-2">The lightest level of progressive disclosure. Only the <code class="text-emerald-400">name</code> e a <code class="text-emerald-400">description</code> of each skill are available all the time — minimal cost, maximum visibility.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Why only these two lines?</div>
+<p class="text-neutral-200 font-medium">Claude needs to know that a skill exists and what it's for — but it doesn't need details on how to run it before deciding whether it's relevant. The <code class="text-emerald-300">name</code> is the identifier; the <code class="text-emerald-300">description</code> is the activation trigger.</p>
+<p class="text-neutral-400 text-sm mt-3">It's like a book's index: you read the index to decide which chapter to open — you don't read everything at once.</p>
+</div>
+<!-- box de código -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Real example: the first lines of SKILL.md</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># ~/.claude/skills/video-explicativo/SKILL.md (first lines)</div>
+<div><span class="text-emerald-400">name:</span> <span class="text-yellow-300">explainer video</span></div>
+<div class="mt-1"><span class="text-emerald-400">description:</span> <span class="text-yellow-300">|</span></div>
+<div class="ml-4 text-neutral-300">Build, debug, and produce HyperFrames explainer videos.</div>
+<div class="ml-4 text-neutral-300">TRIGGER when: user asks to create/render a video, mentions</div>
+<div class="ml-4 text-neutral-300">HyperFrames, TTS narration, or build-index.mjs.</div>
+<div class="ml-4 text-neutral-300">SKIP: general HTML/CSS work unrelated to video production.</div>
+<div class="mt-3 text-neutral-500 text-xs"># ← Only this stays in memory at all times. The rest is loaded on match.</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">The description is the most important part of SKILL.md</div>
+<p class="text-neutral-400 text-sm">How Claude read it in narration-template.sh (scene s3): <em>"The description is the most important part of all. It’s what Claude reads to decide when to use that skill. The clearer and more specific it is, the better the trigger."</em></p>
+</div>
+</div>
+<!-- timeline: evolução de uma skill no contexto -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">How Layer 1 works in practice</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-emerald-500/30"></div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Claude Code starts</div>
+<p class="text-neutral-400 text-sm mt-1">When you open Claude Code, the system automatically reads all the <code class="text-emerald-300">SKILL.md</code> found in the folders <code class="text-emerald-300">.claude/skills/</code> (project and global) and indexes only <code class="text-emerald-300">name + description</code> of each one.</p>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Lightweight memory formed</div>
+<p class="text-neutral-400 text-sm mt-1">With 20 skills, the total cost is ~1,000 tokens — a tiny fraction of the context window. Claude knows these tools exist without having consumed anything significant from the context.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Ready to launch</div>
+<p class="text-neutral-400 text-sm mt-1">At any point in the conversation, Claude compares the request with the available descriptions. If there’s a match, it moves on to Layer 2.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🏷️</div><div class="text-xs font-semibold text-neutral-200">name</div><div class="text-xs text-neutral-500">Unique identifier</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📝</div><div class="text-xs font-semibold text-neutral-200">description</div><div class="text-xs text-neutral-500">Match trigger</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">~50 tokens</div><div class="text-xs text-neutral-500">Cost per skill</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">👁️</div><div class="text-xs font-semibold text-neutral-200">Always visible</div><div class="text-xs text-neutral-500">In every conversation</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">2️⃣ Layer 2: the full SKILL.md loads on match</h2>
+<p class="text-neutral-400 mt-2">When the user's task matches a skill's description, Claude loads the full contents of the <code class="text-emerald-400">SKILL.md</code> — instructions, workflow, rules, and visual identity.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">What “on match” means in practice</div>
+<p class="text-neutral-200 font-medium">When it detects that the user’s request falls within the scope described by the <code class="text-emerald-300">description</code>, Claude does the equivalent of “opening the book to the right chapter.” The entire SKILL.md is loaded into the context at this point — and only at this point.</p>
+</div>
+<!-- box de código com estrutura do SKILL.md real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">What’s inside SKILL.md (Layer 2)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Structure of the video-explicativo skill's SKILL.md (simplified)</div>
+<div><span class="text-emerald-400">name:</span> explainer video</div>
+<div><span class="text-emerald-400">description:</span> Build HyperFrames explainer videos...</div>
+<br/>
+<div><span class="text-cyan-400">## Prerequisites</span></div>
+<div class="text-neutral-300 ml-4">Node.js ≥20 · ffmpeg · npx hyperframes</div>
+<br/>
+<div><span class="text-cyan-400">## Workflow (always in this order)</span></div>
+<div class="text-neutral-300 ml-4">1. Script → 2. Project → 3. Sources → 4. Narration</div>
+<div class="text-neutral-300 ml-4">5. Composition → 6. Validate → 7. Render</div>
+<br/>
+<div><span class="text-cyan-400">## Golden rules</span></div>
+<div class="text-neutral-300 ml-4">LEAD=0.5 · TAIL=0.9 · FADE=0.45</div>
+<div class="text-neutral-300 ml-4">palette #0D1321 · voice pf_dora --speed 0.98</div>
+<br/>
+<div><span class="text-cyan-400">## Visual identity (house style)</span></div>
+<div class="text-neutral-300 ml-4">Dark premium · Inter · emerald+cyan · no white backgrounds</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Best practices for SKILL.md</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Include real facts: values such as <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">LEAD=0.5</code>, <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">TAIL=0.9</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Organize into clear sections with Markdown headers</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Separate “golden rules” from optional instructions</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Include links to the reference files (Layer 3)</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Common pitfalls</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don’t put content from long references directly in SKILL.md</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't repeat what's in the description in the body of the file</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't omit the exact values (Claude needs real numbers)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't make SKILL.md longer than ~1,000 tokens without a good reason</li>
+</ul>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">The SKILL.md is the expert's manual</div>
+<p class="text-neutral-400 text-sm">Think of SKILL.md as the briefing you would give a new team member: complete enough to carry out the task, concise enough to fit in a 5-minute meeting. In-depth technical details belong in the references (Layer 3).</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔍</div><div class="text-xs font-semibold text-neutral-200">On match</div><div class="text-xs text-neutral-500">Only when relevant</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📋</div><div class="text-xs font-semibold text-neutral-200">Complete workflow</div><div class="text-xs text-neutral-500">Instructions + rules</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">~800 tokens</div><div class="text-xs text-neutral-500">Ideal size</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">3️⃣ Layer 3: references and scripts only on demand</h2>
+<p class="text-neutral-400 mt-2">The deepest level: large files such as composition templates, detailed palettes, and shell scripts live in <code class="text-emerald-400">references/</code> and are read only when the task requires them.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- alerta vermelho -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Never put large files directly in SKILL.md</div>
+<p class="text-neutral-400 text-sm">O <code class="text-red-300">narration-template.sh</code> has ~100 lines. The <code class="text-red-300">composition-template.mjs</code> has ~300 lines. Embedding these files in SKILL.md would consume 5,000+ tokens every time the skill is activated — even for tasks that don't need them.</p>
+</div>
+</div>
+<!-- estrutura real de arquivos -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Actual structure of the video-explicativo skill</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># Skill folder (Layer 3 = references/ and scripts/)</div>
+<div><span class="text-emerald-400">.claude/skills/video-explicativo/</span></div>
+<div class="ml-4"><span class="text-cyan-400">SKILL.md</span> <span class="text-neutral-500"># Layer 2 — loaded on match</span></div>
+<div class="ml-4"><span class="text-neutral-400">references/</span></div>
+<div class="ml-8"><span class="text-yellow-300">pipeline.md</span> <span class="text-neutral-500"># Layer 3 — on demand</span></div>
+<div class="ml-8"><span class="text-yellow-300">gotchas.md</span> <span class="text-neutral-500"># Layer 3 — on demand</span></div>
+<div class="ml-4"><span class="text-neutral-400">scripts/</span></div>
+<div class="ml-8"><span class="text-yellow-300">narration-template.sh</span> <span class="text-neutral-500"># Layer 3 — on demand</span></div>
+<div class="ml-8"><span class="text-yellow-300">composition-template.mjs</span> <span class="text-neutral-500"># Layer 3 — on demand</span></div>
+<div class="ml-8"><span class="text-yellow-300">fetch-fonts.mjs</span> <span class="text-neutral-500"># Layer 3 — on demand</span></div>
+</div>
+</div>
+<!-- quando cada arquivo é carregado -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">When each Layer 3 file is loaded</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-cyan-500/30"></div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800"></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">narration-template.sh</div>
+<p class="text-neutral-400 text-xs mt-1">Loaded when the user asks to generate TTS narration — contains the commands <code class="text-cyan-300">npx hyperframes tts</code>, the voice <code class="text-cyan-300">pf_dora --speed 0.98</code> and the loop <code class="text-cyan-300">ffprobe</code> to measure durations.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800"></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">composition-template.mjs</div>
+<p class="text-neutral-400 text-xs mt-1">Loaded when the user asks to create or adapt the <code class="text-emerald-300">build-index.mjs</code> — contains the scene structure, constants <code class="text-emerald-300">LEAD=0.5</code>, <code class="text-emerald-300">TAIL=0.9</code>, <code class="text-emerald-300">FADE=0.45</code> and the final INEMA.CLUB CTA scene.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800"></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">references/gotchas.md</div>
+<p class="text-neutral-400 text-xs mt-1">Loaded when Claude encounters layout errors during <code class="text-emerald-300">npx hyperframes lint</code> or <code class="text-emerald-300">inspect</code> — lists known issues and their fixes.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800"></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">fetch-fonts.mjs</div>
+<p class="text-neutral-400 text-xs mt-1">Loaded specifically in step 3 of the workflow, when it's time to download the files <code class="text-cyan-300">.woff2</code> (Latin subset) for <code class="text-cyan-300">assets/fonts/fonts.css</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Reference the files in SKILL.md using relative paths</div>
+<p class="text-neutral-400 text-sm">The SKILL.md mentions each Layer 3 file with its exact path (e.g., <code class="text-emerald-300">[narration-template.sh](scripts/narration-template.sh)</code>). This lets Claude locate and load the correct file when needed, without having to guess the name.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📂</div><div class="text-xs font-semibold text-neutral-200">references/</div><div class="text-xs text-neutral-500">Dedicated folder</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔧</div><div class="text-xs font-semibold text-neutral-200">scripts/</div><div class="text-xs text-neutral-500">Ready-made templates</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">⏳</div><div class="text-xs font-semibold text-neutral-200">On demand</div><div class="text-xs text-neutral-500">Only when needed</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🔗</div><div class="text-xs font-semibold text-neutral-200">Referenced</div><div class="text-xs text-neutral-500">Links in SKILL.md</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📈 Why this scales with dozens of skills</h2>
+<p class="text-neutral-400 mt-2">With progressive disclosure, you can install 30, 50, or 100 skills without degrading response quality. Context cost grows linearly and predictably — not exponentially.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- comparativo numérico -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-4">📊 Context cost: without vs. with progressive disclosure</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600">
+<table class="w-full text-sm">
+<thead>
+<tr class="bg-dark-700/60 border-b border-dark-600">
+<th class="text-left p-3 text-neutral-400 font-semibold">Installed skills</th>
+<th class="text-center p-3 text-red-400 font-semibold">Without progressive</th>
+<th class="text-center p-3 text-emerald-400 font-semibold">With progressive</th>
+<th class="text-center p-3 text-neutral-400 font-semibold">Savings</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">5 skills</td>
+<td class="p-3 text-center text-red-400">~4,000 tokens</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">~250 tokens</td>
+<td class="p-3 text-center text-neutral-400">94% less</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">20 skills</td>
+<td class="p-3 text-center text-red-400">~16,000 tokens</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">~1,000 tokens</td>
+<td class="p-3 text-center text-neutral-400">94% less</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">50 skills</td>
+<td class="p-3 text-center text-red-400">~40,000 tokens</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">~2,500 tokens</td>
+<td class="p-3 text-center text-neutral-400">94% less</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">The library effect</div>
+<p class="text-neutral-200 font-medium">A library of 10,000 books doesn't take up more space in your head than one with 10 — because you don't memorize every book; you just know where to find them. Skills work the same way with progressive disclosure.</p>
+<p class="text-neutral-400 text-sm mt-3">Each additional skill adds only ~50 tokens to Layer 1 (name + description). The marginal cost of a new skill is almost zero.</p>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ How to maximize scalability</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Write unique, precise descriptions (without overlap)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Use explicit TRIGGER/SKIP in the description</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Keep SKILL.md ≤ 1,000 tokens; move the rest to Layer 3</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Group related skills into organized subfolders</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ What breaks scalability</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Vague descriptions that activate the wrong skill (false positive)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> SKILL.md with 5,000+ tokens (weighs as much as 100 skills)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Two skills with overlapping descriptions</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Use the global folder for project-specific skills</li>
+</ul>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Global vs. project skills</div>
+<p class="text-neutral-400 text-sm">Global skills (<code class="text-emerald-300">~/.claude/skills/</code>) are available in every project—use them for universal tools like video-explicativo. Project skills (<code class="text-emerald-300">.claude/skills/</code>) are available only in that project—use them for workflows specific to the client or codebase.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📚</div><div class="text-xs font-semibold text-neutral-200">Library effect</div><div class="text-xs text-neutral-500">Index, not content</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">📉</div><div class="text-xs font-semibold text-neutral-200">94% savings</div><div class="text-xs text-neutral-500">From tokens/skill</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🌍</div><div class="text-xs font-semibold text-neutral-200">Global vs. local</div><div class="text-xs text-neutral-500">The right scope</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">∞</div><div class="text-xs font-semibold text-neutral-200">No practical limit</div><div class="text-xs text-neutral-500">Unlimited skills</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="bg-dark-800 rounded-2xl border border-emerald-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🤔 How Claude decides which skill to activate</h2>
+<p class="text-neutral-400 mt-2">The skill selection mechanism isn’t magic: Claude semantically compares the user’s request with each <code class="text-emerald-400">description</code> available in Layer 1 and chooses the best fit.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-emerald-900/30 to-dark-700/50 border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Semantic matching in action</div>
+<p class="text-neutral-200 font-medium">Claude doesn't do literal keyword matching. It uses semantic understanding to assess whether the intent of the request matches the scope described in the <code class="text-emerald-300">description</code>. That's why “create an explainer video about Docker” triggers the skill <code class="text-emerald-300">video-explicativo</code> even without using those exact words.</p>
+</div>
+<!-- timeline: processo de decisão -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Step-by-step decision process</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-emerald-500/30"></div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Read the user’s request</div>
+<p class="text-neutral-400 text-sm mt-1">E.g.: <em>"I want to make a short video showing how the SKILL.md works"</em></p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Compare with the Layer 1 descriptions</div>
+<p class="text-neutral-400 text-sm mt-1">Checks: <code class="text-emerald-300">video-explicativo</code> → “creates HTML→MP4 explainer videos with HyperFrames.” ✓ High-confidence match. Check: <code class="text-neutral-400">formato-curso</code> → “creates HTML course pages.” ✗ Out of scope here.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Activate Layer 2 of the winning skill</div>
+<p class="text-neutral-400 text-sm mt-1">Loads the complete SKILL.md from <code class="text-cyan-300">video-explicativo</code> — instructions, workflow, values such as <code class="text-cyan-300">pf_dora --speed 0.98</code>, palette <code class="text-cyan-300">#0D1321</code>, golden rules.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-emerald-400 text-sm">Runs the correct workflow</div>
+<p class="text-neutral-400 text-sm mt-1">Follow the skill's workflow: Script → Project → Sources → Narration → Composition → Validate → Render. Only look up Layer 3 when a specific step requires it.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- box alerta sobre ambiguidade -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">When two skills compete for the same request</div>
+<p class="text-neutral-400 text-sm">If two skills have overlapping descriptions, Claude may activate the wrong one or run into a conflict. Solution: use the clauses <code class="text-red-300">TRIGGER when</code> e <code class="text-red-300">SKIP</code> in the description to define the scope precisely.</p>
+</div>
+</div>
+<!-- tip final -->
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4 flex gap-3">
+<span class="text-emerald-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-emerald-400 font-semibold text-sm mb-1">Test your description</div>
+<p class="text-neutral-400 text-sm">Before finalizing a skill, ask Claude: <em>"If I asked for X, which skill would you activate?"</em>. If the wrong skill is returned, rewrite the description with more specificity — add trigger examples in the TRIGGER field and exclusions in the SKIP field.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🧠</div><div class="text-xs font-semibold text-neutral-200">Semantic matching</div><div class="text-xs text-neutral-500">Not literal</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">TRIGGER/SKIP</div><div class="text-xs text-neutral-500">Clear boundaries</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-emerald-400 text-lg mb-1">🏆</div><div class="text-xs font-semibold text-neutral-200">Winning skill</div><div class="text-xs text-neutral-500">Highest score</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔗</div><div class="text-xs font-semibold text-neutral-200">Layer 2 active</div><div class="text-xs text-neutral-500">SKILL.md loaded</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 border border-emerald-500/30 p-8" id="resumo">
+<h2 class="text-2xl font-bold mb-6">✅ Module 1.3 Summary</h2>
+<div class="grid md:grid-cols-2 gap-8">
+<div>
+<div class="text-sm font-semibold text-emerald-400 uppercase tracking-widest mb-4">What you learned</div>
+<ul class="space-y-3">
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">The context window is finite—loading everything would be inefficient and counterproductive.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">Layer 1: <code class="text-emerald-300">name + description</code> are always in memory — a cost of ~50 tokens per skill.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">Layer 2: the complete SKILL.md is loaded <em>on match</em> — instructions, workflow, and golden rules.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">Layer 3: references and scripts (<code class="text-emerald-300">references/</code>, <code class="text-emerald-300">scripts/</code>) only on demand—when that specific step requires it.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">With progressive disclosure, 50 skills cost ~94% less context than without it.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">✓</span><span class="text-neutral-300">Claude uses semantic matching + TRIGGER/SKIP to decide which skill to activate.</span></li>
+</ul>
+</div>
+<div class="space-y-4">
+<!-- próximo módulo -->
+<div class="bg-dark-800/80 rounded-xl border border-emerald-500/30 p-5">
+<div class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-2">Next module</div>
+<div class="flex items-start gap-3">
+<span class="text-2xl">📂</span>
+<div>
+<div class="font-bold text-neutral-100">1.4 — Where they live &amp; how to install</div>
+<div class="text-neutral-400 text-sm mt-1">Learn exactly where to put skills (project vs. global), how to install them with one command, and how to verify that Claude Code recognizes them.</div>
+</div>
+</div>
+</div>
+<!-- CTA buttons -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 1</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-4.html">Next Module: 1.4 Install →</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Content of the <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Track 1: Skills · Module 1.3 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

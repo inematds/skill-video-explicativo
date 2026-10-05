@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta 4 — Aplicaciones &amp; Prompts | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .modal.hidden { display: none; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento amber */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes fanout-pulse { 0%,100% { opacity:.45 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .fo-a { animation: fanout-pulse 2.8s ease-in-out infinite; }
+      .fo-a:nth-child(2){animation-delay:.35s} .fo-a:nth-child(3){animation-delay:.7s} .fo-a:nth-child(4){animation-delay:1.05s}
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha4/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha4/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha4/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10" href="index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full mb-4">RUTA 4</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">💡 Aplicaciones y prompts</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Dónde y cómo usar la skill <code class="text-amber-400">video-explicativo</code> en el mundo real. YouTube, Shorts, onboardings, clases, lanzamientos — y una biblioteca de prompts listos para pegar en Claude Code y empezar a usarlos.</p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">3</div><div class="text-xs text-neutral-400">Módulos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">18</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">~1.5h</div><div class="text-xs text-neutral-400">Duración</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-amber-400">Práctico</div><div class="text-xs text-neutral-400">Nivel</div></div>
+</div>
+<!-- Hero SVG: fan-out — um assunto → skill → múltiplos destinos -->
+<div class="rounded-2xl border border-amber-500/30 bg-dark-900/40 p-3 sm:p-4 mt-8 overflow-hidden">
+<svg aria-label="Un tema entra en la skill video-explicativo y sale en varios destinos: YouTube, Reels, onboarding y clase — patrón fan-out" class="w-full h-auto" role="img" viewbox="0 0 1000 220">
+<defs>
+<lineargradient id="t4-grad-amber" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f59e0b"></stop><stop offset="1" stop-color="#d97706"></stop></lineargradient>
+<lineargradient id="t4-grad-cyan" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#22d3ee"></stop><stop offset="1" stop-color="#06b6d4"></stop></lineargradient>
+<filter height="180%" id="t4-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="t4-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#f59e0b" opacity="0.10" r="1.3"></circle></pattern>
+<marker id="t4-ah-amber" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#f59e0b"></path></marker>
+<marker id="t4-ah-cyan" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#22d3ee"></path></marker>
+</defs>
+<rect fill="url(#t4-grid)" height="220" width="1000" x="0" y="0"></rect>
+<!-- SOURCE: assunto -->
+<g filter="url(#t4-glow)">
+<rect fill="#1c1008" height="52" rx="12" stroke="url(#t4-grad-amber)" stroke-width="2.5" width="160" x="30" y="84"></rect>
+</g>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="110" y="107">Asunto</text>
+<text fill="#fde68a" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="110" y="126">cualquier tema</text>
+<!-- arrow to skill -->
+<path d="M190,110 L290,110" fill="none" marker-end="url(#t4-ah-amber)" stroke="#f59e0b" stroke-width="2"></path>
+<!-- SKILL box (center) -->
+<g filter="url(#t4-glow)">
+<rect fill="#1a1000" height="72" rx="14" stroke="url(#t4-grad-amber)" stroke-width="3" width="200" x="290" y="74"></rect>
+</g>
+<text fill="#f59e0b" font-family="Inter,sans-serif" font-size="16" font-weight="800" text-anchor="middle" x="390" y="103">video-explicativo</text>
+<text fill="#fde68a" font-family="Inter,sans-serif" font-size="11.5" text-anchor="middle" x="390" y="122">skill · Claude Code</text>
+<text fill="#fbbf24" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="390" y="138">➜ guion · voz · composición</text>
+<!-- fan-out arrows from skill to destinations -->
+<!-- YouTube 16:9 -->
+<path d="M490,100 Q570,100 640,42" fill="none" marker-end="url(#t4-ah-cyan)" stroke="#22d3ee" stroke-width="1.8"></path>
+<!-- Reels 9:16 -->
+<path d="M490,106 Q570,106 640,82" fill="none" marker-end="url(#t4-ah-cyan)" stroke="#22d3ee" stroke-width="1.8"></path>
+<!-- Onboarding -->
+<path d="M490,114 Q570,114 640,138" fill="none" marker-end="url(#t4-ah-cyan)" stroke="#22d3ee" stroke-width="1.8"></path>
+<!-- Aula -->
+<path d="M490,120 Q570,120 640,178" fill="none" marker-end="url(#t4-ah-cyan)" stroke="#22d3ee" stroke-width="1.8"></path>
+<!-- Destination boxes -->
+<g class="fo-a">
+<rect fill="#041a1e" height="36" rx="9" stroke="#22d3ee" stroke-width="1.8" width="170" x="640" y="20"></rect>
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="725" y="33">📺 YouTube 16:9</text>
+<text fill="#67e8f9" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="725" y="49">video explicativo</text>
+</g>
+<g class="fo-a">
+<rect fill="#041a1e" height="36" rx="9" stroke="#22d3ee" stroke-width="1.8" width="170" x="640" y="64"></rect>
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="725" y="77">🎞 Reels / Shorts 9:16</text>
+<text fill="#67e8f9" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="725" y="93">vertical · ~110s</text>
+</g>
+<g class="fo-a">
+<rect fill="#041a1e" height="36" rx="9" stroke="#22d3ee" stroke-width="1.8" width="170" x="640" y="116"></rect>
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="725" y="129">🚀 Incorporación</text>
+<text fill="#67e8f9" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="725" y="145">producto · 90s</text>
+</g>
+<g class="fo-a">
+<rect fill="#041a1e" height="36" rx="9" stroke="#22d3ee" stroke-width="1.8" width="170" x="640" y="160"></rect>
+<text fill="#a5f3fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="725" y="173">🎓 Microclase</text>
+<text fill="#67e8f9" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="725" y="189">enseñanza · curso</text>
+</g>
+</svg>
+<p class="text-center text-xs text-neutral-500 mt-2">Un tema, una skill, varios destinos — el patrón fan-out de HyperFrames</p>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-1">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">📺 YouTube y Shorts</h3>
+<p class="text-xs text-neutral-400">Un video, dos formatos</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-2">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🚀 Incorporación, clases y lanzamientos</h3>
+<p class="text-xs text-neutral-400">Más allá del marketing</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-amber-500/30 p-5 transition-all" href="#modulo-4-3">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold text-sm">4.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-amber-400 transition-colors">🧰 Biblioteca de prompts</h3>
+<p class="text-xs text-neutral-400">Pega y ejecuta</p>
+</a>
+</div>
+</section>
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- MÓDULO 4.1 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">📺 YouTube y Shorts</h3>
+<p class="text-neutral-400 text-sm">Un video, dos formatos. Aprende a aprovechar al máximo cada grabación produciendo a la vez el video explicativo 16:9 para YouTube y la versión vertical 9:16 para Shorts, Reels y TikTok.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🖥</span><div><span class="font-medium">Video explicativo 16:9 para YouTube</span><span class="text-neutral-500 text-sm ml-2">- formato horizontal estándar</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El formato 1920×1080 (16:9) es el estándar de YouTube. La skill <code>video-explicativo</code> genera composiciones en esa proporción con paleta <code>#0D1321</code>, tipografía Inter y animaciones de entrada suaves, listo para subir directamente.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">YouTube es el segundo motor de búsqueda más grande del mundo: los videos explicativos bien producidos generan tráfico orgánico a largo plazo. Dominar el formato 16:9 es la base de cualquier estrategia de contenido.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Resolución 1920×1080, paleta oscura <code>#0D1321</code>, duración de 2-5min, subtítulos siempre activos, CTA en el último tercio.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">📱</span><div><span class="font-medium">Shorts / Reels / TikTok en 9:16</span><span class="text-neutral-500 text-sm ml-2">- vertical es diferente</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El formato 1080×1920 (9:16) invierte la lógica: todo debe «caber» visualmente en un smartphone vertical. Texto más grande, cortes más rápidos, hook en los primeros 3 segundos.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Shorts, Reels y TikTok tienen un algoritmo de distribución orgánica mucho más agresivo que YouTube de formato largo; el mismo contenido reformateado puede multiplicar el alcance sin costo adicional.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Resolución 1080×1920, zonas seguras laterales, gancho visual inmediato, duración ≤60s (o hasta 3min en Reels).</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">⏱</span><div><span class="font-medium">Por qué ~110s retienen la atención</span><span class="text-neutral-500 text-sm ml-2">- el número mágico</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Los estudios de retención en plataformas cortas muestran una caída abrupta a partir de 90-120s. La skill usa ~110s como duración objetivo estándar para videos cortos: tiempo suficiente para desarrollar una idea sin perder al espectador.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Una retención alta indica calidad para el algoritmo y aumenta la distribución orgánica. Acertar con la duración tiene más impacto que la calidad de producción.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Tasa de retención, tiempo de visualización, LEAD=0.5 (silencio inicial), TAIL=0.9 (silencio final), ritmo de corte.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">💬</span><div><span class="font-medium">Subtítulos/captions siempre activados</span><span class="text-neutral-500 text-sm ml-2">- accesibilidad y alcance</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El 85% de los videos en feeds mobile se ve sin sonido. Los subtítulos no son opcionales: son parte de la composición. La skill genera el audio con <code>pf_dora --speed 0.98</code> y el texto sincronizado aparece como overlay en la escena.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los subtítulos aumentan la retención, mejoran la accesibilidad y permiten que el video funcione en entornos sin audio (oficina, transporte público).</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Superposición de texto, fuente Inter, contraste mínimo de 4.5:1, sincronización con la narración.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">📣</span><div><span class="font-medium">CTA al final — INEMA.CLUB o la tuya</span><span class="text-neutral-500 text-sm ml-2">- no olvides el siguiente paso</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El último frame del video incluye un Call to Action: URL, handle, producto. La skill reserva los últimos 8-10 segundos para esa "diapositiva de cierre", personalizable mediante una variable en el prompt.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Un video sin CTA es tráfico perdido. Definir la CTA en el prompt evita el trabajo manual de posproducción y garantiza coherencia visual en toda la serie.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Diapositiva de cierre, URL de destino, coherencia de marca, conversión.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">♻️</span><div><span class="font-medium">Reutilizar el mismo guion en los dos formatos</span><span class="text-neutral-500 text-sm ml-2">- double output</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El mismo guion narrado puede generar dos archivos de composición distintos: uno con viewBox 16:9 y otro 9:16. La narración es idéntica; solo cambia el diseño de las escenas. La mitad del trabajo, el doble de presencia.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La producción de contenido es un cuello de botella. Reutilizar el mismo guion elimina la necesidad de escribir dos veces y garantiza un mensaje coherente en todas las plataformas.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Un solo guion, dos templates de composición, contenido DRY, reutilización de audio.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-1')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors font-medium" href="modulo-4-1.html">Ver completo →</a>
+</div>
+</div>
+<!-- MÓDULO 4.2 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">🚀 Incorporación, clases y lanzamientos</h3>
+<p class="text-neutral-400 text-sm">Más allá del marketing. La skill <code class="text-amber-400">video-explicativo</code> brilla fuera de las redes sociales: onboarding de producto, microclases, anuncios de changelog, documentación viva y videos técnicos para el equipo.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🛠</span><div><span class="font-medium">Onboarding de producto — función en 90s</span><span class="text-neutral-500 text-sm ml-2">- menos soporte, más claridad</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Un video de onboarding explica una función específica en ~90s: problema, solución y paso a paso visual. Reemplacé documentación textual que nadie lee por un video animado que el usuario ve dentro del propio producto.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los videos de onboarding reducen los tickets de soporte y aumentan la activación de funciones. Con la skill, regeneras el video cada vez que cambia la función, sin posproducción.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Alcance de la función, problema → solución, paso a paso visual, regeneración automática.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🎓</span><div><span class="font-medium">Microlecciones y cursos</span><span class="text-neutral-500 text-sm ml-2">- aprendizaje modular</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Cada módulo de un curso puede ser un video explicativo separado: introducción al concepto, demostración y resumen. La skill mantiene un estilo uniforme en todos los episodios.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Las microclases de 2-4min tienen una tasa de finalización mucho mayor que las clases largas. Producir en serie con el skill garantiza una identidad visual sin esfuerzo de diseño.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Módulo único de aprendizaje, estilo visual, serie coherente, FADE=0.45 en la transición de escenas.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">📢</span><div><span class="font-medium">Anuncio de lanzamiento/changelog en video</span><span class="text-neutral-500 text-sm ml-2">- release notes vivos</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">En vez de un markdown de registro de cambios que nadie lee, generas un video de 90-120s que anuncia qué cambió, por qué cambió y cómo usarlo. Se puede compartir en Slack, email y redes sociales.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los changelogs en video aumentan el engagement del usuario con las nuevas features y humanizan la comunicación del producto.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Nota visual de lanzamiento, contexto + cambio + impacto, distribución multicanal.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🔧</span><div><span class="font-medium">Concepto técnico para el equipo</span><span class="text-neutral-500 text-sm ml-2">- async beats reunión</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Arquitectura, decisión técnica, nueva biblioteca: cualquier concepto que requeriría una reunión de 30min puede convertirse en un video animado de 3min que el equipo ve de forma asincrónica.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los videos técnicos eliminan las reuniones de alineación, quedan como registro permanente y sirven para el onboarding de nuevos miembros meses después.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Async-first, documentación viva, onboarding del equipo, diagrama animado.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🔁</span><div><span class="font-medium">Documentación que no queda desactualizada</span><span class="text-neutral-500 text-sm ml-2">- regenera en segundos</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El video se genera a partir de un guion en texto. Cuando el producto cambia, editas el texto y vuelves a ejecutar la skill: el video se regenera desde cero en minutos, sin posproducción.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La documentación tradicional grabada queda obsoleta rápidamente. El patrón "texto como fuente de la verdad + generación automática" elimina el costo de mantenimiento.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Texto como fuente, regeneración automática, control de versiones del guion, pipeline reproducible.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🎨</span><div><span class="font-medium">Adaptar el estilo editorial a la marca del cliente</span><span class="text-neutral-500 text-sm ml-2">- tu paleta, tu tono</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El house style estándar usa una paleta <code>#0D1321</code> + cian + ámbar. Pero puedes reemplazarlos por cualquier color: basta con redefinir las variables de color en el prompt y la skill las aplica a toda la composición.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los freelancers y las agencias pueden ofrecer videos personalizados para cada cliente sin crear pipelines separados — un skill, varias marcas.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Variables de color, brand guidelines, white-label, paleta personalizada.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-2')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors font-medium" href="modulo-4-2.html">Ver completo →</a>
+</div>
+</div>
+<!-- MÓDULO 4.3 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-4-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-amber-400 font-bold">4.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">🧰 Biblioteca de prompts</h3>
+<p class="text-neutral-400 text-sm">Pega y ejecuta. Seis prompts listos para activar la skill <code class="text-amber-400">video-explicativo</code> directamente en Claude Code — desde el video base hasta el ajuste fino de una sola escena.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🎬</span><div><span class="font-medium">Prompt base — "haz un video sobre X"</span><span class="text-neutral-500 text-sm ml-2">- punto de partida</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El prompt más simple posible: tema, duración y público objetivo. La skill se encarga del guion, la narración, la composición y la exportación.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Comprender el prompt mínimo viable te permite iterar rápido y usarlo como base para todas las variaciones siguientes.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Tema, duración objetivo, público, valores predeterminados de la skill, output MP4.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Tema: como funciona o DNS
+Duração: ~2 min
+Público: desenvolvedores iniciantes
+Formato: 16:9 (YouTube)
+CTA: "Veja mais em INEMA.CLUB"</pre>
+</div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">📱</span><div><span class="font-medium">Prompt para Shorts verticales</span><span class="text-neutral-500 text-sm ml-2">- 9:16 en 110s</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Variación del prompt base que indica a la skill que use la plantilla de composición vertical (1080×1920), con duración ≤110s, fuente más grande y un hook inmediato en el primer frame.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Especificar el formato vertical en el prompt evita retrabajo: el skill adapta automáticamente el diseño, los tiempos y el ritmo de los cortes.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Formato 9:16, duración ≤110s, hook en los 3s iniciales, texto en fuente ≥48px.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Tema: o que é o modelo OSI em 7 camadas
+Duração: ~110s (Shorts/Reels)
+Formato: 9:16 vertical
+Hook inicial: "Você já ouviu falar em TCP/IP mas nunca entendeu? Em 110s você vai entender."
+CTA: "Segue pra mais vídeos assim"</pre>
+</div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🎨</span><div><span class="font-medium">Prompt para cambiar el mood/la paleta</span><span class="text-neutral-500 text-sm ml-2">- otra identidad visual</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Reemplaza el estilo visual predeterminado por una paleta personalizada. Indica el fondo, el color de acento y el tono de voz; el skill los aplica de nuevo en toda la composición.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Ideal para adaptar el video a la identidad de una marca o crear series temáticas con colores diferentes según el tema.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Fondo hexadecimal, color de acento, tono de la narración, coherencia de marca.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Tema: introdução ao PostgreSQL
+Duração: ~3 min
+Formato: 16:9
+Paleta: fundo #0f172a, destaque #818cf8 (índigo), texto #e2e8f0
+Tom da narração: técnico e direto, sem energia excessiva</pre>
+</div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">📣</span><div><span class="font-medium">Prompt para cambiar la CTA</span><span class="text-neutral-500 text-sm ml-2">- cada video, una acción</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Indica al skill que muestre una CTA específica en el frame final — URL, handle, producto, promoción. Puede incluir un código QR generado mediante la composición o texto simple.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Cada video cumple un objetivo diferente: captar leads, vender un producto, conseguir seguidores. La CTA debe ser intencional y específica.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Frame de cierre, URL corta, objetivo de conversión, urgencia.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Tema: por que usar TypeScript em 2025
+Duração: ~2 min
+Formato: 16:9
+CTA final: "Baixe o guia gratuito em inema.club/typescript — link na bio"
+Duração da CTA: 10s (slide estático no fim)</pre>
+</div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">⏩</span><div><span class="font-medium">Prompt para ajustar la duración/el ritmo</span><span class="text-neutral-500 text-sm ml-2">- más rápido o con más pausas</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Controla LEAD (silencio antes de la narración), TAIL (silencio final) y la velocidad de la voz (<code>--speed</code>). Valores predeterminados: LEAD=0.5, TAIL=0.9, speed=0.98. Aumentar speed acorta; disminuirlo da más respiro.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Las distintas plataformas requieren ritmos diferentes: Shorts busca rapidez, mientras que la documentación técnica necesita pausas para asimilar. Ajustar estos parámetros es la diferencia entre un video que engancha y uno que abandonan.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">LEAD=0.5, TAIL=0.9, FADE=0.45, pf_dora --speed 0.98, ritmo de corte.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Tema: como configurar o ESLint
+Duração: ~4 min (pace mais lento, audiência técnica)
+Formato: 16:9
+Ritmo: narração pausada (speed=0.93), LEAD=0.8, TAIL=1.2
+Objetivo: documentação interna de time</pre>
+</div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🔬</span><div><span class="font-medium">Prompt para regenerar solo una escena</span><span class="text-neutral-500 text-sm ml-2">- cirugía, no recirugía total</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-amber-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Cuando solo hace falta cambiar una escena del video (texto equivocado, color equivocado, mal timing), le indicas a la skill que regenere únicamente ese bloque de composición y conserve el resto.</p></div>
+<div><span class="text-amber-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Regenerar todo el video para corregir 5 segundos es un desperdicio. El patrón de escena quirúrgica ahorra tiempo y mantiene intacto el resto.</p></div>
+<div><span class="text-amber-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Índice de escenas, composición modular, edición no destructiva, renderizado selectivo.</p></div>
+<div class="mt-3 bg-dark-900 rounded-lg p-3 border border-amber-500/20">
+<p class="text-xs text-amber-400 font-semibold mb-2 font-mono">PROMPT — pégalo en Claude Code:</p>
+<pre class="text-xs text-neutral-300 font-mono whitespace-pre-wrap">/video-explicativo
+
+Ação: regenerar apenas a cena 3 do vídeo existente
+Arquivo: composition.mjs (já existe na pasta)
+Cena 3 — correção: trocar texto "latência de 20ms" por "latência de 12ms" e atualizar a narração correspondente
+Manter: todas as outras cenas intactas, mesma paleta, mesmo timing</pre>
+</div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-4-3')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-colors font-medium" href="modulo-4-3.html">Ver completo →</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO INFERIOR -->
+<div class="flex flex-col sm:flex-row gap-3 mt-8">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="../../index.html">← Todas las rutas</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="../../index.html">Volver al inicio →</a>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 mt-16 py-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<p class="text-neutral-500 text-sm">HyperFrames · Creado con <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+</div>
+</footer>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.1</span><span class="font-semibold">YouTube &amp; Shorts</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.2</span><span class="font-semibold">Onboarding, clases y lanzamientos</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-4-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0">
+<div class="flex items-center space-x-3"><span class="text-amber-400 font-bold">4.3</span><span class="font-semibold">Biblioteca de prompts</span></div>
+<button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button>
+</div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-4-3.html"></iframe>
+</div>
+</div>
+<script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) exp.classList.remove('active'); });
+      explanation.classList.toggle('active');
+    }
+    function openModal(id){ const m=document.getElementById(id); if(m){ m.classList.remove('hidden'); document.body.style.overflow='hidden'; } }
+    function closeModal(){ document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden')); document.body.style.overflow='auto'; }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+    const themeToggle=document.getElementById('theme-toggle');
+    const di=document.getElementById('theme-toggle-dark-icon'), li=document.getElementById('theme-toggle-light-icon');
+    const root=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){ di.classList.remove('hidden'); root.classList.remove('dark'); } else { li.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', ()=>{ di.classList.toggle('hidden'); li.classList.toggle('hidden'); root.classList.toggle('dark'); localStorage.setItem('theme', root.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

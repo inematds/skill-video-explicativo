@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.5 — Customize the Layout | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-purple-300 { color: #6d28d9; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG animations — m35 prefix */
+    @keyframes m35-flow  { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m35-pulse { 0%,100% { opacity:.3 } 50% { opacity:1 } }
+    @keyframes m35-blink { 0%,100% { opacity:.15 } 50% { opacity:.85 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m35-flow  { animation: m35-flow 3.2s linear infinite; }
+      .m35-flow2 { animation: m35-flow 3.2s linear infinite; animation-delay:.9s; }
+      .m35-flow3 { animation: m35-flow 3.2s linear infinite; animation-delay:1.7s; }
+      .m35-pulse  { animation: m35-pulse 2.8s ease-in-out infinite; }
+      .m35-pulse2 { animation: m35-pulse 2.8s ease-in-out infinite; animation-delay:.6s; }
+      .m35-pulse3 { animation: m35-pulse 2.8s ease-in-out infinite; animation-delay:1.2s; }
+      .m35-blink  { animation: m35-blink 1.5s ease-in-out infinite; }
+    }
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha3/modulo-3-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha3/modulo-3-5.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha3/modulo-3-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-purple-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="index.html">Track 3 — Under the Hood</a>
+<span>/</span>
+<span class="text-purple-400 font-medium">Module 3.5</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">MODULE 3.5</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🎛️ Customize the layout</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Two levels of customization, precise control over sizes, safe margins, brand positioning, one-off vs. permanent strategy—and ready-to-paste prompts.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">~30</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Advanced</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Practical</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — dois níveis de customização (purple + ciano) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Futuristic diagram showing two levels of customization: instructions (house-style + composition-template) and layout (the project’s build-index.mjs), with arrows indicating scope of impact" class="w-full h-auto" role="img" viewbox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m35-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#120e1c;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1222;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m35-purple" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m35-cyan" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m35-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2.5"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m35-ah" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#a78bfa"></path>
+</marker>
+<marker id="m35-ahc" markerheight="7" markerwidth="7" orient="auto" refx="5" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#38bdf8"></path>
+</marker>
+</defs>
+<rect fill="url(#m35-bg)" height="260" rx="12" width="420"></rect>
+<!-- dot grid -->
+<g fill="#2d1f5e" opacity="0.45">
+<circle cx="30" cy="30" r="1.2"></circle><circle cx="90" cy="30" r="1.2"></circle><circle cx="150" cy="30" r="1.2"></circle>
+<circle cx="210" cy="30" r="1.2"></circle><circle cx="270" cy="30" r="1.2"></circle><circle cx="330" cy="30" r="1.2"></circle>
+<circle cx="390" cy="30" r="1.2"></circle><circle cx="30" cy="130" r="1.2"></circle><circle cx="390" cy="130" r="1.2"></circle>
+<circle cx="30" cy="230" r="1.2"></circle><circle cx="390" cy="230" r="1.2"></circle>
+</g>
+<!-- Nível 1: INSTRUÇÃO (purple — afeta todos os vídeos futuros) -->
+<rect fill="#1a0e2e" filter="url(#m35-glow)" height="90" rx="10" stroke="url(#m35-purple)" stroke-width="2" width="186" x="12" y="20"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" letter-spacing="0.04em" text-anchor="middle" x="105" y="38">LEVEL 1 — INSTRUCTIONS</text>
+<text fill="#7c3aed" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="105" y="52">~/.claude/skills/video-explicativo/</text>
+<rect fill="#2a1450" height="22" rx="5" stroke="#a78bfa" stroke-width="1.2" width="80" x="22" y="58"></rect>
+<text fill="#c4b5fd" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" text-anchor="middle" x="62" y="73">house-style.md</text>
+<rect fill="#2a1450" height="22" rx="5" stroke="#a78bfa" stroke-width="1.2" width="74" x="116" y="58"></rect>
+<text fill="#c4b5fd" font-family="Inter,sans-serif" font-size="7" font-weight="600" text-anchor="middle" x="153" y="73">composition-template.mjs</text>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="105" y="96">✦ changes ALL new videos</text>
+<text fill="#6d28d9" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="105" y="107">requires a commit + push to the repo</text>
+<!-- Nível 2: LAYOUT (ciano — afeta só o projeto atual) -->
+<rect fill="#0a1a2e" filter="url(#m35-glow)" height="90" rx="10" stroke="url(#m35-cyan)" stroke-width="2" width="186" x="222" y="20"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9.5" font-weight="700" letter-spacing="0.04em" text-anchor="middle" x="315" y="38">LEVEL 2 — LAYOUT</text>
+<text fill="#06b6d4" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="315" y="52">projeto/build-index.mjs</text>
+<rect fill="#0e2030" height="22" rx="5" stroke="#38bdf8" stroke-width="1.2" width="166" x="232" y="58"></rect>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="7.5" font-weight="600" text-anchor="middle" x="315" y="73">local copy of composition-template.mjs</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="315" y="96">✦ changes ONLY this video</text>
+<text fill="#0e7490" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="315" y="107">re-render and you're done</text>
+<!-- setas convergindo para o render -->
+<path class="m35-flow" d="M105 110 Q105 155 210 175" fill="none" marker-end="url(#m35-ah)" stroke="#a78bfa" stroke-dasharray="5,3" stroke-width="1.6"></path>
+<path class="m35-flow2" d="M315 110 Q315 155 220 175" fill="none" marker-end="url(#m35-ahc)" stroke="#38bdf8" stroke-dasharray="5,3" stroke-width="1.6"></path>
+<!-- render output -->
+<rect fill="#1a0e2e" filter="url(#m35-glow)" height="38" rx="8" stroke="url(#m35-purple)" stroke-width="2" width="124" x="148" y="175"></rect>
+<text fill="#a78bfa" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="210" y="192">rendered index.html</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="210" y="205">npx hyperframes render</text>
+<!-- inspect label -->
+<rect fill="#0e1b26" height="24" rx="6" stroke="#38bdf8" stroke-width="1.2" width="124" x="148" y="222"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="210" y="238">npx hyperframes inspect</text>
+<!-- pulse corners -->
+<circle class="m35-pulse" cx="20" cy="20" fill="#a78bfa" opacity=".7" r="2"></circle>
+<circle class="m35-pulse2" cx="400" cy="20" fill="#38bdf8" opacity=".7" r="2"></circle>
+<circle class="m35-pulse3" cx="20" cy="240" fill="#38bdf8" opacity=".7" r="2"></circle>
+<circle class="m35-pulse" cx="400" cy="240" fill="#a78bfa" opacity=".7" r="2"></circle>
+<text fill="#7c3aed" font-family="Inter,sans-serif" font-size="8" font-weight="700" text-anchor="middle" x="210" y="256">instruction (global) vs. layout (local)</text>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<!-- CONTEÚDO PRINCIPAL -->
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 1 — Instrução vs layout -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-1">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+<h2 class="text-2xl font-bold">🎚️ Instructions vs. layout — BOTH levels</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        All visual customization of a HyperFrames video happens in <strong class="text-purple-400">two distinct places</strong> with completely different scopes. Confusing the two is the main reason changes "disappear" or "affect everything unintentionally." Understanding the model is the first step.
+      </p>
+<!-- timeline dos dois níveis -->
+<div class="relative mb-8">
+<div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500/60 via-purple-500/30 to-cyan-500/40"></div>
+<div class="space-y-6 pl-16">
+<!-- passo 1 -->
+<div class="relative">
+<div class="absolute -left-10 w-8 h-8 rounded-full bg-purple-500/20 border-2 border-purple-500/60 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">1</span>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-purple-400 font-bold text-lg">Instruction (global)</span>
+<span class="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-xs rounded-full font-semibold">~/.claude/skills/video-explicativo/</span>
+</div>
+<p class="text-neutral-400 text-sm leading-relaxed mb-3">The skill installed in your Claude Code environment. Contains two files that define the <em>default for every new video</em> that Claude should generate from now on:</p>
+<div class="grid sm:grid-cols-2 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-purple-400 font-mono font-semibold mb-1">references/house-style.md</div>
+<div class="text-neutral-400">Mood, palette, fonts, aspect ratio, composition rules. All in prose. Claude reads and interprets it when generating the <code class="text-purple-300 text-xs">build-index.mjs</code>.</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-purple-400 font-mono font-semibold mb-1">scripts/composition-template.mjs</div>
+<div class="text-neutral-400">The code template with complete CSS, classes (<code class="text-purple-300 text-xs">.title</code>, <code class="text-purple-300 text-xs">.h2</code>, <code class="text-purple-300 text-xs">.scene</code>…), 9:16 overrides and scene structure.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- passo 2 -->
+<div class="relative">
+<div class="absolute -left-10 w-8 h-8 rounded-full bg-cyan-500/20 border-2 border-cyan-500/60 flex items-center justify-center">
+<span class="text-cyan-400 font-bold text-sm">2</span>
+</div>
+<div class="bg-dark-800 rounded-xl border border-cyan-500/30 p-5">
+<div class="flex items-center gap-3 mb-2">
+<span class="text-cyan-400 font-bold text-lg">Layout (local)</span>
+<span class="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 text-xs rounded-full font-semibold">projeto/build-index.mjs</span>
+</div>
+<p class="text-neutral-400 text-sm leading-relaxed mb-3">The copy generated in the specific project. This is the concrete CSS/HTML for that render. Editing it affects <em>only that video</em> — fast, with no global consequences.</p>
+<div class="bg-dark-700/60 rounded-lg p-3 text-sm">
+<div class="text-cyan-400 font-semibold mb-1">Golden rule</div>
+<div class="text-neutral-400">Modify the <strong class="text-purple-300">instruction</strong> changes everything going forward (all new videos). Change the <strong class="text-cyan-300">layout</strong> changes only that video.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="bg-gradient-to-r from-purple-900/20 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">💡</span>
+<div>
+<div class="text-purple-400 font-semibold mb-1">Practical tip</div>
+<div class="text-neutral-300 text-sm leading-relaxed">Before editing any file, ask: "I want this to change in <em>all</em> the next videos or just this one?" If the answer is "just this one," touch only the <code class="text-purple-300 font-mono text-xs">build-index.mjs</code> from the project. If it’s "everywhere," edit the installed skill — and remember to commit and publish it to <code class="text-purple-300 font-mono text-xs">repo da skill</code>.</div>
+</div>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">Instruction</div>
+<div class="text-neutral-400 text-xs">house-style + template = global standard</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">Layout</div>
+<div class="text-neutral-400 text-xs">build-index.mjs = concrete local CSS/HTML</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">Scope</div>
+<div class="text-neutral-400 text-xs">global vs. local — always decide first</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">Repackage</div>
+<div class="text-neutral-400 text-xs">required when changing the installed skill</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 2 — Tamanho dos elementos -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-2">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+<h2 class="text-2xl font-bold">🔠 Element sizes</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">composition-template.mjs</code> defines base sizes for 16:9. There's a 9:16 overrides block (prefix <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">body.v</code>) that resizes everything for vertical. Knowing the classes and concrete values lets you make precise adjustments.
+      </p>
+<!-- tabela de classes base -->
+<div class="bg-dark-900 rounded-xl border border-purple-500/30 overflow-hidden mb-6">
+<div class="px-5 py-3 border-b border-dark-600 bg-purple-500/5">
+<div class="text-purple-400 font-semibold text-sm">Base sizes — 16:9 (composition-template.mjs)</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b border-dark-600">
+<th class="text-left px-5 py-2 text-neutral-500 font-semibold">Class</th>
+<th class="text-left px-5 py-2 text-neutral-500 font-semibold">Property</th>
+<th class="text-left px-5 py-2 text-neutral-500 font-semibold">16:9 value</th>
+<th class="text-left px-5 py-2 text-neutral-500 font-semibold">9:16 override</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-700">
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.title</td>
+<td class="px-5 py-2 text-neutral-400">font-size</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">172px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">118px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.h2</td>
+<td class="px-5 py-2 text-neutral-400">font-size</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">92px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">74px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.lead</td>
+<td class="px-5 py-2 text-neutral-400">font-size</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">34px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">30px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.folder</td>
+<td class="px-5 py-2 text-neutral-400">width / height</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">520px / 360px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">440px / 300px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.code</td>
+<td class="px-5 py-2 text-neutral-400">width</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">auto</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">940px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.file-card</td>
+<td class="px-5 py-2 text-neutral-400">font-size / top / left</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">36px / 120px / 110px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">30px / 110px / 96px</td>
+</tr>
+<tr>
+<td class="px-5 py-2 font-mono text-purple-400">.subhead</td>
+<td class="px-5 py-2 text-neutral-400">font-size</td>
+<td class="px-5 py-2 text-emerald-400 font-mono">40px</td>
+<td class="px-5 py-2 text-cyan-400 font-mono">34px</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- box de código real -->
+<div class="mb-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Actual block from composition-template.mjs — base 16:9 classes</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">/* composition-template.mjs — typography and base cards */</div>
+<div><span class="text-purple-400">.title</span><span class="text-neutral-300">{font-family:Sora,sans-serif;font-weight:</span><span class="text-yellow-300">800</span><span class="text-neutral-300">;font-size:</span><span class="text-emerald-400">172px</span><span class="text-neutral-300">;line-height:</span><span class="text-cyan-400">.95</span><span class="text-neutral-300">;letter-spacing:-.03em;margin:</span><span class="text-yellow-300">24px 0</span><span class="text-neutral-300">}</span></div>
+<div class="mt-1"><span class="text-purple-400">.subhead</span><span class="text-neutral-300">{font-size:</span><span class="text-emerald-400">40px</span><span class="text-neutral-300">;color:var(--muted)}</span></div>
+<div class="mt-1"><span class="text-purple-400">.h2</span><span class="text-neutral-300">{font-family:Sora,sans-serif;font-weight:</span><span class="text-yellow-300">800</span><span class="text-neutral-300">;font-size:</span><span class="text-emerald-400">92px</span><span class="text-neutral-300">;line-height:</span><span class="text-cyan-400">1.05</span><span class="text-neutral-300">;letter-spacing:-.02em}</span></div>
+<div class="mt-1"><span class="text-purple-400">.lead</span><span class="text-neutral-300">{font-size:</span><span class="text-emerald-400">34px</span><span class="text-neutral-300">;color:var(--muted);margin-top:</span><span class="text-yellow-300">28px</span><span class="text-neutral-300">;line-height:</span><span class="text-cyan-400">1.4</span><span class="text-neutral-300">}</span></div>
+<div class="mt-2 text-neutral-500 text-xs">/* folder */</div>
+<div><span class="text-purple-400">.folder</span><span class="text-neutral-300">{position:relative;width:</span><span class="text-emerald-400">520px</span><span class="text-neutral-300">;height:</span><span class="text-emerald-400">360px</span><span class="text-neutral-300">;margin:0 auto}</span></div>
+<div class="mt-2 text-neutral-500 text-xs">/* 9:16 overrides */</div>
+<div><span class="text-cyan-400">body.v .title</span><span class="text-neutral-300">{font-size:</span><span class="text-cyan-400">118px</span><span class="text-neutral-300">;margin:</span><span class="text-yellow-300">20px 0</span><span class="text-neutral-300">}</span></div>
+<div class="mt-1"><span class="text-cyan-400">body.v .h2</span><span class="text-neutral-300">{font-size:</span><span class="text-cyan-400">74px</span><span class="text-neutral-300">}</span></div>
+<div class="mt-1"><span class="text-cyan-400">body.v .lead</span><span class="text-neutral-300">{font-size:</span><span class="text-cyan-400">30px</span><span class="text-neutral-300">;margin-top:</span><span class="text-yellow-300">24px</span><span class="text-neutral-300">}</span></div>
+<div class="mt-1"><span class="text-cyan-400">body.v .folder</span><span class="text-neutral-300">{width:</span><span class="text-cyan-400">440px</span><span class="text-neutral-300">;height:</span><span class="text-cyan-400">300px</span><span class="text-neutral-300">}</span></div>
+</div>
+</div>
+<!-- tip: como aumentar -->
+<div class="bg-gradient-to-r from-purple-900/20 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">🔼</span>
+<div>
+<div class="text-purple-400 font-semibold mb-2">How to enlarge an element</div>
+<div class="text-neutral-300 text-sm leading-relaxed mb-2">Locate the class in the <code class="text-purple-300 font-mono text-xs">build-index.mjs</code> from the project and increase the value. For <code class="text-purple-300 font-mono text-xs">.title</code> from 172px → 200px, for example:</div>
+<div class="bg-dark-900 rounded-lg p-3 font-mono text-xs">
+<div><span class="text-red-400">- .title{font-size:172px}</span></div>
+<div><span class="text-emerald-400">+ .title{font-size:200px}</span></div>
+<div class="text-neutral-500 mt-2">/* and the 9:16 override, if you want to keep the aspect ratio: */</div>
+<div><span class="text-red-400">- body.v .title{font-size:118px}</span></div>
+<div><span class="text-emerald-400">+ body.v .title{font-size:138px}</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-emerald-400 font-bold mb-1">Base 16:9</div>
+<div class="text-neutral-400 text-xs">default values for the horizontal template</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">body.v</div>
+<div class="text-neutral-400 text-xs">prefix that activates 9:16 overrides</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">Aspect ratio</div>
+<div class="text-neutral-400 text-xs">base adjustment and override on the same scale</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-yellow-400 font-bold mb-1">Find</div>
+<div class="text-neutral-400 text-xs">grep the class before editing</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 3 — Margens de segurança -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-3">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+<h2 class="text-2xl font-bold">📐 Safe margins</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        O <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">.scene</code> is the container for each scene. Its <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">padding</code> defines the space between the content and the edge of the frame — the "safe margin." Decreasing it = full-bleed; increasing it = more breathing room.
+      </p>
+<!-- grid de valores de padding -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-5">
+<div class="text-purple-400 font-bold mb-3">16:9 (landscape)</div>
+<div class="bg-dark-900 rounded-lg p-3 font-mono text-sm mb-3">
+<span class="text-purple-400">.scene</span><span class="text-neutral-300">{</span><br/>
+<span class="ml-4 text-neutral-500">/* top right bottom left */</span><br/>
+<span class="ml-4 text-cyan-400">padding</span><span class="text-neutral-300">:</span><span class="text-emerald-400">120px 150px 150px</span><span class="text-neutral-300">;</span><br/>
+<span class="text-neutral-300">}</span>
+</div>
+<div class="text-neutral-400 text-sm">Top 120px, sides 150px, bottom 150px. Good balance for 1920×1080.</div>
+</div>
+<div class="bg-dark-800 border border-cyan-500/30 rounded-xl p-5">
+<div class="text-cyan-400 font-bold mb-3">9:16 (vertical / Shorts)</div>
+<div class="bg-dark-900 rounded-lg p-3 font-mono text-sm mb-3">
+<span class="text-cyan-400">body.v .scene</span><span class="text-neutral-300">{</span><br/>
+<span class="ml-4 text-neutral-500">/* top right bottom left */</span><br/>
+<span class="ml-4 text-cyan-400">padding</span><span class="text-neutral-300">:</span><span class="text-emerald-400">170px 70px 240px</span><span class="text-neutral-300">;</span><br/>
+<span class="text-neutral-300">}</span>
+</div>
+<div class="text-neutral-400 text-sm">Top 170px (camera face), sides 70px, bottom 240px (thumb + UI). Never reduce the bottom below 180px in Shorts.</div>
+</div>
+</div>
+<!-- caption separada -->
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5 mb-6">
+<div class="text-neutral-300 font-semibold mb-3">Captions have their own margin — separate from .scene padding</div>
+<div class="bg-dark-900 rounded-lg p-3 font-mono text-sm mb-3">
+<div><span class="text-purple-400">.caption</span><span class="text-neutral-300">{</span><span class="text-cyan-400">bottom</span><span class="text-neutral-300">:</span><span class="text-emerald-400">64px</span><span class="text-neutral-300">}  </span><span class="text-neutral-500">/* 16:9 */</span></div>
+<div class="mt-1"><span class="text-cyan-400">body.v .caption</span><span class="text-neutral-300">{</span><span class="text-cyan-400">bottom</span><span class="text-neutral-300">:</span><span class="text-emerald-400">150px</span><span class="text-neutral-300">}  </span><span class="text-neutral-500">/* 9:16 — above the UI bar */</span></div>
+</div>
+<div class="text-neutral-400 text-sm">When reducing the <code class="text-purple-300 font-mono text-xs">padding</code> of the <code class="text-purple-300 font-mono text-xs">.scene</code> to go full-bleed, the caption may spill out. Adjust <code class="text-purple-300 font-mono text-xs">.caption{bottom}</code> proportionally.</div>
+</div>
+<!-- alerta overflow -->
+<div class="bg-red-500/10 border border-red-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold mb-1">Attention: invisible overflow</div>
+<div class="text-neutral-300 text-sm leading-relaxed">Reducing the padding too much can cause elements to go off-canvas without you noticing in the preview. Always run <code class="text-red-300 font-mono text-xs">npx hyperframes inspect --samples 16</code> after changing margins. The audit will report overflow if it detects content outside the bounds.</div>
+</div>
+</div>
+</div>
+<!-- grid ✓/✗ de boas práticas de padding -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-emerald-500/30 p-5">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-emerald-400 text-lg font-bold">✓</span>
+<span class="text-emerald-400 font-semibold">Best practices</span>
+</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Keep bottom ≥ 120px in 16:9</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Keep bottom ≥ 180px in 9:16 (Shorts UI)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Adjust <code class="text-emerald-300 font-mono text-xs">.caption{bottom}</code> when changing padding</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Run <code class="text-emerald-300 font-mono text-xs">inspect</code> after every change</li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl border border-red-500/30 p-5">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-red-400 text-lg font-bold">✗</span>
+<span class="text-red-400 font-semibold">Avoid</span>
+</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Zero or negative padding</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Ignore the caption when going full-bleed</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Change only 16:9 and forget the 9:16 override</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Publish without running inspect</li>
+</ul>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">.scene padding</div>
+<div class="text-neutral-400 text-xs">120/150/150 (16:9) · 170/70/240 (9:16)</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">.caption bottom</div>
+<div class="text-neutral-400 text-xs">64px 16:9 · 150px 9:16</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-red-400 font-bold mb-1">overflow</div>
+<div class="text-neutral-400 text-xs">invisible in preview, visible in inspect</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-emerald-400 font-bold mb-1">full-bleed</div>
+<div class="text-neutral-400 text-xs">reduces padding but always validates</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 4 — Posição da marca -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-4">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+<h2 class="text-2xl font-bold">🏷️ Brand position</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Sometimes you want a persistent brand element — a logo, watermark, badge — that appears in <em>all</em> the scenes without getting into scene/tween logic. The pattern is to add this element to <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">.bg-layer</code> (persistent background layer) with <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">data-layout-ignore</code> and position it with CSS, using the override <code class="text-purple-400 bg-dark-700 px-1 rounded text-sm">body.v</code> for vertical.
+      </p>
+<!-- nota sobre CTA -->
+<div class="bg-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">ℹ️</span>
+<div>
+<div class="text-purple-400 font-semibold mb-1">The CTA already exists — don’t reinvent it</div>
+<div class="text-neutral-300 text-sm leading-relaxed">The final scene (<code class="text-purple-300 font-mono text-xs">scene9</code>) always displays the CTA <strong>INEMA.CLUB</strong> as the mandatory closing for the video. It covers the "final brand mark." The persistent element we're creating here serves to <em>subtle identification during the video</em> — like a corner watermark.</div>
+</div>
+</div>
+</div>
+<!-- snippet de código: adicionar marca persistente -->
+<div class="mb-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Snippet: persistent brand element in .bg-layer</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">/* build-index.mjs — inside .bg-layer, after the existing elements */</div>
+<div><span class="text-neutral-500">/* 1. Add the element with data-layout-ignore */</span></div>
+<div class="mt-1"><span class="text-yellow-300">&lt;div</span> <span class="text-cyan-400">id</span><span class="text-neutral-300">="brand-mark"</span></div>
+<div class="ml-4"><span class="text-cyan-400">data-layout-ignore</span><span class="text-neutral-300">=</span><span class="text-yellow-300">"true"</span></div>
+<div class="ml-4"><span class="text-cyan-400">style</span><span class="text-neutral-300">=</span><span class="text-yellow-300">"position:absolute;bottom:40px;right:50px;opacity:0.35;pointer-events:none;"</span><span class="text-yellow-300">&gt;</span></div>
+<div class="ml-4"><span class="text-yellow-300">&lt;img</span> <span class="text-cyan-400">src</span><span class="text-neutral-300">="brand/logo.svg"</span> <span class="text-cyan-400">width</span><span class="text-neutral-300">="120"</span> <span class="text-cyan-400">alt</span><span class="text-neutral-300">=""</span><span class="text-yellow-300">/&gt;</span></div>
+<div><span class="text-yellow-300">&lt;/div&gt;</span></div>
+<div class="mt-3 text-neutral-500">/* 2. CSS: base position (16:9) + 9:16 override */</div>
+<div class="mt-1"><span class="text-purple-400">#brand-mark</span><span class="text-neutral-300">{</span></div>
+<div class="ml-4"><span class="text-cyan-400">position</span><span class="text-neutral-300">:absolute;</span><span class="text-cyan-400">bottom</span><span class="text-neutral-300">:</span><span class="text-emerald-400">40px</span><span class="text-neutral-300">;</span><span class="text-cyan-400">right</span><span class="text-neutral-300">:</span><span class="text-emerald-400">50px</span><span class="text-neutral-300">;</span></div>
+<div class="ml-4"><span class="text-cyan-400">opacity</span><span class="text-neutral-300">:</span><span class="text-emerald-400">.35</span><span class="text-neutral-300">;</span><span class="text-cyan-400">pointer-events</span><span class="text-neutral-300">:none;</span></div>
+<div><span class="text-neutral-300">}</span></div>
+<div class="mt-1"><span class="text-cyan-400">body.v</span> <span class="text-purple-400">#brand-mark</span><span class="text-neutral-300">{</span></div>
+<div class="ml-4"><span class="text-neutral-500">/* 9:16: brand at the top, centered */</span></div>
+<div class="ml-4"><span class="text-cyan-400">top</span><span class="text-neutral-300">:</span><span class="text-emerald-400">60px</span><span class="text-neutral-300">;</span><span class="text-cyan-400">bottom</span><span class="text-neutral-300">:auto;</span><span class="text-cyan-400">left</span><span class="text-neutral-300">:</span><span class="text-emerald-400">50%</span><span class="text-neutral-300">;</span><span class="text-cyan-400">right</span><span class="text-neutral-300">:auto;</span></div>
+<div class="ml-4"><span class="text-cyan-400">transform</span><span class="text-neutral-300">:translateX(-50%);</span><span class="text-cyan-400">opacity</span><span class="text-neutral-300">:</span><span class="text-emerald-400">.45</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-neutral-300">}</span></div>
+</div>
+</div>
+<!-- tip: data-layout-ignore -->
+<div class="bg-gradient-to-r from-purple-900/20 to-dark-800 border border-purple-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">🔑</span>
+<div>
+<div class="text-purple-400 font-semibold mb-1">Why <code class="text-purple-300 font-mono text-xs">data-layout-ignore</code> is required</div>
+<div class="text-neutral-300 text-sm leading-relaxed">The HyperFrames auditor measures each element's bounding box to detect overflow. A brand element outside the default bounds will trigger a false positive — unless you mark it with <code class="text-purple-300 font-mono text-xs">data-layout-ignore="true"</code>. With this attribute, the auditor ignores the element when counting overflow.</div>
+</div>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">.bg-layer</div>
+<div class="text-neutral-400 text-xs">persistent layer — appears in every scene</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">data-layout-ignore</div>
+<div class="text-neutral-400 text-xs">excludes from the overflow audit</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">body.v override</div>
+<div class="text-neutral-400 text-xs">different position in 9:16 (centered at the top)</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-yellow-400 font-bold mb-1">scene9 CTA</div>
+<div class="text-neutral-400 text-xs">INEMA.CLUB is already the ending — don’t duplicate it</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 5 — Pontual vs permanente -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-5">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+<h2 class="text-2xl font-bold">🔁 One-off vs. permanent</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Before making any edits, decide the scope. The question is simple: does this change apply only to <em>this</em> video or for <em>all the next</em>? The answer determines which file you edit — and how much work it will take.
+      </p>
+<!-- grid ✓/✗ quando usar cada um -->
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<!-- pontual -->
+<div class="bg-dark-800 rounded-xl border border-cyan-500/30 p-5">
+<div class="flex items-center gap-2 mb-4">
+<span class="w-8 h-8 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold">P</span>
+<span class="text-cyan-400 font-bold text-lg">One-time — 1 video</span>
+</div>
+<div class="text-neutral-400 text-sm mb-4">Edits the <code class="text-cyan-300 font-mono text-xs">build-index.mjs</code> from the project and renders it again.</div>
+<div class="space-y-2 text-sm mb-4">
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-cyan-400 mt-0.5">✓</span> Fast — 1 file, 1 render</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-cyan-400 mt-0.5">✓</span> No risk of affecting other projects</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-cyan-400 mt-0.5">✓</span> Doesn't require repackaging the skill</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> The next video doesn't inherit the change</div>
+</div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">When to use</div>
+<ul class="space-y-1 text-xs text-neutral-400">
+<li>• Fine-tune the color for a campaign</li>
+<li>• Test a new card layout</li>
+<li>• Font override for a client</li>
+<li>• Aspect ratio correction in a specific frame</li>
+</ul>
+</div>
+<!-- permanente -->
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="flex items-center gap-2 mb-4">
+<span class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 font-bold">G</span>
+<span class="text-purple-400 font-bold text-lg">Permanent — all</span>
+</div>
+<div class="text-neutral-400 text-sm mb-4">Edits <code class="text-purple-300 font-mono text-xs">house-style.md</code> + <code class="text-purple-300 font-mono text-xs">composition-template.mjs</code> in the installed skill and repackages.</div>
+<div class="space-y-2 text-sm mb-4">
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-emerald-400 mt-0.5">✓</span> All new videos inherit</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-emerald-400 mt-0.5">✓</span> Maintain brand consistency</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> Requires a commit + push to the skill repo</div>
+<div class="flex items-start gap-2 text-neutral-300"><span class="text-red-400 mt-0.5">✗</span> More impact — test first</div>
+</div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">When to use</div>
+<ul class="space-y-1 text-xs text-neutral-400">
+<li>• Change the channel’s color palette</li>
+<li>• Adopt a new default typeface</li>
+<li>• Add a brand element to all</li>
+<li>• Adjust global safety margins</li>
+</ul>
+</div>
+</div>
+<!-- grid de decisão rápida -->
+<div class="bg-dark-900 rounded-xl border border-dark-600 overflow-hidden mb-6">
+<div class="px-5 py-3 border-b border-dark-600 bg-dark-800">
+<div class="text-neutral-300 font-semibold text-sm">Decision grid: which file should you edit?</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b border-dark-600 bg-dark-800/50">
+<th class="text-left px-5 py-2 text-neutral-500 font-semibold">Status</th>
+<th class="text-center px-4 py-2 text-cyan-400 font-semibold">build-index.mjs</th>
+<th class="text-center px-4 py-2 text-purple-400 font-semibold">house-style.md</th>
+<th class="text-center px-4 py-2 text-purple-400 font-semibold">composition-template.mjs</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-700">
+<tr>
+<td class="px-5 py-3 text-neutral-300">Change the color of just one video</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+</tr>
+<tr>
+<td class="px-5 py-3 text-neutral-300">Change the default font for all of them</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+</tr>
+<tr>
+<td class="px-5 py-3 text-neutral-300">Increase .title in this project</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+</tr>
+<tr>
+<td class="px-5 py-3 text-neutral-300">Increase .title in all videos</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+</tr>
+<tr>
+<td class="px-5 py-3 text-neutral-300">Add a persistent global brand element</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+</tr>
+<tr>
+<td class="px-5 py-3 text-neutral-300">Change the margins for just this video</td>
+<td class="px-4 py-3 text-center text-emerald-400 font-bold">✓</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+<td class="px-4 py-3 text-center text-neutral-600">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">One-time</div>
+<div class="text-neutral-400 text-xs">build-index.mjs → re-render → ready</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">Permanent</div>
+<div class="text-neutral-400 text-xs">installed skill → repackage → everyone inherits it</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-yellow-400 font-bold mb-1">Repackage</div>
+<div class="text-neutral-400 text-xs">always after editing the global skill</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-emerald-400 font-bold mb-1">Test first</div>
+<div class="text-neutral-400 text-xs">validate in a test project before applying globally</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- TÓPICO 6 — Pedindo a mudança -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-20" id="topico-6">
+<div class="flex items-center space-x-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+<h2 class="text-2xl font-bold">💬 Requesting the change</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Claude Code understands natural language, but well-structured prompts produce more accurate and predictable results. Here are ready-to-paste templates with the information the model needs to know <em>where</em> e <em>how much</em> change — and how to validate it.
+      </p>
+<!-- prompts prontos -->
+<div class="space-y-5 mb-8">
+<!-- prompt 1: imagens maiores, margens menores, marca no topo 9:16 -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">Prompt 1 — one-off visual adjustment</div>
+<div class="bg-dark-900 rounded-xl border border-purple-500/30 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2">/* paste into Claude Code — scope: this video only */</div>
+<div class="text-neutral-300">In the next video, edit the <span class="text-purple-400">build-index.mjs</span> of this project:</div>
+<div class="mt-1 text-neutral-300">- Enlarge the images: <span class="text-emerald-400">.folder</span> from 520px → 620px (and 9:16 override: 440px → 520px)</div>
+<div class="text-neutral-300">- Reduce margins: <span class="text-cyan-400">.scene{padding:80px 100px 100px}</span> (9:16: padding:140px 50px 200px)</div>
+<div class="text-neutral-300">- Add branding at the top of 9:16: element <span class="text-purple-400">#brand-mark</span> in <span class="text-emerald-400">.bg-layer</span> with <span class="text-yellow-300">data-layout-ignore</span>, centered, <span class="text-cyan-400">body.v #brand-mark{top:60px;left:50%;transform:translateX(-50%)}</span></div>
+<div class="mt-1 text-neutral-300">- Then run: <span class="text-yellow-300">npx hyperframes inspect --samples 16</span> and fix any overflow</div>
+</div>
+</div>
+<!-- prompt 2: mudança global permanente -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">Prompt 2 — permanent global change</div>
+<div class="bg-dark-900 rounded-xl border border-purple-500/30 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2">/* paste into Claude Code — scope: all future videos */</div>
+<div class="text-neutral-300">Edit the skill installed in <span class="text-purple-400">~/.claude/skills/video-explicativo/</span>:</div>
+<div class="mt-1 text-neutral-300">1. In <span class="text-cyan-400">references/house-style.md</span>: add rule "always position the brand at the top of the 9:16 frame, centered, opacity 0.4"</div>
+<div class="text-neutral-300">2. In <span class="text-cyan-400">scripts/composition-template.mjs</span>: increase <span class="text-emerald-400">.title</span> from 172px → 192px and 9:16 override from 118px → 135px</div>
+<div class="text-neutral-300">3. Commit and publish the skill in the repo and confirm that the <span class="text-yellow-300">SKILL.md</span> list the changes</div>
+<div class="mt-1 text-neutral-300">Validate by creating a test video and running <span class="text-yellow-300">npx hyperframes inspect</span></div>
+</div>
+</div>
+<!-- prompt 3: flag configurável --brand-top -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-2">Prompt 3 — configurable flag <code class="text-purple-400 font-mono">--brand-top</code></div>
+<div class="bg-dark-900 rounded-xl border border-cyan-500/30 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2">/* advanced idea: parameter in build-index.mjs */</div>
+<div class="text-neutral-300">Add at the top of the <span class="text-purple-400">build-index.mjs</span>:</div>
+<div class="mt-1"><span class="text-purple-400">const</span> <span class="text-cyan-400">BRAND_TOP</span> <span class="text-neutral-300">= process.argv.includes(</span><span class="text-yellow-300">'--brand-top'</span><span class="text-neutral-300">);</span></div>
+<div class="mt-1 text-neutral-300">And in the .bg-layer CSS:</div>
+<div><span class="text-purple-400">const</span> <span class="text-cyan-400">brandCSS</span> <span class="text-neutral-300">= BRAND_TOP ?</span></div>
+<div class="ml-4"><span class="text-yellow-300">`body.v #brand-mark{top:60px;bottom:auto;left:50%;transform:translateX(-50%)}`</span> <span class="text-neutral-300">: </span><span class="text-yellow-300">''</span><span class="text-neutral-300">;</span></div>
+<div class="mt-1 text-neutral-500 text-xs">/* usage: node build-index.mjs --brand-top */</div>
+</div>
+</div>
+</div>
+<!-- alerta: sempre validar -->
+<div class="bg-red-500/10 border border-red-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-2xl">🔍</span>
+<div>
+<div class="text-red-400 font-semibold mb-1">Always validate with inspect + check the frames</div>
+<div class="text-neutral-300 text-sm leading-relaxed">After any layout change—specific or global—the validation workflow is always the same:</div>
+<div class="bg-dark-900 rounded-lg p-3 font-mono text-xs mt-3">
+<div><span class="text-yellow-300">npx hyperframes render</span> <span class="text-neutral-500"># re-renders with the changes</span></div>
+<div class="mt-1"><span class="text-yellow-300">npx hyperframes inspect --samples 16</span> <span class="text-neutral-500"># audits overflow, lint, and timing</span></div>
+<div class="mt-1"><span class="text-neutral-500"># Open a few frames in the browser and check them visually</span></div>
+<div class="mt-1"><span class="text-neutral-500"># Publish only when inspect returns 0 issues</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- grid ✓/✗ fluxo de prompt -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-emerald-500/30 p-5">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-emerald-400 text-lg font-bold">✓</span>
+<span class="text-emerald-400 font-semibold">Effective prompt</span>
+</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Specifies the file to edit</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Specifies the CSS class and the new value</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mention the 9:16 override if needed</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Asks you to run inspect at the end</li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl border border-red-500/30 p-5">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-red-400 text-lg font-bold">✗</span>
+<span class="text-red-400 font-semibold">Vague prompt</span>
+</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> "make the title bigger" — how much bigger? where?</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> "change the margins" — which file?</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Doesn't mention whether it's one-time or global</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Doesn't ask you to validate with inspect</li>
+</ul>
+</div>
+</div>
+<!-- conceitos-chave -->
+<div class="mt-6">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-purple-400 font-bold mb-1">Specificity</div>
+<div class="text-neutral-400 text-xs">file + class + value = precise prompt</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold mb-1">Explicit scope</div>
+<div class="text-neutral-400 text-xs">say "this video only" or "all future ones"</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-yellow-400 font-bold mb-1">--brand-top</div>
+<div class="text-neutral-400 text-xs">flags configure behavior per run</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center">
+<div class="text-emerald-400 font-bold mb-1">always inspect</div>
+<div class="text-neutral-400 text-xs">0 issues before publishing</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- RESUMO FINAL -->
+<!-- ══════════════════════════════════════════════════════ -->
+<section class="mb-12" id="resumo">
+<div class="bg-gradient-to-br from-purple-900/20 via-dark-800 to-dark-800 rounded-2xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6">📋 Summary — what you learned</h2>
+<div class="grid sm:grid-cols-2 gap-3 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">Two levels: instructions vs. layout</div>
+<div class="text-neutral-400 text-xs">house-style + composition-template (global) vs. the project's build-index.mjs (local)</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">Concrete classes and sizes</div>
+<div class="text-neutral-400 text-xs">.title 172px, .h2 92px, .lead 34px — and all body.v overrides</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">Safe margins</div>
+<div class="text-neutral-400 text-xs">.scene padding 16:9 and 9:16 — and the caption has its own margin</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">Persistent brand with data-layout-ignore</div>
+<div class="text-neutral-400 text-xs">no .bg-layer, different positioning in 9:16 via body.v override</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">One-time vs. permanent</div>
+<div class="text-neutral-400 text-xs">1 video: build-index.mjs. All videos: installed skill + repackage</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 text-xl mt-0.5">✓</span>
+<div>
+<div class="text-neutral-200 font-semibold text-sm">Precise prompts + validation</div>
+<div class="text-neutral-400 text-xs">specify the file, class, value, and scope — and always run inspect</div>
+</div>
+</div>
+</div>
+<!-- próximo módulo -->
+<div class="bg-dark-900/60 rounded-xl border border-dark-600 p-5 mb-6">
+<div class="flex items-start gap-4">
+<div class="text-3xl">🚀</div>
+<div>
+<div class="text-sm font-semibold text-neutral-500 uppercase tracking-widest mb-1">Next</div>
+<div class="text-xl font-bold text-neutral-100 mb-1">Track 4 — Applications</div>
+<div class="text-neutral-400 text-sm">Put it all into practice: real projects, format variations, integration with production pipelines, and advanced HyperFrames use cases.</div>
+</div>
+</div>
+</div>
+<!-- CTAs de navegação -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-purple-500/40 text-purple-400 hover:bg-purple-500/10 transition-colors font-semibold" href="index.html">
+<span>←</span> Back to Track 3
+          </a>
+<a class="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition-colors font-semibold" href="../trilha4/index.html">
+            Track 4: Applications <span>→</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 bg-dark-800/50 py-10 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid sm:grid-cols-3 gap-8 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-3">
+<span class="text-2xl">🎬</span>
+<span class="font-bold text-lg text-neutral-100">HyperFrames</span>
+</div>
+<p class="text-neutral-500 text-sm">Complete skill course <code class="text-purple-400 text-xs">video-explicativo</code>. From scratch to published video.</p>
+</div>
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Track 3 — Under the Hood</div>
+<ul class="space-y-1 text-sm">
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="modulo-3-1.html">3.1 — Folder structure</a></li>
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="modulo-3-2.html">3.2 — house-style.md in depth</a></li>
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="modulo-3-3.html">3.3 — The build-index.mjs generator</a></li>
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="modulo-3-4.html">3.4 — Gotchas and debugging</a></li>
+<li><a class="text-purple-400 font-semibold" href="modulo-3-5.html">3.5 — Customize the layout</a></li>
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="../../../curso/trilha3/modulo-3-6.html">3.6 — References and next steps</a></li>
+</ul>
+</div>
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">More</div>
+<ul class="space-y-1 text-sm">
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="../../index.html">← Course home</a></li>
+<li><a class="text-neutral-400 hover:text-purple-400 transition-colors" href="../trilha4/index.html">Track 4: Applications →</a></li>
+<li><a class="text-sky-400 hover:text-sky-300 transition-colors" href="https://inema.club" target="_blank">INEMA.CLUB ↗</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-dark-600 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+<div class="text-neutral-500 text-sm">Module 3.5 — 🎛️ Customize the Layout · Track 3: 🔧 Under the Hood</div>
+<div class="text-neutral-600 text-xs">HyperFrames · INEMA.CLUB</div>
+</div>
+</div>
+</footer>
+<!-- SCRIPTS -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon    = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon   = document.getElementById('theme-toggle-light-icon');
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      } else {
+        document.documentElement.classList.remove('dark');
+        lightIcon.classList.add('hidden');
+        darkIcon.classList.remove('hidden');
+      }
+    }
+
+    const saved = localStorage.getItem('theme') || 'dark';
+    applyTheme(saved);
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', next);
+      applyTheme(next);
+    });
+
+    // Smooth scroll for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

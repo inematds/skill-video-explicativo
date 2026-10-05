@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2.5 — Validate &amp; Render | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento blue */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .text-cyan-300 { color: #0e7490; }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* animações SVG módulo 2.5 */
+    @keyframes m25-flow { 0% { stroke-dashoffset: 140; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m25-pulse { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+    @keyframes m25-check { 0% { stroke-dashoffset: 30; } 100% { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m25-anim-flow { animation: m25-flow 2.2s linear infinite; }
+      .m25-anim-pulse { animation: m25-pulse 2.6s ease-in-out infinite; }
+      .m25-anim-pulse-2 { animation: m25-pulse 2.6s ease-in-out infinite; animation-delay: .5s; }
+      .m25-anim-pulse-3 { animation: m25-pulse 2.6s ease-in-out infinite; animation-delay: 1s; }
+      .m25-anim-check { animation: m25-check 0.8s ease-out forwards; stroke-dasharray: 30; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha2/modulo-2-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha2/modulo-2-5.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha2/modulo-2-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Inside</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Applications</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Start</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Track 2 — Pipeline</a>
+<span>/</span>
+<span class="text-blue-400 font-medium">Module 2.5</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MODULE 2.5</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">✅ Validate &amp; render</h1>
+<p class="text-lg text-neutral-400 max-w-xl">The final pipeline step: lint with no errors, inspect with no overflow, render a draft to check frame by frame, validate the narration, render high quality, and generate both formats—all in the right order.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~35</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Practical</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Delivery</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Fluxo lint → inspect → draft → high → 16:9 + 9:16 -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Futuristic diagram of the validation and render workflow: lint, inspect, draft, high, MP4 16:9 and 9:16" class="w-full h-auto" role="img" viewbox="0 0 420 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m25-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e1622;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m25-blue-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m25-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="160%" id="m25-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m25-bg-grad)" height="260" rx="12" width="420"></rect>
+<!-- grid sutil -->
+<g opacity="0.4" stroke="#1e3a5f" stroke-width="0.5">
+<line x1="0" x2="420" y1="65" y2="65"></line>
+<line x1="0" x2="420" y1="130" y2="130"></line>
+<line x1="0" x2="420" y1="195" y2="195"></line>
+<line x1="84" x2="84" y1="0" y2="260"></line>
+<line x1="168" x2="168" y1="0" y2="260"></line>
+<line x1="252" x2="252" y1="0" y2="260"></line>
+<line x1="336" x2="336" y1="0" y2="260"></line>
+</g>
+<!-- título -->
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle" x="210" y="22">Validation &amp; Render Pipeline</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" letter-spacing="2" text-anchor="middle" x="210" y="36">LINT → INSPECT → DRAFT → HIGH → MP4 × 2</text>
+<!-- Linha principal de fluxo (horizontal, y=97) -->
+<!-- Box: lint -->
+<rect fill="#0e1622" filter="url(#m25-glow)" height="50" rx="7" stroke="#60a5fa" stroke-width="1.5" width="68" x="12" y="72"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="46" y="92">lint</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="46" y="105">0 errors</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="46" y="116">overlapping</text>
+<!-- checkmark lint -->
+<circle cx="46" cy="136" fill="none" r="7" stroke="#34d399" stroke-width="1.5"></circle>
+<path class="m25-anim-check" d="M42 136 l3 3 l6-6" fill="none" stroke="#34d399" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<!-- Arrow 1 -->
+<path class="m25-anim-flow" d="M80 97 L96 97" fill="none" stroke="#38bdf8" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#38bdf8" points="96,93 103,97 96,101"></polygon>
+<!-- Box: inspect -->
+<rect fill="#0e1622" height="50" rx="7" stroke="#38bdf8" stroke-width="1.5" width="68" x="103" y="72"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="137" y="92">inspect</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="137" y="105">0 overflow</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="137" y="116">--samples 16</text>
+<circle cx="137" cy="136" fill="none" r="7" stroke="#34d399" stroke-width="1.5"></circle>
+<path class="m25-anim-check" d="M133 136 l3 3 l6-6" fill="none" stroke="#34d399" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<!-- Arrow 2 -->
+<path class="m25-anim-flow" d="M171 97 L187 97" fill="none" stroke="#38bdf8" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#38bdf8" points="187,93 194,97 187,101"></polygon>
+<!-- Box: draft -->
+<rect fill="#0e1622" height="50" rx="7" stroke="#3b82f6" stroke-width="1.5" width="68" x="194" y="72"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="228" y="92">draft</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="228" y="105">1 frame/scene</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="228" y="116">ffmpeg -nostdin</text>
+<circle cx="228" cy="136" fill="none" r="7" stroke="#60a5fa" stroke-width="1.5"></circle>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="7" font-weight="700" text-anchor="middle" x="228" y="139.5">👁</text>
+<!-- Arrow 3 -->
+<path class="m25-anim-flow" d="M262 97 L278 97" fill="none" stroke="#38bdf8" stroke-dasharray="5,3" stroke-width="1.8"></path>
+<polygon fill="#38bdf8" points="278,93 285,97 278,101"></polygon>
+<!-- Box: high -->
+<rect fill="#0e1622" filter="url(#m25-glow)" height="50" rx="7" stroke="#60a5fa" stroke-width="2" width="68" x="285" y="72"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="319" y="92">high</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="319" y="105">--fps 30</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="319" y="116">~3–4 min</text>
+<circle cx="319" cy="136" fill="none" r="7" stroke="#34d399" stroke-width="1.5"></circle>
+<path class="m25-anim-check" d="M315 136 l3 3 l6-6" fill="none" stroke="#34d399" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+<!-- Seta para split de formatos -->
+<line opacity="0.8" stroke="#38bdf8" stroke-dasharray="4,3" stroke-width="1.5" x1="319" x2="319" y1="143" y2="168"></line>
+<!-- Fork para 16:9 e 9:16 -->
+<line opacity="0.5" stroke="#38bdf8" stroke-width="1" x1="240" x2="400" y1="168" y2="168"></line>
+<line opacity="0.8" stroke="#38bdf8" stroke-width="1.5" x1="240" x2="240" y1="168" y2="180"></line>
+<line opacity="0.8" stroke="#38bdf8" stroke-width="1.5" x1="400" x2="400" y1="168" y2="180"></line>
+<!-- Box: 16:9 MP4 -->
+<rect fill="#0e1622" height="50" rx="7" stroke="#60a5fa" stroke-width="1.5" width="84" x="198" y="180"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="240" y="200">16:9 MP4</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="240" y="213">1920 × 1080</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="240" y="224">YouTube</text>
+<!-- Box: 9:16 MP4 -->
+<rect fill="#0e1622" height="50" rx="7" stroke="#38bdf8" stroke-width="1.5" width="50" x="358" y="180"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle" x="383" y="197">9:16</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="7.5" text-anchor="middle" x="383" y="209">MP4</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="6.5" text-anchor="middle" x="383" y="220">1080×1920</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="6.5" text-anchor="middle" x="383" y="230">Shorts</text>
+<!-- labels de etapa acima -->
+<text class="m25-anim-pulse" fill="#60a5fa" font-family="Inter,sans-serif" font-size="7.5" opacity="0.85" text-anchor="middle" x="46" y="62">① LINT</text>
+<text class="m25-anim-pulse-2" fill="#38bdf8" font-family="Inter,sans-serif" font-size="7.5" opacity="0.85" text-anchor="middle" x="137" y="62">② INSPECT</text>
+<text class="m25-anim-pulse-3" fill="#3b82f6" font-family="Inter,sans-serif" font-size="7.5" opacity="0.85" text-anchor="middle" x="228" y="62">③ DRAFT</text>
+<text class="m25-anim-pulse" fill="#60a5fa" font-family="Inter,sans-serif" font-size="7.5" opacity="0.85" text-anchor="middle" x="319" y="62">④ HIGH</text>
+<!-- dots decorativos -->
+<circle class="m25-anim-pulse" cx="15" cy="15" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m25-anim-pulse-2" cx="405" cy="15" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m25-anim-pulse-3" cx="15" cy="245" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m25-anim-pulse" cx="405" cy="245" fill="#38bdf8" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 — lint -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧹 <code class="text-blue-300 font-mono text-lg">npx hyperframes lint</code></h2>
+<p class="text-neutral-400 mt-2">The first quality gate: the linter analyzes your <code class="text-blue-300">index.html</code> generated and reports structural issues before you spend time rendering. Goal: <strong class="text-blue-400">0 errors</strong>.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Main Concept</div>
+<p class="text-neutral-200 font-medium">The linter reads the <code class="text-blue-300">index.html</code> generated (not the <code class="text-blue-300">build-index.mjs</code>) and validates the composition structure. Errors stop the render—warnings are informational.</p>
+<p class="text-neutral-400 text-sm mt-3">Always run <em>after</em> <code class="text-blue-300">node build-index.mjs</code> e <em>before</em> for any render. Lint is fast (&lt;2 s) and doesn't launch Chrome.</p>
+</div>
+<!-- comando -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Command</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># generate index.html before running lint</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs</div>
+<div><span class="text-cyan-400">npx hyperframes lint</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># expected output (0 errors)</div>
+<div class="text-emerald-400">✔ 0 errors, 0 warnings</div>
+</div>
+</div>
+<!-- 3 erros reais -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">The 3 most common errors</div>
+<div class="space-y-3">
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="flex items-start gap-3">
+<span class="text-red-400 text-lg flex-shrink-0">✗</span>
+<div>
+<div class="font-semibold text-red-400 text-sm"><code class="bg-dark-700 px-1 rounded">overlapping_clips</code></div>
+<p class="text-neutral-400 text-sm mt-1">Two scene clips have overlapping time intervals. Fix this by adjusting the array <code class="text-blue-300">AUDIO[]</code> no <code class="text-blue-300">build-index.mjs</code> — the sum of the durations must be strictly sequential.</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="flex items-start gap-3">
+<span class="text-red-400 text-lg flex-shrink-0">✗</span>
+<div>
+<div class="font-semibold text-red-400 text-sm"><code class="bg-dark-700 px-1 rounded">multiple_root_compositions</code></div>
+<p class="text-neutral-400 text-sm mt-1">More than one element with <code class="text-blue-300">data-composition</code> at the document root. HyperFrames accepts only one composition per file <code class="text-blue-300">index.html</code>.</p>
+</div>
+</div>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="flex items-start gap-3">
+<span class="text-red-400 text-lg flex-shrink-0">✗</span>
+<div>
+<div class="font-semibold text-red-400 text-sm"><code class="bg-dark-700 px-1 rounded">google_fonts_import</code></div>
+<p class="text-neutral-400 text-sm mt-1">The lint detects a <code class="text-blue-300">@import url('fonts.googleapis.com/...')</code> in the CSS. External fonts are prohibited because headless Chrome has no internet access during rendering. Use <code class="text-blue-300">node fetch-fonts.mjs</code> to download the <code class="text-blue-300">.woff2</code> and serve locally via <code class="text-blue-300">assets/fonts/fonts.css</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Lint in the development loop</div>
+<p class="text-neutral-400 text-sm">During composition, run <code class="text-blue-300">node build-index.mjs &amp;&amp; npx hyperframes lint</code> with each relevant modification to the <code class="text-blue-300">build-index.mjs</code>. Cost: less than 2 seconds. Prevents surprises at render time.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🧹</div><div class="text-xs font-semibold text-neutral-200">0 errors</div><div class="text-xs text-neutral-500">Required goal</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">&lt;2 s</div><div class="text-xs text-neutral-500">No Chrome</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔤</div><div class="text-xs font-semibold text-neutral-200">Local fonts</div><div class="text-xs text-neutral-500">fetch-fonts.mjs</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📋</div><div class="text-xs font-semibold text-neutral-200">AUDIO[]</div><div class="text-xs text-neutral-500">Sequential</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 — inspect -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔍 <code class="text-blue-300 font-mono text-lg">npx hyperframes inspect --samples 16</code></h2>
+<p class="text-neutral-400 mt-2">The inspector launches headless Chrome, captures 16 frames distributed throughout the video, and audits each one: layout, text overflow, elements outside the canvas. Goal: <strong class="text-blue-400">0 issues</strong>.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- comando real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Command</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 16 samples cover videos up to ~110s well</div>
+<div><span class="text-cyan-400">npx hyperframes inspect</span> <span class="text-blue-400">--samples 16</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># expected output</div>
+<div class="text-emerald-400">✔ Inspected 16 frames — 0 layout issues found</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Best practices for 0 issues</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Add <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">data-layout-ignore</code> in off-canvas decorative elements (giant background words, glows, <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">.bg-layer</code>)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Prefer <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">left/right</code> instead of <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">width</code> for highlight markers</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Test long code in <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">overflow-x: auto</code> with an explicitly sized container</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Use <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">z-index:-1</code> in the glows so they don't overflow the bounding box</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Common causes of overflow</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Code-line text overflowing the container — shorten it or break it into lines</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> SVG without <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">viewBox</code> not defined — the auditor can't calculate bounds</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">position: absolute</code> without <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">overflow: hidden</code> in the parent</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Decorative elements without <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">data-layout-ignore</code> — marked as false-positive overflow</li>
+</ul>
+</div>
+</div>
+<!-- box alerta -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Inspect does not replace visual review</div>
+<p class="text-neutral-400 text-sm">The inspector detects bounding-box overflow, not readability or contrast issues. After <code class="text-blue-300">0 problemas</code> in inspect, you still need to review frames from the draft render visually — especially in scenes with text over a gradient.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔍</div><div class="text-xs font-semibold text-neutral-200">16 samples</div><div class="text-xs text-neutral-500">Good coverage</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🏷️</div><div class="text-xs font-semibold text-neutral-200">data-layout-ignore</div><div class="text-xs text-neutral-500">Decorative elements</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📐</div><div class="text-xs font-semibold text-neutral-200">Bounding box</div><div class="text-xs text-neutral-500">Actual overflow</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🧪</div><div class="text-xs font-semibold text-neutral-200">Headless Chrome</div><div class="text-xs text-neutral-500">Actual render</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 — render draft -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎬 Draft render — iterate quickly</h2>
+<p class="text-neutral-400 mt-2">The mode <code class="text-blue-300">--quality draft</code> generates a low-resolution MP4 in seconds. Extract one frame per scene with <code class="text-blue-300">ffmpeg -nostdin</code> and check it visually before spending time on the final render.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- timeline do workflow draft -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Frame-by-frame review workflow</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-blue-500/30"></div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Generate the MP4 draft</div>
+<div class="bg-dark-900 rounded-lg p-3 mt-2 font-mono text-xs overflow-x-auto">
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-neutral-500"># generates index.html</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> <span class="text-blue-400">--quality draft</span> <span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/draft.mp4</span></div>
+</div>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Extract 1 frame per scene with ffmpeg</div>
+<p class="text-neutral-400 text-sm mt-1">Use the scene start time as <code class="text-blue-300">&lt;t&gt;</code>. For a scene that starts at 12.5 s, use <code class="text-blue-300">-ss 12.5</code>. The flag <code class="text-blue-300">-nostdin</code> is required on Windows/git-bash to prevent ffmpeg from consuming stdin and exiting without generating the file.</p>
+<div class="bg-dark-900 rounded-lg p-3 mt-2 font-mono text-xs overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># frame from the scene that starts at t=12.5s</div>
+<div><span class="text-cyan-400">ffmpeg</span> <span class="text-blue-400">-nostdin -y</span> <span class="text-blue-400">-ss</span> <span class="text-yellow-300">12.5</span> <span class="text-blue-400">-i</span> renders/draft.mp4 \</div>
+<div class="ml-4"><span class="text-blue-400">-vframes 1 -update 1</span> <span class="text-yellow-300">frame-cena3.png</span></div>
+</div>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Open the PNG with the Read tool</div>
+<p class="text-neutral-400 text-sm mt-1">Claude can view PNG images directly. Extract one frame per scene and check text alignment, overflow, animations in the right position, and readability against the background. Repeat for all scenes.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Fix it and try again</div>
+<p class="text-neutral-400 text-sm mt-1">Edit the <code class="text-blue-300">build-index.mjs</code>, run <code class="text-blue-300">node build-index.mjs &amp;&amp; npx hyperframes render --quality draft</code> again. The draft loop is cheap—iterate freely before the final render.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- box dado: quando usar draft -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Draft vs High — when to use each</div>
+<div class="overflow-x-auto rounded-lg border border-dark-600">
+<table class="w-full text-sm">
+<thead>
+<tr class="bg-dark-700/60 border-b border-dark-600">
+<th class="text-left p-3 text-neutral-400 font-semibold">Aspect</th>
+<th class="text-center p-3 text-blue-400 font-semibold">Draft</th>
+<th class="text-center p-3 text-cyan-400 font-semibold">High</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Objective</td>
+<td class="p-3 text-center text-neutral-300">Visual review</td>
+<td class="p-3 text-center text-neutral-300">Final delivery</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Speed</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">Fast (&lt;30 s)</td>
+<td class="p-3 text-center text-neutral-400">3–4 min / 110s of video</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Quality</td>
+<td class="p-3 text-center text-neutral-400">Reduced</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">Maximum (30 fps)</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Usage</td>
+<td class="p-3 text-center text-neutral-300">Iteration loop</td>
+<td class="p-3 text-center text-neutral-300">Once, at the end</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Recommended minimum coverage</div>
+<p class="text-neutral-400 text-sm">1 frame per scene works well. For an 8-scene video, that’s 8 ffmpeg calls. Focus on transitions and titles—they’re the parts most likely to overflow.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎬</div><div class="text-xs font-semibold text-neutral-200">--quality draft</div><div class="text-xs text-neutral-500">Fast iteration</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📸</div><div class="text-xs font-semibold text-neutral-200">-vframes 1</div><div class="text-xs text-neutral-500">Single frame</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🛡️</div><div class="text-xs font-semibold text-neutral-200">-nostdin</div><div class="text-xs text-neutral-500">Win/git-bash</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔁</div><div class="text-xs font-semibold text-neutral-200">-update 1</div><div class="text-xs text-neutral-500">Overwrites PNG</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 — validar locução -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">👂 Validate the narration with the user</h2>
+<p class="text-neutral-400 mt-2">Claude can't hear audio. The user is responsible for validating the narration — and should do so <em>before</em> from the high render to avoid wasting 3–4 minutes of processing.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box alerta vermelho -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Claude can't listen to WAV files</div>
+<p class="text-neutral-400 text-sm">The image analysis tool (Read) works for PNGs and frames, but WAV audio isn’t supported. All narration validation must be done by the user listening to the files <code class="text-blue-300">assets/audio/sN.wav</code> directly.</p>
+</div>
+</div>
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">What to validate in the voice-over</div>
+<p class="text-neutral-200 font-medium">Before rendering at high quality, confirm with the user: correct pronunciation of technical terms, speed (pf_dora --speed 0.98 is the default), natural pauses between scenes, and a duration that fits each scene’s visuals.</p>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Audio validation checklist</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Listen to each <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">assets/audio/sN.wav</code> before the final render</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Confirm that acronyms were expanded correctly (e.g., "GSAP" → "jee-sap" sounds natural?)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Make sure the WAV duration is consistent with the visual scene</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Check via <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">ffprobe</code> whether the measured duration matches the <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">AUDIO[]</code></li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Don't skip audio validation</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't run a high-quality render without listening to the WAVs—costly rework</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't rely only on the measured duration—the speech may be cut off</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't use a speed above 1.05—the voice sounds metallic and artificial</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Don't ignore incorrect pronunciations of English terms in the PT-BR text</li>
+</ul>
+</div>
+</div>
+<!-- comando ffprobe para conferir duração -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Confirm duration with ffprobe</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># measure the exact duration of each WAV</div>
+<div><span class="text-cyan-400">ffprobe</span> <span class="text-blue-400">-v error -show_entries format=duration</span> \</div>
+<div class="ml-4"><span class="text-blue-400">-of default=noprint_wrappers=1:nokey=1</span> \</div>
+<div class="ml-4"><span class="text-yellow-300">assets/audio/s1.wav</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># result: e.g. 14.2327</div>
+<div class="text-emerald-400">14.2327</div>
+<br/>
+<div class="text-neutral-500 text-xs"># use this value in AUDIO[0] in build-index.mjs</div>
+<div><span class="text-blue-400">const</span> <span class="text-cyan-400">AUDIO</span> = [<span class="text-yellow-300">14.23</span>, <span class="text-neutral-500">/* s2 */</span> <span class="text-yellow-300">11.80</span>, ...]</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">PT-BR voices available in Kokoro</div>
+<p class="text-neutral-400 text-sm">Beyond <code class="text-blue-300">pf_dora</code> (female, recommended default with <code class="text-blue-300">--speed 0.98</code>), there are <code class="text-blue-300">pm_alex</code> e <code class="text-blue-300">pm_santa</code> for male voice variations. If a term is pronounced incorrectly, rewrite it phonetically in the <code class="text-blue-300">assets/txt/sN.txt</code> and regenerate the WAV.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">👂</div><div class="text-xs font-semibold text-neutral-200">Human review</div><div class="text-xs text-neutral-500">Claude doesn't listen</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎙️</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">speed 0.98</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">ffprobe</div><div class="text-xs text-neutral-500">Measures duration</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📝</div><div class="text-xs font-semibold text-neutral-200">AUDIO[]</div><div class="text-xs text-neutral-500">Syncs the scene</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 — render high -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🚀 Render high — delivery quality</h2>
+<p class="text-neutral-400 mt-2">After clean lint, inspect with no overflow, a reviewed draft, and approved narration, it’s time for the final render: <code class="text-blue-300">--quality high --fps 30</code>. An ~110s video is about ~3,500 frames and takes 3–4 minutes on a typical machine with 22 cores.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">What happens in the high render</div>
+<p class="text-neutral-200 font-medium">HyperFrames launches headless Chrome at full resolution (1920×1080 or 1080×1920), captures each frame as a PNG, passes them all to FFmpeg, and encodes H.264 with the WAV audio embedded. At 30 fps, 110 seconds = 3,300 frames.</p>
+<p class="text-neutral-400 text-sm mt-3">Render time varies with the number of available colors. With 22 colors, expect ~3–4 minutes for a 110s video.</p>
+</div>
+<!-- comando render high -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Command (16:9 high-quality render)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># final 16:9 render (1920×1080)</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">&amp;&amp;</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--fps 30</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/meu-video-16x9.mp4</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># output during rendering</div>
+<div class="text-blue-400">⠸ Rendering frame 1547/3300 (46.9%)...</div>
+<div class="text-emerald-400">✔ Render complete → renders/meu-video-16x9.mp4</div>
+</div>
+</div>
+<!-- box dados: escala de tempo -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Estimated render time (22 colors)</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-blue-400 font-bold mb-1">Short video (~60s)</div>
+<div class="text-neutral-300">~1,800 frames</div>
+<div class="text-neutral-400 text-xs mt-1">≈ 1.5–2 min rendering</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-blue-400 font-bold mb-1">Standard video (~110s)</div>
+<div class="text-neutral-300">~3,300 frames</div>
+<div class="text-neutral-400 text-xs mt-1">≈ 3–4 min rendering</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="text-blue-400 font-bold mb-1">Long video (~180s)</div>
+<div class="text-neutral-300">~5,400 frames</div>
+<div class="text-neutral-400 text-xs mt-1">≈ 5–7 min rendering</div>
+</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Before starting the high render</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">npx hyperframes lint</code> — 0 confirmed errors</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">npx hyperframes inspect --samples 16</code> — 0 layout issues</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Draft visually checked (1 frame/scene)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Voice-over approved by the user</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Don't use high-quality rendering if...</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Lint still reports errors — it will fail midway through rendering</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Didn't see any frames from the draft—risk of rework</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> The user hasn't listened to the WAVs — they may need to render again</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> O <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">index.html</code> was not regenerated after the last edit</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚀</div><div class="text-xs font-semibold text-neutral-200">--quality high</div><div class="text-xs text-neutral-500">Full resolution</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎞️</div><div class="text-xs font-semibold text-neutral-200">30 fps</div><div class="text-xs text-neutral-500">Default delivery</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⏳</div><div class="text-xs font-semibold text-neutral-200">~3,500 frames</div><div class="text-xs text-neutral-500">110s video</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🏁</div><div class="text-xs font-semibold text-neutral-200">H.264 MP4</div><div class="text-xs text-neutral-500">Ready to upload</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 — dois formatos -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📐 Generate both formats — 16:9 and 9:16</h2>
+<p class="text-neutral-400 mt-2">From the same project, generate the 16:9 (YouTube) and 9:16 (Shorts/Reels) versions in sequence. The critical rule: <strong class="text-blue-400">render immediately after generating each format</strong> — never leave two <code class="text-blue-300">index.html</code> simultaneous at the root.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Single index.html rule</div>
+<p class="text-neutral-200 font-medium">O <code class="text-blue-300">build-index.mjs</code> always overwrites the same one <code class="text-blue-300">index.html</code>. If you run both modes before rendering, the second overwrites the first and you lose the composition. The correct sequence is: generate → render → generate another version → render.</p>
+</div>
+<!-- comandos completos dos dois formatos -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Complete sequence (correct order)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># ── STEP 1: 16:9 format ──────────────────────────</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-neutral-500"># no flag → 1920×1080</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--quality high</span> <span class="text-blue-400">--fps 30</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/meu-video-16x9.mp4</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># ── STEP 2: 9:16 format ──────────────────────────</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">--vertical</span> <span class="text-neutral-500"># → 1080×1920</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--quality high</span> <span class="text-blue-400">--fps 30</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/meu-video-9x16.mp4</span></div>
+<br/>
+<div class="text-emerald-400 text-xs"># result: 2 files in renders/</div>
+<div class="text-emerald-400">renders/meu-video-16x9.mp4   # YouTube</div>
+<div class="text-emerald-400">renders/meu-video-9x16.mp4   # Shorts / Reels</div>
+</div>
+</div>
+<!-- box dados: destinos de cada formato -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Formats and destinations</div>
+<div class="grid sm:grid-cols-2 gap-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-blue-400 font-bold text-base mb-2">16:9 — Horizontal</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolution:</span> <strong>1920 × 1080 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destination:</span> YouTube, Vimeo, LinkedIn</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-blue-300">node build-index.mjs</code> (without a flag)</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Output:</span> <code class="text-yellow-300 bg-dark-900 px-1 rounded text-xs">renders/nome-16x9.mp4</code></div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-cyan-400 font-bold text-base mb-2">9:16 — Vertical</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolution:</span> <strong>1080 × 1920 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destination:</span> YouTube Shorts, Instagram Reels, TikTok</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-cyan-300">node build-index.mjs --vertical</code></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Output:</span> <code class="text-yellow-300 bg-dark-900 px-1 rounded text-xs">renders/nome-9x16.mp4</code></div>
+</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Complete pipeline in one script</div>
+<p class="text-neutral-400 text-sm">To automate both formats at once, chain with <code class="text-blue-300">&amp;&amp;</code>:</p>
+<div class="bg-dark-900 rounded-lg p-3 mt-2 font-mono text-xs overflow-x-auto">
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">&amp;&amp;</span> <span class="text-cyan-400">npx hyperframes render</span> <span class="text-blue-400">--quality high --output</span> <span class="text-yellow-300">renders/v-16x9.mp4</span> <span class="text-blue-400">&amp;&amp;</span></div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">--vertical &amp;&amp;</span> <span class="text-cyan-400">npx hyperframes render</span> <span class="text-blue-400">--quality high --output</span> <span class="text-yellow-300">renders/v-9x16.mp4</span></div>
+</div>
+<p class="text-neutral-400 text-xs mt-2">O <code class="text-blue-300">&amp;&amp;</code> ensures the 9:16 render starts only after the 16:9 render finishes successfully.</p>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Correct sequence</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">node build-index.mjs</code> → render 16:9 → <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">node build-index.mjs --vertical</code> → render 9:16</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Always confirm which one <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">index.html</code> is active before rendering</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Name the outputs with the suffix <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">-16x9</code> e <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">-9x16</code> from the start</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errors that cost render time</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Run <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">build-index.mjs</code> e <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">build-index.mjs --vertical</code> without rendering between the two</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Render without <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">--output</code> explicit — may overwrite a previous render</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Use the same output name for both formats</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key concepts</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📺</div><div class="text-xs font-semibold text-neutral-200">1920×1080</div><div class="text-xs text-neutral-500">YouTube</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">1080×1920</div><div class="text-xs text-neutral-500">Shorts/Reels</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚩</div><div class="text-xs font-semibold text-neutral-200">--vertical</div><div class="text-xs text-neutral-500">Single flag</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">Generate → render</div><div class="text-xs text-neutral-500">Required order</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 text-blue-400">📋 Module 2.5 Summary</h2>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<div>
+<div class="text-sm font-semibold text-neutral-400 mb-3">What you learned</div>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> <code class="text-blue-300">npx hyperframes lint</code>: the 3 fatal errors and how to fix each one</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> <code class="text-blue-300">npx hyperframes inspect --samples 16</code>: overflow, <code class="text-blue-300">data-layout-ignore</code> and false positives</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Draft render + frame extraction with <code class="text-blue-300">ffmpeg -nostdin -y -ss &lt;t&gt; -vframes 1 -update 1</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Claude can't hear audio — the user is responsible for validating the narration</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> High-quality render: <code class="text-blue-300">--quality high --fps 30</code> · ~110s ≈ 3,500 frames ≈ 3–4 min</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> 16:9 → 9:16 sequence: generate and render each format before generating the next</li>
+</ul>
+</div>
+<!-- próxima trilha -->
+<div class="bg-dark-700/50 rounded-xl border border-purple-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Next track</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center flex-shrink-0 text-purple-400 font-bold text-sm">T3</div>
+<div>
+<div class="font-semibold text-neutral-200">🔧 Inside HyperFrames</div>
+<div class="text-sm text-neutral-400 mt-1">You’ve finished Track 2 — Pipeline. The next track dives into the framework’s internals: how headless Chrome controls time, how FFmpeg encodes, and how GSAP integrates with frame-by-frame rendering.</div>
+</div>
+</div>
+<a class="mt-4 flex items-center justify-start gap-2 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors" href="../trilha3/index.html">
+            Start Track 3: Under the hood →
+          </a>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Back to Track 2</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-700 text-white rounded-lg font-semibold hover:bg-purple-600 transition-colors" href="../trilha3/index.html">Track 3: Under the Hood →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Content of the <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Track 2: Pipeline · Module 2.5 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

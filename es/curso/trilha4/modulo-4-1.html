@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 4.1 — YouTube y Shorts | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FBBF24', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento amber */
+    html:not(.dark) .text-amber-400 { color: #92400e; }
+    html:not(.dark) .bg-amber-500\/20 { background-color: rgba(217,119,6,0.12); }
+    html:not(.dark) .bg-amber-500\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-amber-500\/30 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .hover\:bg-amber-500\/30:hover { background-color: rgba(217,119,6,0.18); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-amber-400 { color: #92400e; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #92400e; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(217,119,6,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    /* SVG animations */
+    @keyframes m41-flow { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m41-pulse { 0%,100% { opacity:.35 } 50% { opacity:1 } }
+    @keyframes m41-glow { 0%,100% { filter: drop-shadow(0 0 4px #fbbf24); } 50% { filter: drop-shadow(0 0 14px #fbbf24); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m41-anim-flow { animation: m41-flow 3s linear infinite; }
+      .m41-anim-pulse { animation: m41-pulse 2.6s ease-in-out infinite; }
+      .m41-anim-pulse:nth-child(2) { animation-delay: .5s; }
+      .m41-anim-pulse:nth-child(3) { animation-delay: 1s; }
+      .m41-anim-glow { animation: m41-glow 2.4s ease-in-out infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha4/modulo-4-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha4/modulo-4-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha4/modulo-4-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha4/modulo-4-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha4/modulo-4-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-4-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-amber-400 bg-amber-500/10" href="index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-amber-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-amber-400 transition-colors" href="index.html">Ruta 4 — Aplicaciones</a>
+<span>/</span>
+<span class="text-amber-400 font-medium">Módulo 4.1</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-amber-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col lg:flex-row gap-8 items-start">
+<div class="flex-1">
+<div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/30 rounded-full px-3 py-1 text-xs font-semibold text-amber-400 uppercase tracking-widest mb-4">MÓDULO 4.1</div>
+<h1 class="text-3xl sm:text-4xl font-bold mb-3">📺 YouTube y Shorts</h1>
+<p class="text-neutral-400 text-lg max-w-xl">Publica un video explicativo en YouTube (16:9) y un Short/Reel (9:16) a partir del mismo proyecto HyperFrames, sin grabar con cámara ni editar de forma no lineal.</p>
+<!-- STATS -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+<div class="text-2xl font-bold text-amber-400">6</div>
+<div class="text-xs text-neutral-500 mt-0.5">Temas</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+<div class="text-2xl font-bold text-amber-400">25</div>
+<div class="text-xs text-neutral-500 mt-0.5">Minutos</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+<div class="text-2xl font-bold text-amber-400">Práctico</div>
+<div class="text-xs text-neutral-500 mt-0.5">Nivel</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-3 text-center">
+<div class="text-2xl font-bold text-amber-400">Aplicación</div>
+<div class="text-xs text-neutral-500 mt-0.5">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Um projeto → dois formatos -->
+<div class="w-full lg:w-80 flex-shrink-0">
+<svg aria-label="Diagrama: un proyecto genera versiones 16:9 y 9:16" class="w-full rounded-2xl" viewbox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#1f1604" height="220" rx="16" width="320"></rect>
+<!-- grade de fundo -->
+<line stroke="#fbbf2412" stroke-width="1" x1="0" x2="320" y1="40" y2="40"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="0" x2="320" y1="80" y2="80"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="0" x2="320" y1="120" y2="120"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="0" x2="320" y1="160" y2="160"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="80" x2="80" y1="0" y2="220"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="160" x2="160" y1="0" y2="220"></line>
+<line stroke="#fbbf2412" stroke-width="1" x1="240" x2="240" y1="0" y2="220"></line>
+<!-- nó central: build-index.mjs -->
+<rect fill="#0e1b26" height="44" rx="10" stroke="#38bdf8" stroke-width="1.5" width="110" x="105" y="88"></rect>
+<text fill="#bfe6ff" font-family="monospace" font-size="9" text-anchor="middle" x="160" y="107">build-index.mjs</text>
+<text fill="#38bdf8" font-family="monospace" font-size="8" text-anchor="middle" x="160" y="120">node .</text>
+<!-- seta esquerda: 16:9 -->
+<path class="m41-anim-flow" d="M105 110 L60 110" stroke="#fbbf24" stroke-dasharray="6,3" stroke-dashoffset="200" stroke-width="2"></path>
+<!-- retângulo 16:9 -->
+<rect class="m41-anim-pulse" fill="#1f1604" height="27" rx="5" stroke="#fbbf24" stroke-width="1.5" width="48" x="12" y="88"></rect>
+<text fill="#fbbf24" font-family="monospace" font-size="7" text-anchor="middle" x="36" y="99">16:9</text>
+<text fill="#748cab" font-family="monospace" font-size="6" text-anchor="middle" x="36" y="109">1920×1080</text>
+<!-- label YouTube -->
+<text fill="#fbbf24" font-size="7" text-anchor="middle" x="36" y="126">YouTube</text>
+<!-- seta direita: 9:16 -->
+<path class="m41-anim-flow" d="M215 110 L260 110" stroke="#38bdf8" stroke-dasharray="6,3" stroke-dashoffset="200" stroke-width="2"></path>
+<!-- retângulo 9:16 (frame alto) -->
+<rect class="m41-anim-pulse" fill="#0e1b26" height="48" rx="5" stroke="#38bdf8" stroke-width="1.5" width="27" x="260" y="80"></rect>
+<text fill="#38bdf8" font-family="monospace" font-size="7" text-anchor="middle" x="273" y="101">9:16</text>
+<text fill="#748cab" font-family="monospace" font-size="6" text-anchor="middle" x="273" y="113">1080×</text>
+<text fill="#748cab" font-family="monospace" font-size="6" text-anchor="middle" x="273" y="121">1920</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="273" y="138">Shorts</text>
+<!-- flag --vertical -->
+<rect fill="#0e1b26" height="16" rx="4" stroke="#38bdf875" stroke-width="1" width="68" x="220" y="72"></rect>
+<text fill="#38bdf8" font-family="monospace" font-size="8" text-anchor="middle" x="254" y="83">--vertical</text>
+<!-- label fonte: roteiro -->
+<rect fill="#1f1604" height="22" rx="6" stroke="#fbbf2460" stroke-width="1" width="96" x="112" y="26"></rect>
+<text fill="#fbbf24" font-size="9" text-anchor="middle" x="160" y="41">📄 SCRIPT.md</text>
+<!-- seta roteiro → build -->
+<line stroke="#fbbf2470" stroke-dasharray="4,3" stroke-width="1.5" x1="160" x2="160" y1="48" y2="88"></line>
+<!-- legenda inferior -->
+<text fill="#748cab" font-family="monospace" font-size="8" x="12" y="196">Un guion.</text>
+<text fill="#748cab" font-family="monospace" font-size="8" x="12" y="208">Dos renders.</text>
+<text fill="#38bdf8" font-family="monospace" font-size="8" x="200" y="196">node build-index.mjs</text>
+<text fill="#38bdf8" font-family="monospace" font-size="8" x="200" y="208">node build-index.mjs --vertical</text>
+<!-- glow no nó central -->
+<rect class="m41-anim-glow" fill="none" height="44" rx="10" stroke="#fbbf24" stroke-width="0.5" width="110" x="105" y="88"></rect>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+<!-- ══════════════════════════════════════════════
+         TÓPICO 1 — Vídeo 16:9 para YouTube
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🖥️ Video 16:9 para YouTube</h2>
+<p class="text-neutral-400 mt-2">El formato estándar de YouTube es <strong class="text-neutral-200">1920 × 1080 px</strong>. Con HyperFrames, escribes escenas en HTML + GSAP y renderizas el MP4 en alta calidad, sin abrir un editor de video.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-r from-amber-900/30 to-dark-700/40 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Concepto principal</div>
+<p class="text-neutral-200 font-medium">El generador <code class="text-amber-300 font-mono">build-index.mjs</code> escribe un <code class="text-amber-300 font-mono">index.html</code> con el viewport fijo en <strong>1920 × 1080</strong>. HyperFrames usa Chrome headless para capturar cada frame y FFmpeg ensambla el MP4. Sin una flag, el output siempre es 16:9.</p>
+</div>
+<!-- grid ✓ / ✗ -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ HACER en videos de YouTube</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usar <code class="text-emerald-300 font-mono">--quality high</code> en el render final</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantener la narración ≈ 100s de habla (≈ 1:50 de video)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Incluir una miniatura de alto contraste en la escena 1</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Generar MP4 con códec H.264, 60fps fluido</li>
+</ul>
+</div>
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ NO HACER en videos de YouTube</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Publicar render <code class="text-red-300 font-mono">--quality draft</code> (resolución baja)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Superar los 15 min sin capítulos (caída de la retención)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Usar una fuente menor que 32px (ilegible en móvil)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Omitir la escena de CTA (pérdida de conversión)</li>
+</ul>
+</div>
+</div>
+<!-- box mono -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Render 16:9 — comando exacto</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># Genera index.html 1920×1080 y luego renderiza</div>
+<div><span class="text-amber-400">node</span> build-index.mjs <span class="text-cyan-400">&amp;&amp;</span></div>
+<div><span class="text-amber-400">npx hyperframes render</span> <span class="text-sky-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-sky-400">--output</span> <span class="text-yellow-300">renders/meu-tutorial-16x9.mp4</span></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Viewport fijo</div>
+<div class="text-neutral-400 text-xs">El index.html tiene width/height hard-coded en 1920×1080: Chrome captura exactamente eso.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">H.264 + FFmpeg</div>
+<div class="text-neutral-400 text-xs">HyperFrames llama a FFmpeg internamente. El MP4 generado es aceptado por la carga de YouTube sin volver a codificarlo.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Escenas GSAP</div>
+<div class="text-neutral-400 text-xs">Cada <code class="font-mono">sceneN()</code> devuelve HTML estático; <code class="font-mono">anim()</code> recibe el timeline de GSAP y anima los elementos.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         TÓPICO 2 — Shorts/Reels/TikTok em 9:16
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📱 Shorts/Reels/TikTok en 9:16</h2>
+<p class="text-neutral-400 mt-2">El mismo proyecto HTML se convierte en un video <strong class="text-neutral-200">1080 × 1920 px</strong> con el flag <code class="text-cyan-400 font-mono">--vertical</code>. HyperFrames recompone el diseño y renderiza el frame en formato vertical, sin duplicar código.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box dados dimensões -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Dimensiones y destinos</div>
+<div class="grid sm:grid-cols-2 gap-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-amber-400 font-bold text-base mb-2">16:9 — Horizontal</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolución:</span> <strong>1920 × 1080 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destino:</span> YouTube, Vimeo, LinkedIn</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-amber-300 font-mono">node build-index.mjs</code> (sin flag)</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-cyan-400 font-bold text-base mb-2">9:16 — Vertical</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolución:</span> <strong>1080 × 1920 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destino:</span> YouTube Shorts, Instagram Reels, TikTok</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-cyan-300 font-mono">node build-index.mjs --vertical</code></div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Diseño adaptable con CSS</div>
+<p class="text-neutral-400 text-sm">En el modo <code class="text-amber-300 font-mono">--vertical</code>, HyperFrames inyecta la clase <code class="text-amber-300 font-mono">.vertical</code> no <code class="font-mono">&lt;body&gt;</code>. Usa selectores <code class="font-mono">.vertical .sua-classe</code> en el CSS de las escenas para reposicionar elementos — columna en lugar de fila, texto más grande, márgenes más pequeños.</p>
+</div>
+</div>
+<!-- grid ✓ / ✗ -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ HACER en Shorts/Reels</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usar fuentes ≥ 48px en el modo vertical (zona segura más pequeña)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantén el CTA y los subtítulos en la mitad inferior de la pantalla</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Validar el diseño con <code class="text-emerald-300 font-mono">npx hyperframes inspect --samples 16</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Limita a ≤ 60 s para Shorts/Reels (≤ 180 s para TikTok)</li>
+</ul>
+</div>
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ NO HACER en Shorts/Reels</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Reutilizar el diseño 16:9 sin ajustes <code class="text-red-300 font-mono">.vertical</code></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Poner el texto importante en la franja superior (cubierta por la UI de la app)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Ignorar el lint antes del render — los errores de diseño se ven ampliados</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Publicar sin subtítulos (la mayoría mira sin sonido)</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-cyan-400 font-semibold text-sm mb-1">Flag --vertical</div>
+<div class="text-neutral-400 text-xs">Inyecta una clase y reescribe el viewport a 1080×1920 sin alterar las funciones de escena.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-cyan-400 font-semibold text-sm mb-1">Zona segura</div>
+<div class="text-neutral-400 text-xs">Reserva ~15% de la parte superior e inferior para la interfaz de las apps: deja solo contenido en la franja central.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-cyan-400 font-semibold text-sm mb-1">Reels vs Shorts</div>
+<div class="text-neutral-400 text-xs">El mismo MP4 9:16 sirve para Instagram Reels y YouTube Shorts: súbelo a ambos.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-cyan-400 font-semibold text-sm mb-1">60 s límite</div>
+<div class="text-neutral-400 text-xs">Shorts requiere ≤ 60 s para aparecer en la pestaña dedicada. Si dura más, se convierte en un video común.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         TÓPICO 3 — Por que ~110s prende a retenção
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">⏱️ Por qué ~110s mantiene la retención</h2>
+<p class="text-neutral-400 mt-2">100 segundos de voz equivalen a ~1:50 de video. Ese intervalo es lo suficientemente largo para enseñar un concepto completo y lo suficientemente corto para mantener la atención: el punto ideal para Shorts y tutoriales de YouTube.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- timeline -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Timeline de retención típica</div>
+<div class="space-y-3">
+<div class="flex items-center gap-4">
+<div class="w-20 text-right text-xs font-mono text-amber-400 flex-shrink-0">0 – 5 s</div>
+<div class="flex-1 bg-dark-700 rounded-full h-5 overflow-hidden">
+<div class="bg-amber-400 h-5 rounded-full" style="width:95%"></div>
+</div>
+<div class="w-32 text-xs text-neutral-400">Hook — no cierres</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-20 text-right text-xs font-mono text-amber-400 flex-shrink-0">5 – 30 s</div>
+<div class="flex-1 bg-dark-700 rounded-full h-5 overflow-hidden">
+<div class="bg-amber-400 h-5 rounded-full" style="width:82%"></div>
+</div>
+<div class="w-32 text-xs text-neutral-400">Contexto rápido</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-20 text-right text-xs font-mono text-amber-400 flex-shrink-0">30 – 90 s</div>
+<div class="flex-1 bg-dark-700 rounded-full h-5 overflow-hidden">
+<div class="bg-amber-500 h-5 rounded-full" style="width:72%"></div>
+</div>
+<div class="w-32 text-xs text-neutral-400">Contenido central</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-20 text-right text-xs font-mono text-amber-400 flex-shrink-0">90 – 110 s</div>
+<div class="flex-1 bg-dark-700 rounded-full h-5 overflow-hidden">
+<div class="bg-cyan-500 h-5 rounded-full" style="width:68%"></div>
+</div>
+<div class="w-32 text-xs text-neutral-400">CTA — conversión</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-20 text-right text-xs font-mono text-neutral-500 flex-shrink-0">&gt; 180 s</div>
+<div class="flex-1 bg-dark-700 rounded-full h-5 overflow-hidden">
+<div class="bg-dark-600 h-5 rounded-full" style="width:38%"></div>
+</div>
+<div class="w-32 text-xs text-neutral-500">Caída pronunciada</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">⚡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">La narración es el metrónomo</div>
+<p class="text-neutral-400 text-sm">Cada escena de SCRIPT.md tiene ≈ 15–18 s de narración (medido con <code class="font-mono text-amber-300">ffprobe</code>). Con 6–7 escenas llegas exactamente a ~100 s de habla. Voz: <code class="font-mono text-amber-300">pf_dora --speed 0.98</code> en Kokoro. Guarda las duraciones en el array <code class="font-mono text-amber-300">AUDIO[]</code> del <code class="font-mono">build-index.mjs</code>.</p>
+</div>
+</div>
+<!-- box dados -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Ecuación duración × retención</div>
+<div class="grid sm:grid-cols-3 gap-4 text-sm">
+<div class="text-center bg-dark-700/60 rounded-lg p-3">
+<div class="text-2xl font-bold text-amber-400">~100s</div>
+<div class="text-neutral-500 text-xs mt-1">de voz (TTS pf_dora)</div>
+</div>
+<div class="text-center bg-dark-700/60 rounded-lg p-3">
+<div class="text-2xl font-bold text-cyan-400">≈ 1:50</div>
+<div class="text-neutral-500 text-xs mt-1">de video renderizado</div>
+</div>
+<div class="text-center bg-dark-700/60 rounded-lg p-3">
+<div class="text-2xl font-bold text-emerald-400">&gt; 65%</div>
+<div class="text-neutral-500 text-xs mt-1">retención promedio esperada</div>
+</div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Hook en los 5s</div>
+<div class="text-neutral-400 text-xs">La escena 1 determina si el viewer se queda. Empieza con la promesa o el problema; nunca con una intro de marca.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">AUDIO[] real</div>
+<div class="text-neutral-400 text-xs">Completa con las duraciones exactas de <code class="font-mono">ffprobe assets/audio/sN.wav</code> — HyperFrames sincroniza la animación y el audio.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">speed 0.98</div>
+<div class="text-neutral-400 text-xs">Una velocidad ligeramente inferior a 1.0 hace que el habla suene más natural en PT-BR con la voz pf_dora.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         TÓPICO 4 — Legendas/captions sempre on
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">💬 Subtítulos/captions siempre activados</h2>
+<p class="text-neutral-400 mt-2">El 85 % de los videos en feeds se ve sin sonido. Los subtítulos incrustados (burned-in) en el frame garantizan accesibilidad y legibilidad incluso sin sonido, y además refuerzan la identidad visual dark premium.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-r from-amber-900/30 to-dark-700/40 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Cómo funciona en HyperFrames</div>
+<p class="text-neutral-200 font-medium">El array <code class="text-amber-300 font-mono">CAPTIONS[]</code> en <code class="text-amber-300 font-mono">build-index.mjs</code> define textos sincronizados con el audio. La plantilla inyecta un <code class="font-mono">&lt;div class="caption"&gt;</code> fijo en el pie de cada escena. El CSS predeterminado usa <strong>Inter 600, 36px, fondo rgba(0,0,0,0.55)</strong>, padding 12px: legible sobre cualquier fondo.</p>
+</div>
+<!-- box mono — exemplo caption CSS -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Estilo de subtítulos (estilo propio)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2">/* subtítulo integrado en el fotograma */</div>
+<div><span class="text-amber-400">.caption</span> {</div>
+<div class="ml-4"><span class="text-cyan-400">position</span>: <span class="text-yellow-300">absolute</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">bottom</span>: <span class="text-yellow-300">72px</span>;  <span class="text-neutral-500">/* por encima de la safe zone */</span></div>
+<div class="ml-4"><span class="text-cyan-400">left</span>: <span class="text-yellow-300">50%</span>; <span class="text-cyan-400">transform</span>: <span class="text-yellow-300">translateX(-50%)</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">font-family</span>: <span class="text-yellow-300">'Inter'</span>, sans-serif;</div>
+<div class="ml-4"><span class="text-cyan-400">font-weight</span>: <span class="text-yellow-300">600</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">font-size</span>: <span class="text-yellow-300">36px</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">color</span>: <span class="text-yellow-300">#F0EBD8</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">background</span>: <span class="text-yellow-300">rgba(0,0,0,0.55)</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">border-radius</span>: <span class="text-yellow-300">8px</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">padding</span>: <span class="text-yellow-300">10px 20px</span>;</div>
+<div class="ml-4"><span class="text-cyan-400">max-width</span>: <span class="text-yellow-300">80%</span>; <span class="text-cyan-400">text-align</span>: <span class="text-yellow-300">center</span>;</div>
+<div>}</div>
+</div>
+</div>
+<!-- box alerta -->
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Caption no es un archivo de subtítulos</div>
+<p class="text-neutral-400 text-sm">La caption de HyperFrames es <strong>burned-in</strong> — forma parte del frame del video. Esto es intencional: garantiza que aparezca en cualquier plataforma, incluso cuando el reproductor está silenciado y no admite SRT/VTT. Para SEO, agrega también subtítulos por separado al subirlo a YouTube.</p>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Vertical: ajusta el font-size</div>
+<p class="text-neutral-400 text-sm">En el modo <code class="font-mono text-amber-300">--vertical</code>, usa <code class="font-mono text-amber-300">.vertical .caption { font-size: 52px; bottom: 160px; }</code> — la resolución 1080×1920 es mucho mayor y el caption debe escalarse.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">CAPTIONS[]</div>
+<div class="text-neutral-400 text-xs">Array de strings en build-index.mjs: cada elemento corresponde a una escena y se inyecta en el frame.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Accesibilidad</div>
+<div class="text-neutral-400 text-xs">Los subtítulos incrustados sirven a las personas sordas y a quienes están en un entorno sin audio (autobús, trabajo).</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">rgba translúcido</div>
+<div class="text-neutral-400 text-xs">El fondo semitransparente conserva el aspecto del frame y garantiza un contraste mínimo WCAG 2.1 AA.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         TÓPICO 5 — CTA no fim
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🏁 CTA al final</h2>
+<p class="text-neutral-400 mt-2">La última escena es el CTA — Call to Action. En el estándar de INEMA.CLUB, muestra "CONTINÚA EN" + dominio destacado + URL legible. Ya viene lista en la plantilla de HyperFrames como <code class="text-amber-300 font-mono">scene9()</code>.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-r from-amber-900/30 to-dark-700/40 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Escena de CTA estándar INEMA.CLUB</div>
+<p class="text-neutral-200 font-medium">La escena final muestra <strong>"CONTINÚA EN"</strong> + <strong class="text-amber-300">INEMA</strong><strong class="text-yellow-300">.CLUB</strong> con glow ámbar, URL <code class="font-mono text-cyan-400">🌐 inema.club</code> y una narración breve: <em>"Esto es contenido de INEMA punto CLUB. Accede: inema punto club."</em>. Es la <code class="font-mono text-amber-300">scene9()</code> en el template — no lo elimines.</p>
+</div>
+<!-- box mono — prompt de exemplo para acionar o skill -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Prompt de ejemplo — activar la skill video-explicativo</div>
+<div class="bg-dark-900 rounded-xl border border-amber-500/30 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Pega en Claude Code (skill video-explicativo instalada)</div>
+<div class="text-amber-400">Crea un video explicativo sobre "cómo funciona Kokoro TTS".</div>
+<div class="text-amber-400 mt-1">Genera 16:9 y 9:16. CTA para INEMA.CLUB.</div>
+<div class="text-amber-400 mt-1">Voz pf_dora, speed 0.98, PT-BR.</div>
+<div class="text-amber-400 mt-1">Paleta premium oscura, acento ámbar #FFC300.</div>
+</div>
+<div class="mt-3 text-xs text-neutral-500">La skill sigue el flujo: SCRIPT.md → init → fetch-fonts → narración WAV → build-index.mjs → lint → render ×2.</div>
+</div>
+<!-- timeline do fluxo CTA -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Dónde aparece el CTA en la estructura del video</div>
+<div class="relative pl-8 space-y-4">
+<div class="absolute left-3 top-0 bottom-0 w-0.5 bg-dark-600"></div>
+<div class="relative">
+<div class="absolute -left-5 w-3 h-3 rounded-full bg-amber-500/40 border border-amber-500 top-1"></div>
+<div class="font-semibold text-neutral-200 text-sm">Escenas 1–7: contenido</div>
+<div class="text-neutral-500 text-xs">Guion, ejemplos, animaciones — el valor real del video.</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-3 h-3 rounded-full bg-amber-500/40 border border-amber-500 top-1"></div>
+<div class="font-semibold text-neutral-200 text-sm">Escena 8: resumen</div>
+<div class="text-neutral-500 text-xs">Repaso rápido (3–5 s) de los puntos principales: ancla la memoria.</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-3 h-3 rounded-full bg-amber-400 border border-amber-300 top-1"></div>
+<div class="font-semibold text-amber-400 text-sm">Escena 9: CTA INEMA.CLUB ← obligatorio</div>
+<div class="text-neutral-500 text-xs">INEMA.CLUB con glow + URL + narración breve. Ya incluida en la plantilla.</div>
+</div>
+</div>
+</div>
+<!-- grid ✓ / ✗ -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ HACER en el CTA</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantén la escena de CTA en TODOS los videos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> URL legible y URL mencionada en la narración</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Adapta a tu marca (reemplaza INEMA.CLUB por tu dominio)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantener el glow ámbar — identidad visual coherente</li>
+</ul>
+</div>
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ NO HACER en la CTA</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Eliminar la escena final (se pierden conversión e identidad)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Poner un CTA largo (&gt; 8 s) — el viewer abandona</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> URL ilegible o fondo que compite con el texto</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Olvidar decir la URL en la narración</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">scene9()</div>
+<div class="text-neutral-400 text-xs">Función preconstruida en el template — no la reescribas desde cero, solo ajusta el dominio y el glow.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Glow ámbar</div>
+<div class="text-neutral-400 text-xs">una sombra paralela ámbar #FFC300 pulsa en la marca — señala «haz clic aquí» sin necesidad de un botón.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">Canal doble</div>
+<div class="text-neutral-400 text-xs">URL visual + URL narrada = refuerzo bimodal. Quien vio el video con sonido y quien lo vio en silencio captan el destino.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         TÓPICO 6 — Um roteiro, dois formatos
+    ══════════════════════════════════════════════ -->
+<section class="bg-dark-800 rounded-2xl border border-dark-600 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">♻️ Un guion, dos formatos</h2>
+<p class="text-neutral-400 mt-2">Un único <code class="text-amber-300 font-mono">SCRIPT.md</code> + uno solo <code class="text-amber-300 font-mono">build-index.mjs</code> producen los dos MP4. Es el flujo completo de publicación de HyperFrames — ningún código duplicado.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box conceito principal -->
+<div class="rounded-xl bg-gradient-to-r from-amber-900/30 to-dark-700/40 border border-amber-500/30 p-5">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Principio DRY aplicado al video</div>
+<p class="text-neutral-200 font-medium">Escribe el guion una vez. Adapta el CSS de las escenas con selectores <code class="font-mono text-amber-300">.vertical</code>. Ejecuta el generador dos veces. El resultado son dos MP4 listos para publicar en YouTube (16:9) y en YouTube Shorts / Instagram Reels / TikTok (9:16).</p>
+</div>
+<!-- box mono — sequência completa -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Secuencia completa de renderizado (ambos formatos)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 1. Renderizar 16:9 — YouTube (1920×1080)</div>
+<div><span class="text-amber-400">node</span> build-index.mjs <span class="text-cyan-400">&amp;&amp;</span> \</div>
+<div><span class="text-amber-400">npx hyperframes render</span> <span class="text-sky-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-sky-400">--output</span> <span class="text-yellow-300">renders/kokoro-tts-16x9.mp4</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># 2. Renderizar 9:16 — Shorts/Reels (1080×1920)</div>
+<div><span class="text-amber-400">node</span> build-index.mjs <span class="text-cyan-400">--vertical</span> <span class="text-cyan-400">&amp;&amp;</span> \</div>
+<div><span class="text-amber-400">npx hyperframes render</span> <span class="text-sky-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-sky-400">--output</span> <span class="text-yellow-300">renders/kokoro-tts-9x16.mp4</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># 3. Validar antes de publicar</div>
+<div><span class="text-amber-400">npx hyperframes lint</span> <span class="text-neutral-500"># 0 errores</span></div>
+<div><span class="text-amber-400">npx hyperframes inspect</span> <span class="text-sky-400">--samples 16</span> <span class="text-neutral-500"># 0 problemas de diseño</span></div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-amber-500/10 border border-amber-500/30 p-4 flex gap-3">
+<span class="text-amber-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-amber-400 font-semibold text-sm mb-1">Renderiza siempre el borrador primero</div>
+<p class="text-neutral-400 text-sm">Usa <code class="font-mono text-amber-300">--quality draft</code> para verificar los tiempos y el diseño antes de dedicar tiempo al render final. Extrae frames con <code class="font-mono text-amber-300">npx hyperframes inspect --samples 16</code> y revisa las 16 capturas antes de ejecutar <code class="font-mono">--quality high</code>.</p>
+</div>
+</div>
+<!-- pipeline visual grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Pipeline resumido</div>
+<div class="grid sm:grid-cols-5 gap-2">
+<div class="bg-dark-700/60 border border-amber-500/30 rounded-xl p-3 text-center">
+<div class="text-2xl mb-1">📄</div>
+<div class="text-amber-400 font-semibold text-xs">SCRIPT.md</div>
+<div class="text-neutral-500 text-xs mt-1">6–9 escenas, ~100s de locución</div>
+</div>
+<div class="flex items-center justify-center text-amber-500 text-xl">→</div>
+<div class="bg-dark-700/60 border border-amber-500/30 rounded-xl p-3 text-center">
+<div class="text-2xl mb-1">🔧</div>
+<div class="text-amber-400 font-semibold text-xs">build-index.mjs</div>
+<div class="text-neutral-500 text-xs mt-1">sceneN() + anim()</div>
+</div>
+<div class="flex items-center justify-center text-amber-500 text-xl">→</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3 text-center">
+<div class="text-2xl mb-1">🎬</div>
+<div class="font-semibold text-xs text-neutral-300">16x9.mp4</div>
+<div class="text-cyan-400 font-semibold text-xs">9x16.mp4</div>
+<div class="text-neutral-500 text-xs mt-1">listos para subir</div>
+</div>
+</div>
+</div>
+<!-- grid ✓ / ✗ -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ HACER en el flujo dual</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Renderizar primero en 16:9, validar y después en 9:16</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Guardar los dos MP4 en <code class="text-emerald-300 font-mono">renders/</code> con nombres distintos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Probar <code class="font-mono">--quality draft</code> en ambos modos antes del high</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Agregar selectores <code class="font-mono">.vertical</code> en el CSS de escenas con texto largo</li>
+</ul>
+</div>
+<div class="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ NO HACER en el flujo dual</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Mantener dos archivos build-index separados (viola DRY)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Publicar sin hacer lint — los errores de diseño aparecen en el reproductor</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Sobrescribir renders/ sin control de versiones</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Ignorar la safe zone en el modo vertical</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">DRY</div>
+<div class="text-neutral-400 text-xs">Don't Repeat Yourself: un código fuente, dos resultados. Sin mantenimiento duplicado.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">renders/</div>
+<div class="text-neutral-400 text-xs">Carpeta de salida predeterminada. Usa siempre los sufijos -16x9 y -9x16 para no confundirlos.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">lint + inspeccionar</div>
+<div class="text-neutral-400 text-xs">Dos pases de calidad: lint verifica el HTML/JS; inspect extrae frames y muestra el desbordamiento visual.</div>
+</div>
+<div class="bg-dark-700/60 border border-dark-600 rounded-xl p-3">
+<div class="text-amber-400 font-semibold text-sm mb-1">draft → high</div>
+<div class="text-neutral-400 text-xs">El render draft es rápido (~20s). High puede tardar minutos. Valida siempre primero en draft.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════
+         RESUMO DO MÓDULO
+    ══════════════════════════════════════════════ -->
+<section class="rounded-2xl bg-gradient-to-br from-amber-900/40 via-dark-800 to-dark-800 border border-amber-500/30 p-8" id="resumo">
+<h2 class="text-2xl font-bold mb-6 text-amber-400">📋 Resumen del Módulo 4.1</h2>
+<!-- checklist -->
+<div class="grid sm:grid-cols-2 gap-3 mb-8">
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">16:9 (1920×1080) = YouTube. Sin flag en build-index.mjs.</span>
+</div>
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">9:16 (1080×1920) = Shorts/Reels/TikTok. Flag <code class="font-mono text-cyan-400">--vertical</code>.</span>
+</div>
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">~100s de fala (≈ 1:50) maximiza la retención. Voz pf_dora speed 0.98.</span>
+</div>
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">Captions incrustados: Inter 600, 36px, rgba(0,0,0,0.55). Siempre activas.</span>
+</div>
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">CTA final (scene9) obligatoria — INEMA.CLUB o tu marca.</span>
+</div>
+<div class="flex items-start gap-3 bg-dark-700/50 rounded-xl p-3">
+<span class="text-emerald-400 font-bold text-lg mt-0.5">✓</span>
+<span class="text-neutral-300 text-sm">Un SCRIPT.md → dos MP4. Lint + inspect antes de publicar.</span>
+</div>
+</div>
+<!-- próximo módulo -->
+<div class="bg-dark-800/80 border border-amber-500/20 rounded-xl p-5 mb-6">
+<div class="text-xs font-semibold text-amber-400 uppercase tracking-widest mb-2">Próximo módulo:</div>
+<div class="font-bold text-neutral-200 text-lg">4.2 🚀 Incorporación, clases y lanzamientos</div>
+<div class="text-neutral-500 text-sm mt-1">Aplica HyperFrames a videos de bienvenida de cursos, clases grabadas y lanzamientos de productos, con variaciones de CTA según el contexto.</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 4</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="modulo-4-2.html">Próximo módulo: 4.2 Incorporación →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 4: Aplicaciones · Módulo 4.1 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

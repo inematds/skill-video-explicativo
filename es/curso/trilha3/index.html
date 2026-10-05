@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta 3 — Por dentro del skill | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+    .modal.hidden { display: none; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento purple */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124,58,237,0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124,58,237,0.18); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes t3-pulse { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+    @keyframes t3-flow { 0% { stroke-dashoffset: 60; } 100% { stroke-dashoffset: 0; } }
+    @media (prefers-reduced-motion: no-preference) {
+      .t3-a { animation: t3-pulse 2.8s ease-in-out infinite; }
+      .t3-a:nth-child(2){animation-delay:.3s} .t3-a:nth-child(3){animation-delay:.6s} .t3-a:nth-child(4){animation-delay:.9s}
+      .t3-flow { animation: t3-flow 1.8s linear infinite; stroke-dasharray: 12 8; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha3/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha3/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha3/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">RUTA 3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🔧 Por dentro del skill</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Ingeniería inversa completa de la skill <code class="text-purple-400">video-explicativo</code>. Vas a abrir el capó: carpeta, referencias, house style, el generador <code class="text-purple-400">build-index.mjs</code> y los gotchas que ahorran horas de depuración.</p>
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">4</div><div class="text-xs text-neutral-400">Módulos</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">24</div><div class="text-xs text-neutral-400">Temas</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">~2h</div><div class="text-xs text-neutral-400">Duración</div></div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600"><div class="text-xl font-bold text-purple-400">Avanzado</div><div class="text-xs text-neutral-400">Nivel</div></div>
+</div>
+<!-- Hero SVG: AUDIO[] como fonte única → áudio + timeline GSAP -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-3 sm:p-4 mt-8 overflow-hidden">
+<svg aria-label="El array AUDIO corchetes es la única fuente de verdad que alimenta el audio y la timeline GSAP del video" class="w-full h-auto" role="img" viewbox="0 0 1000 220">
+<defs>
+<lineargradient id="m3-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop></lineargradient>
+<lineargradient id="m3-cyan" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#38bdf8"></stop><stop offset="1" stop-color="#0ea5e9"></stop></lineargradient>
+<filter height="180%" id="m3-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="4"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="28" id="m3-grid" patternunits="userSpaceOnUse" width="28"><circle cx="1.2" cy="1.2" fill="#a855f7" opacity="0.1" r="1.2"></circle></pattern>
+<marker id="m3-ah-purple" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path></marker>
+<marker id="m3-ah-cyan" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m3-grid)" height="220" width="1000" x="0" y="0"></rect>
+<!-- source box -->
+<g filter="url(#m3-glow)">
+<rect fill="#1a1230" height="80" rx="16" stroke="url(#m3-grad)" stroke-width="2.5" width="220" x="30" y="70"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="20" font-weight="800" text-anchor="middle" x="140" y="103">AUDIO[]</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="12" text-anchor="middle" x="140" y="126">fuente única de verdad</text>
+<!-- arrow to audio tracks -->
+<path d="M250,95 Q330,60 400,55" fill="none" marker-end="url(#m3-ah-purple)" stroke="#c084fc" stroke-width="2"></path>
+<!-- arrow to timeline -->
+<path d="M250,125 Q330,160 400,165" fill="none" marker-end="url(#m3-ah-cyan)" stroke="#38bdf8" stroke-width="2"></path>
+<!-- label: S[] timing calc -->
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="310" y="100">S[] timing</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="310" y="150">LEAD/TAIL/FADE</text>
+<!-- audio tracks box -->
+<g class="t3-a" filter="url(#m3-glow)">
+<rect fill="#1a1230" height="55" rx="12" stroke="url(#m3-grad)" stroke-width="2" width="210" x="400" y="30"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="505" y="56">audio tracks</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="505" y="74">escenas 1/3 alternadas</text>
+<!-- timeline GSAP box -->
+<g class="t3-a" filter="url(#m3-glow)">
+<rect fill="#0e1b26" height="55" rx="12" stroke="url(#m3-cyan)" stroke-width="2" width="210" x="400" y="140"></rect>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="505" y="166">timeline GSAP</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="505" y="184">pausada, busca por audio</text>
+<!-- arrows to final output -->
+<path d="M610,57 L700,110" fill="none" marker-end="url(#m3-ah-purple)" stroke="#c084fc" stroke-dasharray="6 4" stroke-width="1.8"></path>
+<path d="M610,167 L700,110" fill="none" marker-end="url(#m3-ah-cyan)" stroke="#38bdf8" stroke-dasharray="6 4" stroke-width="1.8"></path>
+<!-- output box -->
+<g class="t3-a" filter="url(#m3-glow)">
+<rect fill="#1a1230" height="64" rx="14" stroke="url(#m3-grad)" stroke-width="2.5" width="200" x="700" y="78"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="16" font-weight="700" text-anchor="middle" x="800" y="106">index.html</text>
+<text fill="#e9d5ff" font-family="Inter,sans-serif" font-size="11" text-anchor="middle" x="800" y="126">sincronizado y renderizable</text>
+<!-- flow lines decorative -->
+<line opacity="0.2" stroke="#a855f7" stroke-width="0.5" x1="30" x2="970" y1="200" y2="200"></line>
+</svg>
+<p class="text-center text-xs text-neutral-500 mt-2">AUDIO[] — la única fuente que genera audio + timeline GSAP sincronizados</p>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<!-- MAPA DA TRILHA -->
+<section class="mb-12">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-1">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold text-sm">3.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🗂️ Estructura del skill</h3>
+<p class="text-xs text-neutral-400">SKILL.md + scripts + refs</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-2">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold text-sm">3.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🎨 House style dark premium</h3>
+<p class="text-xs text-neutral-400">El ámbar es el único color de acento</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-3">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold text-sm">3.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">⚙️ El generador build-index.mjs</h3>
+<p class="text-xs text-neutral-400">Una única fuente de verdad</p>
+</a>
+<a class="group bg-dark-800 rounded-xl border border-dark-600 hover:border-purple-500/30 p-5 transition-all" href="#modulo-3-4">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold text-sm">3.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="font-semibold mb-1 group-hover:text-purple-400 transition-colors">🧯 Problemas frecuentes y correcciones</h3>
+<p class="text-xs text-neutral-400">Qué falla y cómo resolverlo</p>
+</a>
+</div>
+</section>
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- MÓDULO 3.1 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold">3.1</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">🗂️ Estructura del skill</h3>
+<p class="text-neutral-400 text-sm">Anatomía completa de la carpeta <code class="text-purple-400">video-explicativo/</code>: el SKILL.md en el centro, las tres referencias especializadas y los tres scripts que automatizan el trabajo pesado.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">📁</span><div><span class="font-medium">La carpeta video-explicativo/</span><span class="text-neutral-500 text-sm ml-2">- SKILL.md, scripts/, references/</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">La raíz de la skill contiene <code>SKILL.md</code> (el orquestador), la subcarpeta <code>scripts/</code> con 3 archivos ejecutables y la subcarpeta <code>references/</code> con 3 archivos de especificación. Nada más.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Conocer el mapa de la carpeta es el primer paso para entender qué hace la skill, modificarla sin romper nada y crear nuevas skills con el mismo patrón.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Raíz = SKILL.md; especialización en subcarpetas; separación entre orquestador, referencia y scripts.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">📚</span><div><span class="font-medium">Qué abarca cada referencia</span><span class="text-neutral-500 text-sm ml-2">- pipeline, house-style, gotchas</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm"><code>pipeline.md</code> describe los 7 pasos del flujo de producción; <code>house-style.md</code> define la paleta, la tipografía y las reglas visuales; <code>gotchas.md</code> enumera los errores más comunes y sus correcciones específicas.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Saber qué referencia consultar para cada duda evita lecturas innecesarias: cada archivo tiene un alcance preciso y no se superpone con los demás.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Especialización por dominio; se cargan bajo demanda; sin redundancia entre archivos.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">⚡</span><div><span class="font-medium">Los 3 scripts</span><span class="text-neutral-500 text-sm ml-2">- fetch-fonts, narration-template, composition-template</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm"><code>fetch-fonts.mjs</code> descarga las fuentes .woff2 locales; <code>narration-template.sh</code> genera el guion TTS con voz <code>pf_dora --speed 0.98</code>; <code>composition-template.mjs</code> es el generador central que produce el <code>index.html</code> final con todas las escenas.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Cada script resuelve un problema específico de automatización; juntos, eliminan el trabajo manual repetitivo y garantizan que la salida sea determinista.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Automatización mediante script; fuentes locales; TTS; generación determinística de HTML.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🗺️</span><div><span class="font-medium">El flujo de 7 pasos del SKILL.md</span><span class="text-neutral-500 text-sm ml-2">- del pedido al video</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El SKILL.md define 7 etapas numeradas: (1) confirmar el tema, (2) escribir el guion, (3) generar audio TTS, (4) descargar fuentes, (5) ejecutar el generador, (6) validar el output, (7) entregar los archivos. Cada paso señala la referencia correcta.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">El flujo numerado es lo que Claude ejecuta en orden; entenderlo permite depurar en qué paso ocurrió un error.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Flujo numerado; responsabilidad por etapa; referencias indicadas en cada paso.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🔍</span><div><span class="font-medium">Divulgación progresiva en la práctica</span><span class="text-neutral-500 text-sm ml-2">- refs solo bajo demanda</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El SKILL.md indica a Claude que lea <code>house-style.md</code> solo antes de construir las escenas visuales, y <code>gotchas.md</code> solo antes de validar el output; nunca todo de una vez.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Conserva el contexto para la tarea real, en vez de gastar tokens cargando especificaciones que quizá no sean necesarias.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">On demand; ahorro de contexto; lectura condicional.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">👤</span><div><span class="font-medium">Patrón del usuario Nei</span><span class="text-neutral-500 text-sm ml-2">- PT-BR, dark ámbar, 16:9+9:16, CTA INEMA.CLUB</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El SKILL.md incorpora preferencias fijas del autor: narración en PT-BR, paleta dark premium ámbar, salida doble (16:9 para YouTube y 9:16 para Shorts) y CTA final siempre dirigido a INEMA.CLUB.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Estos valores predeterminados evitan que el usuario tenga que repetir sus preferencias en cada solicitud: están codificados en el skill para mantener la coherencia de marca.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Valores predeterminados de marca; PT-BR; salida doble; CTA coherente.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-1')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-1.html">Ver completo</a>
+</div>
+</div>
+<!-- MÓDULO 3.2 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold">3.2</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">🎨 House style dark premium</h3>
+<p class="text-neutral-400 text-sm">La guía de estilo completa del video explicativo: fondo <code class="text-purple-400">#0D1321</code>, acento ámbar <code class="text-purple-400">#FFC300</code>, tipografía Sora/Inter/JetBrains Mono y las reglas que diferencian la escala de video de la escala web.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🎨</span><div><span class="font-medium">Paleta de 6 colores</span><span class="text-neutral-500 text-sm ml-2">- fondo, panel, borde, texto, ámbar, código</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Seis variables fijas: fondo <code>#0D1321</code>, panel <code>#1D2D44</code>, borde <code>#3E5C76</code>, texto principal <code>#F0EBD8</code>, acento ámbar <code>#FFC300</code> y resaltado de código <code>#2EC4B6</code>. No se permite ningún otro color de acento.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La paleta es la identidad visual del canal. Apartarse de ella rompe la coherencia de marca: el ámbar debe ser el único punto cálido en pantalla.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Sistema cerrado de colores; ámbar = único acento; código en cian.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🔤</span><div><span class="font-medium">Tipografía tripartita</span><span class="text-neutral-500 text-sm ml-2">- Sora, Inter, JetBrains Mono</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm"><strong>Sora</strong> para títulos y titulares (gran impacto visual), <strong>Inter</strong> para el cuerpo del texto (alta legibilidad), <strong>JetBrains Mono</strong> para código y datos. Las tres familias cubren todos los casos de uso del video.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Mezclar fuentes fuera del sistema crea ruido visual. La regla es simple: título → Sora, texto → Inter, código → JetBrains.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Sora para títulos; Inter para el cuerpo; JetBrains para código; nunca Google Fonts CDN en tiempo de ejecución.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🌌</span><div><span class="font-medium">Capa de fondo persistente</span><span class="text-neutral-500 text-sm ml-2">- glow, ghost text, grid, grano</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Cada escena tiene una capa de fondo compuesta por 4 elementos: (1) brillo radial ámbar (<em>glow</em>), (2) texto fantasma con baja opacidad (<em>ghost text</em>), (3) cuadrícula de puntos (<em>grid</em>) y (4) textura de grano SVG (<em>grain</em>). Esta capa nunca se anima; queda estática.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La capa crea profundidad sin distraer. Entender que es estática evita el error de intentar animarla (lo que causa conflictos con el framework).</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Capa estática; 4 elementos; profundidad sin distracciones.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">📦</span><div><span class="font-medium">Fuentes locales .woff2</span><span class="text-neutral-500 text-sm ml-2">- nunca Google Fonts CDN</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Las fuentes se descargan mediante el script <code>fetch-fonts.mjs</code> en formato <code>.woff2</code> y referenciadas mediante <code>@font-face</code> local. La CDN de Google Fonts está prohibida porque el renderizador podría no tener acceso a internet.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Un video renderizado sin acceso al CDN mostrará fuentes de respaldo, lo que arruinará el aspecto visual. Las fuentes locales garantizan coherencia sin conexión.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">woff2 local; @font-face; fetch-fonts.mjs; compatible sin conexión.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">📐</span><div><span class="font-medium">Escala de video vs. web</span><span class="text-neutral-500 text-sm ml-2">- 8-10 elementos/escena, titular 64-172px</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El video no es la web: cada escena debe tener como máximo 8-10 elementos visuales para no sobrecargar al espectador. Los titulares van de 64px (subtítulo) a 172px (énfasis máximo): tamaños imposibles en un sitio web, pero necesarios para leer en TV o móvil.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los diseñadores que vienen de la web tienden a poner demasiada información en cada escena. La regla de 8-10 elementos es el antídoto.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Máximo 10 elementos; fuentes grandes; espacio visual; enfoque del espectador.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">📣</span><div><span class="font-medium">CTA INEMA.CLUB</span><span class="text-neutral-500 text-sm ml-2">- siempre la escena final</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Todo video termina con la escena <code>scene9()</code> (CTA), que muestra el logo ámbar y la dirección <code>INEMA.CLUB</code> con el máximo protagonismo. Esta escena la genera automáticamente composition-template y no debe omitirse.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">La CTA es el punto de conversión del canal. Incluida de forma predeterminada, garantiza que ningún video se entregue sin la llamada a la acción de marca.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">scene9() automática; INEMA.CLUB; conversión de canal; nunca omitir.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-2')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-2.html">Ver completo</a>
+</div>
+</div>
+<!-- MÓDULO 3.3 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold">3.3</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">⚙️ El generador build-index.mjs</h3>
+<p class="text-neutral-400 text-sm">El corazón técnico de la skill: el array <code class="text-purple-400">AUDIO[]</code> como única fuente de verdad que calcula el timing, ensambla las escenas, genera los captions, las pistas y la timeline GSAP sincronizada.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🔑</span><div><span class="font-medium">El array AUDIO[] como fuente única</span><span class="text-neutral-500 text-sm ml-2">- alimenta el audio + la timeline</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm"><code>AUDIO[]</code> es el único array que edita el autor: cada entrada tiene el archivo MP3 y la duración en segundos. A partir de ahí, el generador deriva todo: la temporización de las escenas, la duración de las transiciones, la posición de las pistas de audio en el HTML y las marcas de tiempo de la timeline GSAP.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Tener una única fuente elimina las desincronizaciones: no hay forma de que el audio y la timeline discrepen porque ambos leen el mismo dato.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Fuente única de verdad; array AUDIO[]; derivación automática.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🧮</span><div><span class="font-medium">Cálculo de S[] con LEAD/TAIL/FADE</span><span class="text-neutral-500 text-sm ml-2">- start, dur, audioStart</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El generador calcula el array <code>S[]</code> sumando <code>LEAD=0.5s</code> (silencio antes del audio), <code>TAIL=0.9s</code> (silencio después) y <code>FADE=0.45s</code> (superposición de entrada/salida). Para cada escena: <code>start = soma das durações anteriores</code>, <code>dur = audio.dur + LEAD + TAIL</code>, <code>audioStart = LEAD</code>.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Comprender el cálculo te permite ajustar los parámetros para videos con otro ritmo sin romper la sincronización.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">LEAD 0.5s; TAIL 0.9s; FADE 0.45s; S[] derivado de AUDIO[].</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🏗️</span><div><span class="font-medium">sceneN() y anim() por escena</span><span class="text-neutral-500 text-sm ml-2">- HTML + animación declarativa</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Cada escena es una función <code>sceneN(s)</code> que devuelve la cadena HTML de la escena usando el objeto de timing <code>s</code>. Las animaciones se declaran con <code>anim(element, props, delay)</code>, que acumula una lista de tweens GSAP, nunca CSS directo.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Separar la estructura visual (HTML) de la animación (GSAP vía anim()) facilita editar una sin tocar la otra.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">sceneN() devuelve HTML; anim() declara tweens; separación entre estructura y movimiento.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">📄</span><div><span class="font-medium">Montaje del HTML final</span><span class="text-neutral-500 text-sm ml-2">- scenes, captions, tracks, timeline</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El generador construye el HTML en 4 bloques: (1) <code>.scene</code> divs con el contenido visual, (2) <code>.caption</code> divs con subtítulos sincronizados, (3) <code>&lt;audio&gt;</code> pistas alternadas (escenas 1/3 en la pista A, 2/4 en la pista B), y (4) el bloque <code>&lt;script&gt;</code> con la timeline GSAP iniciada en pausa.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Conocer la estructura de los 4 bloques te permite editar el output manualmente cuando sea necesario sin perder la lógica de sincronización.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">4 bloques; timeline en pausa; reproducción controlada por eventos de audio.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">📱</span><div><span class="font-medium">Overrides 9:16 vía body.v</span><span class="text-neutral-500 text-sm ml-2">- modo --vertical</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Ejecutando el generador con la flag <code>--vertical</code>, añade la clase <code>.v</code> a <code>&lt;body&gt;</code> y aplica overrides CSS que reposicionan elementos para el formato 9:16 (1080×1920px). El archivo generado siempre es <code>index.html</code>, sobrescribiendo la versión 16:9.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Comprender el mecanismo de override evita confusiones entre los dos formatos y explica por qué ambos comparten el mismo archivo base.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">body.v; CSS overrides; --vertical flag; un archivo, dos formatos.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🎬</span><div><span class="font-medium">La CTA scene9() ya está incluida</span><span class="text-neutral-500 text-sm ml-2">- automática, no omitir</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El composition-template define <code>scene9()</code> como la escena final de CTA codificada directamente. Siempre se inserta después de las escenas de contenido, independientemente de cuántas tenga el video; si el video tiene 7 escenas, la última siempre es la scene9 de CTA.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Saber que es automática evita duplicar la CTA manualmente, y saber que no se puede omitir garantiza la coherencia de marca en todo el resultado.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">scene9() hard-coded; siempre al final; INEMA.CLUB; nunca duplicar.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-3')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-3.html">Ver completo</a>
+</div>
+</div>
+<!-- MÓDULO 3.4 -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 mb-6" id="modulo-3-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-center justify-between mb-2"><span class="text-purple-400 font-bold">3.4</span><span class="text-xs text-neutral-500">~30 min</span></div>
+<h3 class="text-2xl font-bold mb-2">🧯 Problemas frecuentes y correcciones</h3>
+<p class="text-neutral-400 text-sm">Los errores que aparecen cada vez y la corrección exacta para cada uno: desde qué elemento animar hasta los problemas de fuentes, los clips superpuestos y el determinismo del generador.</p>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+<span class="text-lg">🎯</span><div><span class="font-medium">Animar .scene-inner, nunca .clip</span><span class="text-neutral-500 text-sm ml-2">- el framework fuerza opacity:1</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El framework de HyperFrames establece <code>opacity:1</code> en todos los <code>.clip</code> durante la captura del frame — las animaciones de opacidad en ellos se ignoran. El objetivo correcto para el fade-in/out siempre es <code>.scene-inner</code>, el contenedor interno de la escena.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Este es el gotcha #1 más frecuente. El video parece correcto en el navegador, pero el render final muestra escenas parpadeantes o sin transición.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">El objetivo correcto es .scene-inner; .clip está prohibido para opacity; el framework lo sobrescribe.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+<span class="text-lg">🎵</span><div><span class="font-medium">Tracks alternados para evitar superposiciones</span><span class="text-neutral-500 text-sm ml-2">- escenas 1/3 y 2/4</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Las escenas impares (1, 3, 5…) usan el <code>&lt;audio&gt;</code> track A; las escenas pares (2, 4, 6…) usan el track B. Esto permite que un track termine de forma natural mientras el otro ya carga el siguiente audio, lo que elimina el problema de <em>clips superpuestos</em> donde dos audios se reproducen al mismo tiempo.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Si pones todos los audios en el mismo track, habrá superposición inevitable en las transiciones con FADE. El patrón alternado resuelve esto de forma estructural.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Track A = impares; Track B = pares; superposición eliminada; preload en el track inactivo.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+<span class="text-lg">🙈</span><div><span class="font-medium">data-layout-ignore en elementos decorativos</span><span class="text-neutral-500 text-sm ml-2">- elementos fuera del canvas</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">Los elementos puramente decorativos colocados fuera del área visible (p. ej., brillos que se desbordan, textos fantasma con valores negativos) deben tener el atributo <code>data-layout-ignore</code>. Sin él, el motor de layout de Remotion los cuenta en el bounding box y puede recortar o desplazar la escena.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Los elementos decorativos fuera del canvas sin el atributo son la causa n.º 1 de composiciones con recortes inesperados en el render.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">data-layout-ignore; fuera del lienzo; cuadro delimitador; elementos decorativos invisibles.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+<span class="text-lg">🔤</span><div><span class="font-medium">Fuentes locales — google_fonts_import</span><span class="text-neutral-500 text-sm ml-2">- prohibido en el output</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El gotchas.md prohíbe cualquier <code>@import url(fonts.googleapis.com)</code> en el HTML generado. La variable centinela <code>google_fonts_import</code> se usa en las plantillas para garantizar que el generador lance un error si detecta la cadena en el output, lo que fuerza siempre el uso de <code>@font-face</code> local.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">El entorno de render no tiene acceso a Internet. Una importación externa provoca que falten fuentes, que el texto use una sans-serif de reemplazo y que el aspecto se rompa por completo.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Prohibido usar Google Fonts CDN; @font-face local; centinela google_fonts_import.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+<span class="text-lg">🪟</span><div><span class="font-medium">ffmpeg -nostdin en Windows/git-bash</span><span class="text-neutral-500 text-sm ml-2">- flag obligatoria</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">En Windows y en git-bash, ffmpeg intenta leer stdin interactivo incluso en llamadas no interactivas, lo que bloquea el proceso indefinidamente. La flag <code>-nostdin</code> desactiva este comportamiento. Todos los comandos ffmpeg en los scripts del skill la incluyen de forma predeterminada.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Si quitas la flag al adaptar un script, el proceso se bloqueará silenciosamente en Windows, sin mostrar ningún mensaje de error: será difícil de diagnosticar.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">-nostdin; Windows/git-bash; stdin interactivo; proceso bloqueado.</p></div>
+</div></div>
+</div>
+<div class="topic-item">
+<button class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left" onclick="toggleTopic(this)">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+<span class="text-lg">🎲</span><div><span class="font-medium">Determinismo — sin Date.now/Math.random/fetch</span><span class="text-neutral-500 text-sm ml-2">- cada frame igual</span></div>
+</button>
+<div class="topic-explanation px-6 pb-4"><div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+<div><span class="text-purple-400 font-semibold">Qué es:</span><p class="text-neutral-300 text-sm">El generador y las plantillas prohíben <code>Date.now()</code>, <code>Math.random()</code> y cualquier <code>fetch()</code> dentro del HTML renderizable. Remotion renderiza cada frame de forma independiente — el código no determinista produce frames inconsistentes y un video con parpadeos.</p></div>
+<div><span class="text-purple-400 font-semibold">Por qué aprender:</span><p class="text-neutral-300 text-sm">Es la causa más difícil de diagnosticar: el video parece correcto en la vista previa, pero tiembla en el render final. La regla sencilla: si el valor cambia entre ejecuciones, no pertenece a la plantilla.</p></div>
+<div><span class="text-purple-400 font-semibold">Conceptos clave:</span><p class="text-neutral-300 text-sm">Determinismo total; sin Date.now; sin Math.random; sin fetch en tiempo de ejecución; valores fijos.</p></div>
+</div></div>
+</div>
+</div>
+<div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+<button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-3-4')">Ver en Modal</button>
+<a class="px-4 py-2 text-sm bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-4.html">Ver completo</a>
+</div>
+</div>
+<!-- NAVEGAÇÃO TRILHA -->
+<div class="flex flex-col sm:flex-row gap-4 mt-10">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="../../curso/index.html">← Todas las rutas</a>
+<a class="flex-1 text-center px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-500 transition-colors" href="../trilha4/index.html">Ruta 4: Aplicaciones →</a>
+</div>
+</main>
+<!-- MODAIS -->
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-1" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.1</span><span class="font-semibold">Estructura de la skill</span></div><button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button></div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-1.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-2" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.2</span><span class="font-semibold">Estilo propio premium oscuro</span></div><button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button></div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-2.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-3" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.3</span><span class="font-semibold">El generador build-index.mjs</span></div><button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button></div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-3.html"></iframe>
+</div>
+</div>
+<div class="modal hidden fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80" id="modal-3-4" onclick="if(event.target === this) closeModal()">
+<div class="bg-dark-800 rounded-xl w-full max-w-6xl h-[95vh] flex flex-col border border-dark-600">
+<div class="p-4 border-b border-dark-600 flex justify-between items-center flex-shrink-0"><div class="flex items-center space-x-3"><span class="text-purple-400 font-bold">3.4</span><span class="font-semibold">Gotchas y correcciones</span></div><button class="text-neutral-400 hover:text-white text-2xl leading-none" onclick="closeModal()">×</button></div>
+<iframe class="flex-1 w-full rounded-b-xl" src="modulo-3-4.html"></iframe>
+</div>
+</div>
+<footer class="border-t border-dark-600 py-8 mt-8">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 3: Por dentro de la skill · 2026</p>
+</div>
+</footer>
+<script>
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = button.closest('.bg-dark-800');
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => { if (exp !== explanation) exp.classList.remove('active'); });
+      explanation.classList.toggle('active');
+    }
+    function openModal(id){ const m=document.getElementById(id); if(m){ m.classList.remove('hidden'); document.body.style.overflow='hidden'; } }
+    function closeModal(){ document.querySelectorAll('.modal').forEach(m=>m.classList.add('hidden')); document.body.style.overflow='auto'; }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+    const themeToggle=document.getElementById('theme-toggle');
+    const di=document.getElementById('theme-toggle-dark-icon'), li=document.getElementById('theme-toggle-light-icon');
+    const root=document.documentElement;
+    if(localStorage.getItem('theme')==='light'){ di.classList.remove('hidden'); root.classList.remove('dark'); } else { li.classList.remove('hidden'); }
+    themeToggle.addEventListener('click', ()=>{ di.classList.toggle('hidden'); li.classList.toggle('hidden'); root.classList.toggle('dark'); localStorage.setItem('theme', root.classList.contains('dark')?'dark':'light'); });
+  </script>
+</body>
+</html>

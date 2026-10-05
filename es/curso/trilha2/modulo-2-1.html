@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 2.1 — Qué es HyperFrames | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento blue */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes m21-flow { 0% { stroke-dashoffset: 120; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m21-pulse { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+    @keyframes m21-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m21-anim-flow { animation: m21-flow 2.5s linear infinite; }
+      .m21-anim-pulse { animation: m21-pulse 2.8s ease-in-out infinite; }
+      .m21-anim-pulse:nth-child(2) { animation-delay: .4s; }
+      .m21-anim-pulse:nth-child(3) { animation-delay: .8s; }
+      .m21-anim-spin { animation: m21-spin 8s linear infinite; transform-origin: 200px 120px; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha2/modulo-2-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha2/modulo-2-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha2/modulo-2-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Ruta 2 — Pipeline</a>
+<span>/</span>
+<span class="text-blue-400 font-medium">Módulo 2.1</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.1</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🎬 Qué es HyperFrames</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Conoce desde cero el framework de código abierto que convierte HTML animado en MP4 usando Chrome headless y FFmpeg: todo en tu máquina, sin nube ni costo por renderizado.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~25</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Básico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Teoría</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Fluxo HTML→MP4 -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Diagrama futurista del flujo de HTML a MP4 mediante HyperFrames" class="w-full h-auto" role="img" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m21-bg-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e1622;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m21-blue-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m21-cyan-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m21-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m21-bg-grad)" height="240" rx="12" width="400"></rect>
+<!-- grid lines -->
+<g opacity="0.5" stroke="#1e3a5f" stroke-width="0.5">
+<line x1="0" x2="400" y1="60" y2="60"></line>
+<line x1="0" x2="400" y1="120" y2="120"></line>
+<line x1="0" x2="400" y1="180" y2="180"></line>
+<line x1="100" x2="100" y1="0" y2="240"></line>
+<line x1="200" x2="200" y1="0" y2="240"></line>
+<line x1="300" x2="300" y1="0" y2="240"></line>
+</g>
+<!-- Node: HTML -->
+<rect fill="#0e1622" filter="url(#m21-glow)" height="60" rx="8" stroke="#60a5fa" stroke-width="1.5" width="80" x="20" y="90"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="60" y="115">&lt;HTML&gt;</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="60" y="130">+ GSAP</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="60" y="142">animado</text>
+<!-- Arrow 1 -->
+<path class="m21-anim-flow" d="M100 120 L140 120" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="2"></path>
+<polygon fill="#38bdf8" points="140,116 148,120 140,124"></polygon>
+<!-- Node: Chrome headless -->
+<rect fill="#0e1622" height="76" rx="8" stroke="#38bdf8" stroke-width="1.5" width="104" x="148" y="82"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="200" y="107">Chrome</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="200" y="120">headless</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="134">captura frame</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="146">al frame</text>
+<!-- Arrow 2 -->
+<path class="m21-anim-flow" d="M252 120 L288 120" fill="none" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="2"></path>
+<polygon fill="#38bdf8" points="288,116 296,120 288,124"></polygon>
+<!-- Node: FFmpeg -->
+<rect fill="#0e1622" filter="url(#m21-glow)" height="60" rx="8" stroke="#3b82f6" stroke-width="1.5" width="84" x="296" y="90"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="338" y="115">FFmpeg</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="338" y="130">codifica</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="338" y="142">.mp4</text>
+<!-- Labels de etapas -->
+<text class="m21-anim-pulse" fill="#60a5fa" font-family="Inter,sans-serif" font-size="8" opacity="0.8" text-anchor="middle" x="60" y="78">① DISEÑO</text>
+<text class="m21-anim-pulse" fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" opacity="0.8" text-anchor="middle" x="200" y="72">② RENDER</text>
+<text class="m21-anim-pulse" fill="#3b82f6" font-family="Inter,sans-serif" font-size="8" opacity="0.8" text-anchor="middle" x="338" y="78">③ ENCODE</text>
+<!-- TTS Kokoro box (abaixo) -->
+<rect fill="#0a1a2e" height="36" opacity="0.9" rx="6" stroke="#38bdf8" stroke-width="1" width="280" x="60" y="175"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="200" y="189">🔊 Kokoro TTS</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="203">pf_dora · PT-BR · --speed 0.98 · sin clave · sin espeak-ng</text>
+<!-- vertical connectors -->
+<line opacity="0.6" stroke="#38bdf8" stroke-dasharray="3,3" stroke-width="1" x1="200" x2="200" y1="158" y2="175"></line>
+<!-- title -->
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="13" font-weight="800" text-anchor="middle" x="200" y="26">HyperFrames</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" x="200" y="42">HTML → MP4 · LOCAL · OPEN SOURCE</text>
+<!-- dot decorations -->
+<circle class="m21-anim-pulse" cx="20" cy="20" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m21-anim-pulse" cx="380" cy="20" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m21-anim-pulse" cx="20" cy="220" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m21-anim-pulse" cx="380" cy="220" fill="#38bdf8" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎯 Qué es HyperFrames</h2>
+<p class="text-neutral-400 mt-2">HyperFrames es un framework open-source que transforma páginas HTML animadas en archivos MP4, fotograma a fotograma, con precisión total. Repositorio oficial: <code class="text-blue-400 bg-dark-700 px-1 rounded text-sm">heygen-com/hyperframes</code> en GitHub.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Concepto principal</div>
+<p class="text-neutral-200 font-medium">HyperFrames trata el navegador como una cámara de cine. Cada fotograma del video es una captura exacta del DOM en el instante <em>t</em> — sin codec de pantalla, sin pérdida de antialiasing, sin flickering.</p>
+<p class="text-neutral-400 text-sm mt-3">El resultado es un MP4 con calidad de renderizado de navegador: fuentes perfectas, SVG vectorial, sombras y gradientes sin degradación.</p>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Qué es HyperFrames</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Framework de código abierto (MIT), gratis para siempre</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Funciona 100% local: sin cuenta ni clave de API</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Salida determinista: mismo HTML → mismo MP4</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Se integra con cualquier lib JS: GSAP, Three.js, D3</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Lo que HyperFrames NO ES</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No es un grabador de pantalla (no captura apps externas)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No es un editor de video no lineal (sin timeline GUI)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No depende de un servicio en la nube</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No usa IA generativa para imágenes o voces</li>
+</ul>
+</div>
+</div>
+<!-- box dado (stack técnico) -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📦 Stack técnico exacto</div>
+<div class="grid sm:grid-cols-3 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">Chrome headless</div><div class="text-neutral-400">Renderiza el HTML y captura capturas de pantalla en secuencia, fotograma a fotograma.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">FFmpeg</div><div class="text-neutral-400">Codifica los fotogramas capturados en H.264 MP4 con audio integrado.</div></div>
+<div class="bg-dark-700/60 rounded-lg p-3"><div class="text-blue-400 font-bold mb-1">Node.js / npx</div><div class="text-neutral-400">Orquesta el pipeline: init → lint → render — todo mediante <code class="text-blue-300">npx hyperframes</code>.</div></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🌐</div><div class="text-xs font-semibold text-neutral-200">Open-source</div><div class="text-xs text-neutral-500">MIT license</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">💻</div><div class="text-xs font-semibold text-neutral-200">Local-first</div><div class="text-xs text-neutral-500">Sin cloud</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎞️</div><div class="text-xs font-semibold text-neutral-200">Frame por frame</div><div class="text-xs text-neutral-500">Máxima calidad</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">npx CLI</div><div class="text-xs text-neutral-500">Cero configuración</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔄 HTML → MP4</h2>
+<p class="text-neutral-400 mt-2">Cómo una página HTML animada con GSAP se convierte en un video MP4 renderizado cuadro por cuadro: el corazón de HyperFrames.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- timeline do fluxo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Flujo de transformación</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-blue-500/30"></div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Tú escribes HTML + GSAP</div>
+<p class="text-neutral-400 text-sm mt-1">Un archivo <code class="text-blue-300">index.html</code> define cada escena con HTML/CSS. Las animaciones se codifican en GSAP dentro de una función <code class="text-blue-300">anim()</code> que recibe <code class="text-blue-300">t</code> (tiempo en segundos).</p>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Chrome headless "avanza el tiempo"</div>
+<p class="text-neutral-400 text-sm mt-1">Para cada frame, HyperFrames llama a <code class="text-blue-300">anim(t)</code> en el browser, espera a que el DOM se estabilice y activa una captura de pantalla PNG de alta resolución. A 30 fps, son 30 capturas de pantalla por segundo de video.</p>
+</div>
+</div>
+<div class="relative pb-5">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">FFmpeg codifica los frames</div>
+<p class="text-neutral-400 text-sm mt-1">Los PNG se pasan a FFmpeg, que los codifica en H.264 con el audio WAV generado por Kokoro TTS, y produce el MP4 final con narración sincronizada.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-4 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">MP4 listo para publicar</div>
+<p class="text-neutral-400 text-sm mt-1">El video resultante queda en <code class="text-blue-300">renders/nome-16x9.mp4</code> o <code class="text-blue-300">renders/nome-9x16.mp4</code>, listo para subir a YouTube o Shorts.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">¿Por qué cuadro a cuadro y no una grabación de pantalla?</div>
+<p class="text-neutral-400 text-sm">La grabación de pantalla captura en tiempo real: si el CPU está lento, el video queda entrecortado. HyperFrames controla el tiempo virtualmente: no se pierde ningún frame, independientemente de la velocidad de la máquina.</p>
+</div>
+</div>
+<!-- box de código -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Estructura de la función anim()</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3">// build-index.mjs (fragmento de la escena 1)</div>
+<div><span class="text-blue-400">function</span> <span class="text-cyan-400">scene1</span><span class="text-neutral-300">()</span> <span class="text-neutral-300">{</span></div>
+<div class="ml-4"><span class="text-blue-400">return</span> <span class="text-yellow-300">`&lt;div class="scene"&gt;...&lt;/div&gt;`</span><span class="text-neutral-300">;</span></div>
+<div><span class="text-neutral-300">}</span></div>
+<br/>
+<div><span class="text-blue-400">function</span> <span class="text-cyan-400">anim</span><span class="text-neutral-300">(</span><span class="text-orange-400">t</span><span class="text-neutral-300">)</span> <span class="text-neutral-300">{</span></div>
+<div class="ml-4"><span class="text-neutral-500">// t = tiempo en segundos dentro de la escena</span></div>
+<div class="ml-4"><span class="text-blue-400">if</span> <span class="text-neutral-300">(</span><span class="text-orange-400">t</span> <span class="text-neutral-300">=== 0)</span> <span class="text-cyan-400">gsap</span><span class="text-neutral-300">.</span><span class="text-cyan-400">set</span><span class="text-neutral-300">(...)</span><span class="text-neutral-300">;</span></div>
+<div class="ml-4"><span class="text-cyan-400">gsap</span><span class="text-neutral-300">.</span><span class="text-cyan-400">to</span><span class="text-neutral-300">(</span><span class="text-yellow-300">'.title'</span><span class="text-neutral-300">,</span> <span class="text-neutral-300">{ opacity: 1, duration: 0.5 });</span></div>
+<div><span class="text-neutral-300">}</span></div>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🖼️</div><div class="text-xs font-semibold text-neutral-200">Frame capturado</div><div class="text-xs text-neutral-500">30 fps estándar</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">Tiempo virtual</div><div class="text-xs text-neutral-500">Sin retraso de CPU</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎨</div><div class="text-xs font-semibold text-neutral-200">GSAP</div><div class="text-xs text-neutral-500">Animaciones suaves</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎞️</div><div class="text-xs font-semibold text-neutral-200">H.264 MP4</div><div class="text-xs text-neutral-500">Salida final</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔊 TTS local con Kokoro</h2>
+<p class="text-neutral-400 mt-2">Narración en PT-BR generada 100% en tu máquina, con la voz <code class="text-blue-400">pf_dora</code>, sin clave de API y sin depender de espeak-ng. Kokoro se encarga de la fonética del portugués.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">¿Por qué Kokoro y no otro motor?</div>
+<p class="text-neutral-200 font-medium">La mayoría de los motores TTS de código abierto usan <strong>espeak-ng</strong> para fonemizar — y espeak-ng es notoriamente malo en portugués. Kokoro tiene su propio fonemizador PT-BR, que produce una voz más natural sin dependencias externas.</p>
+</div>
+<!-- comando real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Comando exacto (narration-template.sh)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Genera la narración de la escena 1</div>
+<div><span class="text-cyan-400">npx hyperframes tts</span> <span class="text-yellow-300">"assets/txt/s1.txt"</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--voice</span> <span class="text-yellow-300">pf_dora</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--speed</span> <span class="text-yellow-300">0.98</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">assets/audio/s1.wav</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># Medir la duración del audio generado</div>
+<div><span class="text-cyan-400">ffprobe</span> <span class="text-blue-400">-v error -show_entries format=duration</span> \</div>
+<div class="ml-4"><span class="text-blue-400">-of default=noprint_wrappers=1:nokey=1</span> \</div>
+<div class="ml-4"><span class="text-yellow-300">assets/audio/s1.wav</span></div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas prácticas de narración</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Escribe el texto como si fuera hablado (desarrolla las siglas)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usa <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">--speed 0.98</code> para una voz más natural</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mide cada WAV con ffprobe antes de montar</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Archivos de texto en <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">assets/txt/sN.txt</code></li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores comunes</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No instales espeak-ng: Kokoro no lo usa y genera conflictos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No uses una velocidad superior a 1.05 (voz metálica)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No olvides descargar el modelo en la 1.ª ejecución (~340 MB)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No pongas siglas en mayúsculas sin desarrollarlas (p. ej., "GSAP" → "ji-sap")</li>
+</ul>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Voces PT-BR disponibles</div>
+<p class="text-neutral-400 text-sm">Además de <code class="text-blue-300">pf_dora</code> (femenina, recomendada por defecto), hay <code class="text-blue-300">pm_alex</code> e <code class="text-blue-300">pm_santa</code>. La primera ejecución descarga automáticamente ~340 MB del modelo Kokoro.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎙️</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">Voz PT-BR</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚫</div><div class="text-xs font-semibold text-neutral-200">Sin espeak-ng</div><div class="text-xs text-neutral-500">Fonética nativa</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔑</div><div class="text-xs font-semibold text-neutral-200">Sin clave</div><div class="text-xs text-neutral-500">Cero configuración</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📁</div><div class="text-xs font-semibold text-neutral-200">WAV output</div><div class="text-xs text-neutral-500">assets/audio/</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">💻 Todo local, sin API</h2>
+<p class="text-neutral-400 mt-2">HyperFrames se ejecuta por completo en la máquina del usuario, sin nube, sin costo por render y sin enviar contenido a servidores externos.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box alerta vermelho -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Atención: privacidad y costo</div>
+<p class="text-neutral-400 text-sm">Las herramientas SaaS de video (Synthesia, HeyGen, Pictory) cobran por minuto renderizado y sus diapositivas y guiones se procesan en servidores de terceros. Con HyperFrames: costo cero por renderizado y ningún contenido sale de tu máquina.</p>
+</div>
+</div>
+<!-- comparativo grid -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">HyperFrames frente al SaaS de video</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600">
+<table class="w-full text-sm">
+<thead>
+<tr class="bg-dark-700/60 border-b border-dark-600">
+<th class="text-left p-3 text-neutral-400 font-semibold">Aspecto</th>
+<th class="text-center p-3 text-blue-400 font-semibold">HyperFrames</th>
+<th class="text-center p-3 text-neutral-400 font-semibold">SaaS (Synthesia etc.)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Costo por video</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">R$ 0,00</td>
+<td class="p-3 text-center text-red-400">Plan mensual obligatorio</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Privacidad del contenido</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">100% local</td>
+<td class="p-3 text-center text-red-400">Sube a servidores</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Personalización visual</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">HTML/CSS ilimitado</td>
+<td class="p-3 text-center text-neutral-400">Plantillas fijas</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 text-neutral-300">Clave de API</td>
+<td class="p-3 text-center text-emerald-400 font-semibold">No hace falta</td>
+<td class="p-3 text-center text-red-400">Obligatoria</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Ideal para cursos y contenido propio</div>
+<p class="text-neutral-400 text-sm">Si produces cursos con contenido sensible, código interno o metodologías propias, mantener todo en local es esencial. Cada render se realiza sin necesidad de conectarse a internet.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔒</div><div class="text-xs font-semibold text-neutral-200">Privacidad total</div><div class="text-xs text-neutral-500">Cero datos externos</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">💸</div><div class="text-xs font-semibold text-neutral-200">Costo cero/render</div><div class="text-xs text-neutral-500">Ilimitado</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🌐</div><div class="text-xs font-semibold text-neutral-200">Offline-capable</div><div class="text-xs text-neutral-500">Sin internet</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📐 Dos formatos: 16:9 y 9:16</h2>
+<p class="text-neutral-400 mt-2">A partir del mismo proyecto HTML, HyperFrames genera versiones para YouTube (1920×1080) y Shorts/Reels (1080×1920) con un solo flag de línea de comandos.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Un proyecto, dos resultados</div>
+<p class="text-neutral-200 font-medium">El generador <code class="text-blue-300">build-index.mjs</code> acepta el flag <code class="text-blue-300">--vertical</code>. Cuando se pasa, reescribe el <code class="text-blue-300">index.html</code> en 1080×1920 y HyperFrames renderiza el MP4 vertical — sin duplicar el código de la escena.</p>
+</div>
+<!-- comandos de render -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Comandos de render (los dos formatos)</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># 16:9 — YouTube (1920×1080)</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">&amp;&amp;</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> <span class="text-blue-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/meu-video-16x9.mp4</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># 9:16 — Shorts / Reels (1080×1920)</div>
+<div><span class="text-cyan-400">node</span> build-index.mjs <span class="text-blue-400">--vertical</span> <span class="text-blue-400">&amp;&amp;</span></div>
+<div><span class="text-cyan-400">npx hyperframes render</span> <span class="text-blue-400">--quality high</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">renders/meu-video-9x16.mp4</span></div>
+</div>
+</div>
+<!-- box dados dimensões -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Dimensiones y destinos</div>
+<div class="grid sm:grid-cols-2 gap-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-blue-400 font-bold text-base mb-2">16:9 — Horizontal</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolución:</span> <strong>1920 × 1080 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destino:</span> YouTube, Vimeo, LinkedIn</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-blue-300">node build-index.mjs</code> (sin flag)</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-4">
+<div class="text-cyan-400 font-bold text-base mb-2">9:16 — Vertical</div>
+<div class="text-neutral-300"><span class="text-neutral-500">Resolución:</span> <strong>1080 × 1920 px</strong></div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Destino:</span> YouTube Shorts, Instagram Reels, TikTok</div>
+<div class="text-neutral-300 mt-1"><span class="text-neutral-500">Flag:</span> <code class="text-cyan-300">node build-index.mjs --vertical</code></div>
+</div>
+</div>
+</div>
+<!-- tip -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Consejo de workflow</div>
+<p class="text-neutral-400 text-sm">Usa <code class="text-blue-300">--quality draft</code> primero para revisar rápidamente los fotogramas individuales. Solo después ejecuta <code class="text-blue-300">--quality high</code> para el MP4 final — ahorra tiempo en las iteraciones.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📺</div><div class="text-xs font-semibold text-neutral-200">1920×1080</div><div class="text-xs text-neutral-500">YouTube</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">1080×1920</div><div class="text-xs text-neutral-500">Shorts/Reels</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚩</div><div class="text-xs font-semibold text-neutral-200">--vertical</div><div class="text-xs text-neutral-500">Flag único</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔁</div><div class="text-xs font-semibold text-neutral-200">Reutilización</div><div class="text-xs text-neutral-500">El mismo proyecto</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🧭 Cuándo usar HyperFrames</h2>
+<p class="text-neutral-400 mt-2">Videos explicativos, tutoriales técnicos, onboarding de productos: cualquier situación en la que quieras control total sobre lo visual y costo cero por render.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Usa HyperFrames cuando...</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Crear videos explicativos sobre código o conceptos técnicos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Producir tutoriales paso a paso con animaciones precisas</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Crear el onboarding de un producto con un diseño de marca propio</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Necesitas 16:9 y 9:16 del mismo contenido</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Querer costo cero incluso en producción de gran volumen</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Prefiere otra herramienta cuando...</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Necesitas capturar interacciones reales de aplicaciones</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> El video requiere una cámara de talking head (avatar realista)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Edición no lineal compleja (Adobe Premiere / DaVinci)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Sin Node.js disponible en el entorno</li>
+</ul>
+</div>
+</div>
+<!-- casos de uso reais -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Casos de uso típicos en INEMA.CLUB</div>
+<div class="grid sm:grid-cols-3 gap-4">
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-2xl mb-3">🎓</div>
+<div class="font-semibold text-neutral-200 text-sm mb-2">Videos de cursos</div>
+<p class="text-neutral-400 text-xs">Diapositivas animadas con código, diagramas y narración local. La misma calidad cada vez, sin variaciones entre plataformas.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-2xl mb-3">🚀</div>
+<div class="font-semibold text-neutral-200 text-sm mb-2">Onboarding de producto</div>
+<p class="text-neutral-400 text-xs">Videos de bienvenida y recorridos por funciones con el diseño premium oscuro de la marca, sin depender de diseñadores ni de SaaS.</p>
+</div>
+<div class="bg-dark-700/40 rounded-xl border border-dark-600 p-4">
+<div class="text-2xl mb-3">📢</div>
+<div class="font-semibold text-neutral-200 text-sm mb-2">Lanzamientos</div>
+<p class="text-neutral-400 text-xs">Teaser de producto en 9:16 para Reels y 16:9 para YouTube — generados del mismo HTML en minutos.</p>
+</div>
+</div>
+</div>
+<!-- tip final -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Regla de oro</div>
+<p class="text-neutral-400 text-sm">Si puedes describir el video como "diapositivas con animaciones + narración", HyperFrames es la herramienta adecuada. Si necesitas una cámara en vivo o capturar una app, usa screencast.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎬</div><div class="text-xs font-semibold text-neutral-200">Explicativo</div><div class="text-xs text-neutral-500">Video técnico</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎓</div><div class="text-xs font-semibold text-neutral-200">Tutorial</div><div class="text-xs text-neutral-500">Paso a paso</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚀</div><div class="text-xs font-semibold text-neutral-200">Onboarding</div><div class="text-xs text-neutral-500">Producto/SaaS</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">Control total</div><div class="text-xs text-neutral-500">HTML/CSS libre</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 text-blue-400">📋 Resumen del Módulo 2.1</h2>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<div>
+<div class="text-sm font-semibold text-neutral-400 mb-3">Qué aprendiste</div>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> HyperFrames es open-source, local, MIT — sin costo por renderizado</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Stack: Chrome headless captura frames + FFmpeg codifica MP4</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> HTML + GSAP → función <code class="text-blue-300">anim(t)</code> → frames → MP4</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> TTS Kokoro: <code class="text-blue-300">pf_dora --speed 0.98</code>, sin espeak-ng, sin clave</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> 16:9 (1920×1080) y 9:16 (1080×1920) del mismo proyecto</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Ideal para videos explicativos, tutoriales y onboarding con diseño propio</li>
+</ul>
+</div>
+<!-- próximo módulo -->
+<div class="bg-dark-700/50 rounded-xl border border-blue-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Próximo módulo</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold">2.2</div>
+<div>
+<div class="font-semibold text-neutral-200">🛠️ Configuración y requisitos previos</div>
+<div class="text-sm text-neutral-400 mt-1">Instala Node.js, Chrome, FFmpeg y HyperFrames CLI. Configura el entorno desde cero hasta el primer <code class="text-blue-300">npx hyperframes init</code>.</div>
+</div>
+</div>
+<a class="mt-4 flex items-center justify-start gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors" href="modulo-2-2.html">
+            Ir al módulo 2.2 →
+          </a>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 2</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-2.html">Siguiente módulo: 2.2 Configuración →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 2: Pipeline · Módulo 2.1 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>

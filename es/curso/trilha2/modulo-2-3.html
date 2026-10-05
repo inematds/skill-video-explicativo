@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 2.3 — Guion y narración TTS | HyperFrames · INEMA.CLUB</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: {
+      primary: '#FACC15', dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' } } } } }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    /* acento blue */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37,99,235,0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37,99,235,0.18); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37,99,235,0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    /* outras trilhas (nav) */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124,58,237,0.08); }
+    html:not(.dark) .hover\:text-amber-400:hover { color: #92400e; }
+    html:not(.dark) .hover\:bg-amber-500\/10:hover { background-color: rgba(217,119,6,0.08); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161,98,7,0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161,98,7,0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+    html:not(.dark) .text-emerald-300 { color: #059669; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .bg-red-500\/10 { background-color: rgba(220,38,38,0.08); }
+    html:not(.dark) .border-red-500\/30 { border-color: rgba(220,38,38,0.25); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+    html:not(.dark) .text-cyan-400 { color: #0891b2; }
+    html:not(.dark) .bg-cyan-500\/10 { background-color: rgba(8,145,178,0.08); }
+    html:not(.dark) .border-cyan-500\/30 { border-color: rgba(8,145,178,0.25); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes m23-flow { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+    @keyframes m23-pulse { 0%,100% { opacity:.4 } 50% { opacity:1 } }
+    @keyframes m23-blink { 0%,100% { opacity:.2 } 50% { opacity:.8 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .m23-anim-flow { animation: m23-flow 3s linear infinite; }
+      .m23-anim-pulse { animation: m23-pulse 2.5s ease-in-out infinite; }
+      .m23-anim-pulse2 { animation: m23-pulse 2.5s ease-in-out infinite; animation-delay: .5s; }
+      .m23-anim-pulse3 { animation: m23-pulse 2.5s ease-in-out infinite; animation-delay: 1s; }
+      .m23-anim-blink { animation: m23-blink 1.4s step-end infinite; }
+    }
+  </style>
+<link href="https://inematds.github.io/skill-video-explicativo/curso/trilha2/modulo-2-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/en/curso/trilha2/modulo-2-3.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/skill-video-explicativo/es/curso/trilha2/modulo-2-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<div class="flex items-center space-x-4">
+<a class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300" href="../../index.html">
+<span class="text-2xl">🎬</span><span class="font-bold text-lg hidden sm:inline">HyperFrames</span>
+</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a>
+</div>
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html"><span class="sm:hidden">T1</span><span class="hidden sm:inline">Skills</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html"><span class="sm:hidden">T2</span><span class="hidden sm:inline">Pipeline</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html"><span class="sm:hidden">T3</span><span class="hidden sm:inline">Por dentro</span></a>
+<a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-amber-400 hover:bg-amber-500/10 transition-colors" href="../trilha4/index.html"><span class="sm:hidden">T4</span><span class="hidden sm:inline">Aplicaciones</span></a>
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20"><path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+<nav class="flex items-center space-x-2 text-sm text-neutral-500">
+<a class="hover:text-blue-400 transition-colors" href="../../index.html">Inicio</a>
+<span>/</span>
+<a class="hover:text-blue-400 transition-colors" href="index.html">Ruta 2 — Pipeline</a>
+<span>/</span>
+<span class="text-blue-400 font-medium">Módulo 2.3</span>
+</nav>
+</div>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-10 border-b border-dark-600 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-8 items-center">
+<div>
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">MÓDULO 2.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">📝 Guion y narración TTS</h1>
+<p class="text-lg text-neutral-400 max-w-xl">Aprende a escribir un SCRIPT punto M D con 6–9 escenas en un arco dramático, generar narración PT-BR local con Kokoro, expandir siglas para el TTS y medir duraciones con ffprobe, todo sin una clave de API.</p>
+<div class="grid grid-cols-4 gap-3 mt-6">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~30</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Práctico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Manos a la obra</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</div>
+<!-- SVG FUTURISTA — Fluxo SCRIPT.md → TTS → WAV -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4">
+<svg aria-label="Diagrama del flujo de SCRIPT.md a WAV mediante Kokoro TTS" class="w-full h-auto" role="img" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m23-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0e1622;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#0e1b26;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m23-blue" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"></stop>
+</lineargradient>
+<lineargradient id="m23-cyan" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1"></stop>
+</lineargradient>
+<filter height="140%" id="m23-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2.5"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m23-bg)" height="240" rx="12" width="400"></rect>
+<!-- grid -->
+<g opacity="0.4" stroke="#1e3a5f" stroke-width="0.5">
+<line x1="0" x2="400" y1="60" y2="60"></line>
+<line x1="0" x2="400" y1="120" y2="120"></line>
+<line x1="0" x2="400" y1="180" y2="180"></line>
+<line x1="80" x2="80" y1="0" y2="240"></line>
+<line x1="200" x2="200" y1="0" y2="240"></line>
+<line x1="320" x2="320" y1="0" y2="240"></line>
+</g>
+<!-- título -->
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="12" font-weight="800" text-anchor="middle" x="200" y="24">Guion → Narración TTS</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" letter-spacing="2" text-anchor="middle" x="200" y="40">SCRIPT.md · sN.txt · pf_dora · sN.wav</text>
+<!-- Nó 1: SCRIPT.md -->
+<rect fill="#0e1622" filter="url(#m23-glow)" height="56" rx="7" stroke="#60a5fa" stroke-width="1.5" width="76" x="14" y="82"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="52" y="104">SCRIPT</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="52" y="116">punto M D</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="52" y="128">6–9 escenas</text>
+<!-- seta 1 -->
+<path class="m23-anim-flow" d="M90 110 L112 110" fill="none" stroke="#38bdf8" stroke-dasharray="5,4" stroke-width="2"></path>
+<polygon fill="#38bdf8" points="112,106 120,110 112,114"></polygon>
+<!-- Nó 2: sN.txt -->
+<rect fill="#0e1622" height="56" rx="7" stroke="#38bdf8" stroke-width="1.5" width="80" x="120" y="82"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="160" y="104">assets/txt/</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="160" y="116">sN punto txt</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="160" y="128">habla expandida</text>
+<!-- seta 2 -->
+<path class="m23-anim-flow" d="M200 110 L222 110" fill="none" stroke="#38bdf8" stroke-dasharray="5,4" stroke-width="2"></path>
+<polygon fill="#38bdf8" points="222,106 230,110 222,114"></polygon>
+<!-- Nó 3: Kokoro TTS -->
+<rect fill="#0e1622" filter="url(#m23-glow)" height="70" rx="7" stroke="#38bdf8" stroke-width="1.5" width="76" x="230" y="75"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="268" y="97">Kokoro</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="268" y="109">pf_dora</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="268" y="121">PT-BR</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="268" y="133">--speed 0.98</text>
+<!-- seta 3 -->
+<path class="m23-anim-flow" d="M306 110 L328 110" fill="none" stroke="#38bdf8" stroke-dasharray="5,4" stroke-width="2"></path>
+<polygon fill="#38bdf8" points="328,106 336,110 328,114"></polygon>
+<!-- Nó 4: sN.wav -->
+<rect fill="#0e1622" filter="url(#m23-glow)" height="56" rx="7" stroke="#3b82f6" stroke-width="1.5" width="54" x="336" y="82"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="363" y="104">audio/</text>
+<text fill="#bfe6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="363" y="116">sN punto wav</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="363" y="128">~12s/escena</text>
+<!-- labels de etapa -->
+<text class="m23-anim-pulse" fill="#60a5fa" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="52" y="72">① GUION</text>
+<text class="m23-anim-pulse2" fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="160" y="72">② TEXTO</text>
+<text class="m23-anim-pulse3" fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="268" y="65">③ TTS</text>
+<text class="m23-anim-pulse" fill="#3b82f6" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="363" y="72">④ WAV</text>
+<!-- ffprobe row -->
+<rect fill="#0a1a2e" height="36" opacity="0.9" rx="6" stroke="#38bdf8" stroke-width="1" width="280" x="60" y="178"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="200" y="193">📏 ffprobe — medir la duración</text>
+<text fill="#7db8f7" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="200" y="207">-show_entries format=duration · noprint_wrappers=1:nokey=1</text>
+<line opacity="0.5" stroke="#3b82f6" stroke-dasharray="3,3" stroke-width="1" x1="363" x2="363" y1="138" y2="168"></line>
+<line opacity="0.4" stroke="#38bdf8" stroke-dasharray="3,3" stroke-width="1" x1="363" x2="200" y1="168" y2="178"></line>
+<!-- cursor piscando no SCRIPT -->
+<rect class="m23-anim-blink" fill="#60a5fa" height="10" width="5" x="55" y="111"></rect>
+<!-- decoração cantos -->
+<circle class="m23-anim-pulse" cx="18" cy="18" fill="#38bdf8" opacity="0.6" r="2"></circle>
+<circle class="m23-anim-pulse2" cx="382" cy="18" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m23-anim-pulse3" cx="18" cy="222" fill="#60a5fa" opacity="0.6" r="2"></circle>
+<circle class="m23-anim-pulse" cx="382" cy="222" fill="#38bdf8" opacity="0.6" r="2"></circle>
+</svg>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- TÓPICO 1: SCRIPT.md com 6–9 cenas -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-1">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">1</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎬 SCRIPT punto M D con 6–9 escenas</h2>
+<p class="text-neutral-400 mt-2">El SCRIPT punto M D es el corazón de tu video. Describe cada escena en texto: lo que aparece en pantalla y lo que se dice. Un arco bien estructurado garantiza la máxima retención en videos cortos.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Concepto principal</div>
+<p class="text-neutral-200 font-medium">El SCRIPT punto M D sigue un arco dramático de 8 etapas: <span class="text-blue-400">hook → primer principio → mecánica → concepto clave → aplicación → avanzado → ejemplo real → cierre → CTA</span>. Cada etapa es una escena. El arco está pensado para mantener la atención desde el inicio hasta el CTA de inema punto club.</p>
+<p class="text-neutral-400 text-sm mt-3">Los videos de ~100 segundos de habla (≈ 1:50 de video) tienen mejor retención y caben como Shorts. Cada escena debe tener 1–3 frases, nunca un monólogo.</p>
+</div>
+<!-- timeline do arco -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-4">Arco de 8–9 escenas</div>
+<div class="relative pl-8 space-y-0">
+<div class="absolute left-3 top-2 bottom-2 w-0.5 bg-blue-500/30"></div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">1</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Hook — la promesa</div>
+<p class="text-neutral-400 text-xs mt-1">Primera frase que llama la atención de inmediato. Pregunta, afirmación audaz o dato sorprendente. Ej.: <em>"¿Y si pudieras crear videos profesionales sin pagar nada?"</em></p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">2</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Primer principio — fundamento</div>
+<p class="text-neutral-400 text-xs mt-1">Explica el concepto más básico. Sin jerga. Un párrafo que cualquiera pueda entender. Aquí nace la comprensión.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">3</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Mecánica — cómo funciona</div>
+<p class="text-neutral-400 text-xs mt-1">Detalla el mecanismo interno: Chrome captura frames, FFmpeg codifica, Kokoro habla. Técnico, pero directo.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">4</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Concepto clave: la idea</div>
+<p class="text-neutral-400 text-xs mt-1">La idea que cambia la forma de ver el problema. Normalmente, una frase memorable. Ej.: <em>"El navegador es una cámara de cine."</em></p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">5</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Aplicación — en la práctica</div>
+<p class="text-neutral-400 text-xs mt-1">Primer comando o paso concreto. El espectador ve cómo usarlo. Ej.: <em>"Ejecuta npx hyperframes init y el proyecto ya estará configurado."</em></p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">6</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">Avanzado — nivel superior</div>
+<p class="text-neutral-400 text-xs mt-1">Recurso que distingue al usuario principiante del avanzado. Hooks, flags, voces alternativas, dos formatos. Genera curiosidad y valor.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-400 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">7</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Ejemplo real: prueba social</div>
+<p class="text-neutral-400 text-xs mt-1">Este video se hizo con la propia herramienta. O incluye un enlace, una captura de pantalla o un resultado concreto. Rompe el escepticismo.</p>
+</div>
+</div>
+<div class="relative pb-4">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-blue-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">8</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-blue-400 text-sm">Cierre — síntesis</div>
+<p class="text-neutral-400 text-xs mt-1">Una frase que cierra el ciclo del hook. Refuerza la transformación que vivirá quien vea el video. Breve y contundente.</p>
+</div>
+</div>
+<div class="relative">
+<div class="absolute -left-5 w-4 h-4 rounded-full bg-cyan-500 border-2 border-dark-800 flex items-center justify-center"><span class="text-xs text-white font-bold">9</span></div>
+<div class="bg-dark-700/40 rounded-lg p-3 border border-dark-600">
+<div class="font-semibold text-cyan-400 text-sm">CTA — inema punto club</div>
+<p class="text-neutral-400 text-xs mt-1">Invita al curso completo en inema punto club. Siempre la última escena. Directo y con una acción clara: <em>"Accede a inema punto club ahora."</em></p>
+</div>
+</div>
+</div>
+</div>
+<!-- box de código: estrutura do SCRIPT.md -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Estructura del SCRIPT punto M D</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># SCRIPT.md — ejemplo para un video sobre HyperFrames Skills</div>
+<div><span class="text-blue-400">## Escena 1 — Hook</span></div>
+<div class="text-neutral-300 ml-2">**Pantalla:** título "Skills en Claude Code" fadeIn</div>
+<div class="text-cyan-400 ml-2">**Habla:** "¿Qué son realmente las Skills en Claude Code?"</div>
+<br/>
+<div><span class="text-blue-400">## Escena 2 — Primer principio</span></div>
+<div class="text-neutral-300 ml-2">**Pantalla:** diagrama de carpeta + SKILL.md</div>
+<div class="text-cyan-400 ml-2">**Habla:** "Una Skill es solo una carpeta con un archivo llamado SKILL punto M D."</div>
+<br/>
+<div><span class="text-neutral-500">## ... (escenas 3–8)</span></div>
+<br/>
+<div><span class="text-blue-400">## Escena 9 — CTA</span></div>
+<div class="text-neutral-300 ml-2">**Pantalla:** logo INEMA.CLUB + URL</div>
+<div class="text-cyan-400 ml-2">**Habla:** "Curso completo en inema punto club."</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas prácticas de guion</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Cada escena tiene un único foco — no mezcles dos conceptos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Narración de 1–3 frases por escena (≤15 segundos)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Duración total del habla ≈ 100s para un video de ~1:50</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Termina siempre con un CTA explícito</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores de guion</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Escenas demasiado largas — la atención cae después de 15s</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Hook sin tensión — no promete una transformación</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Saltar directamente de los fundamentos al nivel avanzado</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Olvidar el CTA: sin él, el video no convierte</li>
+</ul>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🎯</div><div class="text-xs font-semibold text-neutral-200">Arco dramático</div><div class="text-xs text-neutral-500">8–9 etapas</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">~100s de fala</div><div class="text-xs text-neutral-500">≈ video de 1:50</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📌</div><div class="text-xs font-semibold text-neutral-200">1–3 frases/escena</div><div class="text-xs text-neutral-500">Retención máxima</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📣</div><div class="text-xs font-semibold text-neutral-200">CTA final</div><div class="text-xs text-neutral-500">inema.club</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2: Narração curta por cena -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-2">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">2</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">✂️ Narración breve por escena</h2>
+<p class="text-neutral-400 mt-2">Cada escena recibe de 1 a 3 frases de narración. El total de ~100 segundos de voz produce aproximadamente 1 minuto y 50 segundos de video — ideal para la retención y compatible con Shorts.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Regla de los 100 segundos</div>
+<p class="text-neutral-200 font-medium">Las personas retienen más información en videos cortos. Con ~100s de habla en total, cada escena dura ≈11–17 segundos: tiempo suficiente para asimilar una idea y lo bastante rápido para no aburrir.</p>
+<div class="grid sm:grid-cols-3 gap-3 mt-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold text-lg">8 escenas</div>
+<div class="text-neutral-500 text-xs">×12,5 s de promedio</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold text-lg">~100s</div>
+<div class="text-neutral-500 text-xs">de voz total</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-cyan-400 font-bold text-lg">≈1:50</div>
+<div class="text-neutral-500 text-xs">de video final</div>
+</div>
+</div>
+</div>
+<!-- box de código: narration-template.sh real -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Ejemplo real: 8 escenas del narration-template punto sh</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-2"># assets/narration.sh — fragmento con write() por escena</div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s1</span> <span class="text-green-400">"¿Qué son realmente las Skills en Claude Code?"</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s2</span> <span class="text-green-400">"Una Skill es solo una carpeta con un archivo llamado SKILL punto M D."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s3</span> <span class="text-green-400">"Todo SKILL punto M D empieza con dos líneas: name y description."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s4</span> <span class="text-green-400">"Divulgación progresiva: Claude carga solo lo que necesita, cuando lo necesita."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s5</span> <span class="text-green-400">"Las Skills se encuentran en punto claude barra skills de tu proyecto o en la carpeta global."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s6</span> <span class="text-green-400">"En el nivel avanzado, una Skill incluye scripts, paletas y plantillas completas."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s7</span> <span class="text-green-400">"Este video se hizo con la Skill HyperFrames. Una skill, un flujo, un resultado."</span></div>
+<div><span class="text-cyan-400">write</span> <span class="text-yellow-300">s8</span> <span class="text-green-400">"Empieza con algo sencillo. Curso completo en inema punto club."</span></div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Frase corta = habla natural</div>
+<p class="text-neutral-400 text-sm">Kokoro TTS funciona mejor con frases simples y directas. Evita el uso excesivo del gerundio, las subordinadas largas o las listas habladas. Si necesitas una pausa, divide el texto en dos frases separadas por un punto.</p>
+</div>
+</div>
+<!-- grid comparativo cenas -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Comparativa: distribución del tiempo por escena</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3 text-sm">
+<span class="text-neutral-500 w-16 flex-shrink-0">Escena 1</span>
+<div class="flex-1 bg-dark-700 rounded-full h-4 overflow-hidden"><div class="h-4 bg-blue-500/70 rounded-full" style="width:60%"></div></div>
+<span class="text-neutral-400 w-10 text-right">~8s</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="text-neutral-500 w-16 flex-shrink-0">Escenas 2–7</span>
+<div class="flex-1 bg-dark-700 rounded-full h-4 overflow-hidden"><div class="h-4 bg-blue-400/70 rounded-full" style="width:90%"></div></div>
+<span class="text-neutral-400 w-10 text-right">~72s</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="text-neutral-500 w-16 flex-shrink-0">Escena 8</span>
+<div class="flex-1 bg-dark-700 rounded-full h-4 overflow-hidden"><div class="h-4 bg-cyan-500/70 rounded-full" style="width:45%"></div></div>
+<span class="text-neutral-400 w-10 text-right">~6s</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="text-neutral-500 w-16 flex-shrink-0">CTA final</span>
+<div class="flex-1 bg-dark-700 rounded-full h-4 overflow-hidden"><div class="h-4 bg-cyan-400/70 rounded-full" style="width:35%"></div></div>
+<span class="text-neutral-400 w-10 text-right">~5s</span>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-end gap-2 text-xs text-neutral-500">
+<div class="w-3 h-3 rounded-full bg-blue-400/70"></div><span>Narración</span>
+<div class="w-3 h-3 rounded-full bg-cyan-400/70 ml-2"></div><span>CTA/Cierre</span>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">✂️</div><div class="text-xs font-semibold text-neutral-200">1–3 frases</div><div class="text-xs text-neutral-500">por escena</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📐</div><div class="text-xs font-semibold text-neutral-200">~12s/escena</div><div class="text-xs text-neutral-500">promedio ideal</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏱️</div><div class="text-xs font-semibold text-neutral-200">100s en total</div><div class="text-xs text-neutral-500">habla acumulada</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📱</div><div class="text-xs font-semibold text-neutral-200">Cabe en Shorts</div><div class="text-xs text-neutral-500">≤60s en pantalla</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3: Expandir siglas para fala -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-3">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">3</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🗣️ Expandir siglas para la narración</h2>
+<p class="text-neutral-400 mt-2">Kokoro TTS lee el texto literalmente. Las siglas, extensiones de archivo y URL deben escribirse tal como se pronuncian, o el TTS las pronunciará de forma extraña o incomprensible.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">Regla de expansión</div>
+<p class="text-neutral-200 font-medium">El texto del archivo <code class="text-blue-300">sN.txt</code> está escrito para <strong>oídos</strong>, no para los ojos. Cualquier símbolo, sigla o ruta que no sea una palabra pronunciable debe sustituirse por su pronunciación exacta.</p>
+</div>
+<!-- tabela de expansões -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Tabla de expansiones obligatorias</div>
+<div class="overflow-x-auto rounded-xl border border-dark-600">
+<table class="w-full text-sm">
+<thead>
+<tr class="bg-dark-700/60 border-b border-dark-600">
+<th class="text-left p-3 text-blue-400 font-semibold">Texto escrito</th>
+<th class="text-left p-3 text-cyan-400 font-semibold">Di en sN.txt</th>
+<th class="text-left p-3 text-neutral-400 font-semibold">Razón</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600">
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">SKILL.md</td>
+<td class="p-3 text-cyan-400">SKILL punto M D</td>
+<td class="p-3 text-neutral-400 text-xs">extensión de archivo</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">.claude/skills</td>
+<td class="p-3 text-cyan-400">punto claude barra skills</td>
+<td class="p-3 text-neutral-400 text-xs">ruta con símbolos</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">inema.club</td>
+<td class="p-3 text-cyan-400">inema punto club</td>
+<td class="p-3 text-neutral-400 text-xs">URL / dominio</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">build-index.mjs</td>
+<td class="p-3 text-cyan-400">build guion index punto M J S</td>
+<td class="p-3 text-neutral-400 text-xs">nombre de archivo</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">s1.txt</td>
+<td class="p-3 text-cyan-400">S un punto T X T</td>
+<td class="p-3 text-neutral-400 text-xs">nombre de archivo</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">--speed 0.98</td>
+<td class="p-3 text-cyan-400">speed cero punto noventa y ocho</td>
+<td class="p-3 text-neutral-400 text-xs">flag CLI con número</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">pf_dora</td>
+<td class="p-3 text-cyan-400">P F underscore dora</td>
+<td class="p-3 text-neutral-400 text-xs">identificador de voz</td>
+</tr>
+<tr class="hover:bg-dark-700/30">
+<td class="p-3 font-mono text-blue-300">npx hyperframes</td>
+<td class="p-3 text-cyan-400">N P X hyperframes</td>
+<td class="p-3 text-neutral-400 text-xs">sigla + comando</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- box de código: exemplo de sN.txt expandido -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Ejemplo: s2.txt, texto expandido para TTS</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># assets/txt/s2.txt — versión para que la lea el TTS</div>
+<div class="text-green-400">"Empieza por lo esencial. Una Skill es solo una carpeta con un archivo llamado</div>
+<div class="text-green-400"> SKILL punto M D. Dentro, instrucciones en Markdown que enseñan a Claude</div>
+<div class="text-green-400"> para hacer algo específico: crear videos, revisar código, diseñar interfaces.</div>
+<div class="text-green-400"> Es conocimiento empaquetado."</div>
+<br/>
+<div class="text-neutral-500 text-xs"># NO escribas: "SKILL.md" → el TTS leería "esquil punto md" o se equivocaría</div>
+<div class="text-neutral-500 text-xs"># NO escribas: ".claude/skills" → se leería mal como "punto claude barra skills"</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Expansiones correctas</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> "punto claude barra skills" para <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">.claude/skills</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> "inema punto club" para <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">inema.club</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> "SKILL punto M D" para <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">SKILL.md</code></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Prueba la pronunciación en voz alta antes de guardar</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores de expansión</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Dejar <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">SKILL.md</code> sin expandir</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Usar URL literal <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">https://inema.club</code></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Escribir comandos bash como <code class="text-red-300 bg-dark-700 px-1 rounded text-xs">npx --help</code></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Poner listas con guiones — el TTS lee el guion en voz alta</li>
+</ul>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Consejo: dos archivos, dos propósitos</div>
+<p class="text-neutral-400 text-sm">Mantén el SCRIPT punto M D con el texto "visual" (con siglas, paths y URLs normales) como referencia humana. El archivo <code class="text-blue-300">sN.txt</code> es la versión «para los oídos»: el texto ya expandido que va al TTS. Son documentos diferentes con propósitos diferentes.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">👁️</div><div class="text-xs font-semibold text-neutral-200">Texto visual</div><div class="text-xs text-neutral-500">SCRIPT.md</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">👂</div><div class="text-xs font-semibold text-neutral-200">Texto hablado</div><div class="text-xs text-neutral-500">sN.txt</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔤</div><div class="text-xs font-semibold text-neutral-200">Expansión</div><div class="text-xs text-neutral-500">punto, barra, guion</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎤</div><div class="text-xs font-semibold text-neutral-200">Prueba oral</div><div class="text-xs text-neutral-500">Lee en voz alta</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4: Gerar WAV com Kokoro -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-4">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">4</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🔊 Generar WAV con Kokoro</h2>
+<p class="text-neutral-400 mt-2">Con los archivos <code class="text-blue-400">sN.txt</code> listos y expandidos, el comando <code class="text-blue-400">npx hyperframes tts</code> genera los WAVs localmente. La primera ejecución descarga ~340 MB del modelo Kokoro automáticamente.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- box de código: comando completo -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Comando exacto — npx hyperframes tts</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Genera la narración para la escena 1</div>
+<div><span class="text-cyan-400">npx hyperframes tts</span> <span class="text-yellow-300">"assets/txt/s1.txt"</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--voice</span> <span class="text-yellow-300">pf_dora</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--speed</span> <span class="text-yellow-300">0.98</span> \</div>
+<div class="ml-4"><span class="text-blue-400">--output</span> <span class="text-yellow-300">assets/audio/s1.wav</span></div>
+<br/>
+<div class="text-neutral-500 text-xs"># Bucle para todas las escenas (narration.sh)</div>
+<div><span class="text-blue-400">for</span> i <span class="text-blue-400">in</span> 1 2 3 4 5 6 7 8<span class="text-neutral-300">; del</span></div>
+<div class="ml-4"><span class="text-cyan-400">npx hyperframes tts</span> <span class="text-yellow-300">"assets/txt/s$i.txt"</span> \</div>
+<div class="ml-8"><span class="text-blue-400">--voice</span> pf_dora <span class="text-blue-400">--speed</span> 0.98 \</div>
+<div class="ml-8"><span class="text-blue-400">--output</span> <span class="text-yellow-300">"assets/audio/s$i.wav"</span></div>
+<div><span class="text-neutral-300">done</span></div>
+</div>
+</div>
+<!-- box alerta -->
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4 flex gap-3">
+<span class="text-red-400 text-xl flex-shrink-0">⚠️</span>
+<div>
+<div class="text-red-400 font-semibold text-sm mb-1">Primera ejecución: descarga de ~340 MB</div>
+<p class="text-neutral-400 text-sm">La primera vez que lo ejecutas <code class="text-red-300">npx hyperframes tts</code>, Kokoro descarga el modelo de voz (~340 MB) automáticamente. Sin clave, sin espeak-ng, sin configuración. Después de la descarga, las siguientes ejecuciones son instantáneas. Asegúrate de tener conexión la primera vez.</p>
+</div>
+</div>
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">¿Por qué --speed 0.98?</div>
+<p class="text-neutral-200 font-medium">La velocidad predeterminada de Kokoro suena ligeramente demasiado rápida para narraciones técnicas en portugués. Con <code class="text-blue-300">--speed 0.98</code> la voz se oye natural, sin sonar lenta. No subas de <code class="text-blue-300">1.05</code> — la voz suena metálica.</p>
+<div class="grid sm:grid-cols-3 gap-3 mt-4 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-red-400 font-bold">0.80</div>
+<div class="text-neutral-500 text-xs">Muy despacio</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold">0.98 ✓</div>
+<div class="text-neutral-500 text-xs">Ideal en PT-BR</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3 text-center">
+<div class="text-red-400 font-bold">1.05+</div>
+<div class="text-neutral-500 text-xs">Metálico</div>
+</div>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Genera un WAV de prueba antes del ciclo completo</div>
+<p class="text-neutral-400 text-sm">Ejecuta solo la escena 1 primero. Escucha el resultado. Si la pronunciación de alguna expansión suena extraña, corrige el <code class="text-blue-300">s1.txt</code> antes de generar los otros 7 archivos. Rehacer cada escena es mucho más rápido que volver a hacer todo.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🔊</div><div class="text-xs font-semibold text-neutral-200">npx hyperframes tts</div><div class="text-xs text-neutral-500">comando generador</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🎙️</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">voz predeterminada PT-BR</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⚡</div><div class="text-xs font-semibold text-neutral-200">--speed 0.98</div><div class="text-xs text-neutral-500">natural y fluido</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">📦</div><div class="text-xs font-semibold text-neutral-200">~340 MB</div><div class="text-xs text-neutral-500">descarga única</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5: Medir durações com ffprobe -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-5">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">5</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">📏 Medir duraciones con ffprobe</h2>
+<p class="text-neutral-400 mt-2">Antes de montar las escenas en el <code class="text-blue-400">build-index.mjs</code>, necesitas saber exactamente cuántos segundos dura cada narración. El <code class="text-blue-400">ffprobe</code> devuelve la duración del WAV en segundos en una línea.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- conceito principal -->
+<div class="rounded-xl bg-gradient-to-br from-blue-900/30 to-dark-700/50 border border-blue-500/30 p-5">
+<div class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-2">¿Por qué medir antes de montar?</div>
+<p class="text-neutral-200 font-medium">O <code class="text-blue-300">build-index.mjs</code> define cuánto tiempo permanece cada escena en pantalla mediante <code class="text-blue-300">LEAD</code>, <code class="text-blue-300">TAIL</code> y la duración del audio. Si no sabes la duración exacta del WAV, el texto desaparecerá de la pantalla antes de que termine la voz, o se quedará inmóvil demasiado tiempo.</p>
+</div>
+<!-- comando ffprobe -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Comandos de ffprobe: duración de un WAV y loop completo</div>
+<div class="bg-dark-900 rounded-xl border border-dark-600 p-4 font-mono text-sm overflow-x-auto">
+<div class="text-neutral-500 text-xs mb-3"># Duración de un archivo único</div>
+<div><span class="text-cyan-400">ffprobe</span> <span class="text-blue-400">-v error</span> \</div>
+<div class="ml-4"><span class="text-blue-400">-show_entries format=duration</span> \</div>
+<div class="ml-4"><span class="text-blue-400">-of default=noprint_wrappers=1:nokey=1</span> \</div>
+<div class="ml-4"><span class="text-yellow-300">assets/audio/s1.wav</span></div>
+<div class="text-neutral-500 text-xs mt-1 mb-3"># Salida: 12.384000</div>
+<br/>
+<div class="text-neutral-500 text-xs mb-3"># Bucle — medir todas las escenas de una vez</div>
+<div><span class="text-blue-400">for</span> i <span class="text-blue-400">in</span> 1 2 3 4 5 6 7 8<span class="text-neutral-300">; del</span></div>
+<div class="ml-4">  d=$(<span class="text-cyan-400">ffprobe</span> <span class="text-blue-400">-v error -show_entries format=duration</span> \</div>
+<div class="ml-8"> <span class="text-blue-400">-of default=noprint_wrappers=1:nokey=1</span> \</div>
+<div class="ml-8"> <span class="text-yellow-300">"assets/audio/s$i.wav"</span> 2&gt;/dev/null)</div>
+<div class="ml-4"> <span class="text-cyan-400">echo</span> <span class="text-yellow-300">"s$i: ${d}s"</span></div>
+<div><span class="text-neutral-300">done</span></div>
+</div>
+</div>
+<!-- box dado: valores de referência -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Valores de referencia (narration-template real)</div>
+<div class="grid sm:grid-cols-4 gap-3 text-sm">
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="font-mono text-blue-400 font-bold mb-1">s1</div>
+<div class="text-neutral-300">~8–10s</div>
+<div class="text-neutral-500 text-xs">hook corto</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="font-mono text-blue-400 font-bold mb-1">s2–s6</div>
+<div class="text-neutral-300">~12–18s</div>
+<div class="text-neutral-500 text-xs">desarrollo</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="font-mono text-blue-400 font-bold mb-1">s7</div>
+<div class="text-neutral-300">~8–12s</div>
+<div class="text-neutral-500 text-xs">ejemplo real</div>
+</div>
+<div class="bg-dark-700/60 rounded-lg p-3">
+<div class="font-mono text-blue-400 font-bold mb-1">s8</div>
+<div class="text-neutral-300">~5–8s</div>
+<div class="text-neutral-500 text-xs">CTA rápida</div>
+</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Flujo de trabajo correcto</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Genera todos los WAV primero y luego mide</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Anota las duraciones en SCRIPT punto M D</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usa las duraciones en build-index para definir el timing</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> LEAD=0.5 antes de la voz + TAIL=0.9 después de la voz</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores de timing</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Usar la duración estimada: mide siempre el WAV real</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Cortar la escena antes de que termine el audio</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> No dejes el LEAD antes de que empiece la narración</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Olvidar FADE=0.45 al final de la escena</li>
+</ul>
+</div>
+</div>
+<!-- tip box -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Valores de timing predeterminados del pipeline</div>
+<p class="text-neutral-400 text-sm">O <code class="text-blue-300">build-index.mjs</code> usa por defecto: <code class="text-blue-300">LEAD=0.5</code> (silencio antes de la voz), <code class="text-blue-300">TAIL=0.9</code> (silencio después de la voz) y <code class="text-blue-300">FADE=0.45</code> (fade-out de salida). La duración total de la escena = LEAD + duración_del_wav + TAIL.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">📏</div><div class="text-xs font-semibold text-neutral-200">ffprobe</div><div class="text-xs text-neutral-500">mide WAV</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">⏩</div><div class="text-xs font-semibold text-neutral-200">LEAD=0.5</div><div class="text-xs text-neutral-500">antes del diálogo</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">⏸️</div><div class="text-xs font-semibold text-neutral-200">TAIL=0.9</div><div class="text-xs text-neutral-500">después del diálogo</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🌅</div><div class="text-xs font-semibold text-neutral-200">FADE=0.45</div><div class="text-xs text-neutral-500">fade-out final</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6: Vozes PT-BR disponíveis -->
+<section class="bg-dark-800 rounded-2xl border border-blue-500/30 overflow-hidden" id="topico-6">
+<div class="p-6 border-b border-dark-600">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold text-lg">6</div>
+<div>
+<h2 class="text-xl font-bold flex items-center gap-2">🎚️ Voces PT-BR disponibles</h2>
+<p class="text-neutral-400 mt-2">Kokoro tiene tres voces PT-BR listas para usar: <code class="text-blue-400">pf_dora</code> (femenina, recomendada por defecto), <code class="text-blue-400">pm_alex</code> e <code class="text-blue-400">pm_santa</code>. Cada voz tiene un timbre distinto: elige según el tono del video.</p>
+</div>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- cards de vozes -->
+<div class="grid sm:grid-cols-3 gap-4">
+<div class="rounded-xl border border-blue-500/30 bg-dark-700/40 p-5">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-xl">🎙️</div>
+<div>
+<div class="font-mono font-bold text-blue-400">pf_dora</div>
+<div class="text-xs text-neutral-500">PT-BR · Femenina</div>
+</div>
+</div>
+<p class="text-neutral-400 text-sm">Voz femenina clara y natural en portugués de Brasil. Es la voz predeterminada de <code class="text-blue-300">narration-template.sh</code> y la recomendada para todos los videos del pipeline HyperFrames.</p>
+<div class="mt-3 bg-dark-900 rounded-lg p-2 font-mono text-xs text-cyan-400">--voice pf_dora --speed 0.98</div>
+</div>
+<div class="rounded-xl border border-dark-600 bg-dark-700/40 p-5">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-xl">🎤</div>
+<div>
+<div class="font-mono font-bold text-neutral-300">pm_alex</div>
+<div class="text-xs text-neutral-500">PT-BR · Masculina</div>
+</div>
+</div>
+<p class="text-neutral-400 text-sm">Voz masculina grave, ideal para contenido más serio o técnico. Una alternativa para variar en series largas o cuando el tono exige más autoridad.</p>
+<div class="mt-3 bg-dark-900 rounded-lg p-2 font-mono text-xs text-neutral-400">--voice pm_alex --speed 0.98</div>
+</div>
+<div class="rounded-xl border border-dark-600 bg-dark-700/40 p-5">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-cyan-500/10 flex items-center justify-center text-xl">🔈</div>
+<div>
+<div class="font-mono font-bold text-neutral-300">pm_santa</div>
+<div class="text-xs text-neutral-500">PT-BR · Alternativa</div>
+</div>
+</div>
+<p class="text-neutral-400 text-sm">Tercera opción PT-BR con un timbre distinto. Úsala para probar si el contenido específico suena más natural con esa voz o para hacer un A/B test de retención.</p>
+<div class="mt-3 bg-dark-900 rounded-lg p-2 font-mono text-xs text-neutral-400">--voice pm_santa --speed 0.98</div>
+</div>
+</div>
+<!-- grid FAZER / NÃO FAZER -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+<div class="text-emerald-400 font-semibold text-sm mb-3">✓ Buenas prácticas de voz</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Usa <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">pf_dora</code> como predeterminada — es la más probada</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Mantén la misma voz en todo el video</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Prueba primero la voz con la escena de mayor complejidad</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span> Velocidad <code class="text-emerald-300 bg-dark-700 px-1 rounded text-xs">0.95–1.00</code> para narración técnica</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-500/10 p-4">
+<div class="text-red-400 font-semibold text-sm mb-3">✗ Errores con voces</div>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Mezclar voces dentro del mismo video</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Speed por encima de 1.05 — suena robótico</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Speed por debajo de 0.85 — arrastra demasiado</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Intentar instalar espeak-ng — Kokoro no lo necesita</li>
+</ul>
+</div>
+</div>
+<!-- box dado: comparativo técnico -->
+<div class="rounded-xl border border-blue-500/30 bg-blue-500/10 p-4">
+<div class="text-blue-400 font-semibold text-sm mb-3">📊 Comparación técnica de las voces</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b border-dark-600">
+<th class="text-left py-2 pr-4 text-neutral-400">Voz</th>
+<th class="text-left py-2 pr-4 text-neutral-400">Género</th>
+<th class="text-left py-2 pr-4 text-neutral-400">Timbre</th>
+<th class="text-left py-2 text-neutral-400">Mejor para</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-dark-600/50">
+<tr>
+<td class="py-2 pr-4 font-mono text-blue-400 font-bold">pf_dora</td>
+<td class="py-2 pr-4 text-neutral-300">Femenina</td>
+<td class="py-2 pr-4 text-neutral-300">Claro, natural</td>
+<td class="py-2 text-neutral-300">Cursos, tutoriales, estándar</td>
+</tr>
+<tr>
+<td class="py-2 pr-4 font-mono text-neutral-300">pm_alex</td>
+<td class="py-2 pr-4 text-neutral-300">Femenina</td>
+<td class="py-2 pr-4 text-neutral-300">Grave, autoritativo</td>
+<td class="py-2 text-neutral-300">Tecnología seria, demostraciones</td>
+</tr>
+<tr>
+<td class="py-2 pr-4 font-mono text-neutral-300">pm_santa</td>
+<td class="py-2 pr-4 text-neutral-300">Femenina</td>
+<td class="py-2 pr-4 text-neutral-300">Diferenciado</td>
+<td class="py-2 text-neutral-300">Prueba A/B, variedad</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- tip final -->
+<div class="rounded-xl bg-blue-500/10 border border-blue-500/30 p-4 flex gap-3">
+<span class="text-blue-400 text-xl flex-shrink-0">💡</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Sin espeak-ng, sin clave, sin cuenta</div>
+<p class="text-neutral-400 text-sm">Kokoro tiene un fonemizador nativo para PT-BR: no necesita espeak-ng, que otros motores TTS de código abierto requieren. Sin clave de API ni cuenta en una plataforma. Instalar espeak-ng incluso puede entrar en conflicto con la fonética de Kokoro, así que evítalo.</p>
+</div>
+</div>
+<!-- mini-grid conceitos-chave -->
+<div>
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Conceptos clave</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🏆</div><div class="text-xs font-semibold text-neutral-200">pf_dora</div><div class="text-xs text-neutral-500">recomendado</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">3️⃣</div><div class="text-xs font-semibold text-neutral-200">3 voces PT-BR</div><div class="text-xs text-neutral-500">dora, alex, santa</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-blue-400 text-lg mb-1">🚫</div><div class="text-xs font-semibold text-neutral-200">Sin espeak-ng</div><div class="text-xs text-neutral-500">fonética nativa</div></div>
+<div class="bg-dark-700/50 rounded-lg p-3 border border-dark-600 text-center"><div class="text-cyan-400 text-lg mb-1">🔑</div><div class="text-xs font-semibold text-neutral-200">Sin clave</div><div class="text-xs text-neutral-500">local y gratuito</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO DO MÓDULO -->
+<section class="rounded-2xl bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 text-blue-400">📋 Resumen del Módulo 2.3</h2>
+<div class="grid sm:grid-cols-2 gap-6 mb-8">
+<div>
+<div class="text-sm font-semibold text-neutral-400 mb-3">Qué aprendiste</div>
+<ul class="space-y-2">
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> SCRIPT punto M D con un arco de 8–9 escenas: hook → principio → mecánica → insight → aplicación → avanzado → ejemplo → cierre → CTA</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Narración de 1–3 frases por escena; ~100s de habla en total ≈ 1:50 de video</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Expansión de siglas: "SKILL.md" → "SKILL punto M D"; ".claude/skills" → "punto claude barra skills"; "inema.club" → "inema punto club"</li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Generar WAV: <code class="text-blue-300">npx hyperframes tts "assets/txt/s1.txt" --voice pf_dora --speed 0.98 --output assets/audio/s1.wav</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Medir la duración: <code class="text-blue-300">ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 assets/audio/s1.wav</code></li>
+<li class="flex items-start gap-2 text-sm text-neutral-200"><span class="text-blue-400 mt-0.5">✓</span> Voces PT-BR: <code class="text-blue-300">pf_dora</code> (por defecto), <code class="text-blue-300">pm_alex</code>, <code class="text-blue-300">pm_santa</code> — sin espeak-ng, sin clave, ~340 MB de descarga única</li>
+</ul>
+</div>
+<!-- próximo módulo -->
+<div class="bg-dark-700/50 rounded-xl border border-blue-500/20 p-5">
+<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Próximo módulo</div>
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center flex-shrink-0 text-blue-400 font-bold">2.4</div>
+<div>
+<div class="font-semibold text-neutral-200">🎞️ Composición de escenas</div>
+<div class="text-sm text-neutral-400 mt-1">Monta las escenas en el <code class="text-blue-300">build-index.mjs</code> usando las duraciones de los WAV. Define LEAD, TAIL, FADE y los tiempos de cada animación para generar el <code class="text-blue-300">index.html</code> final listo para renderizar.</div>
+</div>
+</div>
+<a class="mt-4 flex items-center justify-start gap-2 text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors" href="modulo-2-4.html">
+            Ir al módulo 2.4 →
+          </a>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="index.html">← Volver a la Ruta 2</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-4.html">Siguiente módulo: 2.4 Composición →</a>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+<p class="mb-1">Contenido de <a class="text-sky-400 hover:text-sky-300 font-medium" href="https://inema.club" target="_blank">INEMA.CLUB</a></p>
+<p>HyperFrames — Ruta 2: Pipeline · Módulo 2.3 · 2026</p>
+</div>
+</footer>
+<script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const di = document.getElementById('theme-toggle-dark-icon');
+    const li = document.getElementById('theme-toggle-light-icon');
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') {
+      di.classList.remove('hidden');
+      root.classList.remove('dark');
+    } else {
+      li.classList.remove('hidden');
+    }
+    themeToggle.addEventListener('click', () => {
+      di.classList.toggle('hidden');
+      li.classList.toggle('hidden');
+      root.classList.toggle('dark');
+      localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
